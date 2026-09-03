@@ -1,0 +1,39 @@
+Set-Location : Cannot find path 'C:\Users\cetin\AppData\Roaming\Claude\scratch-workspaces\d1fffaf1-a084-4022-805e-f9906
+86b3159\e50c7a7c-2f80-4cdc-b0cb-78c9636b7f6b\scratch-2026-09-02-8328e8\rat_emergent_cc_7d\teslim_cc\rat_emergent_cc_7d\
+teslim_cc' because it does not exist.
+At line:1 char:302
++ ... } catch {} } }; Set-Location ".\rat_emergent_cc_7d\teslim_cc"; & "C:\ ...
++                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (C:\Users\cetin\...cc_7d\teslim_cc:String) [Set-Location], ItemNotFoundE 
+   xception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.SetLocationCommand
+ 
+C:\Users\cetin\AppData\Local\Programs\Python\Python313\Lib\site-packages\cma\s.py:16: UserWarning: Could not import matplotlib.pyplot, therefore ``cma.plot()`` etc. is not available
+  _warnings.warn('Could not import matplotlib.pyplot, therefore'
+(16_w,32)-aCMA-ES (mu_w=9.2,w_1=19%) in dimension 13 (seed=447037, Wed Sep  2 07:38:00 2026)
+jenerasyon 0: yeni en iyi maliyet 234.494 (192 s)
+jenerasyon 2: yeni en iyi maliyet 41.093 (564 s)
+jenerasyon 9: yeni en iyi maliyet 38.831 (1904 s)
+jenerasyon 12: yeni en iyi maliyet 29.620 (2469 s)
+jenerasyon 14: yeni en iyi maliyet 21.086 (2842 s)
+jenerasyon 15: yeni en iyi maliyet 20.940 (3030 s)
+jenerasyon 16: yeni en iyi maliyet 2.732 (3215 s)
+jenerasyon 33: yeni en iyi maliyet 1.790 (6397 s)
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    from multiprocessing.spawn import spawn_main; spawn_main(parent_pid=20820, pipe_handle=628)
+                                                  ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cetin\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\spawn.py", line 108, in spawn_main
+    source_process = _winapi.OpenProcess(
+        _winapi.SYNCHRONIZE | _winapi.PROCESS_DUP_HANDLE,
+        False, parent_pid)
+  File "<string>", line 1, in <module>
+    from multiprocessing.spawn import spawn_main; spawn_main(parent_pid=20820, pipe_handle=544)
+                                                  ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 87] Parametre hatalı
+  File "C:\Users\cetin\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\spawn.py", line 108, in spawn_main
+    source_process = _winapi.OpenProcess(
+        _winapi.SYNCHRONIZE | _winapi.PROCESS_DUP_HANDLE,
+        False, parent_pid)
+OSError: [WinError 87] Parametre hatalı

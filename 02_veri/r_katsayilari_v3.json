@@ -1,0 +1,24 @@
+{
+ "Ia_kinematik_v3": {
+  "b": 10.43,
+  "kL": 26.59,
+  "kV": 27.08,
+  "p": 0.532,
+  "form": "f = max(0, b + kL\u00b7d[mm] + kV\u00b7max(v,0)[mm/s]^p)",
+  "kaynak": "Blum 2020 ham egriler, 7 Ia, medyan (47_ B26)"
+ },
+ "Ia_kuvvet_v3": {
+  "b": 60.57,
+  "kF": 82.18,
+  "kY": 37.19,
+  "form": "f = max(0, b + kF\u00b7F[N] + kY\u00b7max(dF/dt,0)[N/s])",
+  "kaynak": "ikincil model; Faz 4 deney icin"
+ },
+ "II_v2": {
+  "not_": "II bu pakette YOK (20 Ia); II katsayilari Vincent v2 fitinde kaldi"
+ },
+ "surekli_hareket_sonumu": {
+  "gozlem": "aff502 pseudorand: olcum ort 15 Hz, statik tahmin ~90 Hz (\u22486x asiri)",
+  "bayrak": "lokomotor uygulamada Ia genligi asagi kalibrasyon gerektirir; H-modeli kismi (RMSE 81\u219263)"
+ }
+}

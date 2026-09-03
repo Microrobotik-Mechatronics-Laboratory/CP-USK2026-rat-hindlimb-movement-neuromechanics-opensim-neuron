@@ -1,0 +1,2767 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<OpenSimDocument Version="40600">
+	<Model name="rat">
+		
+		<Ground name="ground">
+			
+			<FrameGeometry name="frame_geometry">
+				
+				<socket_frame>..</socket_frame>
+				
+				<scale_factors>0.20000000000000001 0.20000000000000001 0.20000000000000001</scale_factors>
+			</FrameGeometry>
+		</Ground>
+		
+		<BodySet name="bodyset">
+			<objects>
+				<Body name="spine">
+					
+					<FrameGeometry name="frame_geometry">
+						
+						<socket_frame>..</socket_frame>
+						
+						<scale_factors>0.20000000000000001 0.20000000000000001 0.20000000000000001</scale_factors>
+					</FrameGeometry>
+					
+					<attached_geometry>
+						<Mesh name="spine_mesh">
+							
+							<socket_frame>..</socket_frame>
+							
+							<mesh_file>spine.vtp</mesh_file>
+						</Mesh>
+					</attached_geometry>
+					
+					<mass>0.12</mass>
+					
+					<mass_center>0 0 0</mass_center>
+					
+					<inertia>4.7999999999999998e-06 4.7999999999999998e-06 4.7999999999999998e-06 0 0 0</inertia>
+				</Body>
+				<Body name="pelvis">
+					
+					<FrameGeometry name="frame_geometry">
+						
+						<socket_frame>..</socket_frame>
+						
+						<scale_factors>0.20000000000000001 0.20000000000000001 0.20000000000000001</scale_factors>
+					</FrameGeometry>
+					
+					<attached_geometry>
+						<Mesh name="pelvis_mesh">
+							
+							<socket_frame>..</socket_frame>
+							
+							<mesh_file>pelvis.vtp</mesh_file>
+						</Mesh>
+					</attached_geometry>
+					
+					<WrapObjectSet name="wrapobjectset">
+						<objects>
+							<WrapCylinder name="hip_cylinder_small">
+								
+								<xyz_body_rotation>0 1.48352986 0</xyz_body_rotation>
+								
+								<translation>0.01 0.002 -0.0044999999999999997</translation>
+								
+								<quadrant>-x</quadrant>
+								
+								<radius>0.0050000000000000001</radius>
+								
+								<length>0.059999999999999998</length>
+							</WrapCylinder>
+							<WrapCylinder name="hip_cylinder_small2">
+								
+								<xyz_body_rotation>0 1.48352986 0</xyz_body_rotation>
+								
+								<translation>0.01 0.001 -0.0044999999999999997</translation>
+								
+								<quadrant>all</quadrant>
+								
+								<radius>0.0050000000000000001</radius>
+								
+								<length>0.059999999999999998</length>
+							</WrapCylinder>
+							<WrapCylinder name="hip_cylinder_large2">
+								
+								<xyz_body_rotation>0 1.48352986 0</xyz_body_rotation>
+								
+								<translation>0.01 0.0040000000000000001 0.0030000000000000001</translation>
+								
+								<quadrant>-x</quadrant>
+								
+								<radius>0.0025000000000000001</radius>
+								
+								<length>0.059999999999999998</length>
+							</WrapCylinder>
+						</objects>
+						<groups />
+					</WrapObjectSet>
+					
+					<mass>0.0059073135691030598</mass>
+					
+					<mass_center>0.0043206910183971057 0.00018977009508149269 -0.0028635433865650279</mass_center>
+					
+					<inertia>8.0362871877725198e-08 8.6286990564374887e-07 8.977074833335902e-07 -1.1053420298584467e-07 -7.4840797841295351e-08 -2.7011589028700731e-08</inertia>
+				</Body>
+				<Body name="femur">
+					
+					<FrameGeometry name="frame_geometry">
+						
+						<socket_frame>..</socket_frame>
+						
+						<scale_factors>0.20000000000000001 0.20000000000000001 0.20000000000000001</scale_factors>
+					</FrameGeometry>
+					
+					<attached_geometry>
+						<Mesh name="femur_mesh">
+							
+							<socket_frame>..</socket_frame>
+							
+							<mesh_file>femur.vtp</mesh_file>
+						</Mesh>
+					</attached_geometry>
+					
+					<WrapObjectSet name="wrapobjectset">
+						<objects>
+							<WrapCylinder name="femur_prox">
+								
+								<xyz_body_rotation>0 0.43633231 0</xyz_body_rotation>
+								
+								<translation>0.001 -0.0060000000000000001 0</translation>
+								
+								<quadrant>-x</quadrant>
+								
+								<radius>0.0045999999999999999</radius>
+								
+								<length>0.050000000000000003</length>
+							</WrapCylinder>
+							<WrapCylinder name="femur_prox2">
+								
+								<xyz_body_rotation>0 0.43633231 0</xyz_body_rotation>
+								
+								<translation>0.001 -0.0060000000000000001 0</translation>
+								
+								<quadrant>all</quadrant>
+								
+								<radius>0.0045999999999999999</radius>
+								
+								<length>0.050000000000000003</length>
+							</WrapCylinder>
+							<WrapTorus name="femur_dist">
+								
+								<xyz_body_rotation>1.72488796 0 0.09774542</xyz_body_rotation>
+								
+								<translation>0.0054299999999999999 -0.030030000000000001 -0.00046000000000000001</translation>
+								
+								<quadrant>all</quadrant>
+								
+								<inner_radius>0.0040000000000000001</inner_radius>
+								
+								<outer_radius>0.0060000000000000001</outer_radius>
+							</WrapTorus>
+							<WrapCylinder name="femur_shaft_large">
+								
+								<xyz_body_rotation>1.72488796 -0 -0.78539815999999996</xyz_body_rotation>
+								
+								<translation>-0.00064000000000000005 -0.015594999999999999 0.0018500000000000001</translation>
+								
+								<quadrant>y</quadrant>
+								
+								<radius>0.0027000000000000001</radius>
+								
+								<length>0.03058</length>
+							</WrapCylinder>
+							<WrapCylinder name="femur_shaft_small">
+								
+								<xyz_body_rotation>1.72488796 0 0.09774542</xyz_body_rotation>
+								
+								<translation>-0.00064000000000000005 -0.015095000000000001 0.0018500000000000001</translation>
+								
+								<quadrant>all</quadrant>
+								
+								<radius>0.0018</radius>
+								
+								<length>0.029579999999999999</length>
+							</WrapCylinder>
+						</objects>
+						<groups />
+					</WrapObjectSet>
+					
+					<mass>0.010462220793155974</mass>
+					
+					<mass_center>-0.00075761989450782421 -0.017074507395695191 0.0014827355106401894</mass_center>
+					
+					<inertia>1.3724523554843123e-06 4.1912527596268469e-07 1.3336582038266084e-06 7.6493385999404611e-09 3.7137714889188136e-09 -1.9592588726535125e-07</inertia>
+				</Body>
+				<Body name="tibia">
+					
+					<FrameGeometry name="frame_geometry">
+						
+						<socket_frame>..</socket_frame>
+						
+						<scale_factors>0.20000000000000001 0.20000000000000001 0.20000000000000001</scale_factors>
+					</FrameGeometry>
+					
+					<attached_geometry>
+						<Mesh name="tibia_mesh">
+							
+							<socket_frame>..</socket_frame>
+							
+							<mesh_file>tibia.vtp</mesh_file>
+						</Mesh>
+					</attached_geometry>
+					
+					<WrapObjectSet name="wrapobjectset">
+						<objects>
+							<WrapSphere name="tibia_prox">
+								
+								<xyz_body_rotation>0 0 0</xyz_body_rotation>
+								
+								<translation>0.00062 0.034599999999999999 -0.001</translation>
+								
+								<quadrant>all</quadrant>
+								
+								<radius>0.0050000000000000001</radius>
+							</WrapSphere>
+							<WrapCylinder name="tibia_shaft">
+								
+								<xyz_body_rotation>1.5707963300000001 0 0</xyz_body_rotation>
+								
+								<translation>0 0.0241 0</translation>
+								
+								<quadrant>all</quadrant>
+								
+								<radius>0.0035000000000000001</radius>
+								
+								<length>0.028199999999999999</length>
+							</WrapCylinder>
+							<WrapCylinder name="tibia_shaft2">
+								
+								<xyz_body_rotation>1.5707963300000001 0 0</xyz_body_rotation>
+								
+								<translation>0 0.0241 0</translation>
+								
+								<quadrant>-y</quadrant>
+								
+								<radius>0.0035000000000000001</radius>
+								
+								<length>0.028199999999999999</length>
+							</WrapCylinder>
+							<WrapSphere name="ankle_sphere">
+								
+								<xyz_body_rotation>0 0 0</xyz_body_rotation>
+								
+								<translation>0.0011900000000000001 0.00233 0.00014999999999999999</translation>
+								
+								<quadrant>all</quadrant>
+								
+								<radius>0.0025000000000000001</radius>
+							</WrapSphere>
+							<WrapTorus name="ankle_torus">
+								
+								<xyz_body_rotation>1.5707963300000001 0 0</xyz_body_rotation>
+								
+								<translation>0.0011900000000000001 0.00233 0.00014999999999999999</translation>
+								
+								<quadrant>all</quadrant>
+								
+								<inner_radius>0.001</inner_radius>
+								
+								<outer_radius>0.0040000000000000001</outer_radius>
+							</WrapTorus>
+							<WrapCylinder name="mal_med">
+								
+								<xyz_body_rotation>0 0 0</xyz_body_rotation>
+								
+								<translation>-0.002 0 -0.0015</translation>
+								
+								<quadrant>-x</quadrant>
+								
+								<radius>0.0015</radius>
+								
+								<length>0.0080000000000000002</length>
+							</WrapCylinder>
+							<WrapCylinder name="mal_lat">
+								
+								<xyz_body_rotation>0 0 0</xyz_body_rotation>
+								
+								<translation>-0.002 0 0.0027000000000000001</translation>
+								
+								<quadrant>+x</quadrant>
+								
+								<radius>0.0015</radius>
+								
+								<length>0.0080000000000000002</length>
+							</WrapCylinder>
+						</objects>
+						<groups />
+					</WrapObjectSet>
+					
+					<mass>0.0052710397988608862</mass>
+					
+					<mass_center>0.0013441870435765303 0.024061070002780422 -0.00072703570061648508</mass_center>
+					
+					<inertia>7.7131309226002544e-07 8.8995318496079615e-08 7.812215546025825e-07 -1.6831128781090599e-09 5.1887807623233928e-09 -4.3503669478552343e-10</inertia>
+				</Body>
+				<Body name="foot">
+					
+					<FrameGeometry name="frame_geometry">
+						
+						<socket_frame>..</socket_frame>
+						
+						<scale_factors>0.20000000000000001 0.20000000000000001 0.20000000000000001</scale_factors>
+					</FrameGeometry>
+					
+					<attached_geometry>
+						<Mesh name="foot_mesh">
+							
+							<socket_frame>..</socket_frame>
+							
+							<mesh_file>foot.vtp</mesh_file>
+						</Mesh>
+					</attached_geometry>
+					
+					<mass>0.00061522569122586328</mass>
+					
+					<mass_center>0.009261435704796487 -0.0057471202921834481 0.0010069330440622211</mass_center>
+					
+					<inertia>9.3100169717062763e-09 3.8776172398070993e-08 4.0936705715690695e-08 1.3498725673055031e-08 -3.1128354101573006e-09 1.488430354649511e-09</inertia>
+				</Body>
+			</objects>
+			<groups />
+		</BodySet>
+		
+		<JointSet name="jointset">
+			<objects>
+				<CustomJoint name="spine_j">
+					
+					<socket_parent_frame>ground_offset</socket_parent_frame>
+					
+					<socket_child_frame>spine_offset</socket_child_frame>
+					
+					<coordinates>
+						<Coordinate name="sacrum_pitch">
+							
+						</Coordinate>
+						<Coordinate name="sacrum_roll">
+							
+						</Coordinate>
+						<Coordinate name="sacrum_yaw">
+							
+						</Coordinate>
+						<Coordinate name="sacrum_x">
+							
+						</Coordinate>
+						<Coordinate name="sacrum_y">
+							
+						</Coordinate>
+						<Coordinate name="sacrum_z">
+							
+						</Coordinate>
+					</coordinates>
+					
+					<frames>
+						<PhysicalOffsetFrame name="ground_offset">
+							
+							<FrameGeometry name="frame_geometry">
+								
+								<socket_frame>..</socket_frame>
+								
+								<scale_factors>0.20000000000000001 0.20000000000000001 0.20000000000000001</scale_factors>
+							</FrameGeometry>
+							
+							<socket_parent>/ground</socket_parent>
+							
+							<translation>0 0 0</translation>
+							
+							<orientation>0 0 0</orientation>
+						</PhysicalOffsetFrame>
+						<PhysicalOffsetFrame name="spine_offset">
+							
+							<FrameGeometry name="frame_geometry">
+								
+								<socket_frame>..</socket_frame>
+								
+								<scale_factors>0.20000000000000001 0.20000000000000001 0.20000000000000001</scale_factors>
+							</FrameGeometry>
+							
+							<socket_parent>/bodyset/spine</socket_parent>
+							
+							<translation>0 0 0</translation>
+							
+							<orientation>0 0 0</orientation>
+						</PhysicalOffsetFrame>
+					</frames>
+					
+					<SpatialTransform>
+						
+						<TransformAxis name="rotation1">
+							
+							<coordinates>sacrum_pitch</coordinates>
+							
+							<axis>0 0 1</axis>
+							
+							<LinearFunction name="function">
+								<coefficients> 1 0</coefficients>
+							</LinearFunction>
+						</TransformAxis>
+						
+						<TransformAxis name="rotation2">
+							
+							<coordinates>sacrum_roll</coordinates>
+							
+							<axis>1 0 0</axis>
+							
+							<LinearFunction name="function">
+								<coefficients> 1 0</coefficients>
+							</LinearFunction>
+						</TransformAxis>
+						
+						<TransformAxis name="rotation3">
+							
+							<coordinates>sacrum_yaw</coordinates>
+							
+							<axis>0 1 0</axis>
+							
+							<LinearFunction name="function">
+								<coefficients> 1 0</coefficients>
+							</LinearFunction>
+						</TransformAxis>
+						
+						<TransformAxis name="translation1">
+							
+							<coordinates>sacrum_x</coordinates>
+							
+							<axis>1 0 0</axis>
+							
+							<LinearFunction name="function">
+								<coefficients> 1 0</coefficients>
+							</LinearFunction>
+						</TransformAxis>
+						
+						<TransformAxis name="translation2">
+							
+							<coordinates>sacrum_y</coordinates>
+							
+							<axis>0 1 0</axis>
+							
+							<LinearFunction name="function">
+								<coefficients> 1 0</coefficients>
+							</LinearFunction>
+						</TransformAxis>
+						
+						<TransformAxis name="translation3">
+							
+							<coordinates>sacrum_z</coordinates>
+							
+							<axis>0 0 1</axis>
+							
+							<LinearFunction name="function">
+								<coefficients> 1 0</coefficients>
+							</LinearFunction>
+						</TransformAxis>
+					</SpatialTransform>
+				</CustomJoint>
+				<CustomJoint name="pelvis_j">
+					
+					<socket_parent_frame>spine_offset</socket_parent_frame>
+					
+					<socket_child_frame>pelvis_offset</socket_child_frame>
+					
+					<coordinates>
+						<Coordinate name="sacroiliac_flx">
+							
+						</Coordinate>
+					</coordinates>
+					
+					<frames>
+						<PhysicalOffsetFrame name="spine_offset">
+							
+							<FrameGeometry name="frame_geometry">
+								
+								<socket_frame>..</socket_frame>
+								
+								<scale_factors>0.20000000000000001 0.20000000000000001 0.20000000000000001</scale_factors>
+							</FrameGeometry>
+							
+							<socket_parent>/bodyset/spine</socket_parent>
+							
+							<translation>0.0050000000000000001 -0.0030000000000000001 0.01</translation>
+							
+							<orientation>0 0 0</orientation>
+						</PhysicalOffsetFrame>
+						<PhysicalOffsetFrame name="pelvis_offset">
+							
+							<FrameGeometry name="frame_geometry">
+								
+								<socket_frame>..</socket_frame>
+								
+								<scale_factors>0.20000000000000001 0.20000000000000001 0.20000000000000001</scale_factors>
+							</FrameGeometry>
+							
+							<socket_parent>/bodyset/pelvis</socket_parent>
+							
+							<translation>0 0 0</translation>
+							
+							<orientation>0 0 0</orientation>
+						</PhysicalOffsetFrame>
+					</frames>
+					
+					<SpatialTransform>
+						
+						<TransformAxis name="rotation1">
+							
+							<coordinates>sacroiliac_flx</coordinates>
+							
+							<axis>0 0 1</axis>
+							
+							<LinearFunction name="function">
+								<coefficients> 1 0</coefficients>
+							</LinearFunction>
+						</TransformAxis>
+						
+						<TransformAxis name="rotation2">
+							
+							<coordinates />
+							
+							<axis>1 0 0</axis>
+						</TransformAxis>
+						
+						<TransformAxis name="rotation3">
+							
+							<coordinates />
+							
+							<axis>0 1 0</axis>
+						</TransformAxis>
+						
+						<TransformAxis name="translation1">
+							
+							<coordinates />
+							
+							<axis>1 0 0</axis>
+						</TransformAxis>
+						
+						<TransformAxis name="translation2">
+							
+							<coordinates />
+							
+							<axis>0 1 0</axis>
+						</TransformAxis>
+						
+						<TransformAxis name="translation3">
+							
+							<coordinates />
+							
+							<axis>0 0 1</axis>
+						</TransformAxis>
+					</SpatialTransform>
+				</CustomJoint>
+				<CustomJoint name="femur_j">
+					
+					<socket_parent_frame>pelvis_offset</socket_parent_frame>
+					
+					<socket_child_frame>femur_offset</socket_child_frame>
+					
+					<coordinates>
+						<Coordinate name="hip_flx">
+							
+						</Coordinate>
+						<Coordinate name="hip_add">
+							
+						</Coordinate>
+						<Coordinate name="hip_int">
+							
+						</Coordinate>
+					</coordinates>
+					
+					<frames>
+						<PhysicalOffsetFrame name="pelvis_offset">
+							
+							<FrameGeometry name="frame_geometry">
+								
+								<socket_frame>..</socket_frame>
+								
+								<scale_factors>0.20000000000000001 0.20000000000000001 0.20000000000000001</scale_factors>
+							</FrameGeometry>
+							
+							<socket_parent>/bodyset/pelvis</socket_parent>
+							
+							<translation>0 0 0</translation>
+							
+							<orientation>0 0 0</orientation>
+						</PhysicalOffsetFrame>
+						<PhysicalOffsetFrame name="femur_offset">
+							
+							<FrameGeometry name="frame_geometry">
+								
+								<socket_frame>..</socket_frame>
+								
+								<scale_factors>0.20000000000000001 0.20000000000000001 0.20000000000000001</scale_factors>
+							</FrameGeometry>
+							
+							<socket_parent>/bodyset/femur</socket_parent>
+							
+							<translation>0 0 0</translation>
+							
+							<orientation>0 0 0</orientation>
+						</PhysicalOffsetFrame>
+					</frames>
+					
+					<SpatialTransform>
+						
+						<TransformAxis name="rotation1">
+							
+							<coordinates>hip_flx</coordinates>
+							
+							<axis>0 0 1</axis>
+							
+							<LinearFunction name="function">
+								<coefficients> 1 0</coefficients>
+							</LinearFunction>
+						</TransformAxis>
+						
+						<TransformAxis name="rotation2">
+							
+							<coordinates>hip_add</coordinates>
+							
+							<axis>1 0 0</axis>
+							
+							<LinearFunction name="function">
+								<coefficients> 1 0</coefficients>
+							</LinearFunction>
+						</TransformAxis>
+						
+						<TransformAxis name="rotation3">
+							
+							<coordinates>hip_int</coordinates>
+							
+							<axis>0 1 0</axis>
+							
+							<LinearFunction name="function">
+								<coefficients> 1 0</coefficients>
+							</LinearFunction>
+						</TransformAxis>
+						
+						<TransformAxis name="translation1">
+							
+							<coordinates />
+							
+							<axis>1 0 0</axis>
+						</TransformAxis>
+						
+						<TransformAxis name="translation2">
+							
+							<coordinates />
+							
+							<axis>0 1 0</axis>
+						</TransformAxis>
+						
+						<TransformAxis name="translation3">
+							
+							<coordinates />
+							
+							<axis>0 0 1</axis>
+						</TransformAxis>
+					</SpatialTransform>
+				</CustomJoint>
+				<CustomJoint name="tibia_j">
+					
+					<socket_parent_frame>femur_offset</socket_parent_frame>
+					
+					<socket_child_frame>tibia_offset</socket_child_frame>
+					
+					<coordinates>
+						<Coordinate name="knee_flx">
+							
+						</Coordinate>
+					</coordinates>
+					
+					<frames>
+						<PhysicalOffsetFrame name="femur_offset">
+							
+							<FrameGeometry name="frame_geometry">
+								
+								<socket_frame>..</socket_frame>
+								
+								<scale_factors>0.20000000000000001 0.20000000000000001 0.20000000000000001</scale_factors>
+							</FrameGeometry>
+							
+							<socket_parent>/bodyset/femur</socket_parent>
+							
+							<translation>0 0 0</translation>
+							
+							<orientation>0 0 0</orientation>
+						</PhysicalOffsetFrame>
+						<PhysicalOffsetFrame name="tibia_offset">
+							
+							<FrameGeometry name="frame_geometry">
+								
+								<socket_frame>..</socket_frame>
+								
+								<scale_factors>0.20000000000000001 0.20000000000000001 0.20000000000000001</scale_factors>
+							</FrameGeometry>
+							
+							<socket_parent>/bodyset/tibia</socket_parent>
+							
+							<translation>0 0 0</translation>
+							
+							<orientation>0 0 0</orientation>
+						</PhysicalOffsetFrame>
+					</frames>
+					
+					<SpatialTransform>
+						
+						<TransformAxis name="rotation1">
+							
+							<coordinates>knee_flx</coordinates>
+							
+							<axis>0 0 1</axis>
+							
+							<LinearFunction name="function">
+								<coefficients> 1 0</coefficients>
+							</LinearFunction>
+						</TransformAxis>
+						
+						<TransformAxis name="rotation2">
+							
+							<coordinates>knee_flx</coordinates>
+							
+							<axis>1 0 0</axis>
+							
+							<SimmSpline name="function">
+								<x> -2.61799 -2.44346 -2.26893 -2.0944 -1.91986 -1.74533 -1.5708 -1.39626 -1.22173 -1.0472 -0.872665 -0.698132 -0.523599 -0.349066</x>
+								<y> -0.0872665 -0.0750492 -0.0645772 -0.0523599 -0.0401426 -0.0296706 -0.0174533 -0.00523599 0.00523599 0.0174533 0.0296706 0.0401426 0.0523599 0.0645772</y>
+							</SimmSpline>
+						</TransformAxis>
+						
+						<TransformAxis name="rotation3">
+							
+							<coordinates>knee_flx</coordinates>
+							
+							<axis>0 1 0</axis>
+							
+							<SimmSpline name="function">
+								<x> -2.61799 -2.44346 -2.26893 -2.0944 -1.91986 -1.74533 -1.5708 -1.39626 -1.22173 -1.0472 -0.872665 -0.698132 -0.523599 -0.349066</x>
+								<y> 0.261799 0.261799 0.261799 0.261799 0.261799 0.261799 0.261799 0.261799 0.261799 0.261799 0.261799 0.261799 0.261799 0.261799</y>
+							</SimmSpline>
+						</TransformAxis>
+						
+						<TransformAxis name="translation1">
+							
+							<coordinates>knee_flx</coordinates>
+							
+							<axis>1 0 0</axis>
+							
+							<SimmSpline name="function">
+								<x> -2.61799 -2.44346 -2.26893 -2.0944 -1.91986 -1.74533 -1.5708 -1.39626 -1.22173 -1.0472 -0.872665 -0.698132 -0.523599 -0.349066</x>
+								<y> -0.02492 -0.0301 -0.03449 -0.03798 -0.04049 -0.04196 -0.04232 -0.04156 -0.03968 -0.0367 -0.03267 -0.02769 -0.02188 -0.01539</y>
+							</SimmSpline>
+						</TransformAxis>
+						
+						<TransformAxis name="translation2">
+							
+							<coordinates>knee_flx</coordinates>
+							
+							<axis>0 1 0</axis>
+							
+							<SimmSpline name="function">
+								<x> -2.61799 -2.44346 -2.26893 -2.0944 -1.91986 -1.74533 -1.5708 -1.39626 -1.22173 -1.0472 -0.872665 -0.698132 -0.523599 -0.349066</x>
+								<y> 0.00082 -0.00322 -0.00805 -0.01353 -0.01952 -0.02588 -0.03244 -0.03905 -0.04552 -0.05167 -0.05732 -0.06229 -0.0664 -0.0695</y>
+							</SimmSpline>
+						</TransformAxis>
+						
+						<TransformAxis name="translation3">
+							
+							<coordinates>knee_flx</coordinates>
+							
+							<axis>0 0 1</axis>
+							
+							<SimmSpline name="function">
+								<x> -2.61799 -2.44346 -2.26893 -2.0944 -1.91986 -1.74533 -1.5708 -1.39626 -1.22173 -1.0472 -0.872665 -0.698132 -0.523599 -0.349066</x>
+								<y> 0.00227 0.00198 0.00161 0.00117 0.00067 0.00013 -0.00043 -0.00101 -0.00157 -0.00211 -0.00261 -0.00305 -0.00342 -0.00371</y>
+							</SimmSpline>
+						</TransformAxis>
+					</SpatialTransform>
+				</CustomJoint>
+				<CustomJoint name="foot_j">
+					
+					<socket_parent_frame>tibia_offset</socket_parent_frame>
+					
+					<socket_child_frame>foot_offset</socket_child_frame>
+					
+					<coordinates>
+						<Coordinate name="ankle_flx">
+							
+						</Coordinate>
+						<Coordinate name="ankle_add">
+							
+						</Coordinate>
+						<Coordinate name="ankle_int">
+							
+						</Coordinate>
+					</coordinates>
+					
+					<frames>
+						<PhysicalOffsetFrame name="tibia_offset">
+							
+							<FrameGeometry name="frame_geometry">
+								
+								<socket_frame>..</socket_frame>
+								
+								<scale_factors>0.20000000000000001 0.20000000000000001 0.20000000000000001</scale_factors>
+							</FrameGeometry>
+							
+							<socket_parent>/bodyset/tibia</socket_parent>
+							
+							<translation>0 0 0</translation>
+							
+							<orientation>0 0 0</orientation>
+						</PhysicalOffsetFrame>
+						<PhysicalOffsetFrame name="foot_offset">
+							
+							<FrameGeometry name="frame_geometry">
+								
+								<socket_frame>..</socket_frame>
+								
+								<scale_factors>0.20000000000000001 0.20000000000000001 0.20000000000000001</scale_factors>
+							</FrameGeometry>
+							
+							<socket_parent>/bodyset/foot</socket_parent>
+							
+							<translation>0 0 0</translation>
+							
+							<orientation>0 0 0</orientation>
+						</PhysicalOffsetFrame>
+					</frames>
+					
+					<SpatialTransform>
+						
+						<TransformAxis name="rotation1">
+							
+							<coordinates>ankle_flx</coordinates>
+							
+							<axis>0 0 1</axis>
+							
+							<LinearFunction name="function">
+								<coefficients> 1 0</coefficients>
+							</LinearFunction>
+						</TransformAxis>
+						
+						<TransformAxis name="rotation2">
+							
+							<coordinates>ankle_add</coordinates>
+							
+							<axis>1 0 0</axis>
+							
+							<LinearFunction name="function">
+								<coefficients> 1 0</coefficients>
+							</LinearFunction>
+						</TransformAxis>
+						
+						<TransformAxis name="rotation3">
+							
+							<coordinates>ankle_int</coordinates>
+							
+							<axis>0 1 0</axis>
+							
+							<LinearFunction name="function">
+								<coefficients> 1 0</coefficients>
+							</LinearFunction>
+						</TransformAxis>
+						
+						<TransformAxis name="translation1">
+							
+							<coordinates>ankle_flx</coordinates>
+							
+							<axis>1 0 0</axis>
+							
+							<SimmSpline name="function">
+								<x> -0.523599 -0.349066 -0.174533 0 0.174533 0.349066 0.523599 0.698132 0.872665 1.0472</x>
+								<y> 0 0 0 0 0 0 0 0 0 0</y>
+							</SimmSpline>
+						</TransformAxis>
+						
+						<TransformAxis name="translation2">
+							
+							<coordinates>ankle_flx</coordinates>
+							
+							<axis>0 1 0</axis>
+							
+							<SimmSpline name="function">
+								<x> -0.523599 -0.349066 -0.174533 0 0.174533 0.349066 0.523599 0.698132 0.872665 1.0472</x>
+								<y> 0 0 0 0 0 0 0 0 0 0</y>
+							</SimmSpline>
+						</TransformAxis>
+						
+						<TransformAxis name="translation3">
+							
+							<coordinates>ankle_flx</coordinates>
+							
+							<axis>0 0 1</axis>
+							
+							<SimmSpline name="function">
+								<x> -0.523599 -0.349066 -0.174533 0 0.174533 0.349066 0.523599 0.698132 0.872665 1.0472</x>
+								<y> 0 0 0 0 0 0 0 0 0 0</y>
+							</SimmSpline>
+						</TransformAxis>
+					</SpatialTransform>
+				</CustomJoint>
+			</objects>
+			<groups />
+		</JointSet>
+		
+		<ControllerSet name="controllerset">
+			<objects />
+			<groups />
+		</ControllerSet>
+		
+		<ForceSet name="forceset">
+			<objects>
+				<Thelen2003Muscle name="BFa">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="BFa_p0">
+									
+									<socket_parent_frame>/bodyset/spine</socket_parent_frame>
+									
+									<location>-0.0023999999999999998 0.0044999999999999997 0.0030999999999999999</location>
+								</PathPoint>
+								<PathPoint name="BFa_p1">
+									
+									<socket_parent_frame>/bodyset/femur</socket_parent_frame>
+									
+									<location>-0.0001 -0.030200000000000001 0.0016000000000000001</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+						
+						<PathWrapSet>
+							<objects>
+								<PathWrap name="pathwrap">
+									
+									<wrap_object>hip_cylinder_large2</wrap_object>
+									
+									<method>hybrid</method>
+								</PathWrap>
+							</objects>
+							<groups />
+						</PathWrapSet>
+					</GeometryPath>
+					
+					<max_isometric_force>3.2379440249681424</max_isometric_force>
+					
+					<optimal_fiber_length>0.038899999999999997</optimal_fiber_length>
+					
+					<tendon_slack_length>0.0070273003343650844</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0.062831853071795868</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="BFp">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="BFp_p0">
+									
+									<socket_parent_frame>/bodyset/pelvis</socket_parent_frame>
+									
+									<location>-0.013100000000000001 0.0023999999999999998 -0.0023</location>
+								</PathPoint>
+								<PathPoint name="BFp_p1">
+									
+									<socket_parent_frame>/bodyset/tibia</socket_parent_frame>
+									
+									<location>0.0035000000000000001 0.023900000000000001 0.0025999999999999999</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+						
+						<PathWrapSet>
+							<objects>
+								<PathWrap name="pathwrap">
+									
+									<wrap_object>femur_prox</wrap_object>
+									
+									<method>hybrid</method>
+								</PathWrap>
+								<PathWrap name="pathwrap_0">
+									
+									<wrap_object>tibia_shaft</wrap_object>
+									
+									<method>hybrid</method>
+								</PathWrap>
+							</objects>
+							<groups />
+						</PathWrapSet>
+					</GeometryPath>
+					
+					<max_isometric_force>12.198976788745522</max_isometric_force>
+					
+					<optimal_fiber_length>0.036900000000000002</optimal_fiber_length>
+					
+					<tendon_slack_length>0.0099504099774375201</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0.062831853071795868</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="CF">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="CF_p0">
+									
+									<socket_parent_frame>/bodyset/spine</socket_parent_frame>
+									
+									<location>-0.0038999999999999998 0.0063 0.0035000000000000001</location>
+								</PathPoint>
+								<PathPoint name="CF_p1">
+									
+									<socket_parent_frame>/bodyset/femur</socket_parent_frame>
+									
+									<location>-0.0025000000000000001 -0.026200000000000001 -0.002</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+						
+						<PathWrapSet>
+							<objects>
+								<PathWrap name="pathwrap">
+									
+									<wrap_object>hip_cylinder_small</wrap_object>
+									
+									<method>hybrid</method>
+								</PathWrap>
+								<PathWrap name="pathwrap_0">
+									
+									<wrap_object>femur_prox</wrap_object>
+									
+									<method>hybrid</method>
+								</PathWrap>
+							</objects>
+							<groups />
+						</PathWrapSet>
+					</GeometryPath>
+					
+					<max_isometric_force>1.9046729558636133</max_isometric_force>
+					
+					<optimal_fiber_length>0.037199999999999997</optimal_fiber_length>
+					
+					<tendon_slack_length>0.0012771335922912991</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="STp">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="STp_p0">
+									
+									<socket_parent_frame>/bodyset/spine</socket_parent_frame>
+									
+									<location>-0.0055999999999999999 0.0041000000000000003 0.0037000000000000002</location>
+								</PathPoint>
+								<PathPoint name="STp_p1">
+									
+									<socket_parent_frame>/bodyset/tibia</socket_parent_frame>
+									
+									<location>0.0047000000000000002 0.023099999999999999 0</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+						
+						<PathWrapSet>
+							<objects>
+								<PathWrap name="pathwrap">
+									
+									<wrap_object>femur_prox2</wrap_object>
+									
+									<method>hybrid</method>
+								</PathWrap>
+								<PathWrap name="pathwrap_0">
+									
+									<wrap_object>tibia_shaft2</wrap_object>
+									
+									<method>hybrid</method>
+								</PathWrap>
+								<PathWrap name="pathwrap_1">
+									
+									<wrap_object>hip_cylinder_small</wrap_object>
+									
+									<method>hybrid</method>
+								</PathWrap>
+							</objects>
+							<groups />
+						</PathWrapSet>
+					</GeometryPath>
+					
+					<max_isometric_force>0.69838008381665817</max_isometric_force>
+					
+					<optimal_fiber_length>0.038899999999999997</optimal_fiber_length>
+					
+					<tendon_slack_length>0.013109089794364946</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="STa">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="STa_p0">
+									
+									<socket_parent_frame>/bodyset/pelvis</socket_parent_frame>
+									
+									<location>-0.014500000000000001 0.0011999999999999999 -0.00089999999999999998</location>
+								</PathPoint>
+								<PathPoint name="STa_p1">
+									
+									<socket_parent_frame>/bodyset/tibia</socket_parent_frame>
+									
+									<location>0.0047000000000000002 0.023099999999999999 0</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+						
+						<PathWrapSet>
+							<objects>
+								<PathWrap name="pathwrap">
+									
+									<wrap_object>femur_prox</wrap_object>
+									
+									<method>hybrid</method>
+								</PathWrap>
+								<PathWrap name="pathwrap_0">
+									
+									<wrap_object>tibia_shaft2</wrap_object>
+									
+									<method>hybrid</method>
+								</PathWrap>
+							</objects>
+							<groups />
+						</PathWrapSet>
+					</GeometryPath>
+					
+					<max_isometric_force>2.6302626533354658</max_isometric_force>
+					
+					<optimal_fiber_length>0.036900000000000002</optimal_fiber_length>
+					
+					<tendon_slack_length>0.010662977055261806</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="SM">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="SM_p0">
+									
+									<socket_parent_frame>/bodyset/pelvis</socket_parent_frame>
+									
+									<location>-0.0137 -0.0011000000000000001 -0.0037000000000000002</location>
+								</PathPoint>
+								<PathPoint name="SM_p1">
+									
+									<socket_parent_frame>/bodyset/tibia</socket_parent_frame>
+									
+									<location>0.0022000000000000001 0.035000000000000003 -0.0025999999999999999</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+						
+						<PathWrapSet>
+							<objects>
+								<PathWrap name="pathwrap">
+									
+									<wrap_object>tibia_shaft2</wrap_object>
+									
+									<method>hybrid</method>
+								</PathWrap>
+							</objects>
+							<groups />
+						</PathWrapSet>
+					</GeometryPath>
+					
+					<max_isometric_force>9.387316711042093</max_isometric_force>
+					
+					<optimal_fiber_length>0.035000000000000003</optimal_fiber_length>
+					
+					<tendon_slack_length>0.0087221169716321101</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0.036651914291880923</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="QF">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="QF_p0">
+									
+									<socket_parent_frame>/bodyset/pelvis</socket_parent_frame>
+									
+									<location>-0.0106 -0.00069999999999999999 -0.0023999999999999998</location>
+								</PathPoint>
+								<PathPoint name="QF_p1">
+									
+									<socket_parent_frame>/bodyset/femur</socket_parent_frame>
+									
+									<location>-0.0028999999999999998 -0.0044000000000000003 0.0011000000000000001</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+						
+						<PathWrapSet>
+							<objects>
+								<PathWrap name="pathwrap">
+									
+									<wrap_object>femur_shaft_small</wrap_object>
+									
+									<method>hybrid</method>
+								</PathWrap>
+							</objects>
+							<groups />
+						</PathWrapSet>
+					</GeometryPath>
+					
+					<max_isometric_force>2.6846818806458548</max_isometric_force>
+					
+					<optimal_fiber_length>0.010800000000000001</optimal_fiber_length>
+					
+					<tendon_slack_length>0.0029674549959490676</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="TFL">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="TFL_p0">
+									
+									<socket_parent_frame>/bodyset/pelvis</socket_parent_frame>
+									
+									<location>0.021299999999999999 0.00059999999999999995 0.0025999999999999999</location>
+								</PathPoint>
+								<PathPoint name="TFL_p1">
+									
+									<socket_parent_frame>/bodyset/femur</socket_parent_frame>
+									
+									<location>-0.001 -0.01 0.0060000000000000001</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+					</GeometryPath>
+					
+					<max_isometric_force>2.6302626533354658</max_isometric_force>
+					
+					<optimal_fiber_length>0.014999999999999999</optimal_fiber_length>
+					
+					<tendon_slack_length>0.0077491245310041049</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0.017453292519943295</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="GMa">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="GMa_p0">
+									
+									<socket_parent_frame>/bodyset/spine</socket_parent_frame>
+									
+									<location>0.020199999999999999 0.0055999999999999999 0.0041000000000000003</location>
+								</PathPoint>
+								<PathPoint name="GMa_p1">
+									
+									<socket_parent_frame>/bodyset/femur</socket_parent_frame>
+									
+									<location>-0.0015 -0.0097999999999999997 0.0064000000000000003</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+						
+						<PathWrapSet>
+							<objects>
+								<PathWrap name="pathwrap">
+									
+									<wrap_object>hip_cylinder_large2</wrap_object>
+									
+									<method>hybrid</method>
+								</PathWrap>
+							</objects>
+							<groups />
+						</PathWrapSet>
+					</GeometryPath>
+					
+					<max_isometric_force>5.423782988602099</max_isometric_force>
+					
+					<optimal_fiber_length>0.019199999999999998</optimal_fiber_length>
+					
+					<tendon_slack_length>0.010067956160306948</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0.019198621771937627</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="GMe">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="GMe_p0">
+									
+									<socket_parent_frame>/bodyset/pelvis</socket_parent_frame>
+									
+									<location>0.020199999999999999 0.0040000000000000001 -0.0001</location>
+								</PathPoint>
+								<PathPoint name="GMe_p1">
+									
+									<socket_parent_frame>/bodyset/femur</socket_parent_frame>
+									
+									<location>-0.0027000000000000001 -0.0033 0.0064000000000000003</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+						
+						<PathWrapSet>
+							<objects>
+								<PathWrap name="pathwrap">
+									
+									<wrap_object>hip_cylinder_small2</wrap_object>
+									
+									<method>hybrid</method>
+								</PathWrap>
+								<PathWrap name="pathwrap_0">
+									
+									<wrap_object>femur_shaft_large</wrap_object>
+									
+									<method>hybrid</method>
+								</PathWrap>
+							</objects>
+							<groups />
+						</PathWrapSet>
+					</GeometryPath>
+					
+					<max_isometric_force>16.479956003829454</max_isometric_force>
+					
+					<optimal_fiber_length>0.019599999999999999</optimal_fiber_length>
+					
+					<tendon_slack_length>0.0040346295712586216</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0.010471975511965976</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="GMi">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="GMi_p0">
+									
+									<socket_parent_frame>/bodyset/pelvis</socket_parent_frame>
+									
+									<location>0.012999999999999999 0.00089999999999999998 0.00040000000000000002</location>
+								</PathPoint>
+								<PathPoint name="GMi_p1">
+									
+									<socket_parent_frame>/bodyset/femur</socket_parent_frame>
+									
+									<location>-0.00040000000000000002 -0.0001 0.0047999999999999996</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+					</GeometryPath>
+					
+					<max_isometric_force>6.7117047016146367</max_isometric_force>
+					
+					<optimal_fiber_length>0.011599999999999999</optimal_fiber_length>
+					
+					<tendon_slack_length>0.0023525110152544208</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="Pir">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="Pir_p0">
+									
+									<socket_parent_frame>/bodyset/pelvis</socket_parent_frame>
+									
+									<location>0.0114 0.0041999999999999997 -0.00069999999999999999</location>
+								</PathPoint>
+								<PathPoint name="Pir_p1">
+									
+									<socket_parent_frame>/bodyset/femur</socket_parent_frame>
+									
+									<location>-0.0014 0.00089999999999999998 0.0040000000000000001</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+					</GeometryPath>
+					
+					<max_isometric_force>10.158255764605936</max_isometric_force>
+					
+					<optimal_fiber_length>0.0106</optimal_fiber_length>
+					
+					<tendon_slack_length>0.0038160632704516643</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="GP">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="GP_p0">
+									
+									<socket_parent_frame>/bodyset/pelvis</socket_parent_frame>
+									
+									<location>-0.014800000000000001 -0.0054999999999999997 -0.0063</location>
+								</PathPoint>
+								<PathPoint name="GP_p1">
+									
+									<socket_parent_frame>/bodyset/tibia</socket_parent_frame>
+									
+									<location>0.0048999999999999998 0.026599999999999999 -0.0018</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+						
+						<PathWrapSet>
+							<objects>
+								<PathWrap name="pathwrap">
+									
+									<wrap_object>tibia_shaft2</wrap_object>
+									
+									<method>hybrid</method>
+								</PathWrap>
+							</objects>
+							<groups />
+						</PathWrapSet>
+					</GeometryPath>
+					
+					<max_isometric_force>2.0588607665763816</max_isometric_force>
+					
+					<optimal_fiber_length>0.0287</optimal_fiber_length>
+					
+					<tendon_slack_length>0.01540357558373364</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="GA">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="GA_p0">
+									
+									<socket_parent_frame>/bodyset/pelvis</socket_parent_frame>
+									
+									<location>-0.0064999999999999997 -0.0058999999999999999 -0.0061000000000000004</location>
+								</PathPoint>
+								<PathPoint name="GA_p1">
+									
+									<socket_parent_frame>/bodyset/tibia</socket_parent_frame>
+									
+									<location>0.0032000000000000002 0.028899999999999999 -0.0016999999999999999</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+						
+						<PathWrapSet>
+							<objects>
+								<PathWrap name="pathwrap">
+									
+									<wrap_object>tibia_shaft2</wrap_object>
+									
+									<method>hybrid</method>
+								</PathWrap>
+							</objects>
+							<groups />
+						</PathWrapSet>
+					</GeometryPath>
+					
+					<max_isometric_force>1.2425723569205478</max_isometric_force>
+					
+					<optimal_fiber_length>0.029700000000000001</optimal_fiber_length>
+					
+					<tendon_slack_length>0.006291137459794819</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="AL">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="AL_p0">
+									
+									<socket_parent_frame>/bodyset/pelvis</socket_parent_frame>
+									
+									<location>-0.0044999999999999997 -0.0050000000000000001 -0.0053</location>
+								</PathPoint>
+								<PathPoint name="AL_p1">
+									
+									<socket_parent_frame>/bodyset/femur</socket_parent_frame>
+									
+									<location>-0.0016000000000000001 -0.017000000000000001 0.0011000000000000001</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+					</GeometryPath>
+					
+					<max_isometric_force>4.3716779272679123</max_isometric_force>
+					
+					<optimal_fiber_length>0.016299999999999999</optimal_fiber_length>
+					
+					<tendon_slack_length>0.0042643243124061425</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0.073303828583761846</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="AM">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="AM_p0">
+									
+									<socket_parent_frame>/bodyset/pelvis</socket_parent_frame>
+									
+									<location>-0.0061000000000000004 -0.0053 -0.0055999999999999999</location>
+								</PathPoint>
+								<PathPoint name="AM_p1">
+									
+									<socket_parent_frame>/bodyset/femur</socket_parent_frame>
+									
+									<location>-0.00059999999999999995 -0.029999999999999999 -0.0030999999999999999</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+					</GeometryPath>
+					
+					<max_isometric_force>5.8409970646484144</max_isometric_force>
+					
+					<optimal_fiber_length>0.027900000000000001</optimal_fiber_length>
+					
+					<tendon_slack_length>0.0056818415903138256</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="AB">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="AB_p0">
+									
+									<socket_parent_frame>/bodyset/pelvis</socket_parent_frame>
+									
+									<location>-0.010699999999999999 -0.0057999999999999996 -0.0066</location>
+								</PathPoint>
+								<PathPoint name="AB_p1">
+									
+									<socket_parent_frame>/bodyset/femur</socket_parent_frame>
+									
+									<location>-0.0016000000000000001 -0.016400000000000001 0.0035000000000000001</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+					</GeometryPath>
+					
+					<max_isometric_force>1.1881531296101586</max_isometric_force>
+					
+					<optimal_fiber_length>0.0224</optimal_fiber_length>
+					
+					<tendon_slack_length>0.0039598295113978006</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="Pec">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="Pec_p0">
+									
+									<socket_parent_frame>/bodyset/pelvis</socket_parent_frame>
+									
+									<location>0.00089999999999999998 -0.0033999999999999998 -0.0033</location>
+								</PathPoint>
+								<PathPoint name="Pec_p1">
+									
+									<socket_parent_frame>/bodyset/femur</socket_parent_frame>
+									
+									<location>-0.0018 -0.010699999999999999 0.0019</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+					</GeometryPath>
+					
+					<max_isometric_force>3.3105029947153275</max_isometric_force>
+					
+					<optimal_fiber_length>0.0080999999999999996</optimal_fiber_length>
+					
+					<tendon_slack_length>0.0021665491047144856</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="IP">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="IP_p0">
+									
+									<socket_parent_frame>/bodyset/spine</socket_parent_frame>
+									
+									<location>0.053699999999999998 0.0050000000000000001 0.0030000000000000001</location>
+								</PathPoint>
+								<PathPoint name="IP_p1">
+									
+									<socket_parent_frame>/bodyset/femur</socket_parent_frame>
+									
+									<location>-0.0020999999999999999 -0.0053 0.0001</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+					</GeometryPath>
+					
+					<max_isometric_force>13.949461933896368</max_isometric_force>
+					
+					<optimal_fiber_length>0.017000000000000001</optimal_fiber_length>
+					
+					<tendon_slack_length>0.034979728926105777</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0.29845130209103038</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="OE">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="OE_p0">
+									
+									<socket_parent_frame>/bodyset/pelvis</socket_parent_frame>
+									
+									<location>-0.0088999999999999999 -0.0027000000000000001 -0.0030999999999999999</location>
+								</PathPoint>
+								<PathPoint name="OE_p1">
+									
+									<socket_parent_frame>/bodyset/femur</socket_parent_frame>
+									
+									<location>-0.0016000000000000001 0.00050000000000000001 0.0035000000000000001</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+					</GeometryPath>
+					
+					<max_isometric_force>6.4486784362810905</max_isometric_force>
+					
+					<optimal_fiber_length>0.0057999999999999996</optimal_fiber_length>
+					
+					<tendon_slack_length>0.0041728992609123515</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="OI">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="OI_p0">
+									
+									<socket_parent_frame>/bodyset/pelvis</socket_parent_frame>
+									
+									<location>-0.0063 0.0047999999999999996 -0.0025999999999999999</location>
+								</PathPoint>
+								<PathPoint name="OI_p1">
+									
+									<socket_parent_frame>/bodyset/femur</socket_parent_frame>
+									
+									<location>-0.0019 0.00069999999999999999 0.0023999999999999998</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+					</GeometryPath>
+					
+					<max_isometric_force>2.6846818806458548</max_isometric_force>
+					
+					<optimal_fiber_length>0.0044000000000000003</optimal_fiber_length>
+					
+					<tendon_slack_length>0.004356055804315943</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="GS">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="GS_p0">
+									
+									<socket_parent_frame>/bodyset/pelvis</socket_parent_frame>
+									
+									<location>0.0028999999999999998 0.0014 -0.0022000000000000001</location>
+								</PathPoint>
+								<PathPoint name="GS_p1">
+									
+									<socket_parent_frame>/bodyset/femur</socket_parent_frame>
+									
+									<location>-0.0011000000000000001 0.0015 0.0023999999999999998</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+					</GeometryPath>
+					
+					<max_isometric_force>0.35372497751752818</max_isometric_force>
+					
+					<optimal_fiber_length>0.0060000000000000001</optimal_fiber_length>
+					
+					<tendon_slack_length>0.00055020710340240864</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="GI">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="GI_p0">
+									
+									<socket_parent_frame>/bodyset/pelvis</socket_parent_frame>
+									
+									<location>-0.0055999999999999999 0.0023999999999999998 -0.0012999999999999999</location>
+								</PathPoint>
+								<PathPoint name="GI_p1">
+									
+									<socket_parent_frame>/bodyset/femur</socket_parent_frame>
+									
+									<location>-0.0030999999999999999 -0.00069999999999999999 0.0020999999999999999</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+					</GeometryPath>
+					
+					<max_isometric_force>2.593983168461873</max_isometric_force>
+					
+					<optimal_fiber_length>0.0041000000000000003</optimal_fiber_length>
+					
+					<tendon_slack_length>0.0035743809357707207</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="RF">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="RF_p0">
+									
+									<socket_parent_frame>/bodyset/pelvis</socket_parent_frame>
+									
+									<location>0.0044999999999999997 -0.0001 0.0015</location>
+								</PathPoint>
+								<PathPoint name="RF_p1">
+									
+									<socket_parent_frame>/bodyset/tibia</socket_parent_frame>
+									
+									<location>0.0025999999999999999 0.037499999999999999 0.00050000000000000001</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+						
+						<PathWrapSet>
+							<objects>
+								<PathWrap name="pathwrap">
+									
+									<wrap_object>femur_dist</wrap_object>
+									
+									<method>hybrid</method>
+								</PathWrap>
+								<PathWrap name="pathwrap_0">
+									
+									<wrap_object>femur_shaft_small</wrap_object>
+									
+									<method>hybrid</method>
+								</PathWrap>
+							</objects>
+							<groups />
+						</PathWrapSet>
+					</GeometryPath>
+					
+					<max_isometric_force>14.792959957207394</max_isometric_force>
+					
+					<optimal_fiber_length>0.011900000000000001</optimal_fiber_length>
+					
+					<tendon_slack_length>0.03042160477144102</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0.44331363000655966</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="VL">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="VL_p0">
+									
+									<socket_parent_frame>/bodyset/femur</socket_parent_frame>
+									
+									<location>-0.0011000000000000001 -0.0035999999999999999 0.0055999999999999999</location>
+								</PathPoint>
+								<PathPoint name="VL_p1">
+									
+									<socket_parent_frame>/bodyset/tibia</socket_parent_frame>
+									
+									<location>0.0025999999999999999 0.037499999999999999 0.00050000000000000001</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+						
+						<PathWrapSet>
+							<objects>
+								<PathWrap name="pathwrap">
+									
+									<wrap_object>femur_dist</wrap_object>
+									
+									<method>hybrid</method>
+								</PathWrap>
+								<PathWrap name="pathwrap_0">
+									
+									<wrap_object>femur_shaft_small</wrap_object>
+									
+									<method>hybrid</method>
+								</PathWrap>
+							</objects>
+							<groups />
+						</PathWrapSet>
+					</GeometryPath>
+					
+					<max_isometric_force>12.915496614998977</max_isometric_force>
+					
+					<optimal_fiber_length>0.019400000000000001</optimal_fiber_length>
+					
+					<tendon_slack_length>0.021186581393304132</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0.17453292519943295</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="VI">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="VI_p0">
+									
+									<socket_parent_frame>/bodyset/femur</socket_parent_frame>
+									
+									<location>0.00080000000000000004 -0.011599999999999999 0.0032000000000000002</location>
+								</PathPoint>
+								<PathPoint name="VI_p1">
+									
+									<socket_parent_frame>/bodyset/tibia</socket_parent_frame>
+									
+									<location>0.0025999999999999999 0.037499999999999999 0.00050000000000000001</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+						
+						<PathWrapSet>
+							<objects>
+								<PathWrap name="pathwrap">
+									
+									<wrap_object>femur_dist</wrap_object>
+									
+									<method>hybrid</method>
+								</PathWrap>
+								<PathWrap name="pathwrap_0">
+									
+									<wrap_object>femur_shaft_small</wrap_object>
+									
+									<method>hybrid</method>
+								</PathWrap>
+							</objects>
+							<groups />
+						</PathWrapSet>
+					</GeometryPath>
+					
+					<max_isometric_force>2.8479395625770216</max_isometric_force>
+					
+					<optimal_fiber_length>0.011299999999999999</optimal_fiber_length>
+					
+					<tendon_slack_length>0.021000957793659042</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0.12042771838760874</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="VM">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="VM_p0">
+									
+									<socket_parent_frame>/bodyset/femur</socket_parent_frame>
+									
+									<location>-0.00020000000000000001 -0.0074000000000000003 0.0011999999999999999</location>
+								</PathPoint>
+								<PathPoint name="VM_p1">
+									
+									<socket_parent_frame>/bodyset/tibia</socket_parent_frame>
+									
+									<location>0.0025999999999999999 0.037499999999999999 0.00050000000000000001</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+						
+						<PathWrapSet>
+							<objects>
+								<PathWrap name="pathwrap">
+									
+									<wrap_object>femur_dist</wrap_object>
+									
+									<method>hybrid</method>
+								</PathWrap>
+								<PathWrap name="pathwrap_0">
+									
+									<wrap_object>femur_shaft_small</wrap_object>
+									
+									<method>hybrid</method>
+								</PathWrap>
+							</objects>
+							<groups />
+						</PathWrapSet>
+					</GeometryPath>
+					
+					<max_isometric_force>4.5621452228542738</max_isometric_force>
+					
+					<optimal_fiber_length>0.015299999999999999</optimal_fiber_length>
+					
+					<tendon_slack_length>0.022180163917362439</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0.43109632524259939</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="MG">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="MG_p0">
+									
+									<socket_parent_frame>/bodyset/femur</socket_parent_frame>
+									
+									<location>-0.0027000000000000001 -0.027799999999999998 -0.0020999999999999999</location>
+								</PathPoint>
+								<PathPoint name="MG_p1">
+									
+									<socket_parent_frame>/bodyset/foot</socket_parent_frame>
+									
+									<location>-0.0040000000000000001 0.00040000000000000002 0.001</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+					</GeometryPath>
+					
+					<max_isometric_force>10.167325635824335</max_isometric_force>
+					
+					<optimal_fiber_length>0.0143</optimal_fiber_length>
+					
+					<tendon_slack_length>0.024501732693288841</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0.24434609527920614</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="LG">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="LG_p0">
+									
+									<socket_parent_frame>/bodyset/femur</socket_parent_frame>
+									
+									<location>-0.0030000000000000001 -0.028400000000000002 0.0016999999999999999</location>
+								</PathPoint>
+								<PathPoint name="LG_p1">
+									
+									<socket_parent_frame>/bodyset/foot</socket_parent_frame>
+									
+									<location>-0.0040000000000000001 0.00040000000000000002 0.001</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+					</GeometryPath>
+					
+					<max_isometric_force>12.842937645251791</max_isometric_force>
+					
+					<optimal_fiber_length>0.0123</optimal_fiber_length>
+					
+					<tendon_slack_length>0.026266898613166591</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0.24783675378319478</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="Pla">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="Pla_p0">
+									
+									<socket_parent_frame>/bodyset/femur</socket_parent_frame>
+									
+									<location>-0.0023 -0.0275 0.0011000000000000001</location>
+								</PathPoint>
+								<PathPoint name="Pla_p1">
+									
+									<socket_parent_frame>/bodyset/foot</socket_parent_frame>
+									
+									<location>-0.0040000000000000001 0.00040000000000000002 0.001</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+					</GeometryPath>
+					
+					<max_isometric_force>5.3965733749469038</max_isometric_force>
+					
+					<optimal_fiber_length>0.0123</optimal_fiber_length>
+					
+					<tendon_slack_length>0.026573104624167326</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0.28623399732707</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="Sol">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="Sol_p0">
+									
+									<socket_parent_frame>/bodyset/tibia</socket_parent_frame>
+									
+									<location>-0.0033 0.033500000000000002 0.0023999999999999998</location>
+								</PathPoint>
+								<PathPoint name="Sol_p1">
+									
+									<socket_parent_frame>/bodyset/foot</socket_parent_frame>
+									
+									<location>-0.0040000000000000001 0.00040000000000000002 0.001</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+					</GeometryPath>
+					
+					<max_isometric_force>1.3423409403229274</max_isometric_force>
+					
+					<optimal_fiber_length>0.015599999999999999</optimal_fiber_length>
+					
+					<tendon_slack_length>0.018818712874665862</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0.06806784082777885</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="TA">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="TA_p0">
+									
+									<socket_parent_frame>/bodyset/tibia</socket_parent_frame>
+									
+									<location>0.0033 0.033599999999999998 0.0025999999999999999</location>
+								</PathPoint>
+								<PathPoint name="TA_via">
+									
+									<socket_parent_frame>/bodyset/tibia</socket_parent_frame>
+									
+									<location>0.0028600000000000001 0.0025699999999999998 -0.0022000000000000001</location>
+								</PathPoint>
+								<PathPoint name="TA_p1">
+									
+									<socket_parent_frame>/bodyset/foot</socket_parent_frame>
+									
+									<location>0.0047999999999999996 -0.0022000000000000001 -0.00069999999999999999</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+						
+						<PathWrapSet>
+							<objects />
+							<groups />
+						</PathWrapSet>
+					</GeometryPath>
+					
+					<max_isometric_force>7.9270674448799898</max_isometric_force>
+					
+					<optimal_fiber_length>0.0149</optimal_fiber_length>
+					
+					<tendon_slack_length>0.021789288820485156</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0.22340214425527419</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="EDL">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="EDL_p0">
+									
+									<socket_parent_frame>/bodyset/femur</socket_parent_frame>
+									
+									<location>-0.0015 -0.031800000000000002 0.0023999999999999998</location>
+								</PathPoint>
+								<PathPoint name="EDL_via">
+									
+									<socket_parent_frame>/bodyset/tibia</socket_parent_frame>
+									
+									<location>0.0021700000000000001 0.0025300000000000001 -0.00101</location>
+								</PathPoint>
+								<PathPoint name="EDL_p1">
+									
+									<socket_parent_frame>/bodyset/foot</socket_parent_frame>
+									
+									<location>0.0033999999999999998 -0.0016999999999999999 0.0011000000000000001</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+						
+						<PathWrapSet>
+							<objects />
+							<groups />
+						</PathWrapSet>
+					</GeometryPath>
+					
+					<max_isometric_force>1.8774633422084186</max_isometric_force>
+					
+					<optimal_fiber_length>0.0134</optimal_fiber_length>
+					
+					<tendon_slack_length>0.029727976090839707</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0.15707963267948966</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="TP">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="TP_p0">
+									
+									<socket_parent_frame>/bodyset/tibia</socket_parent_frame>
+									
+									<location>-0.0015 0.0339 0.0001</location>
+								</PathPoint>
+								<PathPoint name="TP_p1">
+									
+									<socket_parent_frame>/bodyset/foot</socket_parent_frame>
+									
+									<location>-0.00069999999999999999 -0.0016999999999999999 -0.0011000000000000001</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+						
+						<PathWrapSet>
+							<objects>
+								<PathWrap name="TP_mal">
+									
+									<wrap_object>mal_med</wrap_object>
+									
+									<method>hybrid</method>
+								</PathWrap>
+							</objects>
+							<groups />
+						</PathWrapSet>
+					</GeometryPath>
+					
+					<max_isometric_force>3.9544638512215973</max_isometric_force>
+					
+					<optimal_fiber_length>0.0053</optimal_fiber_length>
+					
+					<tendon_slack_length>0.033674215396541272</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0.4537856055185257</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="FDL">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="FDL_p0">
+									
+									<socket_parent_frame>/bodyset/tibia</socket_parent_frame>
+									
+									<location>-0.0025000000000000001 0.035400000000000001 0</location>
+								</PathPoint>
+								<PathPoint name="FDL_p1">
+									
+									<socket_parent_frame>/bodyset/foot</socket_parent_frame>
+									
+									<location>0.023 -0.012 0.002</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+						
+						<PathWrapSet>
+							<objects>
+								<PathWrap name="FDL_mal">
+									
+									<wrap_object>mal_med</wrap_object>
+									
+									<method>hybrid</method>
+								</PathWrap>
+							</objects>
+							<groups />
+						</PathWrapSet>
+					</GeometryPath>
+					
+					<max_isometric_force>9.1152205744901487</max_isometric_force>
+					
+					<optimal_fiber_length>0.0088000000000000005</optimal_fiber_length>
+					
+					<tendon_slack_length>0.057086695206695619</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0.33684854563490563</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="FHL">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="FHL_p0">
+									
+									<socket_parent_frame>/bodyset/tibia</socket_parent_frame>
+									
+									<location>-0.0015 0.0339 0.0001</location>
+								</PathPoint>
+								<PathPoint name="FHL_p1">
+									
+									<socket_parent_frame>/bodyset/foot</socket_parent_frame>
+									
+									<location>0.023 -0.012 0.001</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+						
+						<PathWrapSet>
+							<objects>
+								<PathWrap name="FHL_mal">
+									
+									<wrap_object>mal_med</wrap_object>
+									
+									<method>hybrid</method>
+								</PathWrap>
+							</objects>
+							<groups />
+						</PathWrapSet>
+					</GeometryPath>
+					
+					<max_isometric_force>0.61675124285107474</max_isometric_force>
+					
+					<optimal_fiber_length>0.0054000000000000003</optimal_fiber_length>
+					
+					<tendon_slack_length>0.058725741734834018</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0.1308996938995747</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="Per">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="Per_p0">
+									
+									<socket_parent_frame>/bodyset/tibia</socket_parent_frame>
+									
+									<location>-0.0019 0.035299999999999998 0.0028999999999999998</location>
+								</PathPoint>
+								<PathPoint name="Per_p1">
+									
+									<socket_parent_frame>/bodyset/foot</socket_parent_frame>
+									
+									<location>0.0028 -0.0027000000000000001 0.0016999999999999999</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+						
+						<PathWrapSet>
+							<objects>
+								<PathWrap name="Per_mal">
+									
+									<wrap_object>mal_lat</wrap_object>
+									
+									<method>hybrid</method>
+								</PathWrap>
+							</objects>
+							<groups />
+						</PathWrapSet>
+					</GeometryPath>
+					
+					<max_isometric_force>6.8386828986722108</max_isometric_force>
+					
+					<optimal_fiber_length>0.0088000000000000005</optimal_fiber_length>
+					
+					<tendon_slack_length>0.029399490506661394</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0.28448866807507572</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="Pop">
+					
+					<min_control>0.01</min_control>
+					
+					<max_control>1</max_control>
+					
+					<GeometryPath name="path">
+						
+						<Appearance>
+							
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
+						
+						<PathPointSet>
+							<objects>
+								<PathPoint name="Pop_p0">
+									
+									<socket_parent_frame>/bodyset/femur</socket_parent_frame>
+									
+									<location>-0.0023999999999999998 -0.030800000000000001 0.0016999999999999999</location>
+								</PathPoint>
+								<PathPoint name="Pop_p1">
+									
+									<socket_parent_frame>/bodyset/tibia</socket_parent_frame>
+									
+									<location>0.00059999999999999995 0.027099999999999999 -0.0023</location>
+								</PathPoint>
+							</objects>
+							<groups />
+						</PathPointSet>
+						
+						<PathWrapSet>
+							<objects>
+								<PathWrap name="pathwrap">
+									
+									<wrap_object>tibia_prox</wrap_object>
+									
+									<method>hybrid</method>
+								</PathWrap>
+							</objects>
+							<groups />
+						</PathWrapSet>
+					</GeometryPath>
+					
+					<max_isometric_force>2.6211927821170677</max_isometric_force>
+					
+					<optimal_fiber_length>0.0063</optimal_fiber_length>
+					
+					<tendon_slack_length>0.0082361299756508397</tendon_slack_length>
+					
+					<pennation_angle_at_optimal>0</pennation_angle_at_optimal>
+				</Thelen2003Muscle>
+			</objects>
+			<groups />
+		</ForceSet>
+	</Model>
+</OpenSimDocument>
