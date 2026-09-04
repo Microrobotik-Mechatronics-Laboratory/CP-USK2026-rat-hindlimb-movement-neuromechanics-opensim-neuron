@@ -1,0 +1,24 @@
+// The distribution and density of the group Ia afferent inputs are set here.
+// The group Ia afferent inputs were uniformly distributed over the soma and dendritic sites < 1400 um from the soma.
+// The territory for group Ia afferent inputs was adopted from Segev 1990 JNP and Burke 1996 JCN.
+// The static density for group Ia afferent inputs was determined from Lee 2003 JNP.
+// April 10, 2018 by Hojeong Kim
+
+soma {
+   	insert IaSyn_Sinewave
+		tp_IaSyn_Sinewave = 2000 //[ms]
+		gmax_IaSyn_Sinewave = 19*10^-6 // [S/cm^2] In=5 nA for lengthened length (0 mm)
+}
+
+for i=0, 310 {
+	soma distance (0,0)										// set the origin for calculation of path distance	
+	dend[i] end = distance(1) 
+	if (end < 1400) {                                       // distance at x=1 for the section
+		// print i
+		dend[i] {
+	   		insert IaSyn_Sinewave
+				tp_IaSyn_Sinewave = 2000  // [ms]
+				gmax_IaSyn_Sinewave = 19*10^-6 // [S/cm^2] In=5 nA for lengthened length (0 mm)
+		}
+	}
+}
