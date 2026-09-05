@@ -42,7 +42,10 @@
       },
       "buyukluk": "Dortayak lokomosyonda diz fleksiyon acisi araligi",
       "birim": "derece",
-      "deger": [-110.0, -60.0],
+      "deger": [
+        -110.0,
+        -60.0
+      ],
       "bant": null,
       "bant_gerekcesi": "Degerin kendisi bir aralik; tolerans bandi degildir. Karsilastirmada bu aralik ile bizim aralik ORTUSME orani uzerinden konusulur.",
       "tur_kosul": "Sprague-Dawley sican, dortayak lokomosyon",
@@ -59,7 +62,10 @@
       },
       "buyukluk": "Moment kolu tepesi lokomosyon bolgesinin 15 derece icinde kalan kas orani",
       "birim": "kas/kas",
-      "deger": [27, 37],
+      "deger": [
+        27,
+        37
+      ],
       "bant": null,
       "bant_gerekcesi": "Sayim orani; bant IP-7'de bu bulgu bir teste baglanirsa ilan edilecek.",
       "tur_kosul": "Sprague-Dawley sican",
@@ -77,7 +83,10 @@
       "buyukluk": "Semimembranosus diz moment kolu (varsayilan diz acisi -120 derece)",
       "birim": "mm",
       "deger": -3.87,
-      "bant": [-3.92, -3.82],
+      "bant": [
+        -3.92,
+        -3.82
+      ],
       "bant_gerekcesi": "REGRESYON bandi, literatur bandi degil. Ayni model uzerinde iki farkli turev yontemi (computeMomentArm ve getLength merkezi fark) 0,00 mm farkla ayni sonucu verdi; sarma acik/kapali fark da 0,00. Bant yalnizca sayisal turev toleransini kapsar (+/- 0,05 mm). Sayi bu bandin disina cikarsa model geometrisi degismis demektir.",
       "tur_kosul": "OpenSim 4.6, rat_hindlimb_0_2.osim tureviyle kurulan model",
       "durum": "olculdu",
@@ -93,8 +102,16 @@
       },
       "buyukluk": "Quadriceps dort basinin diz moment kolu (varsayilan diz acisi -120 derece)",
       "birim": "mm",
-      "deger": [3.7, 3.73, 3.72, 3.7],
-      "bant": [3.65, 3.78],
+      "deger": [
+        3.7,
+        3.73,
+        3.72,
+        3.7
+      ],
+      "bant": [
+        3.65,
+        3.78
+      ],
       "bant_gerekcesi": "REGRESYON bandi. Dort bas (RF, VL, VI, VM) icin olculen 3,70-3,73 araligi, +/- 0,05 mm sayisal tolerans ile genisletildi.",
       "tur_kosul": "OpenSim 4.6, femur_dist WrapTorus etkin",
       "durum": "olculdu",
@@ -116,6 +133,163 @@
       "tur_kosul": "Sprague-Dawley sican",
       "durum": "referans_bekliyor",
       "not": "DOGRULAMA D bolumu: 'Johnson Sekil 3'teki quad egrisiyle karsilastirma YAPILMADI. Tek eksik geometri dogrulamasi budur.' IP-7'nin ilk hedeflerinden biri bu kaydi doldurmaktir."
+    },
+    {
+      "kimlik": "gorassini2000.mn_frekans_TA_swing",
+      "kaynak_tipi": "literatur",
+      "kaynak": {
+        "kunye": "Gorassini ve ark. 2000",
+        "tanimlayici": "J Neurophysiol 83:2002-2011",
+        "yer": "Tablo 1 / bolum 7"
+      },
+      "buyukluk": "TA motor unite atesleme frekansi, salinim fazi",
+      "birim": "Hz",
+      "deger": 97.0,
+      "bant": [
+        80.0,
+        110.0
+      ],
+      "bant_gerekcesi": "Yayimlanmis ortalama etrafinda yaklasik +/- 1 SD. Tur/kosul farki: bilincli, serbest yuruyen SICAN, EMG'den tek unite ayirma (hucre ici kayit degil); ornekklem buyuk/yuzeysel unitelere yanli (oz_gorassini2000 5).",
+      "tur_kosul": "Wistar sican, bilincli serbest yuruyus, kronik EMG",
+      "durum": "dogrulanmadi",
+      "not": "Bizim modelimiz kas basina TEK temsili motonoron kullanir; havuz ortalamasi degil tek hucre orani olculur. Bu bir sistematik farktir."
+    },
+    {
+      "kimlik": "gorassini2000.mn_frekans_SOL_yuruyus",
+      "kaynak_tipi": "literatur",
+      "kaynak": {
+        "kunye": "Gorassini ve ark. 2000",
+        "tanimlayici": "J Neurophysiol 83:2002-2011",
+        "yer": "Tablo 1"
+      },
+      "buyukluk": "Soleus motor unite atesleme frekansi, yuruyus",
+      "birim": "Hz",
+      "deger": 28.0,
+      "bant": [
+        20.0,
+        35.0
+      ],
+      "bant_gerekcesi": "Yayimlanmis ortalama etrafinda yaklasik +/- 1 SD; yavas unite, dar dagilim.",
+      "tur_kosul": "Wistar sican, bilincli serbest yuruyus",
+      "durum": "dogrulanmadi",
+      "not": "Soleus icin tek ortak surucu varsayimi savunulabilir (oz_gorassini2000 6)."
+    },
+    {
+      "kimlik": "gorassini2000.mn_frekans_MGLG_ortagec",
+      "kaynak_tipi": "literatur",
+      "kaynak": {
+        "kunye": "Gorassini ve ark. 2000",
+        "tanimlayici": "J Neurophysiol 83:2002-2011",
+        "yer": "Tablo 1"
+      },
+      "buyukluk": "MG/LG motor unite atesleme frekansi, orta-gec basma",
+      "birim": "Hz",
+      "deger": 67.0,
+      "bant": [
+        50.0,
+        90.0
+      ],
+      "bant_gerekcesi": "Yayimlanan 62-72 Hz araligi olcum sacilimiyla genisletildi.",
+      "tur_kosul": "Wistar sican, bilincli serbest yuruyus",
+      "durum": "dogrulanmadi",
+      "not": "UYARI (oz_gorassini2000 6): MG/LG'de tek unite aktivitesi gros-EMG zarfindan kopuktur (r2=0.0015-0.010); tek ortak surucu varsayimi bu iki kas icin SORGULANIR."
+    },
+    {
+      "kimlik": "vincent2017.ia_dinamik_tepe",
+      "kaynak_tipi": "literatur",
+      "kaynak": {
+        "kunye": "Vincent ve ark. 2017",
+        "tanimlayici": "J Neurophysiol 118:2687-2701",
+        "yer": "Tablo 4"
+      },
+      "buyukluk": "Ia afferent dinamik tepe atesleme frekansi",
+      "birim": "pps",
+      "deger": 176.4,
+      "bant": [
+        123.0,
+        230.0
+      ],
+      "bant_gerekcesi": "Yayimlanmis ortalama +/- 1 SD.",
+      "tur_kosul": "Yetiskin Wistar sican, PASIF triceps surae, 3 mm rampa-tut, 20 mm/s, diz 120 derece",
+      "durum": "dogrulanmadi",
+      "not": "Kosul farki kritik: bant PASIF germe ve rampa-tut protokolundendir; lokomotor kullanimda ayni degildir. veri/r_katsayilari_v3.json 'surekli_hareket_sonumu' kaydi surekli harekette yaklasik 6 kat asiri tahmin uyarisi veriyor."
+    },
+    {
+      "kimlik": "vincent2017.ia_dinamik_indeksi",
+      "kaynak_tipi": "literatur",
+      "kaynak": {
+        "kunye": "Vincent ve ark. 2017",
+        "tanimlayici": "J Neurophysiol 118:2687-2701",
+        "yer": "Tablo 4"
+      },
+      "buyukluk": "Ia dinamik indeksi (DI)",
+      "birim": "pps",
+      "deger": 137.9,
+      "bant": [
+        90.0,
+        186.0
+      ],
+      "bant_gerekcesi": "Yayimlanmis ortalama +/- 1 SD.",
+      "tur_kosul": "Yetiskin Wistar sican, pasif rampa-tut",
+      "durum": "dogrulanmadi",
+      "not": "Fusimotor (gama) yoktur; bizim modelde de yok (PREPRINT 11) -- bu yonden tutarli."
+    },
+    {
+      "kimlik": "vincent2017.ii_dinamik_tepe",
+      "kaynak_tipi": "literatur",
+      "kaynak": {
+        "kunye": "Vincent ve ark. 2017",
+        "tanimlayici": "J Neurophysiol 118:2687-2701",
+        "yer": "Tablo 4"
+      },
+      "buyukluk": "II afferent dinamik tepe atesleme frekansi",
+      "birim": "pps",
+      "deger": 105.4,
+      "bant": [
+        57.0,
+        154.0
+      ],
+      "bant_gerekcesi": "Yayimlanmis ortalama +/- 1 SD; dagilim genis.",
+      "tur_kosul": "Yetiskin Wistar sican, pasif rampa-tut",
+      "durum": "dogrulanmadi",
+      "not": "Bizim II katsayilarimiz izlenebilir bir kaynaga dayanmiyor (r_katsayilari_v3.json: 'II bu pakette YOK'); II sonuclari [varsayim] etiketiyle kullanilir."
+    },
+    {
+      "kimlik": "kim2020.diken_esigi",
+      "kaynak_tipi": "literatur",
+      "kaynak": {
+        "kunye": "Fietkiewicz ve ark. 2023",
+        "tanimlayici": "Front Comput Neurosci 17:1143323",
+        "yer": "bolum 3b, Fig 4/7"
+      },
+      "buyukluk": "NetCon aksiyon potansiyeli algilama esigi",
+      "birim": "mV",
+      "deger": -40.0,
+      "bant": null,
+      "bant_gerekcesi": "Yontem secimidir, olculen bir buyukluk degil; bant tanimsiz.",
+      "tur_kosul": "NEURON, Kim tabanli noromuskuler model",
+      "durum": "dogrulandi",
+      "not": "Bu projede motonoronun BASLANGIC SEGMENTI (is) uzerinde uygulanir; aksiyon potansiyeli orada dogar."
+    },
+    {
+      "kimlik": "ic.kopru_cevrim_suresi",
+      "kaynak_tipi": "ic_olcum",
+      "kaynak": {
+        "kunye": "Bu proje, oturum 8 (05.09.2026)",
+        "tanimlayici": "veri/rat_walk_bone_smooth.mot",
+        "yer": "kinematik girdi"
+      },
+      "buyukluk": "Kapali dongunun urettigi bilek salinimi cevrim suresi",
+      "birim": "s",
+      "deger": 0.387,
+      "bant": [
+        0.348,
+        0.426
+      ],
+      "bant_gerekcesi": "REGRESYON/tasarim hedefi bandi, literatur dogrulamasi DEGILDIR. Olculmus yuruyus cevrimi 0.387 s'dir; +/- %10 bant, CPG'nin serbest cevrim kalibrasyonundan (386.9 ms) duyusal geri beslemenin cevrimi kaydirmasina birakilan paydir (gFB/gCPG odunlesimi, oz_yu2021 4b).",
+      "tur_kosul": "OpenSim ileri dinamik + NEURON, tek eklem (ankle_flx), 10 havuz",
+      "durum": "olculdu",
+      "not": "Ilk olcum 0.402 s (bant icinde). CPG izole kalibrasyonu 386.9 ms idi; kapali donguda 0.402 s'e kaydi -- geri besleme kolunun etkisi."
     }
   ]
 }
