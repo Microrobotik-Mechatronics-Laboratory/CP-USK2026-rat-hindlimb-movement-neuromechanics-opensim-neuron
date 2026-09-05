@@ -31,7 +31,7 @@ class Makine:
     def __init__(self):
         self.ra = np.load(VERI/'rt_ara.npz', allow_pickle=True)   # rt_ara_uret.py uretir
         self.kp = json.load(open(KAS_PAR))
-        idt = np.load(VERI/'id_tau.npz', allow_pickle=True)   # depoda .json karsiligi var, bicim donusumu yapilmadi
+        idt = np.load(VERI/'id_tau.npz', allow_pickle=True)   # repoda .json karsiligi var, bicim donusumu yapilmadi
         self.idcols = [str(c) for c in idt['cols']]; self.TAU = idt['TAU']
         self.grf = json.load(open(LEWIS_GRF))
         lines = open(MOT_SMOOTH).read().splitlines()
@@ -56,7 +56,7 @@ class Makine:
         # DİKKAT (H10 dersi): yalnız sacrum_x/y/z ÇEVİRİDİR (metre, ham geçer);
         # sacrum_pitch/roll/yaw dahil BÜTÜN açılar dereceden radyana çevrilir.
         # 31 Ağustos gecesi bu satırdaki yanlış koşul (startswith('sacrum_'))
-        # sacrum_pitch'i radyan sanıp sahneyi bozdu ve sahte H10 alarmı üretti.
+        # sacrum_pitch'i radyan sanıp sahneyi bozdu ve yanıltıcı H10 alarmı üretti.
         t = g/100.0*self.T
         for j,c in enumerate(self.mcols):
             if c=='time': continue

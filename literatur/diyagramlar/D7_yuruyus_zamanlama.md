@@ -62,7 +62,7 @@ Yalnız tepe aktivasyonu 0,005'i geçen kaslar; kalan 25 kas salınım boyunca s
 | Ayak bileği dorsifleksörleri (TA, EDL, Per) | 1,197 | %85,5 | %81,1 |
 | Ayak bileği plantar fleksörleri (7 kas) | 1,444 | %87,0 | %86,3 |
 
-## Zaman şeridi
+## Zaman çizelgesi
 
 ```
 gait %      65        70        75        80        85        90        95       100
@@ -91,7 +91,7 @@ FDL         ..........................######################################. ..
 2. **Tüm aktivasyonlar küçük** (`a` ≤ 0,077). Statik optimizasyonun min Σa² çözümü, zayıf
    uyarılmış kasları eşit dağıtma eğilimindedir; sıralama gürültüye duyarlı olabilir.
 3. **"Etkin" ölçütü tepe zamanı alındı.** Bildiri bir etkinlik *penceresi* kastediyor olabilir;
-   pencere tanımıyla sıra değişebilir (yukarıdaki şeritte pek çok kasın penceresi salınımın
+   pencere tanımıyla sıra değişebilir (yukarıdaki zaman çizelgesinde pek çok kasın penceresi salınımın
    tamamını kaplıyor).
 4. Salınım fazı, ayağın yere değmediği ve yer tepki kuvveti gerektirmeyen aralık olarak alınmıştır
    (bildiri yöntemi); basma fazı bu çalışmanın kapsamı dışındadır.

@@ -47,7 +47,7 @@ Kaynak: Blum 2020 ham eğrileri, 7 Ia afferenti, medyan fit. `[literatürden]`
 
 **II için durum:** aynı JSON'un `II_v2` kaydı açıkça şunu yazıyor: *"II bu pakette YOK (20 Ia);
 II katsayıları Vincent v2 fitinde kaldı."* Yani II denkleminin katsayıları **doğrulanmamıştır**.
-Depodaki eski kapalı-döngü betiğinde bir II ifadesi bulunuyor ama kaynağı izlenemiyor; bu yüzden
+Repodaki eski kapalı-döngü betiğinde bir II ifadesi bulunuyor ama kaynağı izlenemiyor; bu yüzden
 `[varsayım]` sayılır ve Vincent 2017 bantlarına yeniden fit edilecektir.
 
 **Kalibrasyon uyarısı (aynı JSON, `surekli_hareket_sonumu`):** sürekli hareket denemesinde ölçüm

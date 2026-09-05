@@ -33,7 +33,7 @@ Hedef: motonöron çıkışı -> kas aktivasyonu u(t), iğcik geri beslemesi r(t
 sinapsı olacak şekilde döngüyü kapatmak. Ayrıntı: ../PREPRINT.md
 ========================================================================== -->
 
-> Bu dosya makalenin **kayıplı sıkıştırmasıdır** — yerine geçmez. Amacı, makaleyi tekrar
+> Bu dosya makalenin **seçici özetidir** — yerine geçmez. Amacı, makaleyi tekrar
 > açmadan modelleme kararı verebilmektir.
 >
 > Kullanım: `cp oz_SABLON.md oz_<yazar><yil>_<konu>.md` (ör. `oz_johnson2008_momentkolu.md`).
@@ -44,7 +44,7 @@ sinapsı olacak şekilde döngüyü kapatmak. Ayrıntı: ../PREPRINT.md
 - **Başlık:**
 - **Dergi / cilt / sayfa:**
 - **DOI / PMC:**
-- **PDF:** `pdf/<dosya>.pdf` (depoya girmez)
+- **PDF:** `pdf/<dosya>.pdf` (repoya girmez)
 - **Özeti çıkaran / tarih:**
 
 - **Makale tipi:** deneysel · bilgisayar modeli · derleme · yöntem/araç · karma
@@ -128,7 +128,7 @@ sinapsı olacak şekilde döngüyü kapatmak. Ayrıntı: ../PREPRINT.md
 |---|---|---|---|
 | | | | |
 
-## 8 · Sıkıştırmada ne düştü
+## 8 · Özete alınmayanlar
 > Özete almadığın ama makalede olan, sonradan gerekebilecek şeyler: ham veri tabloları, ek
 > dosyalar (supplementary), okunmayan bölümler, atlanan şekiller. Bir sayı tartışmalı hale
 > gelirse **önce buraya** bakılır, sonra PDF açılır.

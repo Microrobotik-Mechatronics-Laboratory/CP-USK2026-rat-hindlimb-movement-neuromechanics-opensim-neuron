@@ -20,7 +20,7 @@ inceler ve raporlarsın.
    (ör. `.mot` açı radyan/derece karışıklığı, x10 ölçek modelleri), zaman ekseni/örnekleme
    tutarsızlığı, sinyal filtreleme (butter/filtfilt) parametreleri.
 2. **Kenar durumlar:** Boş/eksik veri, NaN, sınır koşulları, optimizasyon yakınsamaması
-   (CMA-ES), depo dışı dosyalara bağımlılık (`teslim_cc/`, `cl_grid3d.npz`).
+   (CMA-ES), repo dışı dosyalara bağımlılık (`teslim_cc/`, `cl_grid3d.npz`).
 3. **Fiziksel/biyofiziksel makullük:** Kas-tendon parametreleri, nöron/mekanizma değerleri
    akla yatkın mı? (Derinlemesine biyofizik için computational-neuroscientist veya
    musculoskeletal-modeler'a yönlendir.)

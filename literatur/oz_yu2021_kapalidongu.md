@@ -1,6 +1,6 @@
 # Literatür özeti — Yu 2021 (yarım-merkez osilatörde duyusal geri beslemenin dinamik sonuçları)
 
-> Bu dosya makalenin **kayıplı sıkıştırmasıdır** — yerine geçmez. Amacı, makaleyi tekrar
+> Bu dosya makalenin **seçici özetidir** — yerine geçmez. Amacı, makaleyi tekrar
 > açmadan modelleme kararı verebilmektir.
 
 ## 1 · Künye ve sınıflandırma
@@ -9,7 +9,7 @@
 - **Başlık:** Dynamical consequences of sensory feedback in a half-center oscillator coupled to a simple motor system
 - **Dergi / cilt / sayfa:** Biological Cybernetics, 115: 135–160
 - **DOI / PMC:** https://doi.org/10.1007/s00422-021-00864-y
-- **PDF:** `pdf/Dynamical_consequences_of_sensory_feedback_in_a_half-center_oscillator_coupled_to_a_simple_motor_system.pdf` (depoya girmez)
+- **PDF:** `pdf/Dynamical_consequences_of_sensory_feedback_in_a_half-center_oscillator_coupled_to_a_simple_motor_system.pdf` (repoya girmez)
 - **Özeti çıkaran / tarih:** Claude / 05.09.2026
 
 - **Makale tipi:** bilgisayar modeli (dinamik sistemler / çatallanma analizi)
@@ -97,7 +97,7 @@ Kuo'nun ödünleşimi (FB↑ → dış gürbüzlük↑, iç gürültü hassasiye
 ## 5 · Projemize ilgisi
 
 - **Doğrudan kullanılabilir mi?** Hayır (parametre olarak); evet (yöntem şablonu olarak). Bizim döngümüz aynı çerçevede: da/dt = f(a) + g(a,x); dx/dt = h(a,x) — a = NEURON değişkenleri, x = OpenSim durumu, g = iğcik Ia geri beslemesi.
-- **Hangi büyüklüğümüzle eşleşir?** gFB ↔ Ia sinaps ağırlığımız; gCPG ↔ CPG içi karşılıklı inhibisyon ağırlığımız. Gürbüzlük test protokolleri (%10 pertürbasyon; kanal gürültüsü SD'si) bizim doğrulama koşumlarımıza şablon olur.
+- **Hangi büyüklüğümüzle eşleşir?** gFB ↔ Ia sinaps ağırlığımız; gCPG ↔ CPG içi karşılıklı inhibisyon ağırlığımız. Gürbüzlük test protokolleri (%10 pertürbasyon; kanal gürültüsü SD'si) bizim doğrulama koşularımıza şablon olur.
 - **Bilinen sistematik fark:** tür ve ölçek tamamen farklı (Aplysia I2 düz kası, FV≡1; Morris–Lecar 1-bölmeli soyut hücre; sarkaç gövde). Sayılar taşınmaz; yalnız nitel sonuçlar ve analiz yöntemi taşınır.
 - **Nereye girdi olacak:** model yapısı kararı (kapalı döngü zorunluluğu, gFB/gCPG dengesinin taranması) + yalnız tartışma/atıf.
 
@@ -112,7 +112,7 @@ Kuo'nun ödünleşimi (FB↑ → dış gürbüzlük↑, iç gürültü hassasiye
 
 Bu makaleden test çıkmıyor: sayılar Aplysia-Morris–Lecar modeline özgü, sıçan büyüklükleriyle eşleşmiyor. Test yerine iki **protokol** ödünç alınabilir: (1) %10 konum pertürbasyonu sonrası minimum hız hatası; (2) FB kanalına binom gürültüsüyle 100 periyotluk tepe-konum SD'si.
 
-## 8 · Sıkıştırmada ne düştü
+## 8 · Özete alınmayanlar
 
 - Denk. 2–19'un tam matematiği (özellikle aktivasyon filtresi 12–14 ve stokastik terim 19'un katsayıları).
 - Tablo 2'nin tamamı (yukarıya alt küme alındı) ve Ek C'deki akış-değişmez küme türetimi (Vmin ≈ −76.63 mV, Vmax = 110 mV, Amax ≈ 1.021, xmax ≈ 8.05).

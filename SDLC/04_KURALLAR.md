@@ -3,7 +3,7 @@
 > Referans dosya. Git, dokümantasyon, yorum, test ve raporlama kuralları tek yerde.
 
 ## Git commit
-- **Biçim:** `tip: açıklama` — Türkçe, buyruk kipi. Depo geçmişindeki tipler: `src:`, `doc:`, `init:`.
+- **Biçim:** `tip: açıklama` — Türkçe, buyruk kipi. Repo geçmişindeki tipler: `src:`, `doc:`, `init:`.
   Öneri seti: `src:` (kaynak kod), `doc:` (dokümantasyon), `veri:` (veri/çıktı), `model:` (osim/mod),
   `fix:` (düzeltme), `init:` (kuruluş).
 - **Sıklık:** Her **anlamlı VE küçük** değişiklikte commit at. Kısa ama açıklayıcı mesaj yaz.
@@ -13,7 +13,7 @@
 - **Emoji:** Commit mesajlarında ve projenin **hiçbir yerinde** emoji kullanılmaz.
 - **Push/PR:** Değişiklikler otomatik commit'lenir; **push kullanıcı onayı ile**. Bir PR'a
   yetecek anlamlı değişiklik birikince push + pull request aç, uygunsa merge et.
-- **Hijyen:** `.DS_Store` git-ignore'da; commit'e girmemeli. Makale PDF'leri
+- **Dosya düzeni:** `.DS_Store` git-ignore'da; commit'e girmemeli. Makale PDF'leri
   (`literatur/pdf/`) telif nedeniyle commit edilmez.
 - Ana dal `main`, `origin`'i takip eder (herkese açık lab reposu).
 
@@ -28,9 +28,9 @@
 - Her `.py` betiği başında **Türkçe sağlayıcı/provenance başlığı**: ne ürettiği, girdisi/çıktısı,
   hangi kaynaktan/önceki adımdan türediği (mevcut `kod/opensim` deseni). Betik hangi ortamda
   koşuyorsa (3.14 / 3.13) başlıkta belirtilir.
-- **Yol yazılmaz, çözülür.** Depo-içi hiçbir yol koda gömülmez; `kod/yollar.py` sabitleri
+- **Yol yazılmaz, çözülür.** Repo-içi hiçbir yol koda gömülmez; `kod/yollar.py` sabitleri
   kullanılır. Çıplak dosya adı (çalışma dizinine bağlılık) ve mutlak yol yasaktır.
-- Bilimsel iddialar **bağımsız yeniden ölçülür**; `DOGRULAMA.md` tarzı doğrulama defteri
+- Bilimsel iddialar **bağımsız yeniden ölçülür**; `DOGRULAMA.md` gibi bir doğrulama kaydı
   tutulur. Devir belgelerinden taşınan sayı, yeniden ölçülene kadar "doğrulanmamış" sayılır.
 - Proje durumu/tarihçe her zaman `SDLC/`'ye yazılır.
 
@@ -63,7 +63,7 @@ Aranan, sonucun makul bir aralıkta kalması ve farkın gerekçelendirilebilir o
    okur; sayı koda gömülmez. Kaynağı olmayan bant test edilmez.
 4. **Assert mesajı dört şeyi basar:** ölçülen · beklenen · bant · kaynak künye. Bir test
    düştüğünde, neyin neye göre düştüğü mesajdan anlaşılmalıdır.
-5. **Sonuç deftere işlenir.** Hangi büyüklüğün hangi bantta geçtiği/kaldığı
+5. **Sonuç doğrulama kaydına işlenir.** Hangi büyüklüğün hangi bantta geçtiği/kaldığı
    `DOGRULAMA.md`'ye yazılır.
 
 Yeni bilimsel çıktı → mümkünse bağımsız ikinci yöntemle çapraz kontrol; sonucu DOGRULAMA'ya işle.
@@ -87,5 +87,5 @@ Yeni bilimsel çıktı → mümkünse bağımsız ikinci yöntemle çapraz kontr
   `SDLC/03_GUNLUK.md`'ye.
 
 ## Proje yapısı
-Numaralı Türkçe klasörler (paket değil). Tam manifesto: `../README.md` klasör haritası. Akış/risk: `05_MIMARI_RISK.md`.
+Numaralı Türkçe klasörler (paket değil). Klasör haritası: `../README.md`. Akış/risk: `05_MIMARI_RISK.md`.
 Kurulum: `06_KURULUM.md`.

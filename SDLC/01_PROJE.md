@@ -14,7 +14,7 @@ modellenmesi".
 
 Bugün iki taraf **ayrıktır**: Python/OpenSim tarafı (`kod/opensim`, `kod/kapali_dongu`) refleksi
 fenomenolojik kazançlarla temsil eder; NEURON tarafı (`neuron`) ise
-biyofiziksel motonöronu ayrı bir ada olarak barındırır. Projenin asıl hedefi bu sınırı
+biyofiziksel motonöronu bağımsız bir bileşen olarak barındırır. Projenin asıl hedefi bu sınırı
 kapatmaktır. Bağlantı **iki aşamada** kurulur:
 
 **Aşama 1 — NEURON tarafı tek başına doğrulanır (İP-4a).**
@@ -50,7 +50,7 @@ kapanır.
   `literatur/referans_degerler.json`.
 
 ## Klasör yapısı (özet)
-Tam manifesto: **`../README.md`** klasör haritası (kopyalanmaz, oraya bakılır).
+Klasör haritası: **`../README.md`** (kopyalanmaz, oraya bakılır).
 - `model/` — OpenSim `.osim` modelleri + `Geometry/` kemik mesh'leri
 - `veri/` — girdi/çıktı verileri (`.mot`, `.csv`, `.json`)
 - `kod/opensim/` — OpenSim veri-üretim hattı (Python: opensim+numpy+scipy)
@@ -58,7 +58,7 @@ Tam manifesto: **`../README.md`** klasör haritası (kopyalanmaz, oraya bakılı
 - `sekiller/` — yayın figürleri; her figürün yanında onu üreten kaynak CSV
 - `literatur/` — literatür özetleri + testlerin okuduğu `referans_degerler.json`
 - `neuron/` — Hojeong Kim NEURON motonöron modeli (HOC + `.mod`, 4 figür klasörü)
-- `SDLC/` — bu klasör (kurumsal hafıza)
+- `SDLC/` — bu klasör (proje kaydı)
 
 ## Dış kaynaklar ve literatür
 Künyeler ve bunlardan çıkarılan **sayısal referans değerler + tolerans bantları** makine-okunur

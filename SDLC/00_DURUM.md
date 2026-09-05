@@ -1,6 +1,6 @@
-# DURUM — Anlık Proje Panosu
+# DURUM — Projenin Anlık Durumu
 
-> SICAK: Bu dosya her oturum kapanışında güncellenir. Yeni oturumda **ilk okunacak** dosyadır.
+> Bu dosya her oturum kapanışında güncellenir. Yeni oturumda **ilk okunacak** dosyadır.
 
 **Son güncelleme:** 2026-09-05
 
@@ -41,10 +41,10 @@ Yol haritasının tamamı artık `PREPRINT.md` bölüm 13'tedir.
   eklendi — her terimin literatürdeki İngilizce özgün karşılığı ve bu çalışmada tanımlanan
   ölçütlerin ayrı listesi. Dizin yeniden düzenlemesinden sonra tüm dosya yolları güncellendi.
 - **Dizin hiyerarşisi yeniden düzenlendi:** klasörler numarasız anlamlı adlara alındı; Kim 2020
-  hoc/mod ağacı `neuron/` oldu (dış kaynak değil, kaynak kodumuz); doğrulama defteri köke
+  hoc/mod ağacı `neuron/` oldu (dış kaynak değil, kaynak kodumuz); doğrulama kaydı köke
   `DOGRULAMA.md` olarak taşındı; `OKU.txt` kaldırılıp `README.md` klasör haritasına katlandı;
   aşılmış her şey `arsiv/` altına (kendi README'siyle) ayrıldı.
-- **Yol sözleşmesi:** `kod/yollar.py` eklendi; hiçbir betik artık çıplak dosya adı veya yabancı
+- **Yol kuralı:** `kod/yollar.py` eklendi; hiçbir betik artık çıplak dosya adı veya yabancı
   mutlak yol (`/home/claude/oturum5/`, `/mnt/user-data/uploads/`) kullanmıyor. Kural
   `04_KURALLAR.md`'ye yazıldı.
 - **Bağımlılık beyanı:** `matplotlib` + `cma` → `pyproject.toml`/`uv.lock`; `opensim` + `scipy`
@@ -57,7 +57,7 @@ Yol haritasının tamamı artık `PREPRINT.md` bölüm 13'tedir.
 
 ## Açık sorular
 - **Yeni:** `GMa` (gluteus maximus) modelde kalça **fleksörü** çıkıyor (+5,39 mm, ızgaranın
-  tamamında aynı işaret); anatomide ekstansördür. Bağlantı noktası hatası mı, işaret sözleşmesi
+  tamamında aynı işaret); anatomide ekstansördür. Bağlantı noktası hatası mı, işaret kuralı
   farkı mı? Salınım fazı sıra bulgusu buna bağlı (PREPRINT 10.4).
 - **Yeni:** `IaIN` ve `Renshaw` katmanlarının literatür setinde kaynağı yok — kaynak eklenecek mi,
   ilk sürümde devre dışı mı bırakılacak? (PREPRINT 6.1)
@@ -73,11 +73,11 @@ Yol haritasının tamamı artık `PREPRINT.md` bölüm 13'tedir.
 - `kod/opensim/rig.py` **eksik ama kayıp değil** — git geçmişinde duruyor:
   `git show e0192ec^:kod/rig.py` (79 satır). Getirilene kadar `kod_01_rat_walk_bone_uret.py`
   koşmuyor (iki `bauman_fig4_*.csv` girdisi de eksik). → İP-5.
-- ~~Çalışmaya-kritik dosyalar depo dışında~~ **Bu kayıt yanlıştı (2026-09-05'te yeniden ölçüldü):**
-  `cl_grid3d.npz`, güncel `cl_*.py` ve `cl_best_9of9.json` **depodadır**; kapalı döngü bu makinede
-  koşuyor. `model/Geometry/` de depodadır.
+- ~~Çalışmaya-kritik dosyalar repo dışında~~ **Bu kayıt yanlıştı (2026-09-05'te yeniden ölçüldü):**
+  `cl_grid3d.npz`, güncel `cl_*.py` ve `cl_best_9of9.json` **repodadır**; kapalı döngü bu makinede
+  koşuyor. `model/Geometry/` de repodadır.
 - `veri/kapali_dongu/cl_grid3d.npz` ve `arsiv/veri/cl_ref.npz` **yeniden üretilemez** —
-  üreteçleri (`stage0_grid.py`, `gate2_ref.py`) hiç depoya girmedi. Birincil varlık gibi korunur.
+  üreteçleri (`stage0_grid.py`, `gate2_ref.py`) hiç repoya girmedi. Birincil varlık gibi korunur.
 - ~~Bildirilmeyen bağımlılıklar~~ **Kapandı** (risk-2).
 
 ## Bekleyen

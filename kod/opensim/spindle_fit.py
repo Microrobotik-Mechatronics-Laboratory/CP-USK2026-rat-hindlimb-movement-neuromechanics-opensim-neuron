@@ -12,7 +12,7 @@ import sys, pathlib
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))  # kod/yollar.py icin
 from yollar import VERI
 
-depo = pickle.load(open(VERI/'spindle_cache.pkl','rb'))   # spindle_onisle.py uretir
+repo = pickle.load(open(VERI/'spindle_cache.pkl','rb'))   # spindle_onisle.py uretir
 
 def v2_tahmin(r):
     return np.clip(10.033*r['L'] + 64.60*np.abs(r['v'])**0.2729, 0, None)
@@ -49,7 +49,7 @@ def metrikler(denemeler, tahmin_fn):
     return dict(rmse=round(rmse,1), r2=round(r2,3), n=len(o))
 
 sonuc = {}
-for ad, denemeler in depo.items():
+for ad, denemeler in repo.items():
     spikeli = [r for r in denemeler if len(r['st'])>0]
     pseudo = [r for r in spikeli if r['tip']=='pseudorand']
     kalan = [r for r in spikeli if r['tip']!='pseudorand']

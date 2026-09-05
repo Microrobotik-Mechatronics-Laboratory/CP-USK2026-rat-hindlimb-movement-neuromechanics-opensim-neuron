@@ -1,6 +1,6 @@
 # KURULUM — Projeyi Sıfırdan Ayağa Kaldırma
 
-> Referans dosya. Depoyu ilk kez klonlayan **buradan** başlar. Kök `README.md` yalnızca kapıdır,
+> Referans dosya. Repoyu ilk kez klonlayan **buradan** başlar. Kök `README.md` yalnızca giriş belgesidir,
 > kurulumun kanonik anlatımı bu dosyadadır (aynı bilgi iki yerde tutulmaz).
 >
 > **Bu belgedeki her komut 2026-09-05'te bu makinede (macOS/Darwin, arm64) denenmiştir.**
@@ -33,7 +33,7 @@ anında OpenSim kullanmaz, saf NumPy'dir.
 
 ### Ana ortam neden proje klasörünün DIŞINDA olmak zorunda?
 
-Bu deponun yolu boşluk ve Türkçe karakter içeriyor
+Bu reponun yolu boşluk ve Türkçe karakter içeriyor
 (`.../USK26 - Sıçan arka bacak hareketinin .../Uygulama`). NEURON'un `nrnivmodl` derleyicisi,
 kendi kurulu olduğu dizinin yolunu derleyiciye **tırnaklamadan** geçirir; boşluklu yolda
 derleme şu hatayla düşer:
@@ -124,18 +124,18 @@ Modelin nasıl koşturulacağı `neuron/README.txt`'te (Kim'in orijinal
 5 adımlı yönergesi) anlatılır; `dpath`, `gcalbar`, `gmax_IaSyn` ve `xm` değerleri oradan
 ayarlanır.
 
-## Adım 4 — Depo bu haliyle tam değildir (kritik)
+## Adım 4 — Repo bu haliyle tam değildir (kritik)
 
 **Bu bölüm 2026-09-05'te yeniden ölçüldü.** Eskiden "başka bir bilgisayarda" denen dosyaların
-çoğu aslında depodadır; kapalı döngü bu makinede koşar (`cl_teslim_9of9.py` koşuldu, 9/9 kapı
+çoğu aslında repodadır; kapalı döngü bu makinede koşar (`cl_teslim_9of9.py` koşuldu, 9/9 gate
 geçen teslim çıktısı birebir yeniden üretildi).
 
 | Dosya | Gerçek durum |
 |---|---|
-| `veri/kapali_dongu/cl_grid3d.npz` | **Depoda.** Üreteci (`stage0_grid.py`) yok, yani yeniden üretilemez; birincil varlık gibi korunur. |
-| `cl_emergent.py`, `cl_selfcheck.py`, `cl_optimize.py` | **Depoda ve güncel** (7b/7c düzeltmeli). 7b/7c öncesi kopyalar `arsiv/kod/` altındadır. |
-| `cl_best.json` | Karşılığı `veri/kapali_dongu/cl_best_9of9.json` — **depoda**. |
-| `model/Geometry/` mesh'leri | **Depoda** (yalnız GUI görüntüleme; hesap için gerekmez). |
+| `veri/kapali_dongu/cl_grid3d.npz` | **Repoda.** Üreteci (`stage0_grid.py`) yok, yani yeniden üretilemez; birincil varlık gibi korunur. |
+| `cl_emergent.py`, `cl_selfcheck.py`, `cl_optimize.py` | **Repoda ve güncel** (7b/7c düzeltmeli). 7b/7c öncesi kopyalar `arsiv/kod/` altındadır. |
+| `cl_best.json` | Karşılığı `veri/kapali_dongu/cl_best_9of9.json` — **repoda**. |
+| `model/Geometry/` mesh'leri | **Repoda** (yalnız GUI görüntüleme; hesap için gerekmez). |
 | `kod/opensim/rig.py` | **Eksik ama kayıp değil:** `git show e0192ec^:kod/rig.py`. Geri getirilene kadar `kod_01_rat_walk_bone_uret.py` koşmaz. |
 | `veri/bauman_fig4_*.csv`, `veri/rt_ara.npz`, `veri/spindle_ham/` | **Eksik.** Tam tablo ve etkileri: `kod/opensim/README.md`. |
 

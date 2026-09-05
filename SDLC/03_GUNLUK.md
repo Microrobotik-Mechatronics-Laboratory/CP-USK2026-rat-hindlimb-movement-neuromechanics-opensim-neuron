@@ -1,6 +1,6 @@
 # GÜNLÜK — Oturum Kayıtları
 
-> SICAK / Append-only. Her oturum en **üste** yeni bir tarihli blok eklenir. Eski kayıtlar ASLA
+> Append-only. Her oturum en **üste** yeni bir tarihli blok eklenir. Eski kayıtlar ASLA
 > düzenlenmez. Format aşağıdaki gibidir.
 
 ---
@@ -16,17 +16,17 @@
   `neuron/` altında kendi ağacı oldu; nöron modelimiz bunun üzerine kurulacak.
 - **`arsiv/` açıldı** (kullanıcı kararı: silme, arşivle): aşılmış kapalı-döngü hattı
   (`cl_sim2`, `cl_teslim`, `cl_emergent_teslim`, 7b/7c öncesi kopyalar), aşılmış veri kuşakları
-  (`u_stance_v4`, `r_tamdongu_v3`, `ib_drive_v2`), görüntüleme `.mot`'ları, koşum logları,
+  (`u_stance_v4`, `r_tamdongu_v3`, `ib_drive_v2`), görüntüleme `.mot`'ları, koşu kayıtları,
   SimTK taban modeli ve Windows derlenmiş NEURON ikilileri. Her grubun gerekçesi
   `arsiv/README.md`'de.
 - **İki birebir duplike düşürüldü:** `eski/cl_optimize.py` (üsttekiyle byte düzeyinde aynı) ve
   `04_kapali_dongu/cl_teslim_9of9.png` (`06_sekiller/`dekiyle aynı, md5 eşleşiyor).
-- **`kod/yollar.py` eklendi:** depo-içi yolların tek kaynağı. Betikler artık çalışma dizinine
+- **`kod/yollar.py` eklendi:** repo-içi yolların tek kaynağı. Betikler artık çalışma dizinine
   bağlı değil; yabancı mutlak yollar (`/home/claude/oturum5/`, `/mnt/user-data/uploads/`) ve
   var olmayan `OTURUM5_YUKLE/` klasörü temizlendi. Kural `04_KURALLAR.md`'ye yazıldı.
-- **Doğrulama defteri köke alındı:** `04_kapali_dongu/02_DOGRULAMA_KAYDI.md` → `DOGRULAMA.md`.
+- **Doğrulama kaydı köke alındı:** `04_kapali_dongu/02_DOGRULAMA_KAYDI.md` → `DOGRULAMA.md`.
   İçeriği düzenlenmedi (tarihli tutanak); başına konum notu eklendi.
-- **`OKU.txt` kaldırıldı**, içeriği `README.md`'nin klasör haritasına katlandı. İki manifesto
+- **`OKU.txt` kaldırıldı**, içeriği `README.md`'nin klasör haritasına katlandı. İki klasör haritası
   drift üretiyordu ve OKU.txt zaten var olmayan dosya adları sayıyordu.
 - **Bağımlılıklar beyan edildi:** `matplotlib`+`cma` → `pyproject.toml`/`uv.lock`;
   `opensim`+`scipy` → yeni `requirements-opensim.txt`. `requiremnts.txt` kaldırıldı.
@@ -48,13 +48,13 @@
   `kod/opensim/README.md` ve risk-6'da listeli).
 
 **Düzeltilen yanlış kayıtlar (yeniden ölçülerek):**
-- "`cl_grid3d.npz` ve güncel `cl_*.py` depo dışında" — **yanlış**; ikisi de depoda, kapalı
+- "`cl_grid3d.npz` ve güncel `cl_*.py` repo dışında" — **yanlış**; ikisi de repoda, kapalı
   döngü bu makinede koşuyor. `cl_best.json`'un karşılığı `cl_best_9of9.json`.
-- "`rig.py` depoda yok" — kayıp değil: `git show e0192ec^:kod/rig.py` (79 satır; `e0192ec`
+- "`rig.py` repoda yok" — kayıp değil: `git show e0192ec^:kod/rig.py` (79 satır; `e0192ec`
   "remove old folders" commit'inde eski `kod/` klasörüyle silinmiş).
 - risk-2 (bildirilmeyen bağımlılıklar) ve risk-10 (`requiremnts.txt`) **kapandı**.
 - `veri/kapali_dongu/cl_grid3d.npz` ve `arsiv/veri/cl_ref.npz` **yeniden üretilemez** —
-  üreteçleri (`stage0_grid.py`, `gate2_ref.py`) hiç depoya girmedi; bu artık yazılı.
+  üreteçleri (`stage0_grid.py`, `gate2_ref.py`) hiç repoya girmedi; bu artık yazılı.
 
 **Kararlar (kullanıcı):** numarasız anlamlı Türkçe klasör adları; ara ürün/eski sürüm/log
 arşive taşınır, silinmez; Kim 2020 hoc/mod kaynak kodun içine alınır; bağımlılıklar beyan
@@ -90,7 +90,7 @@ bu günlük kaydı. Push onay bekliyor.
   D8 hat + doğrulama haritası; README'de drift kuralı (kaynak burası, PREPRINT'e kopyalanır).
 - Diyagramlar PREPRINT'e gömüldü (11 blok) — Markdown editöründe okunabilir.
 
-**Ölçülen bulgular (bu oturumda, depo verisinden):**
+**Ölçülen bulgular (bu oturumda, repo verisinden):**
 - 38 kasın üç eklem için moment kolları ve **işaret kararlılığı** (`cl_grid3d.npz`, referans poz
   kalça +21,7° / diz −120° / bilek 0°). Diz değerleri `02_DOGRULAMA_KAYDI.md` A bölümüyle
   tutarlı (RF +3,69 vs +3,70; VL +3,72 vs +3,73; SM −3,95 vs −3,87 — fark pozdan).
@@ -109,7 +109,7 @@ bu günlük kaydı. Push onay bekliyor.
   olarak yazılır; hiçbir NEURON sonucu iddia edilmez.
 - **Kas başına bir motonöron havuzu** (38 kas → 38 havuz).
 - Eski basma fazı / fenomenolojik emergent kapalı-döngü anlatısı **preprintten tamamen çıkarıldı**
-  (dosyalar depoda duruyor, silinmedi).
+  (dosyalar repoda duruyor, silinmedi).
 - Semimembranosus için **ölçülen −3,87 mm** esas; bildirideki −4,1 mm fark olarak kayıtlı.
 
 **Doğrulama:** 22 Mermaid bloğunun tamamı `@mermaid-js/mermaid-cli` ile derlendi (hepsi çizildi);
@@ -132,14 +132,14 @@ kapsam dışı bırakılan terimler (`stance`, `emergent`, `CMA-ES`, `9/9`) grep
   köprü: Aşama 1 tek motonöron doğrulaması (Kim Fig 2-9), Aşama 2 havuz ile kas arasında
   iki yönlü arayüz (NEURON çıkışı -> u(t); iğcik r(t) -> Ia sinapsı).
 - **İş paketleri:** İP-4 ikiye bölündü (4a derleme+doğrulama, 4b köprü); İP-7 (literatür özüt
-  defteri), İP-8 (tolerans bantlı testler), İP-9 (rapor/figür dışa aktarma) açıldı; İP-5
+  dosyaları), İP-8 (tolerans bantlı testler), İP-9 (rapor/figür dışa aktarma) açıldı; İP-5
   genişletildi.
 - **Kurallar:** literatüre-yakınlık kuralı yazıldı (bant testten önce ilan edilir, post-hoc
   genişletme yasak, assert mesajı ölçülen/beklenen/bant/künye basar); figür standardı
   (`06_sekiller/`, 300 dpi, yanında kaynak CSV) ve Markdown rapor kuralı; bağımlılık beyan kuralı.
 - **Kurulum:** `SDLC/06_KURULUM.md` yazıldı ve **her adımı bu makinede denendi**. Kök `README.md`
-  (0 byte'tı) kapı belgesi olarak dolduruldu.
-- **Literatür:** `07_literatur/` iskeleti kuruldu (README, `oz_SABLON.md`,
+  (0 byte'tı) giriş belgesi olarak dolduruldu.
+- **Literatür:** `07_literatur/` klasör yapısı kuruldu (README, `oz_SABLON.md`,
   `referans_degerler.json` — 6 tohum kayıt; JSON ayrıştırma doğrulandı). PDF klasörü git-ignore'a.
 
 **Ölçülen bulgular (hepsi denenerek):**
@@ -149,14 +149,14 @@ kapsam dışı bırakılan terimler (`stance`, `emergent`, `CMA-ES`, `9/9`) grep
   scipy 1.18.1.
 - `uv run --python .venv-osim ...` **çalışmıyor** (proje `requires-python >=3.14` kısıtı 3.13'ü
   reddediyor); doğrudan `./.venv-osim/bin/python` çağrılmalı.
-- **Boşluklu depo yolu `nrnivmodl`'ü kırıyor:** NEURON proje içi `.venv`'e kuruluyken derleme
+- **Boşluklu repo yolu `nrnivmodl`'ü kırıyor:** NEURON proje içi `.venv`'e kuruluyken derleme
   `clang++: no such file or directory: 'Sıçan'` ile düşüyor. NEURON `~/.venvs/usk26`'ya
   (`UV_PROJECT_ENVIRONMENT`) alınınca **derleme proje içinde sorunsuz koşuyor** — kısıt yalnız
   NEURON'un kendi kurulum yolunda.
 - `fig2_4_6`'daki 12 `.mod` dosyasının **11'i derlendi** (`Successfully created arm64/special`);
   yalnız `module1_2.mod` düşüyor: `U used as both variable and function` (satır 10 `RANGE U`,
   satır 133 `FUNCTION U (x)`). NEURON 9 `nocmodl` eski kullanımı reddediyor.
-- `03_kod/rig.py` **depoda yok**; `kod_01_rat_walk_bone_uret.py` onu `import rig` ile çağırıyor,
+- `03_kod/rig.py` **repoda yok**; `kod_01_rat_walk_bone_uret.py` onu `import rig` ile çağırıyor,
   yani veri hattının ilk halkası bu haliyle koşmuyor (daha önce kayıtlı olmayan bulgu).
 
 **Kararlar:**
@@ -171,7 +171,7 @@ kapsam dışı bırakılan terimler (`stance`, `emergent`, `CMA-ES`, `9/9`) grep
 02_IS_PAKETLERI, 04_KURALLAR, 05_MIMARI_RISK, README}.md`, kök `README.md`,
 `07_literatur/{README.md, oz_SABLON.md, referans_degerler.json}`, `.gitignore`.
 
-**Değişen dosyalar:** yukarıdakiler. Depo dışı yan etki: `~/.venvs/usk26` (ana ortam) ve
+**Değişen dosyalar:** yukarıdakiler. Repo dışı yan etki: `~/.venvs/usk26` (ana ortam) ve
 proje içinde `.venv-osim/` (git-ignore'da) kuruldu.
 
 **Commit:** `e89c16b` (kurulum+README), `b7a6605` (kapsam+İP), `ebadec1` (kurallar+risk),
@@ -180,7 +180,7 @@ proje içinde `.venv-osim/` (git-ignore'da) kuruldu.
 
 ---
 
-## 2026-09-05 — SDLC kurumsal-hafıza sistemi kuruldu
+## 2026-09-05 — SDLC proje kaydı sistemi kuruldu
 
 **Ne yapıldı:**
 - Boş `SDLC/` klasörü 7 dosyalık context sistemine dönüştürüldü: `README`, `00_DURUM`,
@@ -191,7 +191,7 @@ proje içinde `.venv-osim/` (git-ignore'da) kuruldu.
 - Ayrıca: Claude Code status line (model · dizin · git · bağlam% · 5s/7g limit) `~/.claude` altında kuruldu.
 
 **Kararlar:**
-- Tek doğruluk kaynağı SDLC. Her oturum sadece 2 "sıcak" dosya değişir (`00_DURUM` + `03_GUNLUK`).
+- Tek doğruluk kaynağı SDLC. Her oturum sadece 2 dosya değişir (`00_DURUM` + `03_GUNLUK`).
 - `OKU.txt` ve `02_DOGRULAMA_KAYDI.md` kopyalanmadı, referans verildi (drift önlemi).
 - Commit: otomatik; push: onay ile.
 
@@ -199,7 +199,7 @@ proje içinde `.venv-osim/` (git-ignore'da) kuruldu.
 
 **Değişen dosyalar:** yukarıdaki yeni dosyalar + `.gitignore` + proje yapılandırması izlemeye alındı.
 
-**Commit:** `b9dbdf5` (git hijyeni), `761d200` (proje yapılandırması), `5bedf79` (alt-ajanlar),
+**Commit:** `b9dbdf5` (git düzeni), `761d200` (proje yapılandırması), `5bedf79` (alt-ajanlar),
 `1ea812d` (SDLC), `79f3565` (CLAUDE.md). Push henüz yapılmadı (onay bekliyor).
 
 ---

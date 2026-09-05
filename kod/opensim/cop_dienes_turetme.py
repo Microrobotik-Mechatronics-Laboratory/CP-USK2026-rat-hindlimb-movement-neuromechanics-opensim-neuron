@@ -10,7 +10,7 @@ import sys, pathlib
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))  # kod/yollar.py icin
 from yollar import VERI, LEWIS_GRF
 
-# NOT: bu iki girdi .npz bekliyor; depoda .json karsiliklari var (veri/dienes_bilek_momenti.json).
+# NOT: bu iki girdi .npz bekliyor; repoda .json karsiliklari var (veri/dienes_bilek_momenti.json).
 # Bicim donusumu yapilmadi -- bkz. kod/opensim/README.md eksik girdi tablosu.
 d_mom = np.load(VERI/'dienes_bilek_momenti.npz')      # g (dongu %), M (N·m/kg), sd_ust, sd_alt
 grf = json.load(open(LEWIS_GRF))          # ayni makalenin Fig 3'u (N/kg)

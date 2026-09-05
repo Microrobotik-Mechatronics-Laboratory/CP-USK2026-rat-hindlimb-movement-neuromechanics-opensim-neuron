@@ -1,0 +1,60 @@
+{
+  "surum": "1.0",
+  "aciklama": "Omurilik devresinin ve koprunun parametreleri. Bu degerlerin cogu KAYNAKSIZ tasarim secimleridir; koda gomulmemeleri, tek yerde ve DURUM ETIKETIYLE durmalari icin bu dosya vardir. Kural: SDLC/04_KURALLAR.md. Durum etiketleri PREPRINT bolum 1'deki tanimlarla aynidir.",
+
+  "cpg": {
+    "_kaynak": "oz_yu2021 3a ve Tablo 2 (Morris-Lecar yarim-merkez osilatoru)",
+    "_durum": "[literaturden] mimari + [tasarim] kalibrasyon",
+    "gcpg_mScm2": 0.006,
+    "phin_per_ms": 0.0152,
+    "iext_mAcm2": 8e-4,
+    "ethr_mV": 0.0,
+    "eslope_mV": 2.0,
+    "esyn_mV": -80.0,
+    "_kalibrasyon_notu": "Yu ve Thomas'in kendi degeri phin=0.0005 /ms Aplysia olceginde T~2254 ms verir; bizim olculmus yuruyus cevrimimiz T=0.387 s'dir (veri/rat_walk_bone_smooth.mot). phin, serbest cevrim periyodu 387 ms olacak sekilde ikiye bolmeyle arandi. OLCULEN: T=386.9 ms, genlik -19.56..+26.84 mV, F-E korelasyonu -0.957 (zitfaz). Ureten: kalibrasyon taramasi, oturum 8.",
+    "_bayrak": "Parametreler Aplysia'dan gelir; sican omuriligi icin dogrulanmis degildir. Bu bir MIMARI odunc almadir, parametre odunc almasi degil (PREPRINT bolum 15 uyarisi)."
+  },
+
+  "internoron": {
+    "_durum": "[tasarim] -- internoron hucre modeli icin ayri bir kaynak yoktur",
+    "_not": "Kim'in kendi Naf/KDr mekanizmalari kullanilir; yeni hucre modeli uydurulmaz.",
+    "alan_um2": 1000.0,
+    "gnaf_Scm2": 0.35,
+    "gkdr_Scm2": 0.12,
+    "gpas_Scm2": 9.0909e-5,
+    "epas_mV": -70.0
+  },
+
+  "sinaps": {
+    "_durum": "[tasarim] -- agirliklarin hicbirinin literatur kaynagi yoktur",
+    "eksitator": {"tau1_ms": 0.5, "tau2_ms": 5.0, "e_mV": 0.0},
+    "inhibitor": {"tau1_ms": 1.0, "tau2_ms": 10.0, "e_mV": -80.0}
+  },
+
+  "iain_renshaw": {
+    "_durum": "[tasarim] -- KAYNAK YOK (PREPRINT 6.1 durustluk notu)",
+    "_karar": "Kullanici karariyla ilk surumde DEVREDE. Hicbir sonuc bunlara dayandirilarak iddia edilmez; ciktilarda etiketleri tasinir.",
+    "iain_etkin": true,
+    "renshaw_etkin": true
+  },
+
+  "kopru": {
+    "_durum": "[tasarim]",
+    "dt_neuron_ms": 0.025,
+    "dt_kopru_ms": 0.3,
+    "_dt_gerekcesi": "0.3 ms, NEURON adiminin (0.025 ms) tam kati (12 adim), Ia gecikmesinin (1.5 ms -> 5 adim) ve II gecikmesinin (1.8 ms -> 6 adim) tam bolenidir; gecikme yuvarlama hatasi sifir olur.",
+    "gecikme_ia_ms": 1.5,
+    "gecikme_ii_ms": 1.8,
+    "_gecikme_kaynagi": "oz_vincent2017 Tablo 4 (sican): Ia 1.5 +/- 0.2 ms, II 1.8 +/- 0.4 ms",
+    "gecikme_efferent_ms": 6.0,
+    "_efferent_notu": "[varsayim] -- PREPRINT 4.2'de secilecek olarak birakilmisti; Kim kedide toplam 10 ms verir. 6 ms secildi cunku 0.3 ms'in tam kati (20 adim) ve sican uzuv boyu kediden kucuktur.",
+    "k_ia": 1.0,
+    "_k_ia_gerekcesi": "[varsayim] Blum fiti rampa-tut protokolune uygundur; veri/r_katsayilari_v3.json 'surekli_hareket_sonumu' kaydi surekli harekette olcumun ~15 Hz, statik tahminin ~90 Hz (yaklasik 6 kat) oldugunu soyluyor. k_ia acik bir kalibrasyon carpanidir; varsayilani 1.0 ve etkisi raporlanir, sessiz olcekleme yapilmaz.",
+    "f_ref_Hz": {
+      "_durum": "[tasarim] -- oz_gorassini2000 bantlarindan turetildi",
+      "TA": 97.0, "Sol": 28.0, "MG": 67.0, "LG": 67.0, "varsayilan": 60.0
+    },
+    "u_filtre_tau_ms": 50.0,
+    "_u_filtre_notu": "[tasarim] Diken dizisinden anlik atesleme oranina ustel filtre. u = clip(f_MN/f_ref, 0, 1) OpenSim'e UYARIM (excitation) olarak verilir; aktivasyon dinamigini Thelen2003Muscle kendi coz er, boylece iki kez filtrelenmez."
+  }
+}

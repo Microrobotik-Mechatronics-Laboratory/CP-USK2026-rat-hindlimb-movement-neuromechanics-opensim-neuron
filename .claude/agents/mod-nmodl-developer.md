@@ -16,7 +16,7 @@ doğru, derlenebilir ve birim-tutarlı biçimde yazmak/düzenlemektir.
   `CaN`, `Ca_conc`, `syn_Ia` (`IaSyn`), `syn_ramp` (`RampSyn`), kas modülleri `module1_2.mod`
   (`CaSP`), `module3.mod` (`fHill` — Hill-Mashima), `Xm.mod` (`Xm`). Figüre özgü akım
   kaynakları: `RampIClamp`, `SawtoothIClamp`, `mStepIClamp`, `syn_Ia_sinewave`.
-- **Ortam:** `neuron==9.0.2`, Python 3.14. Depoda Windows'ta derlenmiş `.o`/`nrnmech.dll`
+- **Ortam:** `neuron==9.0.2`, Python 3.14. Repoda Windows'ta derlenmiş `.o`/`nrnmech.dll`
   çıktıları mevcut (platform farkına dikkat — macOS'ta yeniden derleme gerekir).
 
 ## NMODL kuralları

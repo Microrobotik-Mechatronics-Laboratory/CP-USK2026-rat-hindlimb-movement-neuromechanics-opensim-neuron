@@ -29,7 +29,7 @@ Kurallar:
   Bir diyagram değişecekse **önce orada** düzeltilir.
 
 Bağlı belgeler: proje durumu `SDLC/00_DURUM.md` · kurallar `SDLC/04_KURALLAR.md` ·
-ölçüm defteri `DOGRULAMA.md` · literatür özetleri `literatur/oz_*.md`.
+doğrulama kaydı `DOGRULAMA.md` · literatür özetleri `literatur/oz_*.md`.
 
 ---
 
@@ -46,7 +46,7 @@ nöroprotez geliştirme çalışmalarının temelidir.
 
 **Ekip iki kişi.** Nöron tarafı (NEURON: CPG, internöronlar, motonöron havuzu, Ia afferent) ve
 mekanik taraf (OpenSim: kas-iskelet, Hill kas modeli, ters dinamik, statik optimizasyon).
-Bu depo ikisinin buluştuğu yerdir.
+Bu repo ikisinin buluştuğu yerdir.
 
 **Bugünkü durum tek cümlede:** döngünün kas-iskelet yarısı kurulmuş ve salınım fazı kas
 aktivasyonları elde edilmiştir `[ölçüldü]`; omurilik yarısı için NEURON seçilmiş ve mimarisi
@@ -281,7 +281,7 @@ Uygulama (`kod/opensim/kod_02_swing_id_so.py`):
 
 - rijit tendon: `lm = sqrt((lmt − tsl)² + (lmo·sin α₀)²)`, `cos α = (lmt − tsl)/lm`
 - `fL = exp(−(l̃−1)²/γ)`, `fPE` Thelen, `fV` Thelen `a = 1` kapalı formu
-- bilinen basitleştirme: `fV`'nin `(0,25 + 0,75a)` terimi ihmal edilmiş `[bayrak]`
+- bilinen basitleştirme: `fV`'nin `(0,25 + 0,75a)` terimi ihmal edilmiş `[bilinen sapma]`
 
 ### 5.4 · Salınım fazı çözümü: ters dinamik + statik optimizasyon
 
@@ -809,7 +809,7 @@ Grup düzeyinde (moment kolu işaretine göre gruplanmış):
 | Ayak bileği dorsifleksörleri (TA, EDL, Per) | 1,197 | %85,5 | %81,1 |
 | Ayak bileği plantar fleksörleri (7 kas) | 1,444 | %87,0 | %86,3 |
 
-Zaman şeridi:
+Zaman çizelgesi:
 
 ```
 gait %      65        70        75        80        85        90        95       100
@@ -842,7 +842,7 @@ sonucun sınırları bölüm 10.4'tedir.
 
 ### 10.1 · Semimembranosus: bildiri −4,1 mm, ölçüm −3,87 mm
 
-Bildiri **−4,1 mm** yazar. Depodaki modelde iki ayrı türev yöntemiyle ölçülen değer
+Bildiri **−4,1 mm** yazar. Repodaki modelde iki ayrı türev yöntemiyle ölçülen değer
 **−3,87 mm**'dir (diz −120°; sarma açık ve kapalı halde **aynı**, fark 0,00 mm). Fark 0,23 mm,
 yaklaşık %6.
 
@@ -857,7 +857,7 @@ nesnelerinden tamamen bağımsızdır.
 
 ### 10.2 · "Kas yolları anatomi atlasıyla kontrol edilip güncellenmiştir"
 
-Depodaki modelde **38 kasın hepsi tam iki noktalıdır** (via point yok) `[ölçüldü]`. Johnson ise
+Repodaki modelde **38 kasın hepsi tam iki noktalıdır** (via point yok) `[ölçüldü]`. Johnson ise
 Tablo 6'da quadriceps'in dört başı, TA, EDL, TP, FDL, FHL ve Peronei için birer **via point**
 kaydeder. Yani model, kaynak çalışmanın kas yolu topolojisini yeniden üretmiyor.
 
@@ -869,7 +869,7 @@ yapıldıysa kaydı bulunmalı; bulunamazsa poster metninde daraltılmalıdır (
 
 ### 10.3 · "Moment kolları kaynak çalışmanın deneysel ölçümleriyle uyumludur"
 
-Bu, bildirinin en kırılgan cümlesidir. Ölçüm defterinin söyledikleri:
+Bu, bildirinin en kırılgan cümlesidir. Doğrulama kaydının söyledikleri:
 
 - **Johnson Şekil 3'teki quadriceps eğrisiyle karşılaştırma YAPILMADI.** Eksik olan tek geometri
   doğrulaması budur (D bölümü).
@@ -878,7 +878,7 @@ Bu, bildirinin en kırılgan cümlesidir. Ölçüm defterinin söyledikleri:
   `inner_radius` alanına doğrudan bağlı: 2 mm → 2,94 · **4 mm → 3,71** · 5 mm → 4,02.
 - Johnson'ın kendi via point'i taşınıp sarma kapatıldığında dört baş **+1,01 … +1,51 mm** veriyor
   — işaret doğru ama büyüklük yarıdan az ve dört başın kümelenmesi kayboluyor. Yani
-  "0,03 mm içinde kümelenme" torusun imzasıdır, anatomik bulgu değildir (C bölümü).
+  "0,03 mm içinde kümelenme" torusun ürettiği yapay bir sonuçtur, anatomik bulgu değildir (C bölümü).
 - Johnson moment kolunu **farklı tanımlıyor**: kas etki doğrultusu birim vektörü ile yarıçap
   vektörünün dış çarpımı; bizimki `r = −dL/dθ`. İki tanımın aynı sayıyı vermesi zorunlu değildir
   (H6).
@@ -1037,7 +1037,7 @@ haritasının **ötesindedir** ve bu preprintin kapsamı dışındadır.
    cümle poster metninde daraltılmalı mı? (bölüm 10.2)
 3. **Köprü iki Python ortamını nasıl buluşturacak?** NEURON 3.14 / OpenSim 3.13 ayrımı; tek süreç
    mi, süreçler arası iletişim mi? (bölüm 8)
-4. **GMa neden modelde kalça fleksörü çıkıyor?** Bağlantı noktası hatası mı, işaret sözleşmesi
+4. **GMa neden modelde kalça fleksörü çıkıyor?** Bağlantı noktası hatası mı, işaret kuralı
    farkı mı? Bu çözülmeden salınım fazı sıra bulgusu kesinleşmiyor. (bölüm 10.4)
 5. **IaIN ve Renshaw katmanları kalacak mı?** Literatür setinde kaynakları yok; ya kaynak eklenecek
    ya ilk sürümde devre dışı bırakılacaklar. (bölüm 6.1)

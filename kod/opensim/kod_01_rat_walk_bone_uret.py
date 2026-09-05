@@ -3,7 +3,7 @@
 # Bauman kemik açıları -> model koordinatları -> rat_walk_bone.mot (+smooth)
 # Girdiler: bauman_fig4_v3_hipknee.csv (kalça/diz, bölge-tabanlı, 40_ kaydı 8d)
 #           bauman_fig4_v2_kapali_devre.csv (bilek, 39_ kaydı)
-#           rat_hindlimb_0_2.osim yanında rig.py (FK; proje deposunda)
+#           rat_hindlimb_0_2.osim yanında rig.py (FK; proje reposunda)
 # Sabitler: T=0,387 s (GB2002 Fig1A level medyan; 40_ kaydı 1. bölüm)
 #           sacrum_pitch 4-nokta (Bauman Fig 3 kemik pelvis doğrusu; 8. bölüm 6)
 # Çıktılar: rat_walk_bone.mot (ham v4), rat_walk_bone_smooth.mot (15 Hz)
@@ -12,13 +12,13 @@ import numpy as np, csv, pickle
 import sys, pathlib
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))  # kod/yollar.py icin
 from yollar import VERI
-import rig                                # kod/opensim/rig.py -- DEPODA YOK, git gecmisinde: git show e0192ec^:kod/rig.py
+import rig                                # kod/opensim/rig.py -- REPODA YOK, git gecmisinde: git show e0192ec^:kod/rig.py
 from scipy.interpolate import CubicSpline
 from scipy.signal import butter, filtfilt
 DEG=np.pi/180
 T=0.387                                   # s  (GB2002 Fig1A level medyan)
 DUTY=64.8                                 # %  (Bauman Fig4 stance çizgisi)
-ISCH=np.array([-13.77e-3,0.83e-3,-2.30e-3,1.0])   # pelvis: BFp/STa/SM origin centroid (±8° bayrak)
+ISCH=np.array([-13.77e-3,0.83e-3,-2.30e-3,1.0])   # pelvis: BFp/STa/SM origin centroid (±8° bilinen sapma)
 TOE =np.array([0.024,0,0,1.0])                     # foot x-ekseni vekili (yön x'ten bağımsız)
 PITCH_PTS=[(0.0,24.6),(32.4,20.5),(64.8,23.5),(82.4,19.9)]  # Bauman Fig3 ölçümü
 

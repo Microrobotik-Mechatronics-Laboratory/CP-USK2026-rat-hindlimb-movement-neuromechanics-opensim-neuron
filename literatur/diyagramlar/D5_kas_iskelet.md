@@ -69,7 +69,7 @@ Uygulama ayrıntısı (`kod/opensim/kod_02_swing_id_so.py` başlığından):
 
 - **rijit tendon:** `lm = sqrt((lmt − tsl)² + (lmo·sin α₀)²)`, `cos α = (lmt − tsl)/lm`
 - `fL = exp(−(l̃−1)²/γ)`, `fPE` Thelen, `fV` Thelen `a = 1` kapalı formu
-- Bilinen basitleştirme: `fV`'nin `(0,25 + 0,75a)` terimi ihmal edilmiş `[bayrak]`
+- Bilinen basitleştirme: `fV`'nin `(0,25 + 0,75a)` terimi ihmal edilmiş `[bilinen sapma]`
 - `F_max` aralığı modelde **0,35 – 16,48 N** `[ölçüldü]`
 - Tendon boşluk boyu `tsl` modelde tanımlı ve sıfırdan farklı `[ölçüldü]`
 
@@ -78,7 +78,7 @@ Uygulama ayrıntısı (`kod/opensim/kod_02_swing_id_so.py` başlığından):
 Referans poz: kalça +21,7°, diz −120°, bilek 0°. Değerler `veri/kapali_dongu/cl_grid3d.npz`
 içindeki moment kolu ızgarasından (grid) okundu ve `DOGRULAMA.md` A bölümündeki diz değerleriyle
 tutarlıdır (RF +3,69 / +3,70; VL +3,72 / +3,73; SM −3,95 / −3,87 — fark, pozun kalça-bilek
-bileşeninden). İşaret sözleşmesi: **kalça +** = fleksiyon, **diz +** = ekstansiyon,
+bileşeninden). İşaret kuralı: **kalça +** = fleksiyon, **diz +** = ekstansiyon,
 **bilek +** = dorsifleksiyon.
 
 `kararlılık` sütunu, moment kolunun işaretinin ızgaranın kaçta kaçında aynı kaldığını gösterir;
@@ -129,7 +129,7 @@ bileşeninden). İşaret sözleşmesi: **kalça +** = fleksiyon, **diz +** = eks
 
 - **GMa (gluteus maximus) modelde kalça fleksörü çıkıyor** (+5,39 mm, ızgaranın tamamında aynı
   işaret). Sıçan anatomisinde gluteus maximus kalça ekstansörüdür. Bu ya bir eklem merkezi /
-  bağlantı noktası hatası ya da işaret sözleşmesi farkıdır; **model ile anatomi arasındaki bu
+  bağlantı noktası hatası ya da işaret kuralı farkıdır; **model ile anatomi arasındaki bu
   çelişki çözülmeden GMa'ya dayanan bir bulgu yazılmaz.** (Açık soru.)
 - `Pir`, `GMi`, `OE`, `Pec`, `BFa` için moment kolu hem küçük hem işaret olarak kararsız
   (kararlılık ≤ 0,77). Bu kaslar işlevsel gruplara **atanmaz**; motonöron havuzları kurulur ama

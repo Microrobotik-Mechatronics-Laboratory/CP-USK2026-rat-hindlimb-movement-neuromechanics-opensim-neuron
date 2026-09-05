@@ -3,7 +3,7 @@
 # hızı ateşlemeyi ARTIRIYORDU); iğcik kısalırken ateşleme düşer, belgelenen v2 formülü de
 # sign(v)'lidir. v3.1: Ia DEĞİŞMEZ (v3 ile birebir); II = max(0, 14.43·d + 21.25·sign(v)·
 # |v|^0.358) — 0 kırpma eklidir (ateşleme negatif olamaz; 46_ f0=0 varsayımıyla tutarlı).
-# d = lif boyu − döngü min [mm], v = lif hızı [mm/s] (rt_ara) — v3 sözleşmesi aynen.
+# d = lif boyu − döngü min [mm], v = lif hızı [mm/s] (rt_ara) — v3 kurali aynen.
 import numpy as np
 import sys, pathlib
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))  # kod/yollar.py icin

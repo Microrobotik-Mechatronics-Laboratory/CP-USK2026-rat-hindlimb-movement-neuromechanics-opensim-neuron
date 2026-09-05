@@ -1,6 +1,6 @@
 # Literatür özeti — Kim 2020 (PIC lokasyonu × kas boyu, kapalı-döngü motor ünite)
 
-> Bu dosya makalenin **kayıplı sıkıştırmasıdır** — yerine geçmez. Amacı, makaleyi tekrar
+> Bu dosya makalenin **seçici özetidir** — yerine geçmez. Amacı, makaleyi tekrar
 > açmadan modelleme kararı verebilmektir.
 
 ## 1 · Künye ve sınıflandırma
@@ -9,7 +9,7 @@
 - **Başlık:** Linking Motoneuron PIC Location to Motor Function in Closed-Loop Motor Unit System Including Afferent Feedback: A Computational Investigation
 - **Dergi / cilt / sayfa:** eNeuro, March/April 2020, 7(2), ENEURO.0014-20.2020, s. 1–19
 - **DOI / PMC:** 10.1523/ENEURO.0014-20.2020
-- **PDF:** `pdf/Linking_Motoneuron_PIC_Location_to_Motor_Function_in_Closed-Loop_Motor_Unit_System_Including_Afferent_Feedback_A_Computational_Investigation.pdf` (depoya girmez)
+- **PDF:** `pdf/Linking_Motoneuron_PIC_Location_to_Motor_Function_in_Closed-Loop_Motor_Unit_System_Including_Afferent_Feedback_A_Computational_Investigation.pdf` (repoya girmez)
 - **Özeti çıkaran / tarih:** Claude (özet taslağı) / 2026-09-05 — insan doğrulaması bekliyor
 
 - **Makale tipi:** bilgisayar modeli
@@ -147,7 +147,7 @@ Bu makaleden doğrudan sayısal test çıkarmak riskli (tek model, kedi, saçıl
 
 Nitel doğrulama adayları (JSON'a sayı olarak girmez): proksimal/ara/distal PIC yerleşiminin sırasıyla Tip I / Tip IV / Tip III girdi-çıktı deseni üretmesi; ısınmanın yalnız ara-üst konum + kısalmış kasta belirmesi.
 
-## 8 · Sıkıştırmada ne düştü
+## 8 · Özete alınmayanlar
 
 - Fig. 4D ve 5D çubuk grafiklerindeki mutlak nA değerleri (yalnız yüzde değişimler alındı).
 - Fig. 8 ve 9'un panel-panel ayrıntıları (membran potansiyeli izleri, ateşleme hızı zaman serileri).

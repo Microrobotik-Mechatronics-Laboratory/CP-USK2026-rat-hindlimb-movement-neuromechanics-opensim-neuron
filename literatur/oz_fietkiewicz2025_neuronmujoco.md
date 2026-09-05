@@ -1,6 +1,6 @@
 # Literatür özeti — Fietkiewicz 2025 (NEURON + MuJoCo nöromekanik simülasyon)
 
-> Bu dosya makalenin **kayıplı sıkıştırmasıdır** — yerine geçmez. Amacı, makaleyi tekrar
+> Bu dosya makalenin **seçici özetidir** — yerine geçmez. Amacı, makaleyi tekrar
 > açmadan modelleme kararı verebilmektir.
 
 ## 1 · Künye ve sınıflandırma
@@ -9,7 +9,7 @@
 - **Başlık:** Neuromechanical Simulation with NEURON and MuJoCo
 - **Dergi / cilt / sayfa:** ACM biçimli metin; Vol. 1, No. 1, s. 1–7, yayın tarihi June 2025 (dergi adı/cilt bilgisi metinde tam verilmemiş — makalede belirtilmemiş)
 - **DOI / PMC:** makalede belirtilmemiş
-- **PDF:** `pdf/Neuromechanical_Simulation_with_NEURON_and_MuJoCo.pdf` (depoya girmez)
+- **PDF:** `pdf/Neuromechanical_Simulation_with_NEURON_and_MuJoCo.pdf` (repoya girmez)
 - **Özeti çıkaran / tarih:** Claude (özet taslağı) / 2026-09-05 — insan doğrulaması bekliyor
 
 - **Makale tipi:** yöntem/araç (bilgisayar modeli gösterimi)
@@ -105,13 +105,13 @@ NEURON + MuJoCo birleşimi, açık ve kapalı döngü nöromekanik modelleri bas
 
 Bu makaleden doğrulama testi çıkmıyor: tüm sayısal sonuçlar (çevrim süresi ~3,570 ms, hesap payları) bu makaleye özgü basit CPG ve tek eklemli düzeneğin ürünüdür; bizim modelimiz için referans değer taşımaz.
 
-## 8 · Sıkıştırmada ne düştü
+## 8 · Özete alınmayanlar
 
 - Şekil 2'nin panel-panel zaman serileri (voltaj, kuvvet, açı eğrilerinin ayrıntısı).
 - Animasyon bağlantıları ([3], YouTube listesi) ve içerikleri — incelenmedi.
 - Giriş bölümündeki platform taraması (Gazebo/NEST, MUSIC, NRP, EBRAINS, NEUROiD vb. atıf listesi).
 - Yazar katkıları, teşekkür, hibe numaraları.
-- Kaynak koda erişim bilgisi: metinde açık bir depo bağlantısı verilmemiş (2023 makalesindekinden farklı olarak) — sonradan gerekirse yazarlara/animasyon sayfasına bakılmalı.
+- Kaynak koda erişim bilgisi: metinde açık bir repo bağlantısı verilmemiş (2023 makalesindekinden farklı olarak) — sonradan gerekirse yazarlara/animasyon sayfasına bakılmalı.
 
 ## 9 · Açık sorular / doğrulanmayanlar
 

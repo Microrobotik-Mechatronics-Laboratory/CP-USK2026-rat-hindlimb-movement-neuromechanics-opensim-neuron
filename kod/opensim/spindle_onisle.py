@@ -11,7 +11,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))  # kod/yoll
 from yollar import VERI
 
 FS = 1000.0
-HAM = VERI/'spindle_ham'     # Blum 2020 eLife ham .mat kumesi -- DEPODA YOK (boyut/telif)
+HAM = VERI/'spindle_ham'     # Blum 2020 eLife ham .mat kumesi -- REPODA YOK (boyut/telif)
 
 def deneme_isle(p):
     t = np.asarray(p.time).ravel().astype(float)
@@ -33,7 +33,7 @@ def deneme_isle(p):
                 st=st[1:n+1], ifr=fr[:n])           # IFR, aralığı bitiren spike'a atanır
 
 if __name__ == '__main__':
-    depo = {}
+    repo = {}
     for yol in sorted(glob.glob(str(HAM/'aff[0-9]*_proc.mat'))):
         ad = yol.split('/')[-1].replace('_proc.mat','')
         d = sio.loadmat(yol, squeeze_me=True, struct_as_record=False)
@@ -48,8 +48,8 @@ if __name__ == '__main__':
             if r is not None:
                 r['tip'] = tt[i] if i < len(tt) else '?'
                 denemeler.append(r)
-        depo[ad] = denemeler
+        repo[ad] = denemeler
         nsp = sum(len(r['st']) for r in denemeler)
         print(f"{ad}: {len(denemeler)} deneme islendi, toplam {nsp} spike")
-    pickle.dump(depo, open(VERI/'spindle_cache.pkl','wb'))
+    pickle.dump(repo, open(VERI/'spindle_cache.pkl','wb'))
     print('kaydedildi: spindle_cache.pkl')

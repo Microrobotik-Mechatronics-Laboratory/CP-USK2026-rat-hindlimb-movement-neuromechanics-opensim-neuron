@@ -13,16 +13,16 @@ ile nöromekanik modellenmesi. Hedef: omurilikten kasa uzanan kapalı döngüyü
 | Projenin anlık durumu, sıradaki adım | `SDLC/00_DURUM.md` |
 | Amaç, kapsam, başarı ölçütleri | `SDLC/01_PROJE.md` |
 | Çalışma kuralları (git, test, raporlama) | `SDLC/04_KURALLAR.md` |
-| Ölçüm defteri (ne doğrulandı, ne doğrulanmadı) | `DOGRULAMA.md` |
+| Doğrulama kaydı (ne doğrulandı, ne doğrulanmadı) | `DOGRULAMA.md` |
 
 İki doğruluk kaynağı vardır ve karıştırılmaz: **`PREPRINT.md`** bilimsel içeriğin,
-**`SDLC/`** sürecin kaynağıdır. Bu README yalnızca kapıdır; bilgi burada tekrarlanmaz.
+**`SDLC/`** sürecin kaynağıdır. Bu README yalnızca giriş belgesidir; bilgi burada tekrarlanmaz.
 
 ## Klasör haritası
 
 ```
 PREPRINT.md      bilimsel tek doğruluk kaynağı
-DOGRULAMA.md     ölçüm/doğrulama defteri (A-L bölümleri, tarihli)
+DOGRULAMA.md     doğrulama kaydı (A-L bölümleri, tarihli)
 SDLC/            süreç: durum, günlük, iş paketleri, kurallar, mimari-risk, kurulum
 
 model/           OpenSim modelleri
@@ -40,7 +40,7 @@ veri/            girdi ve üretilen seriler
   kapali_dongu/                 cl_grid3d.npz (3B ızgara), cl_best_9of9.json, cl_teslim_9of9.npz
 
 kod/             tüm Python
-  yollar.py                     depo-içi yolların tek kaynağı; betikler bunu kullanır
+  yollar.py                     repo-içi yolların tek kaynağı; betikler bunu kullanır
   opensim/                      ID + Statik Optimizasyon hattı (Python 3.13, .venv-osim)
   kapali_dongu/                 emergent kapalı-döngü + CMA-ES (Python 3.14, saf NumPy)
 
@@ -56,14 +56,14 @@ arsiv/           aşılmış kuşaklar ve ara ürünler; hesapta kullanılmaz (a
 Her alt klasörün kendi `README.md`'si vardır (`kod/opensim/`, `kod/kapali_dongu/`, `literatur/`,
 `literatur/diyagramlar/`, `arsiv/`, `SDLC/`); ayrıntı oradadır.
 
-## Depo bugün ne kadar koşuyor
+## Repo bugün ne kadar koşuyor
 
 | Hat | Durum |
 |---|---|
-| **Kapalı döngü** (`kod/kapali_dongu/`) | **Koşar.** Teslim koşusu bu makinede yeniden üretildi. |
+| **Kapalı döngü** (`kod/kapali_dongu/`) | **Koşar.** Sonuç koşusu bu makinede yeniden üretildi. |
 | **OpenSim ID + SO** (`kod/opensim/kod_02_swing_id_so.py`) | **Koşar.** `u_swing_v2.csv`'yi sıfır farkla yeniden üretti. |
 | OpenSim hattının kalanı | Girdileri eksik — tablo: `kod/opensim/README.md`. |
 | **NEURON** (`neuron/`) | Derleme sürüyor: `module1_2.mod` NEURON 9 ile düşüyor (İP-4a). |
 
-Depo tam self-contained değildir; eksiklerin tam listesi ve nereden geleceği
+Repo tam self-contained değildir; eksiklerin tam listesi ve nereden geleceği
 `SDLC/05_MIMARI_RISK.md` risk-6'dadır.

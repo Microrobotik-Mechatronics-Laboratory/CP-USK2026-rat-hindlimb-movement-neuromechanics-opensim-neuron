@@ -1,6 +1,6 @@
 # Literatür özeti — Johnson 2008 (sıçan arka bacak geometrisi ve moment kolları)
 
-> Bu dosya makalenin **kayıplı sıkıştırmasıdır** — yerine geçmez. Amacı, makaleyi tekrar
+> Bu dosya makalenin **seçici özetidir** — yerine geçmez. Amacı, makaleyi tekrar
 > açmadan modelleme kararı verebilmektir.
 
 ## 1 · Künye ve sınıflandırma
@@ -9,7 +9,7 @@
 - **Başlık:** A three-dimensional model of the rat hindlimb: musculoskeletal geometry and muscle moment arms
 - **Dergi / cilt / sayfa:** Journal of Biomechanics, 41(3): 610–619
 - **DOI / PMC:** makalenin bu (NIH yazar el yazması) sürümünde DOI yazılı değil; PMC'de Ocak 2009'dan itibaren erişilir deniyor
-- **PDF:** `pdf/A_three-dimensional_model_of_the_rat_hindlimb_musculoskeletal_geometry_and_muscle_moment_arms.pdf` (depoya girmez)
+- **PDF:** `pdf/A_three-dimensional_model_of_the_rat_hindlimb_musculoskeletal_geometry_and_muscle_moment_arms.pdf` (repoya girmez)
 - **Özeti çıkaran / tarih:** Claude / 05.09.2026
 
 - **Makale tipi:** deneysel (kadavra ölçümü) + yarı-statik bilgisayar modeli
@@ -120,7 +120,7 @@ Eklem merkezleri eklem açısının 1. dereceden fonksiyonlarıyla doğru modell
 | eklemmerkezi_bagil_hata_ust | ≤7 % | [0, 7] | Tablo 4 üst sınırı; OpenSim iskeletimizin uç nokta hatası bu bandı aşmamalı |
 | pectineus_sifir_kesme_kalca | 21–40 ° | [15, 45] | Şekil 3B'den; şekil okuma ve birey farkı payı |
 
-## 8 · Sıkıştırmada ne düştü
+## 8 · Özete alınmayanlar
 
 - Tablo 5'in tam katsayı seti (kalça/diz/bilek, pelvis-femur-tibia-ayak referanslı x/y/z, a·b·c katsayıları) — modele girerken doğrudan tablodan alınmalı.
 - Tablo 6'nın 85 satırlık tam bağlantı koordinatları ve genişlikleri (A–D blokları).
@@ -133,4 +133,4 @@ Eklem merkezleri eklem açısının 1. dereceden fonksiyonlarıyla doğru modell
 - Moment kolu eğrilerinin sayısal verisi yayında yok; **varsayım:** doğrulama bantlarını şekillerden okuyacağız.
 - Tablo 5 katsayılarının açı birimi makalede açıkça yazılmamış (Denklem 1'de θ, φ, ψ rotasyon açıları); **varsayım:** radyan. Modele girmeden birim, uç nokta hatasını yeniden üreterek test edilmeli.
 - MTL, kas kuvvet parametreleri, sarkomer verisi bu makalede belirtilmemiş.
-- DOI bu el yazması sürümünde yok; künye depoya işlenirken yayıncı sayfasından tamamlanmalı.
+- DOI bu el yazması sürümünde yok; künye repoya işlenirken yayıncı sayfasından tamamlanmalı.

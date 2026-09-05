@@ -1,4 +1,4 @@
-# SDLC — Projenin Kurumsal Hafızası
+# SDLC — Proje Kaydı
 
 Bu klasör, projenin **tek doğruluk kaynağıdır** (single source of truth). Amacı: yeni bir
 Claude oturumu açıldığında, hiçbir ek açıklama yapılmadan projenin ne olduğunu, nerede
@@ -11,15 +11,15 @@ kaldığımızı ve nasıl çalıştığımızı bilmesi.
 
 | Dosya | İçerik | Değişim sıklığı |
 |---|---|---|
-| `00_DURUM.md` | **Anlık durum panosu** — şu an neredeyiz, sıradaki adım | SICAK — her oturum |
-| `03_GUNLUK.md` | **Oturum günlüğü** — ne yaptık (append-only, tarihli) | SICAK — her oturum |
+| `00_DURUM.md` | **Anlık durum özeti** — şu an neredeyiz, sıradaki adım | her oturum güncellenir |
+| `03_GUNLUK.md` | **Oturum günlüğü** — ne yaptık (append-only, tarihli) | her oturum güncellenir |
 | `01_PROJE.md` | Proje tanımı, amaç, kapsam, kas-NEURON köprüsü, kaynaklar | referans (nadir) |
-| `02_IS_PAKETLERI.md` | İş paketleri (WBS) ve durumları | yarı-sıcak |
+| `02_IS_PAKETLERI.md` | İş paketleri (WBS) ve durumları | gerektikçe |
 | `04_KURALLAR.md` | Git, bağımlılık, dokümantasyon, yorum, test, raporlama kuralları | referans (nadir) |
 | `05_MIMARI_RISK.md` | Veri-akış haritası + bilinen riskler | referans (nadir) |
 | `06_KURULUM.md` | Sıfırdan kurulum (uv, iki ortam, NEURON derlemesi) | referans (nadir) |
 
-**Sıcak dosyalar** (SICAK) her oturum güncellenir. Diğerleri sadece ilgili şey değişince.
+Yukarıda **her oturum güncellenir** yazan dosyalar her oturumda elden geçer; diğerleri yalnız ilgili şey değişince.
 
 **Projeyi ilk kez kuruyorsanız** doğrudan `06_KURULUM.md`'ye gidin. Proje **iki ayrı Python
 ortamı** ister (3.14 NEURON / 3.13 OpenSim); sebebi orada anlatılır.
@@ -27,8 +27,8 @@ ortamı** ister (3.14 NEURON / 3.13 OpenSim); sebebi orada anlatılır.
 Bu klasöre **kopyalanmayan**, referans verilen kaynaklar:
 - `../PREPRINT.md` — bildiri özeti (dokunulmaz referans), taahhüt kontrol listesi ve bildiri ile
   doğrulanmış durum arasındaki farklar. **Ne yapmaya çalıştığımızın anlatımı buradadır.**
-- `../README.md` — klasör/dosya manifestosu (kapı belgesi)
-- `../DOGRULAMA.md` — bilimsel doğrulama defteri
+- `../README.md` — klasör/dosya haritası (giriş belgesi)
+- `../DOGRULAMA.md` — bilimsel doğrulama kaydı
 - `../literatur/` — literatür özetleri + testlerin okuduğu `referans_degerler.json`
 
 ---

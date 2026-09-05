@@ -1,6 +1,6 @@
 # Literatür özeti — Vincent 2017 (yetişkin sıçanda kas proprioseptörleri: sinyalleme ve omurilik sinaps dağılımı)
 
-> Bu dosya makalenin **kayıplı sıkıştırmasıdır** — yerine geçmez. Amacı, makaleyi tekrar
+> Bu dosya makalenin **seçici özetidir** — yerine geçmez. Amacı, makaleyi tekrar
 > açmadan modelleme kararı verebilmektir.
 
 ## 1 · Künye ve sınıflandırma
@@ -9,7 +9,7 @@
 - **Başlık:** Muscle proprioceptors in adult rat: mechanosensory signaling and synapse distribution in spinal cord
 - **Dergi / cilt / sayfa:** Journal of Neurophysiology, 118: 2687–2701
 - **DOI / PMC:** doi:10.1152/jn.00497.2017
-- **PDF:** `pdf/Muscle_proprioceptors_in_adult_rat_mechanosensory_signaling_and_synapse_distribution_in_spinal_cord.pdf` (depoya girmez)
+- **PDF:** `pdf/Muscle_proprioceptors_in_adult_rat_mechanosensory_signaling_and_synapse_distribution_in_spinal_cord.pdf` (repoya girmez)
 - **Özeti çıkaran / tarih:** Claude / 05.09.2026
 
 - **Makale tipi:** deneysel (in vivo elektrofizyoloji + tek akson morfolojisi)
@@ -128,7 +128,7 @@ Test koşulu: pasif triceps surae, 3 mm rampa-tut, 20 mm/s (bantlar ±1 SD; maka
 
 Stat(mfr) test olarak alınmadı: SD ortalamayı aşıyor (30.1 ± 48.4) ve gruplar ayrışmıyor.
 
-## 8 · Sıkıştırmada ne düştü
+## 8 · Özete alınmayanlar
 
 - Tablo 3 (9 işaretli afferentin tek tek ateşleme özellikleri) ve Tablo 4'ün min–maks aralıkları, eğim (slope) satırları, Stat(fd) ayrıntıları.
 - Tablo 2'nin tüm varikozite sayıları (yalnız afferent 1 alındı) ve Şekil 5–6'nın kontur haritaları.

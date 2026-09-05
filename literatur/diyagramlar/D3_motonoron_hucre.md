@@ -1,6 +1,6 @@
 # D3 — Tek motonöron: bölmeler, kanallar, PIC ve Ia sinapsı
 
-Havuzun yapı taşı, Kim 2020'nin NEURON motonöronudur. Depodaki uygulama:
+Havuzun yapı taşı, Kim 2020'nin NEURON motonöronudur. Repodaki uygulama:
 `neuron/fig2_4_6/`.
 
 ```mermaid

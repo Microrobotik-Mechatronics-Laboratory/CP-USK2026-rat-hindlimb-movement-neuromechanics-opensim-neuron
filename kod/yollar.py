@@ -1,8 +1,8 @@
 # =============================================================================
-# yollar.py — depo icindeki kanonik yollar tek yerde.
+# yollar.py — repo icindeki kanonik yollar tek yerde.
 # Ortam: her iki ortamda da calisir (yalniz standart kutuphane).
 # Neden: betikler eskiden calisma dizinine ya da baska bir makinenin mutlak yoluna
-# (KOK='/home/claude/oturum5/') bagliydi; boyle bir betik depoyu klonlayanda kosmaz.
+# (KOK='/home/claude/oturum5/') bagliydi; boyle bir betik repoyu klonlayanda kosmaz.
 # Kok, dosyanin kendi konumundan cozulur; betik nereden cagrilirsa cagrilsin ayni
 # dosyayi bulur.
 #
@@ -36,7 +36,7 @@ R_KATSAYI  = VERI  / 'r_katsayilari_v3.json'     # igcik Ia/II cevirici katsayil
 GRID3D     = VERI_CL / 'cl_grid3d.npz'           # 13^3 izgara; FIX/cnames/names tek kaynak
 
 # NEURON'a verilen yollar GORELI olmak zorundadir: HOC dizgi arayuzu ASCII disi karakter
-# kabul etmiyor ve bu deponun yolu Turkce karakter iceriyor (DOGRULAMA N, olcum 4).
+# kabul etmiyor ve bu reponun yolu Turkce karakter iceriyor (DOGRULAMA N, olcum 4).
 # Bu yuzden NEURON tarafi os.chdir(NEURON_FIG) ile konumlanir, yol sabitleri oraya gore yazilir.
 NRN_MEKANIZMA_GORELI = 'arm64/libnrnmech.dylib'
 NRN_BATCH_GORELI     = '../kopru/motor_unit_batch.hoc'

@@ -26,7 +26,7 @@ düzenlemezsin** — yalnızca plan, dosya yolları ve mimari kararlar döndür�
   Dikkat: `scipy`, `matplotlib`, `cma`, `opensim` kodda kullanılıyor ama pyproject/uv.lock'ta
   bildirilmemiş — planında bu bağımlılık boşluğunu dikkate al.
 - **Uyarılar:** README boş, `CLAUDE.md` yok, pytest yok (doğrulama `kod/kapali_dongu/cl_selfcheck.py`
-  ve `DOGRULAMA.md` ile manuel). Bazı kritik dosyalar depo dışında (`teslim_cc/`,
+  ve `DOGRULAMA.md` ile manuel). Bazı kritik dosyalar repo dışında (`teslim_cc/`,
   `cl_grid3d.npz`).
 
 ## Nasıl çalışırsın

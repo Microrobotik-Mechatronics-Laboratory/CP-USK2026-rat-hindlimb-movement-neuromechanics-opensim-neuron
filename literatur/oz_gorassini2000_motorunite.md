@@ -1,6 +1,6 @@
 # Literatür özeti — Gorassini 2000 (yürüyen bilinçli sıçanda motor ünite aktivitesi)
 
-> Bu dosya makalenin **kayıplı sıkıştırmasıdır** — yerine geçmez. Amacı, makaleyi tekrar
+> Bu dosya makalenin **seçici özetidir** — yerine geçmez. Amacı, makaleyi tekrar
 > açmadan modelleme kararı verebilmektir.
 
 ## 1 · Künye ve sınıflandırma
@@ -9,7 +9,7 @@
 - **Başlık:** Activity of Hindlimb Motor Units During Locomotion in the Conscious Rat
 - **Dergi / cilt / sayfa:** Journal of Neurophysiology, 83: 2002–2011
 - **DOI / PMC:** makalede DOI yazılı değil (2000 yılı basımı)
-- **PDF:** `pdf/Activity_of_Hindlimb_Motor_Units_During_Locomotion_in_the_Conscious_Rat.pdf` (depoya girmez)
+- **PDF:** `pdf/Activity_of_Hindlimb_Motor_Units_During_Locomotion_in_the_Conscious_Rat.pdf` (repoya girmez)
 - **Özeti çıkaran / tarih:** Claude / 05.09.2026
 
 - **Makale tipi:** deneysel (in vivo, bilinçli hayvan, tek motor ünite EMG)
@@ -121,7 +121,7 @@ Bilinçli sıçanda serbest yürüyüş sırasında motor ünite aktivasyonunun 
 | dublet_orani_yavas_SOL | ~%18 adım | [%0, %30] | gevşetilmiş dublet tanımıyla; katı tanımla (%ISI≤10 ms) %0 |
 | MUAP_adim_TA | 4.3 | [3, 6] | Şekil 5A grup ortalaması; SD şekilde |
 
-## 8 · Sıkıştırmada ne düştü
+## 8 · Özete alınmayanlar
 
 - Şekil 5A'daki ünite bazlı MUAP/adım ortalamaları ve SD'leri; Şekil 5B,C'deki tek tek r²/eğim (β) değerleri.
 - Şekil 6B'deki sekiz temsilî dublet/triplet deseni (decrement/increment ayrımının ayrıntısı).

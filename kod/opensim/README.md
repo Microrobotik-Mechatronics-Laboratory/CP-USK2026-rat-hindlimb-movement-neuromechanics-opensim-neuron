@@ -28,18 +28,18 @@ spindle_fit.py                 spindle_cache  -> veri/spindle_fit_sonuc.json
 | Betik | Durum |
 |---|---|
 | `kod_02_swing_id_so.py` | **Koşar.** 2026-09-05'te bu makinede koşuldu; `u_swing_v2.csv`'yi sayısal olarak birebir (fark 0,0) yeniden üretti; yalnız dosyanın yorum başlığı elle zenginleştirilmiş olduğu için metin farkı var. Yan çıktı `veri/id_bone.sto` (ID ara dosyası, git-ignore). |
-| `rt_ara_uret.py` | Girdileri depoda (model + smooth.mot + kas_par.json); koşması beklenir, **denenmedi**. |
-| `kod_01_rat_walk_bone_uret.py` | **Koşmaz.** `import rig` — `rig.py` depoda yok (aşağıya bak). Ayrıca iki `bauman_fig4_*.csv` girdisi de yok. |
+| `rt_ara_uret.py` | Girdileri repoda (model + smooth.mot + kas_par.json); koşması beklenir, **denenmedi**. |
+| `kod_01_rat_walk_bone_uret.py` | **Koşmaz.** `import rig` — `rig.py` repoda yok (aşağıya bak). Ayrıca iki `bauman_fig4_*.csv` girdisi de yok. |
 | `r31_uret.py` | `veri/rt_ara.npz` gerektirir; önce `rt_ara_uret.py` koşmalı. |
-| `u_stance_pipeline.py`, `cop_dienes_turetme.py` | **Koşmaz.** `rt_ara.npz` yok; ayrıca `id_tau.npz` ve `dienes_bilek_momenti.npz` bekliyorlar, depoda **`.json`** karşılıkları var (biçim dönüşümü yapılmadı). |
-| `spindle_onisle.py`, `spindle_fit.py` | **Koşmaz.** Blum 2020 eLife ham `.mat` kümesi depoda yok (`veri/spindle_ham/`). |
+| `u_stance_pipeline.py`, `cop_dienes_turetme.py` | **Koşmaz.** `rt_ara.npz` yok; ayrıca `id_tau.npz` ve `dienes_bilek_momenti.npz` bekliyorlar, repoda **`.json`** karşılıkları var (biçim dönüşümü yapılmadı). |
+| `spindle_onisle.py`, `spindle_fit.py` | **Koşmaz.** Blum 2020 eLife ham `.mat` kümesi repoda yok (`veri/spindle_ham/`). |
 
 ## Eksik girdiler
 
 | Eksik | Nereden gelir |
 |---|---|
 | `rig.py` | **Git geçmişinde duruyor:** `git show e0192ec^:kod/rig.py` (79 satır; `.osim` XML'inden gövde/eklem zincirini okuyup ileri kinematik yapar). `e0192ec` "remove old folders" commit'inde eski `kod/` klasörüyle birlikte silinmiş. Geri getirmek İP-5'in işi. |
-| `veri/bauman_fig4_v3_hipknee.csv`, `veri/bauman_fig4_v2_kapali_devre.csv` | Bauman Fig 4 sayısallaştırması; depoda yok. |
+| `veri/bauman_fig4_v3_hipknee.csv`, `veri/bauman_fig4_v2_kapali_devre.csv` | Bauman Fig 4 sayısallaştırması; repoda yok. |
 | `veri/rt_ara.npz` | `rt_ara_uret.py` üretir. |
-| `veri/id_tau.npz`, `veri/dienes_bilek_momenti.npz` | Depoda `.json` biçiminde var; dönüştürülmedi. |
-| `veri/spindle_ham/aff*_proc.mat` | Blum 2020 eLife veri kümesi (boyut/telif nedeniyle depoya girmez). |
+| `veri/id_tau.npz`, `veri/dienes_bilek_momenti.npz` | Repoda `.json` biçiminde var; dönüştürülmedi. |
+| `veri/spindle_ham/aff*_proc.mat` | Blum 2020 eLife veri kümesi (boyut/telif nedeniyle repoya girmez). |

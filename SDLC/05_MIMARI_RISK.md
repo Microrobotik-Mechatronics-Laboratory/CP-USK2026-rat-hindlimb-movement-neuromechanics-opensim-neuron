@@ -6,7 +6,7 @@
 
 ```
 kod/opensim/ (ORTAM: Python 3.13 + OpenSim 4.6 — ID + Statik Optimizasyon, numpy/scipy)
-   kod_01 → rat_walk_bone_smooth.mot        [rig.py gerektirir — DEPODA YOK]
+   kod_01 → rat_walk_bone_smooth.mot        [rig.py gerektirir — REPODA YOK]
    kod_02 (ID+SO) → u_swing_v2.csv
    u_stance_pipeline → u_stance_v4.csv
    cop_dienes_turetme → cop_dienes.json
@@ -43,7 +43,7 @@ Bugün iki taraf ayrıktır: **Python/OpenSim** (kod/opensim, kod/kapali_dongu) 
 dokunuyorsa netleştir. Köprü kurulurken **birim ve zaman-adımı dönüşümü** kritik noktadır:
 NEURON ms/mV/uS ile çalışır, kapalı-döngü s/mm/N ile.
 
-**Yol sözleşmesi:** hiçbir betik çıplak dosya adı veya mutlak yol yazmaz; tüm depo-içi yollar
+**Yol kuralı:** hiçbir betik çıplak dosya adı veya mutlak yol yazmaz; tüm repo-içi yollar
 `kod/yollar.py` üzerinden çözülür (kök, dosyanın kendi konumundan bulunur). Aşılmış sürümler
 ve ara ürünler `arsiv/` altındadır ve hesapta kullanılmazlar (`arsiv/README.md`).
 
@@ -65,7 +65,7 @@ literatur/referans_degerler.json  ──►  kod-içi assert'ler (İP-8)
    cp311/cp312/cp313); NEURON ana ortamı ise 3.14. Tek ortamda ikisi birden **kurulamaz**.
    Proje 3.14 (NEURON + kapalı döngü) ve 3.13 (OpenSim + kod/opensim) ortamlarıyla çalışır.
    Bu ayrım İP-4b köprüsünü doğrudan etkiler: köprü, iki ortamı aynı süreçte buluşturamaz;
-   ya dosya/soket üzerinden ayrık koşum, ya da OpenSim'siz bir kas modeli gerekir. → `06_KURULUM.md`.
+   ya dosya/soket üzerinden ayrık koşu, ya da OpenSim'siz bir kas modeli gerekir. → `06_KURULUM.md`.
 2. ~~**Bildirilmeyen çalışma-zamanı bağımlılıkları.**~~ **Kapandı (2026-09-05):** `matplotlib` ve
    `cma` ana ortama (`pyproject.toml` + `uv.lock`) beyan edildi; `opensim` ve `scipy` ikincil
    ortam için `requirements-opensim.txt`'e yazıldı. Yazım hatalı `requiremnts.txt` kaldırıldı.
@@ -73,7 +73,7 @@ literatur/referans_degerler.json  ──►  kod-içi assert'ler (İP-8)
    derlenmiş; bu makinede (Darwin/arm64) çalışmazlar. 2026-09-05'te `neuron/` ağacından
    `arsiv/neuron_ikili/` altına alındılar; `.mod` dosyaları `nrnivmodl` ile **yeniden
    derlenmeli**. → İP-4a.
-4. **Boşluklu depo yolu NEURON derlemesini kırıyor.** Depo yolu boşluk ve Türkçe karakter içerir
+4. **Boşluklu repo yolu NEURON derlemesini kırıyor.** Repo yolu boşluk ve Türkçe karakter içerir
    (`.../USK26 - Sıçan arka bacak .../Uygulama`). `nrnivmodl`, NEURON'un kurulu olduğu dizinin
    yolunu derleyiciye tırnaklamadan geçirdiği için, NEURON proje içindeki `.venv`'e kuruluysa
    derleme `clang++: no such file or directory: 'Sıçan'` ile düşer. **Çözüm uygulandı:** ana ortam
@@ -83,24 +83,24 @@ literatur/referans_degerler.json  ──►  kod-içi assert'ler (İP-8)
    `RANGE` değişkeni hem `FUNCTION` olarak kullanıyor; NEURON 9'un `nocmodl` çeviricisi bunu
    reddediyor (eski NEURON kabul ediyordu). Aynı klasördeki diğer 11 mekanizma derleniyor.
    Model dosyalarına dokunmayı gerektiren tek bilinen engel budur. → İP-4a.
-6. **Depo eksikleri (2026-09-05'te yeniden ölçüldü).** Eski kayıtta "depo dışında" denen üç
-   dosya **aslında depodadır**: `veri/kapali_dongu/cl_grid3d.npz`, güncel `cl_emergent.py` ve
+6. **Repo eksikleri (2026-09-05'te yeniden ölçüldü).** Eski kayıtta "repo dışında" denen üç
+   dosya **aslında repodadır**: `veri/kapali_dongu/cl_grid3d.npz`, güncel `cl_emergent.py` ve
    `cl_selfcheck.py` (7b/7c düzeltmeli sürümler; eski kopyalar `arsiv/kod/` altında).
    `cl_best.json`'un karşılığı `veri/kapali_dongu/cl_best_9of9.json`. `model/Geometry/` mesh'leri
-   de depodadır. Gerçekten eksik olanlar:
+   de repodadır. Gerçekten eksik olanlar:
    - **`kod/opensim/rig.py`** — kayıp değil, **git geçmişinde duruyor**:
      `git show e0192ec^:kod/rig.py` (79 satır). Geri getirmek İP-5'in işi.
    - `veri/bauman_fig4_*.csv`, `veri/rt_ara.npz`, `veri/spindle_ham/` ve `.npz` beklenip `.json`
      duran iki girdi. Tam tablo: `kod/opensim/README.md`.
    - `veri/kapali_dongu/cl_grid3d.npz` ve `arsiv/veri/cl_ref.npz` **yeniden üretilemez** —
-     üreteçleri (`stage0_grid.py`, `gate2_ref.py`) hiç depoya girmedi. → İP-5.
+     üreteçleri (`stage0_grid.py`, `gate2_ref.py`) hiç repoya girmedi. → İP-5.
 7. **Literatür değerlerinin tür/koşul uyumsuzluğu.** Referans değerler farklı tür, farklı deney
    koşulu veya farklı ölçüm yönteminden gelebilir (Kim motonöron modelinin kökeni ile sıçan
    arka bacağı; Johnson/Blum/Dienes'in kendi koşulları). Bu yüzden karşılaştırma birebir değil
    **banttır** ve her bandın gerekçesi tür/koşul farkını açıkça söylemelidir. → `04_KURALLAR.md`.
-8. **Telif.** Makale PDF'leri repoya konulamaz; `literatur/pdf/` git-ignore'dadır. Depoya
+8. **Telif.** Makale PDF'leri repoya konulamaz; `literatur/pdf/` git-ignore'dadır. Repoya
    yalnız künye, çıkarılan sayısal değer ve literatür özeti girer.
 9. **Lisans.** `arsiv/model/rat_hindlimb_0_2.osim` SimTK taban modeli — yayından/paylaşımdan önce
    SimTK lisansı kontrol edilmeli. Hesapta kullanılmıyor (yalnız köken kaydı).
-10. ~~**Küçük hijyen.**~~ **Kapandı:** yazım hatalı `requiremnts.txt` kaldırıldı;
+10. ~~**Küçük düzen sorunu.**~~ **Kapandı:** yazım hatalı `requiremnts.txt` kaldırıldı;
    `.DS_Store`, `opensim.log` ve `veri/id_bone.sto` git-ignore'dadır.

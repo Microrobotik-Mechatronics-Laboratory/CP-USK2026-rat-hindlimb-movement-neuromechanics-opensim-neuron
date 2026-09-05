@@ -7,7 +7,7 @@
 # tutulmazsa her betikte tekrar hata uretir.
 #
 # KURAL 1 — yollar goreli olmak zorunda. NEURON'un HOC dizgi arayuzu ASCII disi karakter
-#   kabul etmiyor ("python string arg cannot decode into c_str"); bu deponun yolu Turkce
+#   kabul etmiyor ("python string arg cannot decode into c_str"); bu reponun yolu Turkce
 #   karakter iceriyor (.../USK26 - Sican arka bacak .../). Bu yuzden once os.chdir ile
 #   neuron/fig2_4_6 icine girilir, HOC'a yalniz goreli ad verilir. (DOGRULAMA N, olcum 4)
 #

@@ -25,10 +25,10 @@ bu klasör doğru kabul edilir.
 | `D4_igcik_afferent.md` | Kas iğciği ve Ia/II afferent yolu, ateşleme denklemleri, sıçan doğrulama bantları | 7 |
 | `D5_kas_iskelet.md` | 5 segment, 7 bacak serbestlik derecesi, 38 kasın eklem-işlev haritası, Hill kas-tendon birimi | 5 |
 | `D6_havuz_kas_eslesme.md` | 38 motonöron havuzu ile 38 kasın eşleşmesi ve resiprokal inhibisyon çiftleri | 6 |
-| `D7_yuruyus_zamanlama.md` | Salınım fazı zaman şeridi: bildirinin iddia ettiği sıra ile ölçülen sıra | 9 |
+| `D7_yuruyus_zamanlama.md` | Salınım fazı zaman çizelgesi: bildirinin iddia ettiği sıra ile ölçülen sıra | 9 |
 | `D8_veri_hatti_dogrulama.md` | İşlem hattı ve doğrulama haritası (hangi büyüklük hangi makaleye hangi bantla bağlı) | 12 |
 
-## İşaretleme sözleşmesi
+## İşaretleme kuralı
 
 Diyagramlarda ve tablolarda her bileşenin durumu şu etiketlerden biriyle verilir:
 

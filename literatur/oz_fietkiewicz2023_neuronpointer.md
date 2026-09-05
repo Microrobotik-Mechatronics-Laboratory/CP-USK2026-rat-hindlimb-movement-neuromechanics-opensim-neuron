@@ -1,6 +1,6 @@
 # Literatür özeti — Fietkiewicz 2023 (NEURON ile nöromekanik simülasyon eğitseli, pointer mimarisi)
 
-> Bu dosya makalenin **kayıplı sıkıştırmasıdır** — yerine geçmez. Amacı, makaleyi tekrar
+> Bu dosya makalenin **seçici özetidir** — yerine geçmez. Amacı, makaleyi tekrar
 > açmadan modelleme kararı verebilmektir.
 
 ## 1 · Künye ve sınıflandırma
@@ -9,7 +9,7 @@
 - **Başlık:** Tutorial: using NEURON for neuromechanical simulations
 - **Dergi / cilt / sayfa:** Frontiers in Computational Neuroscience 17:1143323 (yayın: 31 Temmuz 2023)
 - **DOI / PMC:** 10.3389/fncom.2023.1143323
-- **PDF:** `pdf/Tutorial_using_NEURON_for_neuromechanical_simulations.pdf` (depoya girmez)
+- **PDF:** `pdf/Tutorial_using_NEURON_for_neuromechanical_simulations.pdf` (repoya girmez)
 - **Özeti çıkaran / tarih:** Claude (özet taslağı) / 2026-09-05 — insan doğrulaması bekliyor
 
 - **Makale tipi:** yöntem/araç (eğitsel)
@@ -105,11 +105,11 @@ Pointer mimarisi NEURON'da nöral ve biyomekanik bileşenlerin ayrılmasını ve
 
 Bu makaleden sayısal doğrulama testi çıkmıyor (eğitsel; tüm sayılar örnek modellere özgü). Yöntemsel aday: **adım-yarılama yakınsama kontrolü** köprü testlerimize kural olarak eklenebilir — bu sayı değil süreç önerisidir, `referans_degerler.json`'a girmez.
 
-## 8 · Sıkıştırmada ne düştü
+## 8 · Özete alınmayanlar
 
 - Appendix 1.1–1.6 (Supplementary): tüm model denklemleri, Kim uyarlaması farkları, PointerBuilder aracı, solunum ve Aplysia tam denklemleri — okunmadı, ihtiyaç halinde ilk bakılacak yer.
 - Şekil 6, 11, 16, 22'nin eğri ayrıntıları; Şekil 2, 13, 14, 18, 19, 21'deki tam kod listeleri (özde yalnız desenleri alındı).
-- hoc/Python kod örneklerinin satır satır içeriği (depoda mevcut).
+- hoc/Python kod örneklerinin satır satır içeriği (repoda mevcut).
 - Giriş bölümündeki platform taraması (AnimatLab, NRP, MUSIC, NEUROiD, Dura-Bernal, Moraud, Volk atıfları).
 
 ## 9 · Açık sorular / doğrulanmayanlar

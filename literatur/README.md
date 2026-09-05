@@ -13,16 +13,16 @@ Bu klasör, projenin bilimsel iddialarının **dayandığı dış kaynakları** 
 | `diyagramlar/` | Modelin nöron-kas yapısını gösteren Mermaid diyagramları (D1–D8) — **diyagramların kaynağı burasıdır**, `PREPRINT.md`'ye kopyalanır |
 | `pdf/` | Makale PDF'leri — **git-ignore'dadır, commit edilmez** (telif) |
 
-## Yordam: bir makale nasıl eklenir
+## Adımlar: bir makale nasıl eklenir
 
-1. PDF'i `literatur/pdf/` altına koy (depoya girmez).
+1. PDF'i `literatur/pdf/` altına koy (repoya girmez).
 2. Makalenin özetini çıkar — `oz_SABLON.md`'yi `oz_<kisa_ad>.md` olarak kopyala ve doldur.
    Aşağıdaki istem bu iş için hazırdır.
 3. Kullanılacak her sayıyı `referans_degerler.json`'a bir kayıt olarak ekle: değer, birim,
    nereden alındığı (tablo/şekil numarası), **tolerans bandı ve gerekçesi**.
 4. Testi ancak bundan sonra yaz (`04_KURALLAR.md`: bant önce ilan edilir).
 
-## Özet çıkarma istemi (makaleyi Claude'a verirken kullan)
+## Özet çıkarma yönergesi (makaleyi Claude'a verirken kullan)
 
 > Aşağıdaki metni makale PDF'i ile birlikte ver. Amaç, makaleyi **bozmadan sıkıştırmak**;
 > yorum katmak değil.
@@ -41,7 +41,7 @@ Kurallar:
 - Bölüm 6 (bizimle çelişen bulgular) ZORUNLUDUR. Bu makalede aşağıdaki projeyle çelişen
   veya onu desteklemeyen ne varsa oraya yaz; hiçbir şey bulamadıysan ne aradığını yazarak
   "çelişki bulunamadı" de.
-- Bölüm 8'e (sıkıştırmada ne düştü) özete almadığın bölümleri, ek dosyaları ve atladığın
+- Bölüm 8'e (özete alınmayanlar) özete almadığın bölümleri, ek dosyaları ve atladığın
   şekilleri listele.
 - Yorum ile bulguyu karıştırma: makalenin dediği ile senin çıkarımın ayrı yazılsın
   (çıkarımı "varsayım:" veya "yorum:" diye işaretle).
