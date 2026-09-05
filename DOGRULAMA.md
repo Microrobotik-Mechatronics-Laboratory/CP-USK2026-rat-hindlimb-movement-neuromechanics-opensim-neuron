@@ -1,25 +1,39 @@
 # DOĞRULAMA KAYDI
 
-> **Konum notu (05.09.2026):** bu dosya `04_kapali_dongu/02_DOGRULAMA_KAYDI.md` iken depo köküne
-> `DOGRULAMA.md` olarak alındı. Aşağıdaki kayıtlar **tarihli ölçüm tutanaklarıdır ve
-> düzenlenmezler**; içlerinde geçen dosya adları yazıldıkları günün düzenine göredir. Bugünkü
-> karşılıkları: `kod/opensim/`, `kod/kapali_dongu/`, `veri/kapali_dongu/`, `sekiller/`,
-> `arsiv/` (aşılmış sürümler). Güncel klasör haritası: `README.md`.
+Bu dosya, projede kullanılan her sayının **bağımsız olarak nasıl ölçüldüğünü** kaydeder.
+Her bölüm bir ölçüm oturumudur ve tarihlidir. Bölümlerin düzeni: *ne ölçüldü · nasıl ölçüldü ·
+sonuç · üreten dosya*.
 
-**Ölçüm tarihi:** 27.07.2026
-**Nasıl ölçüldü:** `pip install opensim --break-system-packages` ile OpenSim **4.6** kuruldu. Depodaki scriptler (`build_osim.py`, `ma_validate.py`, `clean_ma.py`, `peak_ma.py`) çalıştırıldı. `rat_hindlimb_0.2.osim` dosyası XML olarak ayrıştırıldı. Johnson ve ark. 2008 tam metni PMC2322854'ten okundu.
+Kurallar:
 
-Aşağıdaki her satır bu oturumda ölçülmüştür. Devir dosyalarından taşınan hiçbir sayı doğrulanmış sayılmamıştır.
+- Kayıtlar **tarihli tutanaklardır ve sonradan içerik olarak düzenlenmezler**; yalnız terim ve
+  dil düzeltmesi yapılır (05.09.2026 terim denetimi).
+- Konum: bu dosya `04_kapali_dongu/02_DOGRULAMA_KAYDI.md` iken 05.09.2026'da repo köküne
+  `DOGRULAMA.md` olarak alındı.
+- İçlerinde geçen dosya adları yazıldıkları günün klasör düzenine göredir. Bugünkü karşılıkları:
+  `kod/opensim/`, `kod/kapali_dongu/`, `kod/kopru/`, `veri/kapali_dongu/`, `sekiller/`,
+  `arsiv/` (aşılmış sürümler). Güncel klasör haritası: `README.md`.
+- Bilimsel iddiaların kendisi `PREPRINT.md`'dedir; bu dosya onların kanıt tabanıdır.
 
 ---
 
 # A · Doğrulanan sayılar
 
+**Ölçüm tarihi:** 27.07.2026
+
+**Yöntem:** OpenSim **4.6** kuruldu (`pip install opensim --break-system-packages`). Repodaki
+betikler (`build_osim.py`, `ma_validate.py`, `clean_ma.py`, `peak_ma.py`) çalıştırıldı.
+`rat_hindlimb_0.2.osim` dosyası XML olarak ayrıştırıldı. Johnson ve ark. 2008 tam metni
+PMC2322854'ten okundu.
+
+Aşağıdaki her satır bu oturumda ölçülmüştür. Önceki oturumlardan gelen belgelerdeki hiçbir sayı
+doğrulanmış sayılmamıştır.
+
 | İddia | Ölçülen | Üreten |
 |---|---|---|
 | Quad diz moment kolu ≈ +3,7 mm | RF +3,70 · VL +3,73 · VI +3,72 · VM +3,70 | `ma_validate.py` |
 | Aynı sayı, ikinci yöntemle | RF +3,70 · VL +3,74 · VI +3,72 · VM +3,71 | `clean_ma.py` |
-| Semimembranosus ≈ −3,9 mm | −3,87 | her iki script |
+| Semimembranosus ≈ −3,9 mm | −3,87 | her iki betik |
 | Quad tepe değeri | 3,75 mm @ −117° | `peak_ma.py` |
 | Trot diz aralığı | −123,1° … −54,5° | `rat_trot.mot` |
 | Trot aralığında değişim | 0,47 mm (3,28 … 3,75) | `peak_ma.py` |
@@ -51,11 +65,13 @@ Aşağıdaki her satır bu oturumda ölçülmüştür. Devir dosyalarından taş
 
 # B · Bulunan hatalar
 
-## H1 — "Quad'da sarma atıldır" — YANLIŞ (en kritik)
+## H1 — "Quadriceps'te sarmanın etkisi yok" iddiası yanlış (en kritik)
 
-Devir belgesi Bölüm 5.1 ve `ACIKLAMA_yontem_farklar_dogrulama.docx` şunu yazıyor: *"sarma quad'da atıldır, kas yolu ~0,03 mm değişir"*, ve buna dayanarak *"yöntem Johnson'ın düz çizgisine indirgenir, bu yüzden sonuç güvenlidir"* diyor.
+Önceki oturumdan gelen belgenin bölüm 5.1'i ve `ACIKLAMA_yontem_farklar_dogrulama.docx` şunu
+yazıyor (alıntı): *"sarma quad'da atıldır, kas yolu ~0,03 mm değişir"*; buna dayanarak
+*"yöntem Johnson'ın düz çizgisine indirgenir, bu yüzden sonuç güvenlidir"* sonucuna varıyor.
 
-**Kapat-ve-bak testi (quad diz moment kolu, −120°, mm):**
+**Sarma kapatılarak yapılan karşılaştırma** (quad diz moment kolu, −120°, mm):
 
 | quad'ın sarmaları | RF | VL | VI | VM |
 |---|---|---|---|---|
@@ -64,7 +80,9 @@ Devir belgesi Bölüm 5.1 ve `ACIKLAMA_yontem_farklar_dogrulama.docx` şunu yaz�
 | yalnız `femur_dist` torus | +3,71 | +3,72 | +3,72 | +3,71 |
 | yalnız `femur_shaft_small` silindir | −0,68 | −1,18 | −0,61 | −0,99 |
 
-**Sonuç:** +3,7 mm'yi tek başına `femur_dist` WrapTorus üretiyor. Sarma olmadan quadriceps modelde **fleksör** oluyor (negatif işaret) ve moment kolu ~1 mm'ye düşüyor. Silindir diz moment koluna hiç karışmıyor.
+**Sonuç:** +3,7 mm'yi tek başına `femur_dist` WrapTorus üretiyor. Sarma olmadan quadriceps
+modelde **fleksör** oluyor (negatif işaret) ve moment kolu ~1 mm'ye düşüyor. Silindirin diz
+moment koluna katkısı yok.
 
 **Yarıçap taraması** — moment kolu torusun `inner_radius` alanına bağlı:
 
@@ -75,42 +93,59 @@ Devir belgesi Bölüm 5.1 ve `ACIKLAMA_yontem_farklar_dogrulama.docx` şunu yaz�
 | **4 mm (modeldeki)** | **3,71 mm** |
 | 5 mm | 4,02 mm |
 
-**0,03 mm nereden geldi:** `wrap.py` torus hesabı yapamıyor; torusun yerine merkezine 6 mm yarıçaplı bir küre koyuyor (yarıçapı `outer_radius` alanından alıyor). Quad çizgisi o merkezden 10,3 mm uzaktan geçiyor, yani küreye 4,3 mm boşlukla değmiyor. Temas bulunmayınca yol düz kalıyor ve iki uzunluk hesabı arasındaki fark 0,03 mm çıkıyor. **Bu sayı modelin değil, `wrap.py`'nin kendi ikamesinin ölçüsüdür.**
+**0,03 mm nereden geliyor:** `wrap.py` torus hesabı yapamıyor; torusun yerine merkezine 6 mm
+yarıçaplı bir küre koyuyor (yarıçapı `outer_radius` alanından alıyor). Quad çizgisi o merkezden
+10,3 mm uzaktan geçiyor, yani küreye 4,3 mm boşlukla değmiyor. Temas bulunmayınca yol düz kalıyor
+ve iki uzunluk hesabı arasındaki fark 0,03 mm çıkıyor. **Bu sayı modelin değil, `wrap.py`'nin
+kendi ikamesinin ölçüsüdür.**
 
-## H2 — "6 kemik" — YANLIŞ, doğrusu 5
+## H2 — "6 kemik" yanlış; doğrusu 5
 
-`.osim` dosyasında 6 `Body` var ama biri `ground` (kemik değil, sabit referans çerçevesi). Gerçek segmentler: spine, pelvis, femur, tibia, foot.
-Johnson da beş sayıyor: iğneler spine, hip, femur, tibia ve foot segmentlerine yerleştirilmiş.
+`.osim` dosyasında 6 `Body` var ama biri `ground` (kemik değil, sabit referans çerçevesi).
+Gerçek segmentler: spine, pelvis, femur, tibia, foot. Johnson da beş sayıyor: işaretleyici
+iğneler spine, hip, femur, tibia ve foot segmentlerine yerleştirilmiş.
 
-## H3 — "38 kas (Johnson ve ark., 2008)" — atıf yanlış
+## H3 — "38 kas (Johnson ve ark., 2008)" atfı yanlış
 
-Johnson makalesi **37 kas** modellendiğini yazıyor. Fark semitendinosus'tan: Johnson iki origin (accessory, primary) ama tek insertion veriyor; port bunu STa ve STp diye iki kas yapmış. 38, portun sayısıdır.
+Johnson makalesi **37 kas** modellendiğini yazıyor. Fark semitendinosus'tan geliyor: Johnson iki
+origin (accessory, primary) ama tek insertion veriyor; OpenSim aktarımı bunu STa ve STp diye iki
+kas yapmış. 38, aktarımın sayısıdır.
 
 ## H4 — "38 kasın tümü doğru anatomik bağlantılarla üretilmiştir" — kas yolu için savunulamaz
 
-Portta 38 kasın hepsi tam iki noktalı. Johnson ise Tablo 6'da quadriceps'in dört başı, TA, EDL, TP, FDL, FHL ve Peronei için birer **via point** kaydetmiş. Port, makalenin kas yolu topolojisini yeniden üretmiyor.
+Aktarılan modelde 38 kasın hepsi tam iki noktalıdır. Johnson ise Tablo 6'da quadriceps'in dört
+başı, TA, EDL, TP, FDL, FHL ve Peronei için birer **via point** kaydetmiştir. Aktarım, makalenin
+kas yolu topolojisini yeniden üretmiyor.
 
-Ek olarak koordinatlar birebir değil: portun quad insertion'ı tibia çerçevesinde (2,6 · 37,5 · 0,5) mm, Johnson'ınki (2,03 · 40,99 · 1,68) mm.
+Koordinatlar da birebir değil: aktarımın quad insertion'ı tibia çerçevesinde (2,6 · 37,5 · 0,5) mm,
+Johnson'ınki (2,03 · 40,99 · 1,68) mm.
 
-## H5 — "İki bağımsız yöntem" — bağımsız değil
+## H5 — "İki bağımsız yöntem" iddiası — yöntemler bağımsız değil
 
-`ma_validate.py` OpenSim'in `computeMomentArm` fonksiyonunu çağırıyor, `clean_ma.py` kas boyunu `getLength` ile alıp merkezi farkla türev alıyor. **İkisi de aynı kas yolunu ve aynı sarma motorunu kullanıyor.** Uyuşma türevin doğruluğunu gösterir, geometrinin doğruluğunu göstermez.
+`ma_validate.py` OpenSim'in `computeMomentArm` fonksiyonunu çağırıyor; `clean_ma.py` kas boyunu
+`getLength` ile alıp merkezi farkla türev alıyor. **İkisi de aynı kas yolunu ve aynı sarma
+motorunu kullanıyor.** Uyuşma türevin doğruluğunu gösterir, geometrinin doğruluğunu göstermez.
 
 ## H6 — Johnson'ın moment kolu tanımı farklı
 
-Özet `r = −dL/dθ` yazıyor. Johnson moment kolunu, kas etki doğrultusundaki birim vektör ile insertion'ın eklem merkezine göre yarıçap vektörünün dış çarpımı olarak tanımlıyor. Bu modelin dizinde eklem merkezi açıyla kaydığı için iki tanım aynı sayıyı vermek zorunda değil.
+Özet metni `r = −dL/dθ` yazıyor. Johnson moment kolunu, kas etki doğrultusundaki birim vektör ile
+insertion'ın eklem merkezine göre yarıçap vektörünün dış çarpımı olarak tanımlıyor. Bu modelin
+dizinde eklem merkezi açıyla kaydığı için iki tanımın aynı sayıyı vermesi zorunlu değildir.
 
 ## H7 — Lokomosyon penceresi Johnson'ınkiyle aynı değil
 
-Johnson'ın dörtayak lokomosyon diz aralığı **−110° … −60°**. Bu çalışmanın trot aralığı **−123° … −54°**, iki uçta da daha geniş. "Johnson'ın aralığında" denemez.
+Johnson'ın dörtayak lokomosyon diz aralığı **−110° … −60°**. Bu çalışmanın trot aralığı
+**−123° … −54°**, iki uçta da daha geniş. "Johnson'ın aralığında" denemez.
 
-## H8 — `ma_validate.py` çıktısındaki eklem aralığı sahte
+## H8 — `ma_validate.py` çıktısındaki eklem aralığı geçersiz
 
-Çıktı `knee_flx` aralığını ±572,96° gösteriyor. Sebep: `build_osim.py` koordinat aralıklarını `.osim`'den kopyalamıyor, yeniden kurulan modelde eklem limiti yok. Moment kolu hesabını bozmuyor ama yanıltıcı.
+Çıktı `knee_flx` aralığını ±572,96° gösteriyor. Sebep: `build_osim.py` koordinat aralıklarını
+`.osim`'den kopyalamıyor, yeniden kurulan modelde eklem sınırı yok. Moment kolu hesabını
+bozmuyor ama yanıltıcı.
 
-## H9 — "Sarma hamstringde moment kollarını güvenilmez kılıyor" — abartılı
+## H9 — "Sarma hamstringde moment kollarını güvenilmez kılıyor" iddiası abartılı
 
-Kapat-ve-bak testi (−120°, mm):
+Sarma kapatılarak yapılan karşılaştırma (−120°, mm):
 
 | kas | sarma açık | sarma kapalı | fark |
 |---|---|---|---|
@@ -121,15 +156,19 @@ Kapat-ve-bak testi (−120°, mm):
 | GP | −12,33 | −12,33 | 0,00 |
 | GA | −9,39 | −9,37 | −0,02 |
 
-STp'nin **yol uzunluğu** sarmayla 45,9 → 72,5 mm şişiyor (26,6 mm), ama **diz moment kolu** yalnız 0,18 mm oynuyor. Yol uzunluğu ile moment kolu ayrı büyüklüklerdir. Yol uzunluğu şişmesi Faz-2'de lif boyu ve Hill kuvveti için sorun yaratır; diz moment kolu için yaratmaz.
+STp'nin **yol uzunluğu** sarmayla 45,9 → 72,5 mm artıyor (26,6 mm), ama **diz moment kolu**
+yalnız 0,18 mm değişiyor. Yol uzunluğu ile moment kolu ayrı büyüklüklerdir. Yol uzunluğundaki
+artış Faz-2'de lif boyu ve Hill kuvveti için sorun yaratır; diz moment kolu için yaratmaz.
 
-**Bunun poster açısından değeri:** semimembranosus'un −3,87'si sarmadan tamamen bağımsızdır. Posterdeki en savunulabilir sayı budur.
+**Bunun poster açısından değeri:** semimembranosus'un −3,87 mm'si sarmadan tamamen bağımsızdır.
+Posterdeki en savunulabilir sayı budur.
 
 ---
 
 # C · Johnson'ın via point'i ile karşılaştırma
 
-Johnson Tablo 6'daki via point'ler bu modelin çerçevesine taşınıp sarma kapatılarak ölçüldü (port ile Johnson arasındaki insertion farkı kadar rijit kaydırma uygulandı).
+Johnson Tablo 6'daki via point'ler bu modelin çerçevesine taşınıp sarma kapatılarak ölçüldü
+(aktarım ile Johnson arasındaki insertion farkı kadar rijit kaydırma uygulandı).
 
 | | RF | VL | VI | VM |
 |---|---|---|---|---|
@@ -137,9 +176,12 @@ Johnson Tablo 6'daki via point'ler bu modelin çerçevesine taşınıp sarma kap
 | Johnson via point, sarma yok | +1,30 | +1,01 | +1,51 | +1,02 |
 | ikisi de yok | −0,65 | −1,18 | −0,61 | −0,97 |
 
-**Okunuşu:** Johnson'ın via point'i **işareti** düzeltiyor (dördü de pozitif, quadriceps ekstansör oluyor) ama büyüklüğü 1,0–1,5 mm'de bırakıyor ve **kümelenme kayboluyor** (1,01 ile 1,51 arası yayılıyor).
+**Okunuşu:** Johnson'ın via point'i **işareti** düzeltiyor (dördü de pozitif, quadriceps ekstansör
+oluyor) ama büyüklüğü 1,0–1,5 mm'de bırakıyor ve **kümelenme kayboluyor** (1,01 ile 1,51 arası
+yayılıyor).
 
-**Sonuç:** dört başın 0,03 mm içinde kümelenmesi torusun imzasıdır, anatominin bulgusu değildir. Dördü de aynı çemberin üstünden geçtiği için aynı yarıçapı alıyor.
+**Sonuç:** dört başın 0,03 mm içinde kümelenmesi torusun ürettiği yapay bir sonuçtur, anatomik
+bir bulgu değildir. Dördü de aynı çemberin üstünden geçtiği için aynı yarıçapı alıyor.
 
 **Uyarı:** bu taşıma kabadır. Yön göstergesi olarak güvenilir, kesin sayı olarak değil.
 
@@ -151,293 +193,557 @@ Johnson Tablo 6'daki via point'ler bu modelin çerçevesine taşınıp sarma kap
 |---|---|
 | Johnson Şekil 3'teki quad eğrisiyle karşılaştırma | **Yapılmadı.** Tek eksik geometri doğrulaması budur. |
 | OpenSim'in `WrapTorus` iç algoritması | Yeniden yazılmadı. Sonucun `inner_radius`'a bağlı olduğu ölçüldü, temas geometrisi çözülmedi. |
-| Fietkiewicz ve ark. 2023, 2025 atfı | **Bu oturumda doğrulanmadı.** Devir dosyasına göre 2025 bir bioRxiv ön baskısı ve gövdesi tek eklemli iki tendonlu bir MuJoCo modeli — yani buradaki yöntem değil. Sunumdan önce PDF açılıp kontrol edilecek. |
-| Johnson'ın 7 sıçanının hangi kısmının bu porta girdiği | Bilinmiyor. Portu yapan kişi belli değil. |
+| Fietkiewicz ve ark. 2023, 2025 atfı | **Bu oturumda doğrulanmadı.** Önceki oturumdan gelen belgeye göre 2025 bir bioRxiv ön baskısıdır ve gövdesi tek eklemli iki tendonlu bir MuJoCo modelidir — yani buradaki yöntem değildir. Sunumdan önce PDF açılıp kontrol edilecek. |
+| Johnson'ın 7 sıçanının hangi kısmının bu aktarıma girdiği | Bilinmiyor. Aktarımı yapan kişi belli değil. |
 
 ---
 
-# E · Muhtemel hakem soruları ve hazır cevaplar
+# E · Sorulabilecek sorular ve hazır cevaplar
 
 **"+3,7 mm nereden geliyor?"**
-Modelde quadriceps'in yolu iki noktalıdır. O yolu femurun distal ucundaki sarma yüzeyi öne iter ve moment kolu o yüzeyin yarıçapına oturur. Johnson aynı işi bir via point ile çözer; OpenSim portunda via point yoktur.
+Modelde quadriceps'in yolu iki noktalıdır. O yolu femurun distal ucundaki sarma yüzeyi öne iter
+ve moment kolu o yüzeyin yarıçapına oturur. Johnson aynı işi bir via point ile çözer; OpenSim
+aktarımında via point yoktur.
 
 **"Johnson'ın eğrisiyle karşılaştırdınız mı?"**
 Hayır. Yapılacak işler listesinde ilk sıradadır.
 
 **"İki bağımsız yöntemle doğruladık diyorsunuz, ne bağımsız?"**
-Türev alma yöntemleri bağımsızdır, kas yolu ve sarma motoru ortaktır. Uyuşma türevi doğrular, geometriyi doğrulamaz.
+Türev alma yöntemleri bağımsızdır; kas yolu ve sarma motoru ortaktır. Uyuşma türevi doğrular,
+geometriyi doğrulamaz.
 
 **"NEURON çıktısı nerede?"**
-Nöron modeli henüz yazılmadı. Özet metnindeki ifade kapsamı aşmaktadır.
+27.07.2026 itibarıyla nöron modeli henüz yazılmamıştı; özet metnindeki ifade o tarihte kapsamı
+aşıyordu. Bugünkü durum için bkz. bölüm N ve O.
 
 **"Ön uzuv nerede?"**
 Johnson ve ark. 2008 bir arka bacak modelidir. Sunum kapsamı arka bacakla sınırlıdır.
 
 **"Tırıs verisi nereden?"**
-Ayak yörüngesinden ters kinematikle üretilmiş belirlenmiş bir rekonstrüksiyondur. Ölçülmüş hayvan verisi değildir.
+Ayak yörüngesinden ters kinematikle üretilmiş belirlenmiş bir rekonstrüksiyondur. Ölçülmüş
+hayvan verisi değildir.
 
 **"Tek bacakla tırıs gösterilebilir mi?"**
-Hayır. Tırıs bacaklar arası eşgüdüm gerektirir. Halka açık model tek arka bacaktır; kapsam buna göre daraltılmıştır.
+Hayır. Tırıs bacaklar arası eşgüdüm gerektirir. Halka açık model tek arka bacaktır; kapsam buna
+göre daraltılmıştır.
 
 ---
 
-# F · Oturum 6 eki (1 Eylül 2026) — r_tamdongu_v3 II sütunu: belge-uygulama tutarsızlığı
+# F · 01.09.2026 — `r_tamdongu_v3` II sütunu: belge ile uygulama arasında tutarsızlık
 
-**Doğrusu ne olmalıydı:** 46_ §5b, II formülünü `f = 14,43·d + 21,25·sign(v)·|v|^0,358`
-diye belgeler. sign(v) fizyolojik olarak da doğru yöndür: iğcik, kas kısalırken ateşlemeyi
-AZALTIR; hız terimi kısalmada eksi katkı vermelidir.
+**Ne olması gerekiyordu:** 46_ §5b, II formülünü `f = 14,43·d + 21,25·sign(v)·|v|^0,358` diye
+belgeliyor. `sign(v)` fizyolojik olarak da doğru yöndür: iğcik, kas kısalırken ateşlemeyi
+azaltır; hız terimi kısalmada eksi katkı vermelidir.
 
-**Ölçülen:** r_tamdongu_v3.csv'nin II sütunu `f = 14,43·d + 21,25·|v|^0,358` (mutlak hız)
-ile üretilmiş — kısalma hızı da ateşlemeyi ARTIRIYOR. Kimlikleme: vincent_bicim_testi.py
-üç adayı (sign'lı ham / 0-kırpılmış / |v|) CSV'nin 10 bilinen değerine karşı koştu;
-yalnız |v| adayı tuttu (maks fark 0,0005; sign adayları 126,3 / 76,1). Ia sütunu belgeyle
-tutarlı (maks fark 0,0005).
+**Ölçülen:** `r_tamdongu_v3.csv`'nin II sütunu `f = 14,43·d + 21,25·|v|^0,358` (mutlak hız) ile
+üretilmiş — yani kısalma hızı da ateşlemeyi artırıyor. Belirleme yöntemi: `vincent_bicim_testi.py`
+üç adayı (sign'lı ham / 0-kırpılmış / |v|) CSV'nin 10 bilinen değerine karşı koşturdu; yalnız |v|
+adayı tuttu (maksimum fark 0,0005; sign adaylarında 126,3 ve 76,1). Ia sütunu belgeyle tutarlıdır
+(maksimum fark 0,0005).
 
-**Etki ölçümü (bileşeni değiştirip sayıyı yeniden alma):** Vincent biçim sınamasında
-Ia/II derinlik oranı medyanı |v| biçimiyle 2,431, sign biçimiyle 2,148 (hedef 2,544) —
-sınama iki biçimde de geçer, bulgu Oturum 6 sonucunu devirmez. Ama v3'ün II eğrilerinin
-salınım-kısalma fazındaki yüksek değerleri bu tutarsızlığın ürünüdür; Faz 3'te II'yi devre
-girdisi yapmadan önce karar gerekir (belgeyi mi uygulamaya, uygulamayı mı belgeye uydurmalı —
-karar Deniz'in; çekirdek-dokunulmazlık kuralı gereği CSV kendiliğinden değiştirilmedi).
-**Oturum 7 kapanışı:** r_tamdongu_v3.1 [r31_uret.py] belgeyle uyumlu sign(v) biçimini resmîleştirdi;
-bu oturumda pipeline canlı kurulup r_tamdongu_v3.1 Deniz'in yüklediği CSV ile 0 farkla yeniden üretildi;
-biçim sınaması medyan 2,148, 35/35 bandda. Karar KAPANDI.
+**Etki ölçümü (bileşen değiştirilip sayı yeniden alındı):** Vincent biçim sınamasında Ia/II
+derinlik oranı medyanı |v| biçimiyle 2,431, sign biçimiyle 2,148 (hedef 2,544) — sınama iki
+biçimde de geçiyor, bulgu Oturum 6 sonucunu geçersizleştirmiyor. Ancak v3'ün II eğrilerinin
+salınım-kısalma fazındaki yüksek değerleri bu tutarsızlığın ürünüdür; Faz 3'te II devre girdisi
+yapılmadan önce karar gerekir (belge mi uygulamaya, uygulama mı belgeye uydurulacak). Çekirdek
+dosyaya dokunulmazlık kuralı gereği CSV kendiliğinden değiştirilmedi.
 
----
-
-# G · Oturum 7 eki (1 Eylül 2026) — Varejão gerilimi yeniden değerlendirmesi + pipeline canlı doğrulama
-
-**Bu oturumda ortam:** OpenSim 4.6 bu container'a kuruldu; çekirdek (faz1a.osim, smooth.mot, u_swing_v2)
-+ JSON'lar projeden indirildi; rt_ara sahneden yeniden üretildi. 49_ zorunlu salınım kapısı:
-`u_stance_pipeline` u_swing_v2'yi **medyan 0,0174** farkla yeniden üretti (49_/50_ hedefiyle birebir;
-maks 0,0401 @ %87,5 FDL). Sonra u_stance_v5, r_tamdongu_v3.1, ib_drive_v3 canlı koşuldu ve Deniz'in
-yüklediği CSV'lerle **maks fark 0** (byte düzeyinde aynı). Yani aşağıdaki geometri canlı, doğrulanmış sahneden.
-Üreten: `geo_varejao.py` (+ cop_direct_v1.json, cop_dienes.json).
-
-**Terim:** s = CoP'nin ayak ekseni üzerindeki kesirli konumu; s=0 topuk istasyonu (V_CAL, calcaneus),
-s=1 parmak istasyonu (V_TOE). Bu eksende — geo_varejao.py'nin x-izdüşümüyle doğrulandı — MTP eklemi
-s=0,674, yük yastığı (digital pad) s≈0,64–0,69 (Greene B19).
-
-**Doğrusu ne olmalıydı:** Sıçan digitigrad yürür; yükü ayağın ön ucundaki metatars/parmak yastığı taşır.
-O zaman stance boyunca CoP ayak ekseninde ileride, yastık/MTP dolayında (s≈0,66+) olmalı. Varejão ilk
-temasın parmakla olduğunu bildiriyorsa, temas anında CoP distal (yüksek s) beklenir.
-
-**Ölçülen (doğrudan CoP, cop_direct_v1.json + geo_varejao.py):**
-- İlk temas (%0): CoP s = **0,376** (marker±2mm/ölçek bandı 0,341–0,428). Bilek ayak ekseninde s=0,173'te;
-  CoP bileğin 6,0 mm önünde. Yastık s=0,665; CoP yastığın **0,289 gerisinde** (orta-metatars). Üst-bant
-  (en distal tahmin) s=0,428 bile yastığın 0,212 gerisinde → okuma "yastık değil" sonucuna dayanıklı.
-- Erken/orta stance: s %0→33 arası 0,38→0,55 (orta-ayak); yastığa (s≈0,66) ancak %36'da ulaşıyor.
-- %39 sonrası s KARARSIZ (0,93 → 2,43 → negatif): ayak dikleşiyor (topuk→parmak eğimi %0 −28° → %42 −87°),
-  yatay açıklık xt−xh 30 mm → %36'da 9 mm → %42'de 1,7 mm → payda sıfıra gidiyor. Bu, cop_dienes'in
-  "%62 sonrası güvenilmez" bayrağıyla AYNI sebep (payda→0). Erken stance (%0–33) bu rejimin dışında, s sağlam.
-- Türetilmiş CoP (cop_dienes.json) karşılaştırma: erken/orta stance s=0,49–0,58 (orta-ayak); ilk %5 NaN
-  (hesaplanamıyordu — B23'ün "doğrudan çelişki kanıtlanamaz" kaydının sebebi).
-
-**Bulgu:** faz_is_plani_v4 karnesindeki Varejão kartı "doğrudan CoP %0'da parmak bölgesini gösteriyor →
-gerilim büyük olasılıkla türetmenin erken-stance zayıflığından" diyor. Bu cümle **verisiyle tutmuyor**:
-doğrudan CoP %0'da parmak/yastık değil, orta-metatarsta (s=0,376); türetilmiş CoP'nin orta-ayak konumunu
-tekrarlıyor, parmağa taşımıyor. Kartın kendisi zaten "henüz YAPILMADI" diyordu — o cümle koşulmadan yazılmış
-bir beklentiydi. Gerilim ÇÖZÜLMEDİ.
-
-**Ne yeni doğrulandı (türetmenin yapamadığı):** doğrudan CoP ilk kez %0'ı verdiği için (türetmede NaN'dı),
-ilk temasta yükün bileğin önünde ve topuğun yüksüz olduğu artık %0'da gösterilebiliyor — İYİ kartının
-"digitigrad duruş kendiliğinden" cümlesi GÜÇLENDİ (%0'a genişledi). Bu, Varejão'dan ayrı bir iddiadır ve sağlamdır.
-
-**Derinlik (gerilim kısmen kategori karışıklığı):** Varejão KİNEMATİK bir temas olayını ölçer (hangi parça
-önce yere değiyor). Model CoP KİNETİK bir büyüklüktür (yük binince bileşke kuvvet nerede). Parmaklar önce
-değip neredeyse sıfır yük taşırken, yük metatarsa binerken CoP metatars altında olabilir — ikisi zorunlu
-çelişki değil. Kalan gerçek soru dar: CoP digitigrad bir sıçana göre fazla mı proksimal (yastığın 0,29 gerisi)?
-Bu proksimal sapmanın baş şüphelisi z_a/ρ ölçek varsayımları (B23) + Fig 4'ün tek-tipik-adım olması (24 hayvan
-ortalaması değil), gerilimin "çözülmesi" değil.
-
-**Doğrulanmadı (bu oturumda):** Varejão'nun kendi ölçümü birincil kaynaktan görülmedi — makale proje
-dosya listesinde o adla yok; "parmak-önce temas" oturum kaydından (47_ B16/B23) alınan nitel ifadedir.
-Varejão'nun temas kinematiğini sayıyla sabitlemek makaleyi ister.
-
-**Karne önerisi (Deniz onayına):** Varejão satırı KARIŞIK kalır; "parmak bölgesini gösteriyor → çözüldü"
-cümlesi çıkar; yerine: *"Doğrudan CoP ilk temasta bileğin 6 mm önünde ama yük yastığının proksimalinde
-(s≈0,38; bant 0,34–0,43). Digitigrad/topuk-yüksüz duruş doğrulanır (İYİ). Parmak-önce temas ile orta-ayak
-CoP kısmen kinematik–kinetik ayrımıdır; kalan proksimal sapma z/ρ ölçek bandına bağlı açık sınır. Geç-stance
-s'i ayak dikleşmesiyle (%39+) tanımsız."*
+**Kapanış (Oturum 7):** `r_tamdongu_v3.1` [`r31_uret.py`] belgeyle uyumlu `sign(v)` biçimini
+resmîleştirdi. Aynı oturumda işlem hattı canlı kurulup `r_tamdongu_v3.1` yüklenen CSV ile 0 farkla
+yeniden üretildi; biçim sınaması medyan 2,148, 35/35 bandda. Karar kapandı.
 
 ---
 
-# H · Oturum 7 eki (1 Eylül 2026) — Arka bacak KAPALI DÖNGÜ yürüyüş
+# G · 01.09.2026 — Varejão gerilimi ve işlem hattının canlı doğrulaması
 
-**Ortam:** §G ile aynı canlı, doğrulanmış sahne (pipeline u_swing_v2'yi medyan 0,0174 farkla; v5 / r_tamdongu_v3.1 / ib_drive_v3'ü Deniz'in CSV'leriyle 0 farkla yeniden üretti). Kapalı döngü bu sahnenin üstüne kuruldu.
+**Çalışma ortamı:** OpenSim 4.6 bu ortama kuruldu; çekirdek dosyalar (`faz1a.osim`, `smooth.mot`,
+`u_swing_v2`) ve JSON girdileri projeden indirildi; `rt_ara` yeniden üretildi.
 
-**Soru:** Arka bacağın tamamı (yalnız bilek değil), farklı hızlarda, u(t) ve r(t) canlıyken yürüyen bir KAPALI döngü üretilebilir mi?
+**Zorunlu salınım kontrolü (49_):** `u_stance_pipeline` `u_swing_v2`'yi **medyan 0,0174** farkla
+yeniden üretti (49_/50_ hedefiyle birebir; maksimum 0,0401 @ %87,5 FDL). Ardından `u_stance_v5`,
+`r_tamdongu_v3.1` ve `ib_drive_v3` canlı koşuldu ve yüklenen CSV'lerle **maksimum fark 0**
+(bayt düzeyinde aynı). Aşağıdaki geometri bu doğrulanmış ortamdan gelmektedir.
+Üreten: `geo_varejao.py` (+ `cop_direct_v1.json`, `cop_dienes.json`).
 
-**Zincir (tek doğrusal hat):** CPG faz φ̇=ω → ileri-besleme u_ff(φ) [SO v5 + swing v2, resmî deliverable] her kasa dağılır → aktivasyon dinamiği a(t) → Hill kuvveti F = a·Fmax·fL·fV·cosα → moment kolu r(q) ile eklem torku → çok-cisim ileri dinamiği (kalça+diz+bilek fleksiyonu) → hareket → kas boyu/hızı → iğcik r(t) [Ia/II] → refleks servo Δu = G·(r − r_ref(φ)) → u'ya geri. Döngü kapanır. Hız ω çevrilince aynı örüntü hızlanır, refleks farkı kapatır.
+**Tanım:** s = basınç merkezinin (CoP) ayak ekseni üzerindeki kesirli konumu; s = 0 topuk
+istasyonu (V_CAL, calcaneus), s = 1 parmak istasyonu (V_TOE). Bu eksende — `geo_varejao.py`'nin
+x-izdüşümüyle doğrulandı — MTP eklemi s = 0,674, yük yastığı (digital pad) s ≈ 0,64–0,69
+(Greene B19).
 
-**Dört doğrulama kapısı (her sayının yanında üreten dosya):**
+**Beklenti:** sıçan digitigrad yürür; yükü ayağın ön ucundaki metatars/parmak yastığı taşır. Buna
+göre stance boyunca CoP ayak ekseninde ileride, yastık/MTP dolayında (s ≈ 0,66+) olmalıdır.
+Varejão ilk temasın parmakla olduğunu bildiriyorsa, temas anında CoP distal (yüksek s) beklenir.
 
-**Gate 1 — çok-cisim dinamiği** [`gate1_dyn.py`]: OpenSim M(q) (`calcM`) + bias b = `IDSolver.solve(·, u̇=0)` çıkarıldı; L=[hip_flx, knee_flx, ankle_flx] alt-sistemi partition edildi (q̈_L = M_LL⁻¹(τ_L − b_L − M_LP·q̈_P)). Kimlik M·q̈+b=τ_full artığı **2,2e-16** (5 fazda); partition q̈_L yeniden-üretim hatası **≤4,1e-13 rad/s²**. Referans ROM: kalça 56,4° · diz 32,1° · bilek 33,5° (gerçek yürüyüş genlikleri).
+**Ölçülen (doğrudan CoP; `cop_direct_v1.json` + `geo_varejao.py`):**
 
-**Gate 2 — kas modeli tutarlılığı** [`gate2_ref.py` → `cl_ref.npz`]: (a) OpenSim lm0 == rt_ara lm **5,2e-15 m**; (b) lif hızı kimliği vlm = −Σ_k r_k·(lmt−tsl)/lm·q̇_k (OpenSim sonlu-farkıyla ~1e-12; rt_ara ile medyan **2,2e-6 m/s**, tek sapma CF %72'de wrapping artefaktı); (c) τ_ID(pipeline TAU) == τ_full(IDSolver) bacak DOF **1,0e-3 N·m**.
+- İlk temas (%0): CoP s = **0,376** (marker ±2 mm / ölçek bandı 0,341–0,428). Bilek ayak
+  ekseninde s = 0,173'te; CoP bileğin 6,0 mm önünde. Yastık s = 0,665; CoP yastığın **0,289
+  gerisinde** (orta-metatars). Üst bant (en distal tahmin) s = 0,428 bile yastığın 0,212
+  gerisindedir; okuma "yastık değil" sonucuna dayanıklıdır.
+- Erken/orta stance: s, %0→33 arasında 0,38→0,55 (orta-ayak); yastığa (s ≈ 0,66) ancak %36'da
+  ulaşıyor.
+- %39 sonrası s kararsız (0,93 → 2,43 → negatif): ayak dikleşiyor (topuk→parmak eğimi %0'da
+  −28°, %42'de −87°), yatay açıklık x_t − x_h 30 mm → %36'da 9 mm → %42'de 1,7 mm; payda sıfıra
+  gidiyor. Bu, `cop_dienes`'in "%62 sonrası güvenilmez" uyarısıyla aynı sebeptir. Erken stance
+  (%0–33) bu rejimin dışındadır ve s sağlamdır.
+- Türetilmiş CoP (`cop_dienes.json`) ile karşılaştırma: erken/orta stance s = 0,49–0,58
+  (orta-ayak); ilk %5 NaN (hesaplanamıyordu — B23'ün "doğrudan çelişki kanıtlanamaz" kaydının
+  sebebi budur).
 
-**BULGU (d) — 38 kaslık küme gereken torkun son ~%10-12'sini karşılamıyor:** ileri-besleme u_ff'nin (referans boy/hızda) ürettiği kas torku, gereken torktan (τ_ID − Q) tepede sapıyor: hip **%12,4** (maks 2,86e-3), knee **%11,2** (4,07e-3), ankle **%10,1** (9,22e-4 N·m); rms ~6e-4. Doğrusu: bu sapma SO'nun reserve payıdır — çözüm min Σa² + W·Σrezerv² (W=1e6) torkun son ~%10'unu 38 kasla kapatamayıp reserve aktüatöre bırakır. İki yol sınandı: reserve'i "trim" olarak feedforward torka eklemek, ya da refleksin kapatması — ikisi de yürüyor (Gate 3).
+**Bulgu:** `faz_is_plani_v4` değerlendirme tablosundaki Varejão satırı, "doğrudan CoP %0'da parmak
+bölgesini gösteriyor → gerilim büyük olasılıkla türetmenin erken-stance zayıflığından" diyordu.
+Bu ifade **veriyle tutmuyor**: doğrudan CoP %0'da parmak/yastıkta değil, orta-metatarsta
+(s = 0,376); türetilmiş CoP'nin orta-ayak konumunu tekrarlıyor, parmağa taşımıyor. Satırın kendisi
+zaten "henüz yapılmadı" diyordu; o cümle ölçüm yapılmadan yazılmış bir beklentiydi. Gerilim
+çözülmedi.
 
-**Gate 3 — refleks kapanışı işlevsel** [`cl_sim2.py`, `gate3_test.py`]: kazanç taraması GIa=0,004 GII=0,005 (GIb=0) kararlı izleme verdi: kalça **0,8°** · diz **1,5°** · bilek **3,3°** RMS sapma. YÜKSEK kazanç TERSİNE kararsızlaştırır (GIa=0,01 → 9-30° sapma, bilek klempe çarpar) — fizyolojik düşük-kazanç bandı.
-- **Refleks GEREKLİ (kapat-ve-bak):** kapalı → 26/24/34° ıraksar; açık → 0,8/1,5/3,3° izler.
-- **Reserve trim OLMADAN da izler:** 1,3/1,4/3,8° — geri besleme %10 reserve'i kapatır.
-- **Limit-çevrim:** her eklem ~11° kaydırılmış bozuk başlangıç TEK çevrimde 0,8/1,5/3,3°'ye yakınsar (çekim havzası var → gerçek limit-çevrim).
-- **Bozucu reddi:** bileğe 30 ms +0,004 N·m tork; refleks açık bozucu-sonrası çevrimde 3,0°'ye toparlar, kapalı 34°'de kalır.
+**Yeni doğrulanan (türetmenin veremediği):** doğrudan CoP ilk kez %0'ı verdiği için (türetmede
+NaN'dı), ilk temasta yükün bileğin önünde ve topuğun yüksüz olduğu artık %0'da gösterilebiliyor.
+"Digitigrad duruş kendiliğinden ortaya çıkıyor" iddiası %0'a genişledi. Bu, Varejão'dan ayrı bir
+iddiadır ve sağlamdır.
 
-**Gate 4 — değişken hız** [`cl_teslim.py` → `cl_kapali_dongu.npz` / `.png`]: aynı merkezî örüntü ω-ölçekli, periyot **0,553 / 0,387 / 0,276 s** (0,7× / 1,0× / 1,4×). Bilek ROM hızla değişiyor (yavaş −14…33°, nominal −6…29°, hızlı −2…22°) — aynı merkezî sürüş yüksek hızda farklı kinematik verir, geri besleme düzenler. **Tırıs YOK**, hepsi walk. u(t) 0-0,9 (aktivasyon 0-0,65, excitation doygunluğu %0); r(t) Ia_Sol 30-223 pps, II_Sol 0-135 pps (Vincent/Blum bandı).
+**Değerlendirme (gerilim kısmen kategori farkından):** Varejão **kinematik** bir temas olayını
+ölçer (hangi parça önce yere değiyor). Model CoP'si **kinetik** bir büyüklüktür (yük binince
+bileşke kuvvet nerede). Parmaklar önce değip neredeyse sıfır yük taşırken yük metatarsa binerse
+CoP metatars altında olabilir; ikisi zorunlu olarak çelişmez. Kalan gerçek soru dardır: CoP,
+digitigrad bir sıçana göre fazla mı proksimal (yastığın 0,29 gerisi)? Bu proksimal sapmanın baş
+nedeni z_a/ρ ölçek varsayımları (B23) ve Şekil 4'ün tek tipik adım olmasıdır (24 hayvan ortalaması
+değil). Bu, gerilimin çözülmesi anlamına gelmez.
 
-**Dürüst indirgemeler (kapsam sınırı):**
-1. Gövde-yer teması ve denge YOK. Leğen (sacrum 6-DOF) + küçük frontal/rotasyon DOF'ları (hip_add, hip_int, ankle_add, ankle_int, sacroiliac_flx) ölçülmüş referansı izler. İleri-dinamik olan, yürüyüşü yapan sagittal kalça+diz+bilek zinciridir.
-2. Stance yükü ölçülmüş Lewis GRF'sinden prescribe edilir (Q_GRF, faz-indeksli, swing'de sıfır) — döngüden ÇIKMAZ, dışarıdan verilir. Tek prescribe edilen dış terim.
-3. CPG sabit-hızlı faz osilatörüdür (φ̇=ω); ritim henüz duyusal modüle edilmez (stance→swing yük/Ib-kapılı değil). Döngü UZUV hareketinde kapalı, RİTİMDE değil.
-4. Mimari ileri-besleme + geri besleme (servo): merkezî sürüş = SO u(t); refleks = Ia/II sapma servosu. Otonom CPG (örüntüyü sıfırdan üreten) değil.
-5. Bacak geometrisi referans-faza tablolu: r0(φ) sabit alınır (Δq_leg ile değişimi ihmal); lm bacak sapmasıyla momentkolu kimliğinden güncellenir. Küçük-sapma birinci-mertebe yaklaşımı; sapma qref±0,6 rad'da klemplenir.
+**Doğrulanmadı:** Varejão'nun kendi ölçümü birincil kaynaktan görülmedi — makale proje dosya
+listesinde o adla yok; "parmak-önce temas" ifadesi oturum kaydından (47_ B16/B23) alınan nitel
+bir aktarımdır. Temas kinematiğini sayıyla sabitlemek makaleyi gerektirir.
 
-**Ne KANITLANDI:** r(t), kararlı bütün-bacak yürüyüşü için GEREKLİ (kapatınca ıraksar) ve dış bozucuyu reddediyor; u(t) ve r(t) döngüde canlı; hız ω ile değişiyor, tırıs gerekmez. Bu, "bir şekilde yürüyen kapalı döngü"nün UZUV-DÜZEYİ kanıtıdır.
-
-**Kalan iş:** (1) duyusal ritim — Ib/yük ile stance→swing kapısı, ritmi de kapat; (2) gövde ilerlemesi / yer teması modeli (gerçek lokomosyon, tek prescribe terimi kaldır); (3) otonom CPG — örüntüyü feedback'ten üret, u_ff bağımlılığını azalt.
-
----
-
-# I · Oturum 7 eki (1 Eylül 2026) — EMERGENT (referanssız) kapalı döngü yürüyüş
-
-**Soru (Deniz):** Ölçülmüş referansı izleyen değil, sürüşü anatomiden, ritmi duyudan, yükü gerçek yer temasından gelen, kendi kendine yürüyen bir kapalı döngü. "Yüzde yüz olmayacağını biliyorum (OpenSim, sabit ayak, iğcik-verisi yetersizliği, kaslar) — yapabildiğimizin en iyisi olsun."
-
-**Yaklaşım (§H'den fark):** §H'de üç şey ölçümden geliyordu (sürüş=SO u(t), ritim=sabit saat, hedef=referans q). Üçü de söküldü. Sürüş = **anatomik sinerji** (stance: kalça ekstansör + quad; swing: kalça fleksör), gruplar moment kolu işaretinden [stage1_analiz.py]. Ritim = **kalça-açısı sonlu-durum denetleyici** (stance→swing kalça ekstansiyon eşiğinde; kedi/rat lokomosyonunda faz değişkeni kalçadır). Yük = **gerçek ayak-yer teması** (parmak istasyonu yer düzlemine inince yay-sönüm, Q=F·∂p/∂q ile eklem torkuna). Referans servo YOK.
-
-**Altyapı:** bacak artık ölçülmüş yol etrafında kalmadığı için geometri/dinamik referans-fazına göre değil, **kalça×diz×bilek 3B ızgarasında** tablolandı [stage0_grid.py → cl_grid3d.npz, 13³=2197 nokta, 36 s]: her nokta için moment kolu R[3][38], lif boyu, M_leg[3][3], yerçekimi bias, ayak istasyonu dünya konumu. Canlı trilineer interpolasyon.
-
-**Ne EMERGENT çıktı (kilitli config, cl_emergent.py; cl_emergent.npz/.png):**
-- Kalça kendiliğinden salınıyor: **21°..58°** (genlik 37°), temiz ve tekrarlı.
-- Diz referans bandında eşlik ediyor: **−123°..−107°** (quad iki fazda tutar; ~15° salınım), limitten uzak, kararlı.
-- **Kapalı kalça-diz limit-çevrimi** (faz-portresi kapalı halka → gerçek çekici).
-- Ritim duyusaldan doğuyor: kadans **3,3 Hz** (periyot 0,30 s), stance oranı **0,64** (walk).
-- Gerçek ayak teması: kuvvet **0,44–1,18 N**, stance boyunca modüle.
-- u(t) canlı, fazlı sinerji örüntüsü; r(t) canlı — hareketli kasların (kalça-ekst SM, diz-ekst VL) Ia/II'si çevrim boyunca modüle oluyor.
-- **Değişken hız SÜRÜŞ YOĞUNLUĞUNDAN** doğuyor (saat değil): kalça sürüşü ×0,85 / ×1,0 / ×1,15 → **3,0 / 3,3 / 3,6 Hz**. Hayvan gibi: daha çok itki → daha hızlı adım.
-
-**Ne TUTULUYOR / sınır (dürüst):**
-1. **Ayak −35°'de (plantarfleksiyon grid limiti) çakılı, dinamik değil.** İndirgenmiş model bu hafif, iğcik-verisi zayıf eklemi kaslardan kararlı süremiyor: açık-döngü ko-kontraksiyon bir limite kayıyor, pozitif uzunluk (II) refleksi yüksek kazançta kararsızlaştırıyor, PD temas torkuyla eziliyor. Ayak plantarfleksiyonda (digitigrad, toe-down) tutulur — temas sağlar ama havada-swing (aerial clearance) yoktur; ayak çevrimin çoğunda yüklü (yürüyüş değil, "yerinde adım / koşu bandı sürtme" kinematiği).
-2. **Biçim-topolojisi bulgusu:** modelde TEMIZ diz fleksörü yok — diz fleksörleri (STa/STp/BFp/GP) aynı zamanda kalça ekstansörü. Swing'de aktif diz fleksiyonu kalça fleksiyonunu baltalar; bu yüzden diz aktif bükülemedi, quad'la TUTULDU. Bu Johnson portunun via-point'siz iki-noktalı yollarının (H4) dinamik sonucudur.
-3. **Afferent büyüklükleri model ekstrapolasyonu:** SM Ia tepe ~600 pps çıkıyor (kalça çok gerildiği için); Blum/Vincent fit aralığının (≤~250 pps) ötesi. Yön doğru, mutlak değer güvenilmez.
-4. **Distal limit-çevrim yalnız marjinal kararlı:** kilitli config 6 s boyunca kararlı, ama küçük parametre değişimi çöküşe (hip/knee/ankle köşe limitlerine) atlatıyor. Tam kararlı bir distal çekici bu indirgenmiş modelde (gerçek temas mekaniği yok, sabit ayak, hafif segmentler) YOK. Bu bir bulgu, gizlenen bir başarısızlık değil.
-
-**Karşılaştırma:** §H'nin referans-tabanlı döngüsü fizyolojik olarak sadık ve sağlam kararlı tam-bacak kapalı döngüdür (kalça+diz+bilek izler, refleks gerekli, bozucu reddi). §I emergent döngü referans-sadakatini özerklikle değiştirir ve indirgenmiş modelin sınırına dayanır: kalça+diz+ritim+yük emergent, ayak tutulu. İkisi projenin iki ucudur — biri sadık, biri özerk.
-
-**Kalan iş (özerkliği ilerletmek):** gerçek çok-cisim temas + gövde ağırlığı desteği (sabit-ayak/hafif-eklem sorununu kaldırır); modele temiz diz fleksörü (kısa-baş biceps) + via-point eklemek (aktif swing diz fleksiyonu); iğcik fitini fizyolojik aralıkta doyurmak (SM Ia patlamasını önler); optimizasyon-tabanlı kazanç ayarı (elle ayarın kırılganlığını aşar).
-
-**Dosyalar:** `stage0_grid.py` (3B ızgara), `stage1_analiz.py` (sinerji/rol çıkarımı), `cl_emergent.py` (emergent çekirdek: FSM+sinerji+temas+refleks), `cl_emergent_teslim.py` (teslim koşusu+şekil), `cl_emergent.png/.npz`.
-
----
-
-# J · Oturum 7 eki (1 Eylül 2026) — Ayak/diz model doğrulaması (PCSA + fleksör anatomisi)
-
-**Bağlam:** Emergent döngüde ayak plantarfleksiyon limitine çakılıyordu; "model hatası mı, kontrol hatası mı" sorusunu Deniz'in yüklediği birincil kaynağa (Scaling of muscle architecture and fiber types in the rat hindlimb, Tablo 1–2) karşı sınadım.
-
-**Check 1 — kas kuvvetleri (Fmax) DOĞRU, birincil kaynakla tutarlı.** Model Fmax'ini Tablo 1 PCSA'sına böldüm; özgül gerilim σ=Fmax/PCSA **19 kasta medyan 20,8 N/cm² (std 3,5)** — neredeyse sabit. Yani faz1a.osim'in Fmax'i tam olarak bu tablodan σ≈20,8 ile türetilmiş. (Tek görünür sapma Per σ=36; sebebi modeldeki Per'in PerL+PerB birleşimi olması, 0,19+0,14=0,33 alınınca σ=20,7.) Üreten: `kas_par`/`cl_grid3d` Fmax vs Tablo 1.
-- Bu §A'daki "build_osim.py 10 N yer tutucu koyuyor" endişesini KAPATIR: çalıştığım faz1a.osim yer tutucu değil, gerçek PCSA-türevi Fmax kullanıyor, doğrulandı.
-- Ayak: Sol Fmax **1,34 N DOĞRU** (PCSA 0,07 = en küçük plantarfleksör; Tablo 2: %80 tip I, yavaş postural kas). Plantarfleksör/dorsifleksör baskınlığı: oran kas kümesine bağlı — PCSA {Sol,MG,LG,Pla}/{TA,EDL,PerL,PerB}=**1,80**; kod-alt-kümesi {Sol,MG,LG}/{TA,EDL}=**2,48**; tam anatomi Fmax≈**2,61**; tork-kapasite (Fmax×momentkolu)≈**2,78**. [ERRATUM: bu satır ilk yazımda "2,18" diyordu — tutarsız bir alt-kümeydi; denetim (Oturum 7b, §K) düzeltti. Yön aynı, ama baskınlık ~2,5-2,8, yani bilek problemi buradaki çerçevelemeden BİRAZ DAHA ZOR.]
-- **Sonuç:** emergent döngüde ayağın plantarfleksiyona çökmesi MODEL HATASI DEĞİL. Denetleyicim dorsifleksöre, 2,2× güçlü plantarfleksörü dengeleyecek orantılı sürüş vermedi (kontrol-tarafı hata). Kazanç optimizasyonuyla düzelir; modele dokunmaya gerek yok.
-
-**Check 2 — temiz (monoartiküler) diz fleksörü: modelde yok, ve sıçanda da muhtemelen yok.** Modelin bütün diz fleksörleri biartiküler (BFp hip−10,7/knee−13,8; STa −12,8/−15,6; STp −7,6/−15,2; GP −14,9/−12,4 mm); BFa üç eklemde de momentkolu ~0 (işlevsiz); Pop knee −1,6 (küçük). Tablo 1 biceps femoris'i **tek** kas olarak listeliyor (biartiküler hamstring, 2670 mg, en büyük); ayrı bir monoartiküler diz fleksörü yok. "Knee flexors" grubu biartiküler hamstring+gastroc.
-- **Sonuç:** modelin temiz diz fleksöründen yoksun olması anatomiye SADIK görünüyor (kesin model-kaynağı için Johnson 2008 açılmalı). Modele monoartiküler diz fleksörü eklemek anatomi uydurmak olur. Sıçanda swing diz fleksiyonu biartiküler eşgüdüm + pasif dinamiktir; denetleyici bunu üretmeli, model bir kas eklemeyle "düzeltilmemeli". Güven: Tablo 1'den güçlü çıkarım; birincil-kaynak nitel (rat myoloji atlası ile pekişir).
-
-**Check 3 — katı vs elastik tendon:** literatür sorusu değil, model-ayarı testi (Aşil esnekliği ankle'da fark yaratır mı). Ertelendi, düşük öncelik.
-
-**Karar:** çekirdek .osim'e DOKUNMA — hem ayak kuvvetleri hem diz-fleksör tamamlayıcısı anatomik sadık. Emergent döngünün sınırları kontrol-tarafı (ayak sürüş dengesi) + gerçek biartiküler/pasif diz fleksiyonu + yapısal katı-ayak/MTP eksikliği (§G/§I). Poster açısından yan ürün: **PCSA doğrulaması (σ=20,8) modelin kuvvetlerini birincil kaynağa karşı doğrular** — sunulabilir bir doğrulama.
+**Değerlendirme tablosu için öneri:** Varejão satırı karışık kalır; "parmak bölgesini gösteriyor →
+çözüldü" ifadesi çıkarılır; yerine: *"Doğrudan CoP ilk temasta bileğin 6 mm önünde ama yük
+yastığının proksimalinde (s ≈ 0,38; bant 0,34–0,43). Digitigrad ve topuk-yüksüz duruş doğrulanır.
+Parmak-önce temas ile orta-ayak CoP arasındaki fark kısmen kinematik–kinetik ayrımıdır; kalan
+proksimal sapma z/ρ ölçek bandına bağlı açık bir sınırdır. Geç stance'te s, ayak dikleşmesiyle
+(%39+) tanımsızdır."*
 
 ---
 
-# K · Oturum 7b eki (1 Eylül 2026) — Emergent döngü DENETİMİ (Deniz) + düzeltmeler
+# H · 01.09.2026 — Arka bacağın referans izleyen kapalı-döngü yürüyüşü
 
-Deniz emergent kodu belge-denetimi protokolüyle inceledi; bulgular büyük ölçüde doğru çıktı ve kod/kayıt buna göre düzeltildi. Bulgular ve yanıtlar:
+**Çalışma ortamı:** §G ile aynı canlı ve doğrulanmış ortam (işlem hattı `u_swing_v2`'yi medyan
+0,0174 farkla; `v5` / `r_tamdongu_v3.1` / `ib_drive_v3`'ü yüklenen CSV'lerle 0 farkla yeniden
+üretti). Kapalı döngü bunun üstüne kuruldu.
 
-**B1 — r(t) [Ia/II] döngüyü TAŞIMIYORDU (en kritik, kabul edildi).** Denetim ölçümü: `GIa=0` ritmi bozmuyordu (Ia atıl); `II` hesaplanıp loglanıyor ama excitation'a hiç beslenmiyordu (ölü, `grep` ile doğrulandı — yalnız `e+=GIa*Ia*0.001`); hız terimi `clip(vlm,-20,20)` tipik lif hızında (~34 mm/s) sürekli satüreydi. Döngüyü taşıyan tek geri besleme `load=Fy/Fref` (üstelik GRF proxy'si, gerçek Golgi/Ib değil). Yani posterin/brief'in "iğcik afferenti r(t) [Ia/II] döngüyü taşıyor" ifadesi o kodla YANLIŞTI.
-- **Düzeltme [cl_emergent.py]:** II excitation'a bağlandı; Ia+II artık FAZIK (kendi EMA-ortalamalarından sapma, τ_ema=0,12 s) → ortalaması ~0, yani **yapısal** geri besleme (sabit sürüş seviyesiyle taklit edilemez); hız doyumu VCAP 20→45 mm/s. GIa/GII gerçek, tunable kazançlar (PARSPEC'te 0–3).
+**Soru:** arka bacağın tamamı (yalnız bilek değil), farklı hızlarda, u(t) ve r(t) canlıyken yürüyen
+bir kapalı döngü üretilebilir mi?
 
-**B2 — G9 kapısı yapıyı değil büyüklüğü test ediyordu (kabul edildi).** Eski G9 `GIa=GIb=0` yapıyordu; ama `GIb*load` stance'te taban sürüşe %66 ekliyor (load≈0,35, GIb×load≈0,106 > Ahe=0,16'nın yarısından çok), yani sıfırlamak geri beslemeyle birlikte ekstansör sürüşünün çoğunu da kaldırıyordu. Çöküş "yapı zorunlu"yu değil "ekstansör bu sürüşsüz zayıf"ı gösteriyordu.
-- **Düzeltme [cl_selfcheck.py]:** G9 artık YAPISAL test — geri beslemeyi faz-ortalaması SABİT ileri-beslemeyle değiştir (`fb='meanff'`); yürüyüş sabitle de ayakta kalıyorsa geri besleme yapısal değildi.
-- **İLK ÖLÇÜM (kilitli config, düzeltme sonrası): G9 KALIYOR.** live 7 geçiş / meanff 16 geçiş, ikisi de nearlim 1,0 — sabit-ortalama geri besleme yürüyüşü bozmuyor (hatta iyileştiriyor). Yani **mevcut config'te gerçek yapısal kapalı döngü YOK**; FSM (kalça proprioseptif kapısı) + feedforward + sürüş seviyesi taşıyor. Bunu optimizasyonun G9'u geçirerek çözmesi gerekiyor; geçemezse "bu indirgenmiş modelde r(t) yapısal döngüyü taşıyamıyor" dürüst sonucu.
-- Not: FSM'nin STANCE→SWING kapısı kalçanın eşiğe inmesini gerektiriyor ve kalçayı indiren yük geri beslemesi — yani bir tür kapanış var, ama G9'un test ettiği "iğcik r(t) yapısal katkısı" ölçütünü mevcut config geçmiyor.
+**Zincir:** CPG fazı φ̇ = ω → ileri besleme u_ff(φ) (SO v5 + swing v2) her kasa dağılır →
+aktivasyon dinamiği a(t) → Hill kuvveti F = a·F_max·f_L·f_V·cos α → moment kolu r(q) ile eklem
+momenti → çok cisimli ileri dinamik (kalça + diz + bilek fleksiyonu) → hareket → kas boyu/hızı →
+iğcik r(t) [Ia/II] → refleks servosu Δu = G·(r − r_ref(φ)) → u'ya geri. Hız ω değiştirilince aynı
+örüntü hızlanır, refleks farkı kapatır.
 
-**B3 — §J PF/DF oranı gevşekti (düzeltildi).** §J "2,18" diyordu; tutarsız alt-küme. Doğrusu kümeye bağlı: PCSA tam 1,80; kod-alt-kümesi 2,48; Fmax 2,61; tork-kapasite 2,78. Baskınlık ~2,5-2,8 → bilek nötrü için gereken cdf/cpf~3,0; PARSPEC cdf tavanı 0,15→**0,25** genişletildi (marj için). §J satırı düzeltildi.
+**Dört kabul ölçütü (gate); her sayının yanında üreten dosya:**
 
-**B4 — GMi ters işaretli (düzeltildi).** `HIP_FLX` içinde GMi'nin hip momentkolu çalışma bandında ters (−0,5..−0,16 mm) → gruba karşı çalışıyordu. GMi HIP_FLX'ten çıkarıldı.
+**Gate 1 — çok cisimli dinamik** [`gate1_dyn.py`]: OpenSim M(q) (`calcM`) ve bias terimi
+b = `IDSolver.solve(·, u̇=0)` çıkarıldı; L = [hip_flx, knee_flx, ankle_flx] alt sistemi ayrıldı
+(q̈_L = M_LL⁻¹(τ_L − b_L − M_LP·q̈_P)). M·q̈ + b = τ_full özdeşliğinin artığı **2,2e-16** (5 fazda);
+ayrıştırmadan gelen q̈_L yeniden üretim hatası **≤ 4,1e-13 rad/s²**. Referans hareket açıklığı:
+kalça 56,4° · diz 32,1° · bilek 33,5°.
 
-**B5 — ölü/yanıltıcı kod (temizlendi).** `DISTAL`, `STANCE_SYN`, `KNE_FLX` (yalnız DISTAL'ı besliyordu), `Foff` atıldı; "monoartiküler" yorumu (BFp/STp aslında biartiküler — §J ile çelişiyordu) kaldırıldı. Artık kod, döngüde olmayan bir bileşen varmış izlenimi vermiyor.
+**Gate 2 — kas modeli tutarlılığı** [`gate2_ref.py` → `cl_ref.npz`]: (a) OpenSim lm0 == `rt_ara`
+lm farkı **5,2e-15 m**; (b) lif hızı özdeşliği v_lm = −Σ_k r_k·(lmt − tsl)/lm·q̇_k (OpenSim sonlu
+farkıyla ~1e-12; `rt_ara` ile medyan **2,2e-6 m/s**, tek sapma CF'de %72'de sarma kaynaklı);
+(c) τ_ID (işlem hattı TAU) == τ_full (IDSolver) bacak serbestlik derecelerinde **1,0e-3 N·m**.
 
-**Denetimin doğrulayamadıkları (dürüstlük):** afferent katsayıları (10,43; 26,59; 27,08; 14,43; 21,25 ve üsteller) bu denetim oturumunda birincil kaynaktan görülmedi — ama 46_/02 (Oturum 6) kayıtlarında Blum 2020 (Ia) ve Vincent 2017 (II) birincil kaynaklarına karşı doğrulanmıştı; kod yorumuna bu referans eklendi.
+**Bulgu (d) — 38 kaslık küme gereken momentin son ~%10–12'sini karşılamıyor:** ileri besleme
+u_ff'nin (referans boy ve hızda) ürettiği kas momenti, gereken momentten (τ_ID − Q) tepede
+sapıyor: kalça **%12,4** (maksimum 2,86e-3), diz **%11,2** (4,07e-3), bilek **%10,1**
+(9,22e-4 N·m); rms ~6e-4. Bunun nedeni statik optimizasyonun rezerv payıdır: çözüm
+min Σa² + W·Σrezerv² (W = 1e6) momentin son ~%10'unu 38 kasla kapatamayıp rezerv aktüatöre
+bırakır. İki yol sınandı — rezervi düzeltme terimi olarak ileri besleme momentine eklemek ya da
+refleksin kapatması; ikisi de çalışıyor (Gate 3).
 
-**Net durum:** kod ve kapılar artık dürüst. "u(t)/r(t) kapalı döngü" iddiası mevcut config'te G9'dan KALIYOR (yapısal değil) — bu, optimizasyonun geçirmesi gereken hedef; poster iddiası ancak G9 geçtikten sonra edilebilir.
+**Gate 3 — refleks kapanışı işlevsel** [`cl_sim2.py`, `gate3_test.py`]: kazanç taramasında
+GIa = 0,004, GII = 0,005 (GIb = 0) kararlı izleme verdi: kalça **0,8°** · diz **1,5°** · bilek
+**3,3°** rms sapma. Yüksek kazanç tersine kararsızlaştırıyor (GIa = 0,01 → 9–30° sapma, bilek
+sınıra çarpıyor); yani fizyolojik düşük kazanç bandı geçerli.
 
----
+- **Refleks gerekli (kapatıp bakma):** kapalıyken 26/24/34° ıraksıyor; açıkken 0,8/1,5/3,3° izliyor.
+- **Rezerv düzeltmesi olmadan da izliyor:** 1,3/1,4/3,8° — geri besleme %10'luk rezervi kapatıyor.
+- **Limit çevrimi:** her eklemde ~11° kaydırılmış bozuk başlangıç tek çevrimde 0,8/1,5/3,3°'ye
+  yakınsıyor (çekim havzası var → gerçek limit çevrimi).
+- **Bozucu reddi:** bileğe 30 ms boyunca +0,004 N·m moment uygulandığında refleks açıkken
+  bozucu sonrası çevrimde 3,0°'ye toparlanıyor, kapalıyken 34°'de kalıyor.
 
-# K.2 · Oturum 7c eki (2 Eylül 2026) — Denetimin 2. turu (Deniz): bilek çakılması bir SAYISAL artefakt
+**Gate 4 — değişken hız** [`cl_teslim.py` → `cl_kapali_dongu.npz` / `.png`]: aynı merkezî örüntü
+ω ile ölçeklendiğinde periyot **0,553 / 0,387 / 0,276 s** (0,7× / 1,0× / 1,4×). Bilek hareket
+açıklığı hızla değişiyor (yavaş −14…33°, nominal −6…29°, hızlı −2…22°): aynı merkezî sürüş yüksek
+hızda farklı kinematik veriyor, geri besleme düzenliyor. Tırıs yok, hepsi walk. u(t) 0–0,9
+(aktivasyon 0–0,65, excitation doygunluğu %0); r(t) Ia_Sol 30–223 pps, II_Sol 0–135 pps
+(Vincent/Blum bandı).
 
-Deniz 7b düzeltmelerini içeren paketi yeniden denetletti. Düzeltmeler doğrulandı (II besleniyor, Ia/II fazik, VCAP=45, GMi çıkmış, ölü kod atılmış, G9 meanff-yapısal, §J erratum). En kritik YENİ bulgu: emergent döngüde bileğin -35°'ye çakılması bir kontrol dengesi hatası DEĞİL, açık-Euler entegrasyonunun bilek DOF'unda yakınsamamasıdır. Brief, §J, §K/7b ve ilk denetimin turn-1 statik tork hesabı bunu kontrol hatası sanıyordu — hepsi yanlıştı; hiçbiri dt duyarlılığına bakmamıştı.
+**Bilinçli indirgemeler (kapsam sınırı):**
 
-**Kanıt (üreten: cl_emergent.run, dt taraması, aynı oturum):**
-- Bilek eylemsizliği çok küçük: M[ankle,ankle]=1,1e-7, M[hip,hip]=1,4e-5 → ~120×. Bilek ivmesi 1e4-1e5 rad/s²; dt=1e-4'te açık Euler bu stiff DOF'ta kararsız (salınıp grid limitine çakılıyor, `wa=0` ile kilitleniyor).
-- dt duyarlılığı: dt=1e-4 → bilek -35..-35; dt=5e-5 → +55 (öteki limite çakılı); dt=3e-5 → knee -155'e çakılı; dt=2e-5 → bilek 15..24 (canlı); dt=1e-5 → 15..24 (2e-5 ile BİREBİR aynı = yakınsak). En büyük yakınsak dt = 2e-5.
-- Artefakt kontrolü kilitliyordu: dt=1e-4'te bilek cdf'den bağımsız (cdf=0,06..0,25 → hep -35). dt=2e-5'te bilek cdf'ye monoton yanıt verir: cdf=0,06→-35..-15; 0,10→-9..7; 0,135→23..42; 0,18→38..55. Yani sayısal düzeltme brief'in "cdf ile ayağı dengele" planını ARTIK uygulanabilir kılar. Fizyolojik nötr için cdf≈0,10 (cdf/cpf≈2,2 — turn-1'in ~3,0 statik tahmininden düşük; statik hesap dinamiği ve yerçekimi katkısını atlamıştı).
+1. Gövde-yer teması ve denge yok. Pelvis (sacrum 6 serbestlik derecesi) ve küçük frontal/rotasyon
+   eksenleri (hip_add, hip_int, ankle_add, ankle_int, sacroiliac_flx) ölçülmüş referansı izliyor.
+   İleri dinamik olan, yürüyüşü üreten sagittal kalça + diz + bilek zinciridir.
+2. Stance yükü ölçülmüş Lewis GRF'sinden verilir (Q_GRF, faz indeksli, swing'de sıfır) — döngüden
+   çıkmaz, dışarıdan verilir. Dışarıdan verilen tek terim budur.
+3. CPG sabit hızlı bir faz osilatörüdür (φ̇ = ω); ritim henüz duyusal olarak modüle edilmiyor.
+   Döngü uzuv hareketinde kapalı, ritimde değildir.
+4. Mimari ileri besleme + geri besleme (servo) biçimindedir: merkezî sürüş = SO u(t); refleks =
+   Ia/II sapma servosu. Örüntüyü sıfırdan üreten özerk bir CPG değildir.
+5. Bacak geometrisi referans faza göre tablolanmıştır: r0(φ) sabit alınır (Δq_leg ile değişimi
+   ihmal edilir); lm, bacak sapmasıyla moment kolu özdeşliğinden güncellenir. Küçük sapma birinci
+   mertebe yaklaşımıdır; sapma q_ref ± 0,6 rad'da sınırlanır.
 
-**Düzeltme [cl_emergent.py, cl_selfcheck.py]:** varsayılan dt 1e-4 → 2e-5 (`run` ve `_run`). Bu bir çekirdek-sim (entegratör) düzeltmesidir, kontrol değişikliği değil; brief'in "yalnız parametre" kapsamı korunur. Maliyet: sim ~5× yavaş; CMA-ES çok çekirdekli makinede hâlâ pratik.
+**Gösterilen:** r(t), kararlı bütün bacak yürüyüşü için gereklidir (kapatılınca ıraksıyor) ve dış
+bozucuyu reddediyor; u(t) ve r(t) döngüde canlıdır; hız ω ile değişiyor, tırıs gerekmiyor. Bu,
+kapalı döngünün uzuv düzeyindeki kanıtıdır.
 
-**Yeni dürüst baseline (üreten: cl_selfcheck.verify, dt=2e-5):**
-- Kilitli config (cdf=0,06): G3 hâlâ kalıyor (ankle -35), ama artık GERÇEK kontrol nedeniyle (zayıf DF sürüşü), artefakt değil.
-- Elle dengeli config (cdf=0,10 Adf=0,10): G1,G2,G3,G4,G5,G7,G8 GEÇER (ankle -17..4, hip 21..56, knee -139..-124, stance 0,55, kadans 2,0Hz) — 9 kapının 7'si. G6 (temas modülasyonu) ve G9 (yapısal döngü) KALIR. PASS_kritik yalnız G9'dan kalıyor.
-- Sonuç: ayak-limit sorunu (§J/§K/7b'nin baş konusu) çözüldü; kalan iki kapı gerçek bilim (temas modülasyonu + r(t)'nin yapısal katkısı), sayısal değil. CMA-ES artık DOĞRU dinamiğe karşı optimize eder.
-
-**Küçük düzeltmeler:** (1) fazik gerekçe düzeltildi — 7b'deki kod yorumu ve §K "fazik → ~0 ortalama → sabitle taklit edilemez" diyordu; ama FAZ-BAZLI ortalama ~0 değil (üreten: refl_stance/swing_mean; VL swing 0,10, Sol swing -0,058, TA swing 0,048). meanff testi yine geçerli — faz-ortalamalarını GERÇEK değeriyle sabitler, geriye faz-içi zamanlamayı test eder; gerekçe buna göre düzeltildi. (2) ölü değişken `SPINDLE` atıldı (7b'nin ölü-kod temizliğinin kendisi bir ölü değişken bırakmıştı). (3) G9 ölü-yürüyüşte (live<6 geçiş) True dönebiliyor; G1 ve fitness'ın n_transition<6 erken-dönüşü bunu PASS_kritik'e taşımıyor — bilinen, korumalı.
-
-**Doğrulanamayanlar:** dt=5e-6 ile 2e-5'in ötesinde yakınsama teyidi koşu-süre limitini aştı; iddia "2e-5 yakınsak (1e-5 ile birebir)", "daha küçük dt farklı verir" değil. Tam CMA-ES koşulmadı (oturum tek çekirdekli, cma yok); PASS_kritik'in erişilebilirliği elle bir config ile 7/9'a (G3 dahil) kadar gösterildi, G9 açık kaldı. Bağımsız okuyucu-göz turu yapılmadı (o araç bu arayüzde yok); uygulayıcı-göz turu (kodu bizzat işletmek) yapıldı ve dt bulgusu ondan çıktı.
-
----
-
-# K.3 · Oturum 7c eki (2 Eylül 2026) — 7c denetiminin BAĞIMSIZ doğrulaması (bulut oturumu)
-
-Deniz 7c paketini (`rat_emergent_cc_7c`) + `55_CC_DEVIR.md`'yi bu oturuma getirdi; §K.2'nin dt-artefakt bulgusunu bağımsız koşuyla sınadım. **Doğrulandı, her noktada.**
-
-**Ölçtüğüm (üreten: cl_emergent.run, cl_selfcheck.verify, 7c paketi):**
-- Bilek eylemsizliği: M[ankle,ankle]=1,13e-7, M[hip,hip]=1,17e-5 → **oran 104×** (§K.2 "~120×" ile aynı mertebe; küçük fark hangi config/ortalama). Bilek gerçekten hip'in ~1/100'ü.
-- dt yakınsaması (cdf=0,10): dt=1e-4 → bilek -35..54, son-yarı ort **-35 (çakılı)**; dt=2e-5 → **4..10**; dt=1e-5 → **5..10** (2e-5 ile birebir). Yani **2e-5 yakınsak, 1e-4 sahte artefakt** — §K.2 doğru.
-- Kapı okuması (cdf=0,10 Adf=0,10, dt=2e-5, verify): **G3 GEÇER** (bilek -9..7, kalça 21..56, diz -139..-125, stance 0,57, kadans 2,0Hz); G6 (temas 0,18 vs 0,14N, oran ~1,3) ve **G9 (yapısal: live 5 geçiş vs meanff 10 — meanff bozmuyor)** KALIR. §K.2'nin "7/9, G6+G9 kalır" tablosuyla birebir. (G1 bende Tsim=2,5 kısa olduğu için düştü — sanal, uzun koşuda geçer.)
-
-**Değerlendirme:** 7c denetimi doğru ve titiz; dt-artefakt bulgusu benim §J/§K çerçevememi **düzeltiyor** — bileği "kontrol dengesi" sanıp dt=1e-4'te optimize etmeye çalışmışım (o arama artefaktla dövüşüyormuş, boşa gitmiş). Ne ben ne turn-1 statik-tork denetimi dt duyarlılığına bakmıştık; 7c baktı. `run`/`_run` varsayılan dt=2e-5 doğru düzeltmedir, korunmalı.
-
-**Kalan iki kapı gerçek bilim, sayısal değil:** G6 (swing'de ayak yerden kalkmıyor → temas modüle olmuyor; muhtemelen katı-ayak/MTP yapısal sınırı), G9 (r(t) yapısal döngüyü taşımıyor — meanff sabitiyle yürüyüş bozulmuyor). Poster "u(t)/r(t) kapalı döngü" iddiası ancak G9 dürüstçe geçerse edilebilir. `55_CC_DEVIR.md`'nin üç sınır-uyarısı (G9'u zorlama, G6 yapısal olabilir birkaç turdan sonra bırak, çekirdeğe/dt'ye dokunma) doğru; onaylıyorum. CMA-ES artık DOĞRU dinamiğe (dt=2e-5) karşı koşulmalı.
-
----
-
-# L · Oturum 7d eki (3 Eylül 2026) — CMA-ES optimizasyonu: 9/9 kapı geçti (yerel koşu, 32 çekirdek)
-
-**Görev:** 54/55 brief'i uyarınca `cl_emergent.py` denetleyicisinin 13 parametresini (PARSPEC) CMA-ES ile optimize etmek; dt=2e-5, çekirdek dosyalar ve denetleyici yapısı dokunulmadan. Kapılar ve fitness `cl_selfcheck.py`'den, DEĞİŞTİRİLMEDİ.
-
-**Koşum zinciri (log dosyalarıyla):**
-1. Baseline selfcheck (kilitli config, dt=2e-5) [log1_baseline_selfcheck.txt]: G3/G5/G6 kalır (ankle -35..-35 çakılı); selfcheck'in kendi default'u cdf=0,06'dır — §K.2'nin "7/9 geçer" dediği elle-config (cdf=0,10) değil.
-2. CMA-ES koşum 1 (Tsim=3 arama, popsize=32, workers=32) [log2]: maliyet 234→1,79 (jen 33); worker spawn hatasıyla (WinError 87) düştü, en iyi `cl_best.json`'a kayıtlıydı.
-3. Koşum 2 (ılık başlangıç, 150 jen, Tsim=3) [log3]: maliyet 1,79→0,056. **Tsim=6 doğrulamada G3 KALDI** (ankle -35..-4, nearlim 0,48): kısa-ufuk optimumu 3 s'den sonra bileği yavaşça limite sürüklüyor, arama penceresi bunu görmüyordu.
-4. Koşum 3 (ders uygulandı: **arama ufku Tsim=6'ya eşitlendi** — kapılar/fitness aynı, yalnız değerlendirme penceresi doğrulamayla eşit; sıkılaştırma, deformasyon değil) [log4]: maliyet 2,73→0,097 (son iyileşme jen 46; sonrası iyileşmesiz). **verify(P, Tsim=6): 9/9 kapı GEÇER, PASS_kritik=True, PASS=True.**
-
-**Optimizasyon tarafında yapılan değişiklikler (yalnız `cl_optimize.py`, koşum konfigürasyonu):** workers 8→32, popsize 16→32; `cl_best.json` varsa ılık başlangıç (sigma=0,10); arama Tsim 3→6. Çekirdek (.osim/.mot/kas_par/grid), dt=2e-5, `cl_emergent.py` ve `cl_selfcheck.py` dokunulmadı.
-
-**Kapı okuması (üreten: cl_optimize.py nihai verify [log4]; aynı P ile deterministik yeniden-koşu cl_teslim_9of9.py birebir aynı sayıları verdi):** kadans 2,9 Hz; stance 0,58; hip 26..52° (ROM 26°); knee -141..-129°; ankle 18..19°; live nearlim 0,00; Fc stance 0,167 N / swing 0,112 N; refl_HE std 0,101. En iyi P [cl_best_9of9.json]: Ahe=0,276 Ake=0,297 cpf=0,002 cdf=0,040 Apf_st≈0,0003 Ahf=0,598 Adf=0,023 **GIb=0,015 GIa=0,091 GII=0,059** kc=137 hip_ext=26,3° hip_flx=50,7°.
-
-**G9 yapısal kanıt (asıl hedef; üreten: log4 + cl_teslim_9of9.png son panel):** canlı geri beslemeyle bilek 6 s boyunca 18..19°'de, limitten uzak (nearlim 0,00); geri besleme faz-ortalaması SABİTle değiştirilince (`meanff`) bilek ~3. saniyede +55° dorsifleksiyon limitine tırmanıp çakılıyor (nearlim 1,00, son yarı 51..55°). G9, nearlim ölçütünden geçer (1,00 > 0,00+0,05). Yani iğcik r(t)'nin FAZ-İÇİ zamanlaması bileği limitten uzak tutan şeydir — sabit sürüş seviyesiyle taklit edilemez; **yapısal kapalı döngü bu modelde İLK KEZ nesnel olarak gösterildi** (§K/K.2'de açık kalan kapı). Dip not (dürüstlük): verify çıktısındaki "live geçiş 17 vs meanff 39" iki farklı metriği karıştırır — live_tr yalnız SWING→STANCE basışlarını, meanff_tr TÜM geçişleri sayar; elmalı-elmalı karşılaştırma 34 vs 39'dur (üreten: cl_teslim_9of9.py). Bu, G9'un geçiş-sayısı ölçütünü yalnız TUTUCU yönde saptırır (meanff_tr şişkin → ölçüt 1 zor ateşlenir); G9 zaten nearlim ölçütünden geçti, sonuç etkilenmez. Ayrıca fitness'taki yapısal-ödül terimi de aynı karışık metriği kullanır (struct_gap'ın geçiş terimi); nearlim bileşeni baskın olduğundan sonuç değişmez ama gelecek oturum isterse düzeltebilir.
-
-**Dürüst çekinceler (formal 9/9'a rağmen):**
-1. **Bilek +18..19°'de dorsiflekste park etmiş (ROM ~1°).** Brief'in hedefi ayağı toe-down ~-25..0° bandına oturtmaktı ve "ayağı dorsifleksiyonda cycle ettirme" uyarısı vardı; G4'ün formal bandı (-40..35) geçiyor ama optimizasyon G3'ü, ayağı toe-down band içinde SÜREREK değil, dorsiflekste sabit tutup yükü küçülterek çözdü.
-2. **Yük taşıma minimal:** Fc stance ortalaması 0,167 N (baseline 1,30 N'du); G6 eşiği (0,167 > 0,112×1,3=0,146) kıl payı. Çevrim İÇİ modülasyon gerçek ve net (0→0,33 N her adımda; şekil panel 2) ama FSM stance'iyle kısmen faz-kaymalı — stance/swing ORTALAMA farkını küçülten bu kayma. GIb'nin 0,015'e çökmesi tutarlı: yük refleksi fiilen kapalı, döngüyü iğcik (GIa/GII) taşıyor.
-3. **Diz ROM'u 12°** (-141..-129); minimum G4 alt sınırına (-150) 9° mesafede.
-4. Ia SM ~300-560 pps — Blum fit aralığının (≲250) üstü; §I madde 3'ün ekstrapolasyon çekincesi bu config'te de geçerli.
-
-**Yorum:** kapılar dürüstçe, deformasyonsuz geçildi ve G9 kanıtı güçlü — iğcik geri beslemesinin yapısal gerekliliği artık nesnel. Ama rejim "yük taşıyan toe-down yürüyüş"ten çok "minimal-yük ritim"dir: optimizasyon, katı-ayak/MTP'siz modelde yük ile limit-uzaklığını aynı anda bulamayıp yükü küçülten çözüme gitti. Bu, 54'ün "gerçek stance yuvarlanması ancak MTP ile gelir" yapısal sınırıyla tutarlı. Poster iddiası "u(t)/r(t) yapısal kapalı döngü (G9 nesnel)" olarak edilebilir; "yük taşıyan digitigrad yürüyüş" iddiası bu config ile EDİLMEMELİ. Toe-down + daha yüksek yük istenirse iki yol: (a) mevcut kapılar içinde farklı başlangıçlarla yeni arama (G9'u bozma riski var), (b) MTP eklemi (Deniz onaylı ayrı iş).
-
-**Dosyalar:** `cl_best_9of9.json` (en iyi P), `cl_optimize.py` (ılık başlangıç + Tsim=6 arama), `cl_teslim_9of9.py` → `cl_teslim_9of9.png/.npz` (zaman serileri + faz portresi + G9 live-vs-meanff), `log1..log4` (koşum kayıtları). Kopyalar: `tum/04_kapali_dongu_ESKI/`.
+**Kalan iş:** (1) duyusal ritim — Ib/yük ile stance→swing geçişi, ritmi de kapatmak; (2) gövde
+ilerlemesi ve yer teması modeli (dışarıdan verilen tek terimi kaldırmak); (3) özerk CPG — örüntüyü
+geri beslemeden üretip u_ff bağımlılığını azaltmak.
 
 ---
 
-# M · Oturum 8 eki (5 Eylül 2026) — Köprü ortamı: NEURON ile OpenSim tek süreçte koşuyor
+# I · 01.09.2026 — Referanssız (emergent) kapalı-döngü yürüyüş
+
+**Soru:** ölçülmüş referansı izleyen değil; sürüşü anatomiden, ritmi duyudan, yükü gerçek yer
+temasından gelen, kendi kendine yürüyen bir kapalı döngü kurulabilir mi? Beklenti baştan
+sınırlıdır (OpenSim, sabit ayak, iğcik verisinin yetersizliği, kas kümesi).
+
+**§H'den farkı:** §H'de üç şey ölçümden geliyordu — sürüş (SO u(t)), ritim (sabit saat) ve hedef
+(referans q). Üçü de kaldırıldı. Sürüş = **anatomik sinerji** (stance: kalça ekstansör + quad;
+swing: kalça fleksör), gruplar moment kolu işaretinden [`stage1_analiz.py`]. Ritim = **kalça
+açısına dayalı sonlu durum denetleyicisi** (stance→swing geçişi kalça ekstansiyon eşiğinde; kedi
+ve sıçan lokomosyonunda faz değişkeni kalçadır). Yük = **gerçek ayak-yer teması** (parmak
+istasyonu yer düzlemine inince yay-sönüm, Q = F·∂p/∂q ile eklem momentine). Referans servosu yok.
+
+**Altyapı:** bacak artık ölçülmüş yörünge çevresinde kalmadığı için geometri ve dinamik, referans
+fazına göre değil **kalça × diz × bilek üç boyutlu ızgarasında** tablolandı [`stage0_grid.py` →
+`cl_grid3d.npz`; 13³ = 2197 nokta, 36 s]: her nokta için moment kolu R[3][38], lif boyu,
+M_leg[3][3], yerçekimi bias terimi, ayak istasyonunun dünya konumu. Koşu sırasında trilineer
+interpolasyon.
+
+**Emergent çıkan davranış (kilitli config, `cl_emergent.py`; `cl_emergent.npz`/`.png`):**
+
+- Kalça kendiliğinden salınıyor: **21°…58°** (genlik 37°), tekrarlı.
+- Diz referans bandında eşlik ediyor: **−123°…−107°** (quadriceps iki fazda tutuyor; ~15°
+  salınım), sınırdan uzak ve kararlı.
+- **Kapalı kalça-diz limit çevrimi** (faz portresinde kapalı halka → gerçek çekici).
+- Ritim duyusaldan doğuyor: adım sıklığı **3,3 Hz** (periyot 0,30 s), stance oranı **0,64** (walk).
+- Gerçek ayak teması: kuvvet **0,44–1,18 N**, stance boyunca modüle oluyor.
+- u(t) canlı ve fazlı sinerji örüntüsünde; r(t) canlı — hareketli kasların (kalça ekstansörü SM,
+  diz ekstansörü VL) Ia/II'si çevrim boyunca modüle oluyor.
+- **Hız, sürüş yoğunluğundan** doğuyor (saatten değil): kalça sürüşü ×0,85 / ×1,0 / ×1,15 →
+  **3,0 / 3,3 / 3,6 Hz**. Daha çok itki, daha hızlı adım.
+
+**Sınırlar:**
+
+1. **Ayak −35°'de (plantar fleksiyon ızgara sınırı) tutuluyor, dinamik değil.** İndirgenmiş model
+   bu hafif ve iğcik verisi zayıf eklemi kaslardan kararlı süremiyor: açık döngü ko-kontraksiyon
+   bir sınıra kayıyor, pozitif uzunluk (II) refleksi yüksek kazançta kararsızlaştırıyor, PD temas
+   momenti baskın geliyor. Ayak plantar fleksiyonda (digitigrad, toe-down) tutuluyor — temas
+   sağlıyor ama havada salınım (aerial clearance) yok; ayak çevrimin çoğunda yüklü. Bu, yürüyüşten
+   çok "yerinde adım" kinematiğidir.
+2. **Kas topolojisi bulgusu:** modelde saf bir diz fleksörü yok — diz fleksörleri (STa/STp/BFp/GP)
+   aynı zamanda kalça ekstansörü. Salınımda aktif diz fleksiyonu kalça fleksiyonunu baltalıyor;
+   bu yüzden diz aktif bükülemedi, quadriceps ile tutuldu. Bu, Johnson aktarımının via point'siz
+   iki noktalı yollarının (H4) dinamik sonucudur.
+3. **Afferent büyüklükleri model ekstrapolasyonudur:** SM Ia tepesi ~600 pps çıkıyor (kalça çok
+   gerildiği için); Blum/Vincent fit aralığının (≤ ~250 pps) ötesindedir. Yön doğru, mutlak değer
+   güvenilmez.
+4. **Distal limit çevrimi yalnız marjinal kararlı:** kilitli config 6 s boyunca kararlı, ama küçük
+   parametre değişimi çöküşe (kalça/diz/bilek köşe sınırlarına) götürüyor. Tam kararlı bir distal
+   çekici bu indirgenmiş modelde (gerçek temas mekaniği yok, sabit ayak, hafif segmentler) yok.
+   Bu bir bulgudur, gizlenen bir başarısızlık değil.
+
+**Karşılaştırma:** §H'nin referans tabanlı döngüsü fizyolojik olarak sadık ve sağlam kararlı bir
+tam bacak kapalı döngüsüdür (kalça + diz + bilek izliyor, refleks gerekli, bozucu reddi var).
+§I'nin emergent döngüsü referans sadakatini özerklikle değiştirir ve indirgenmiş modelin sınırına
+dayanır: kalça, diz, ritim ve yük emergent, ayak tutulu. İkisi projenin iki ucudur.
+
+**Kalan iş (özerkliği ilerletmek):** gerçek çok cisimli temas + gövde ağırlığı desteği (sabit ayak
+ve hafif eklem sorununu kaldırır); modele saf bir diz fleksörü (kısa başlı biceps) ve via point
+eklemek (aktif salınım diz fleksiyonu); iğcik fitini fizyolojik aralıkta doyurmak (SM Ia
+patlamasını önler); optimizasyon tabanlı kazanç ayarı (elle ayarın kırılganlığını aşar).
+
+**Üreten:** `stage0_grid.py` (üç boyutlu ızgara), `stage1_analiz.py` (sinerji ve rol çıkarımı),
+`cl_emergent.py` (emergent çekirdek: FSM + sinerji + temas + refleks), `cl_emergent_teslim.py`
+(sonuç koşusu ve şekil), `cl_emergent.png`/`.npz`.
+
+---
+
+# J · 01.09.2026 — Ayak ve diz modelinin doğrulaması (PCSA + fleksör anatomisi)
+
+**Bağlam:** emergent döngüde ayak plantar fleksiyon sınırına dayanıyordu. "Model hatası mı, kontrol
+hatası mı" sorusu birincil kaynağa (*Scaling of muscle architecture and fiber types in the rat
+hindlimb*, Tablo 1–2) karşı sınandı.
+
+**Kontrol 1 — kas kuvvetleri (F_max) doğru, birincil kaynakla tutarlı.** Model F_max'i Tablo 1
+PCSA'sına bölündü; özgül gerilim σ = F_max/PCSA **19 kasta medyan 20,8 N/cm² (std 3,5)** —
+neredeyse sabit. Yani `faz1a.osim`'in F_max değerleri tam olarak bu tablodan σ ≈ 20,8 ile
+türetilmiştir. Tek görünür sapma Per'de (σ = 36); sebebi modeldeki Per'in PerL + PerB birleşimi
+olmasıdır: 0,19 + 0,14 = 0,33 alınınca σ = 20,7. Üreten: `kas_par` / `cl_grid3d` F_max değerleri
+Tablo 1'e karşı.
+
+- Bu ölçüm §A'daki "`build_osim.py` 10 N yer tutucu koyuyor" endişesini kapatır: çalışılan
+  `faz1a.osim` yer tutucu değil, gerçek PCSA türevi F_max kullanıyor.
+- Ayak: Sol F_max **1,34 N doğru** (PCSA 0,07 = en küçük plantar fleksör; Tablo 2: %80 tip I,
+  yavaş postural kas). Plantar fleksör / dorsifleksör baskınlığı kas kümesine bağlıdır:
+  PCSA {Sol, MG, LG, Pla} / {TA, EDL, PerL, PerB} = **1,80**; kod alt kümesi {Sol, MG, LG} /
+  {TA, EDL} = **2,48**; tam anatomi F_max ≈ **2,61**; moment kapasitesi (F_max × moment kolu)
+  ≈ **2,78**. [Düzeltme: bu satır ilk yazımında "2,18" diyordu; tutarsız bir alt kümeydi, ikinci
+  denetimde (§K) düzeltildi. Yön aynı, baskınlık ~2,5–2,8, yani bilek problemi ilk çerçevelemeden
+  biraz daha zordur.]
+- **Sonuç:** emergent döngüde ayağın plantar fleksiyona çökmesi model hatası değildir.
+  Denetleyici dorsifleksöre, 2,2× güçlü plantar fleksörü dengeleyecek orantılı sürüşü vermiyordu;
+  bu kontrol tarafı bir hatadır ve kazanç optimizasyonuyla düzelir. Modele dokunmak gerekmez.
+
+**Kontrol 2 — saf (monoartiküler) diz fleksörü modelde yok, sıçanda da muhtemelen yok.** Modelin
+bütün diz fleksörleri biartikülerdir (BFp kalça −10,7 / diz −13,8; STa −12,8 / −15,6; STp −7,6 /
+−15,2; GP −14,9 / −12,4 mm); BFa üç eklemde de moment kolu ~0 (işlevsiz); Pop diz −1,6 (küçük).
+Tablo 1 biceps femoris'i **tek** kas olarak listeliyor (biartiküler hamstring, 2670 mg, en büyük);
+ayrı bir monoartiküler diz fleksörü yok. "Diz fleksörleri" grubu biartiküler hamstring +
+gastrocnemius'tur.
+
+- **Sonuç:** modelin saf diz fleksöründen yoksun olması anatomiye sadık görünüyor (kesin model
+  kaynağı için Johnson 2008 açılmalı). Modele monoartiküler diz fleksörü eklemek anatomi uydurmak
+  olur. Sıçanda salınımdaki diz fleksiyonu biartiküler eşgüdüm ve pasif dinamiktir; denetleyici
+  bunu üretmelidir, model bir kas eklenerek "düzeltilmemelidir". Güven düzeyi: Tablo 1'den güçlü
+  çıkarım; birincil kaynak nitel (sıçan miyoloji atlası ile pekişir).
+
+**Kontrol 3 — rijit ile elastik tendon karşılaştırması:** literatür sorusu değil, model ayarı
+testidir (Aşil esnekliği bilekte fark yaratır mı). Ertelendi, düşük öncelikli.
+
+**Karar:** çekirdek `.osim` dosyasına dokunulmaz — hem ayak kuvvetleri hem diz fleksörü tamamlayıcı
+kümesi anatomik olarak sadıktır. Emergent döngünün sınırları kontrol tarafı (ayak sürüş dengesi),
+gerçek biartiküler/pasif diz fleksiyonu ve yapısal rijit ayak / MTP eksikliğidir (§G, §I). Poster
+açısından yan ürün: **PCSA doğrulaması (σ = 20,8) modelin kuvvetlerini birincil kaynağa karşı
+doğrular** ve sunulabilir bir doğrulamadır.
+
+---
+
+# K · 01.09.2026 — Emergent döngünün bağımsız denetimi ve düzeltmeler
+
+Emergent kod bağımsız bir denetimden geçirildi (denetim: Deniz); bulgular büyük ölçüde doğru
+çıktı ve kod ile kayıt buna göre düzeltildi.
+
+**B1 — r(t) [Ia/II] döngüyü taşımıyordu (en kritik; kabul edildi).** Denetim ölçümü: `GIa=0`
+ritmi bozmuyordu (Ia etkisizdi); `II` hesaplanıp kaydediliyor ama excitation'a hiç beslenmiyordu
+(kullanılmayan kod; `grep` ile doğrulandı — yalnız `e+=GIa*Ia*0.001` vardı); hız terimi
+`clip(vlm,-20,20)` tipik lif hızında (~34 mm/s) sürekli doygundu. Döngüyü taşıyan tek geri besleme
+`load=Fy/Fref` idi (üstelik GRF vekili, gerçek Golgi/Ib değil). Yani "iğcik afferenti r(t) [Ia/II]
+döngüyü taşıyor" ifadesi o kodla yanlıştı.
+
+- **Düzeltme [`cl_emergent.py`]:** II excitation'a bağlandı; Ia + II artık fazik (kendi EMA
+  ortalamalarından sapma, τ_ema = 0,12 s), yani ortalaması ~0 olan **yapısal** bir geri besleme
+  (sabit sürüş seviyesiyle taklit edilemez); hız doygunluğu VCAP 20 → 45 mm/s. GIa/GII gerçek ve
+  ayarlanabilir kazançlardır (PARSPEC'te 0–3).
+
+**B2 — G9 ölçütü yapıyı değil büyüklüğü test ediyordu (kabul edildi).** Eski G9 `GIa=GIb=0`
+yapıyordu; ancak `GIb*load` stance'te taban sürüşe %66 ekliyor (load ≈ 0,35, GIb × load ≈ 0,106 >
+Ahe = 0,16'nın yarısından fazlası), yani sıfırlamak geri beslemeyle birlikte ekstansör sürüşünün
+çoğunu da kaldırıyordu. Çöküş "yapı zorunlu"yu değil "ekstansör bu sürüş olmadan zayıf"ı
+gösteriyordu.
+
+- **Düzeltme [`cl_selfcheck.py`]:** G9 artık yapısal bir testtir — geri besleme, faz ortalaması
+  sabit bir ileri beslemeyle değiştirilir (`fb='meanff'`); yürüyüş sabitle de ayakta kalıyorsa
+  geri besleme yapısal değildi.
+- **İlk ölçüm (kilitli config, düzeltme sonrası): G9 kalıyor.** live 7 geçiş / meanff 16 geçiş,
+  ikisinde de nearlim 1,0 — sabit ortalamalı geri besleme yürüyüşü bozmuyor, hatta iyileştiriyor.
+  Yani mevcut config'te gerçek yapısal kapalı döngü yoktur; FSM (kalça proprioseptif geçişi),
+  ileri besleme ve sürüş seviyesi taşımaktadır. Bunu optimizasyonun G9'u geçirerek çözmesi
+  gerekir; geçemezse "bu indirgenmiş modelde r(t) yapısal döngüyü taşıyamıyor" sonucu yazılır.
+- Not: FSM'nin stance→swing geçişi kalçanın eşiğe inmesini gerektirir ve kalçayı indiren yük geri
+  beslemesidir; yani bir tür kapanış vardır, ama G9'un test ettiği "iğcik r(t) yapısal katkısı"
+  ölçütünü mevcut config geçmemektedir.
+
+**B3 — §J'deki PF/DF oranı gevşekti (düzeltildi).** §J "2,18" diyordu; tutarsız bir alt kümeydi.
+Doğrusu kümeye bağlıdır: PCSA tam küme 1,80; kod alt kümesi 2,48; F_max 2,61; moment kapasitesi
+2,78. Baskınlık ~2,5–2,8 → bilek nötrü için gereken cdf/cpf ≈ 3,0; PARSPEC'te cdf tavanı 0,15 →
+**0,25** genişletildi. §J satırı düzeltildi.
+
+**B4 — GMi ters işaretliydi (düzeltildi).** `HIP_FLX` içinde GMi'nin kalça moment kolu çalışma
+bandında ters (−0,5…−0,16 mm), yani gruba karşı çalışıyordu. GMi `HIP_FLX`'ten çıkarıldı.
+
+**B5 — kullanılmayan ve yanıltıcı kod temizlendi.** `DISTAL`, `STANCE_SYN`, `KNE_FLX` (yalnız
+`DISTAL`'ı besliyordu) ve `Foff` kaldırıldı; "monoartiküler" yorumu (BFp/STp aslında biartikülerdir
+— §J ile çelişiyordu) silindi. Kod artık döngüde olmayan bir bileşen varmış izlenimi vermiyor.
+
+**Denetimin doğrulayamadıkları:** afferent katsayıları (10,43; 26,59; 27,08; 14,43; 21,25 ve
+üsteller) bu oturumda birincil kaynaktan görülmedi. 46_/02 (Oturum 6) kayıtlarında Blum 2020 (Ia)
+ve Vincent 2017 (II) birincil kaynaklarına karşı doğrulanmıştı; kod yorumuna bu referans eklendi.
+
+**Durum:** kod ve kabul ölçütleri artık gerçeği yansıtıyor. "u(t)/r(t) kapalı döngü" iddiası
+mevcut config'te G9'dan kalıyor (yapısal değil); poster iddiası ancak G9 geçtikten sonra
+edilebilir.
+
+---
+
+# K.2 · 02.09.2026 — İkinci denetim: bilek sınıra dayanması sayısal bir yapaylıktır
+
+7b düzeltmelerini içeren sürüm yeniden denetlendi (denetim: Deniz). Düzeltmeler doğrulandı
+(II besleniyor, Ia/II fazik, VCAP = 45, GMi çıkarılmış, kullanılmayan kod temizlenmiş, G9
+`meanff` ile yapısal, §J düzeltmesi yapılmış). En kritik yeni bulgu: emergent döngüde bileğin
+−35°'ye dayanması bir kontrol dengesi hatası **değil**, açık Euler integrasyonunun bilek
+serbestlik derecesinde yakınsamamasıdır. Önceki değerlendirmeler (görev tanımı belgesi, §J,
+§K ve ilk denetimin statik moment hesabı) bunu kontrol hatası sanıyordu; hiçbiri zaman adımı
+duyarlılığına bakmamıştı.
+
+**Kanıt (üreten: `cl_emergent.run`, dt taraması, aynı oturum):**
+
+- Bilek eylemsizliği çok küçük: M[ankle, ankle] = 1,1e-7; M[hip, hip] = 1,4e-5 → ~120×. Bilek
+  ivmesi 1e4–1e5 rad/s²; dt = 1e-4'te açık Euler bu stiff serbestlik derecesinde kararsız
+  (salınıp ızgara sınırına dayanıyor, `wa=0` ile kilitleniyor).
+- Zaman adımı duyarlılığı: dt = 1e-4 → bilek −35…−35; dt = 5e-5 → +55 (öteki sınıra dayalı);
+  dt = 3e-5 → diz −155'e dayalı; dt = 2e-5 → bilek 15…24 (canlı); dt = 1e-5 → 15…24 (2e-5 ile
+  birebir aynı, yani yakınsak). En büyük yakınsak adım dt = 2e-5'tir.
+- Yapaylık kontrolü kilitliyordu: dt = 1e-4'te bilek cdf'den bağımsızdı (cdf = 0,06…0,25 → hep
+  −35). dt = 2e-5'te bilek cdf'ye monoton yanıt veriyor: cdf = 0,06 → −35…−15; 0,10 → −9…7;
+  0,135 → 23…42; 0,18 → 38…55. Yani sayısal düzeltme, "cdf ile ayağı dengele" planını uygulanabilir
+  kılıyor. Fizyolojik nötr için cdf ≈ 0,10 (cdf/cpf ≈ 2,2 — ilk turdaki ~3,0 statik tahminden
+  düşük; statik hesap dinamiği ve yerçekimi katkısını atlıyordu).
+
+**Düzeltme [`cl_emergent.py`, `cl_selfcheck.py`]:** varsayılan dt 1e-4 → 2e-5 (`run` ve `_run`).
+Bu bir integratör düzeltmesidir, kontrol değişikliği değil. Maliyet: benzetim ~5× yavaş;
+CMA-ES çok çekirdekli makinede hâlâ uygulanabilir.
+
+**Yeni referans durum (üreten: `cl_selfcheck.verify`, dt = 2e-5):**
+
+- Kilitli config (cdf = 0,06): G3 hâlâ kalıyor (bilek −35), ama artık gerçek kontrol nedeniyle
+  (zayıf dorsifleksör sürüşü), yapaylık nedeniyle değil.
+- Elle dengelenmiş config (cdf = 0,10, Adf = 0,10): G1, G2, G3, G4, G5, G7, G8 geçiyor
+  (bilek −17…4, kalça 21…56, diz −139…−124, stance 0,55, adım sıklığı 2,0 Hz) — dokuz ölçütün
+  yedisi. G6 (temas modülasyonu) ve G9 (yapısal döngü) kalıyor; PASS_kritik yalnız G9'dan kalıyor.
+- Sonuç: ayak sınırı sorunu (§J ve §K'nin ana konusu) çözüldü; kalan iki ölçüt gerçek bilimsel
+  sorulardır (temas modülasyonu ve r(t)'nin yapısal katkısı), sayısal değil. CMA-ES artık doğru
+  dinamiğe karşı optimize eder.
+
+**Küçük düzeltmeler:** (1) fazik gerekçe düzeltildi — 7b'deki kod yorumu ve §K "fazik → ~0 ortalama
+→ sabitle taklit edilemez" diyordu; ancak faz bazlı ortalama ~0 değildir (üreten:
+`refl_stance/swing_mean`; VL swing 0,10, Sol swing −0,058, TA swing 0,048). `meanff` testi yine
+geçerlidir: faz ortalamalarını gerçek değerleriyle sabitler, geriye faz içi zamanlamayı test eder.
+(2) Kullanılmayan `SPINDLE` değişkeni kaldırıldı. (3) G9, ölü yürüyüşte (live < 6 geçiş) True
+dönebiliyor; G1'in ve fitness'ın n_transition < 6 erken dönüşü bunu PASS_kritik'e taşımıyor —
+bilinen ve korumalı bir durum.
+
+**Doğrulanamayanlar:** dt = 5e-6 ile 2e-5'in ötesinde yakınsama teyidi koşu süresi sınırını aştı;
+iddia "2e-5 yakınsaktır (1e-5 ile birebir)" biçimindedir, "daha küçük dt farklı verir" değil. Tam
+CMA-ES koşulmadı (oturum tek çekirdekliydi, `cma` yoktu); PASS_kritik'in erişilebilirliği elle bir
+config ile 7/9'a kadar gösterildi, G9 açık kaldı.
+
+---
+
+# K.3 · 02.09.2026 — İkinci denetimin bağımsız doğrulanması
+
+7c sürümü (`rat_emergent_cc_7c`) ve `55_CC_DEVIR.md` bağımsız bir oturumda yeniden koşularak
+§K.2'nin zaman adımı bulgusu sınandı. **Her noktada doğrulandı.**
+
+**Ölçülen (üreten: `cl_emergent.run`, `cl_selfcheck.verify`, 7c sürümü):**
+
+- Bilek eylemsizliği: M[ankle, ankle] = 1,13e-7; M[hip, hip] = 1,17e-5 → **oran 104×** (§K.2'nin
+  "~120×" değeriyle aynı mertebe; küçük fark config ve ortalama farkından). Bilek gerçekten
+  kalçanın ~1/100'ü kadardır.
+- Zaman adımı yakınsaması (cdf = 0,10): dt = 1e-4 → bilek −35…54, son yarı ortalaması **−35
+  (sınırda)**; dt = 2e-5 → **4…10**; dt = 1e-5 → **5…10** (2e-5 ile birebir). Yani 2e-5 yakınsak,
+  1e-4 yanıltıcı bir yapaylıktır; §K.2 doğrudur.
+- Ölçüt okuması (cdf = 0,10, Adf = 0,10, dt = 2e-5, `verify`): **G3 geçiyor** (bilek −9…7, kalça
+  21…56, diz −139…−125, stance 0,57, adım sıklığı 2,0 Hz); G6 (temas 0,18 ile 0,14 N, oran ~1,3)
+  ve **G9 (yapısal: live 5 geçiş, meanff 10 — meanff bozmuyor)** kalıyor. §K.2'nin "7/9, G6 + G9
+  kalır" tablosuyla birebir aynı. (G1 bu koşuda Tsim = 2,5 kısa olduğu için düştü; uzun koşuda
+  geçiyor.)
+
+**Değerlendirme:** ikinci denetim doğru ve titizdir; zaman adımı bulgusu §J ve §K'nin çerçevesini
+düzeltmektedir — bilek "kontrol dengesi" sanılıp dt = 1e-4'te optimize edilmeye çalışılmıştı, o
+arama sayısal bir yapaylıkla uğraşıyordu. `run`/`_run` varsayılanının dt = 2e-5 olması doğru
+düzeltmedir ve korunmalıdır.
+
+**Kalan iki ölçüt bilimsel, sayısal değil:** G6 (salınımda ayak yerden kalkmıyor → temas modüle
+olmuyor; muhtemelen rijit ayak / MTP yapısal sınırı) ve G9 (r(t) yapısal döngüyü taşımıyor;
+`meanff` sabitiyle yürüyüş bozulmuyor). "u(t)/r(t) kapalı döngü" iddiası ancak G9 geçerse
+edilebilir. `55_CC_DEVIR.md`'nin üç sınır uyarısı (G9'u zorlama; G6 yapısal olabilir, birkaç
+denemeden sonra bırak; çekirdeğe ve dt'ye dokunma) doğrudur. CMA-ES doğru dinamiğe (dt = 2e-5)
+karşı koşulmalıdır.
+
+---
+
+# L · 03.09.2026 — CMA-ES optimizasyonu: dokuz kabul ölçütünün dokuzu geçildi
+
+**Görev:** 54/55 numaralı görev tanımı belgeleri uyarınca `cl_emergent.py` denetleyicisinin 13 parametresini (PARSPEC) CMA-ES ile optimize etmek;
+dt = 2e-5, çekirdek dosyalar ve denetleyici yapısı değiştirilmeden. Kabul ölçütleri ve fitness
+`cl_selfcheck.py`'den alındı ve değiştirilmedi. Donanım: 32 çekirdek, yerel koşu.
+
+**Koşu zinciri (kayıt dosyalarıyla):**
+
+1. Referans selfcheck (kilitli config, dt = 2e-5) [`log1_baseline_selfcheck.txt`]: G3/G5/G6
+   kalıyor (bilek −35…−35 sınırda). Selfcheck'in kendi varsayılanı cdf = 0,06'dır; §K.2'nin
+   "7/9 geçer" dediği elle ayarlanmış config (cdf = 0,10) değildir.
+2. CMA-ES koşusu 1 (arama Tsim = 3, popsize = 32, workers = 32) [log2]: maliyet 234 → 1,79
+   (jenerasyon 33); worker başlatma hatasıyla (WinError 87) düştü, en iyi çözüm `cl_best.json`'a
+   kayıtlıydı.
+3. Koşu 2 (önceki en iyi çözümden başlatma — warm start, 150 jenerasyon, Tsim = 3) [log3]:
+   maliyet 1,79 → 0,056. **Tsim = 6 ile doğrulamada G3 kaldı** (bilek −35…−4, nearlim 0,48):
+   kısa ufuklu optimum 3 s'den sonra bileği yavaşça sınıra sürüklüyor, arama penceresi bunu
+   görmüyordu.
+4. Koşu 3 (arama ufku Tsim = 6'ya eşitlendi — ölçütler ve fitness aynı, yalnız değerlendirme
+   penceresi doğrulamayla eşitlendi) [log4]: maliyet 2,73 → 0,097 (son iyileşme jenerasyon 46).
+   **`verify(P, Tsim=6)`: 9/9 ölçüt geçti, PASS_kritik = True, PASS = True.**
+
+**Optimizasyon tarafında yapılan değişiklikler (yalnız `cl_optimize.py`, koşu yapılandırması):**
+workers 8 → 32, popsize 16 → 32; `cl_best.json` varsa önceki en iyi çözümden başlatma
+(sigma = 0,10); arama Tsim 3 → 6. Çekirdek dosyalar (`.osim`, `.mot`, `kas_par`, ızgara),
+dt = 2e-5, `cl_emergent.py` ve `cl_selfcheck.py` değiştirilmedi.
+
+**Ölçüt okuması (üreten: `cl_optimize.py` nihai `verify` [log4]; aynı P ile deterministik yeniden
+koşu `cl_teslim_9of9.py` birebir aynı sayıları verdi):** adım sıklığı 2,9 Hz; stance 0,58; kalça
+26…52° (ROM 26°); diz −141…−129°; bilek 18…19°; live nearlim 0,00; F_c stance 0,167 N / swing
+0,112 N; refl_HE std 0,101. En iyi parametre kümesi [`cl_best_9of9.json`]: Ahe = 0,276,
+Ake = 0,297, cpf = 0,002, cdf = 0,040, Apf_st ≈ 0,0003, Ahf = 0,598, Adf = 0,023, **GIb = 0,015,
+GIa = 0,091, GII = 0,059**, kc = 137, hip_ext = 26,3°, hip_flx = 50,7°.
+
+**G9 yapısal kanıtı (asıl hedef; üreten: log4 + `cl_teslim_9of9.png` son panel):** canlı geri
+beslemeyle bilek 6 s boyunca 18…19°'de, sınırdan uzak (nearlim 0,00). Geri beslemenin faz
+ortalaması sabitle değiştirildiğinde (`meanff`) bilek yaklaşık 3. saniyede +55° dorsifleksiyon
+sınırına tırmanıp orada kalıyor (nearlim 1,00, son yarı 51…55°). G9, nearlim ölçütünden geçiyor
+(1,00 > 0,00 + 0,05). Yani iğcik r(t)'nin faz içi zamanlaması bileği sınırdan uzak tutan şeydir ve
+sabit sürüş seviyesiyle taklit edilemez; **yapısal kapalı döngü bu modelde ilk kez nesnel olarak
+gösterilmiştir** (§K ve §K.2'de açık kalan ölçüt).
+
+Dipnot: `verify` çıktısındaki "live geçiş 17, meanff 39" iki farklı metriği karıştırır — `live_tr`
+yalnız swing→stance basışlarını, `meanff_tr` tüm geçişleri sayar; eşdeğer karşılaştırma 34 ile
+39'dur (üreten: `cl_teslim_9of9.py`). Bu karışıklık G9'un geçiş sayısı ölçütünü yalnız tutucu
+yönde saptırır (`meanff_tr` şişkin → ölçüt zor ateşlenir); G9 zaten nearlim ölçütünden geçtiği için
+sonuç etkilenmez. Fitness'taki yapısal ödül terimi de aynı karışık metriği kullanır (`struct_gap`
+geçiş terimi); nearlim bileşeni baskın olduğundan sonuç değişmez, ama düzeltilebilir.
+
+**Çekinceler (9/9'a rağmen):**
+
+1. **Bilek 18…19°'de dorsifleksiyonda sabitlenmiş (ROM ~1°).** Hedef ayağı toe-down −25…0°
+   bandına oturtmaktı ve "ayağı dorsifleksiyonda çevrimletme" uyarısı vardı; G4'ün formal bandı
+   (−40…35) geçiliyor, ancak optimizasyon G3'ü ayağı toe-down bandında sürerek değil,
+   dorsifleksiyonda sabit tutup yükü küçülterek çözdü.
+2. **Yük taşıma minimal:** F_c stance ortalaması 0,167 N (referans durumda 1,30 N'du); G6 eşiği
+   (0,167 > 0,112 × 1,3 = 0,146) kıl payı geçiliyor. Çevrim içi modülasyon gerçek ve nettir
+   (her adımda 0 → 0,33 N; şekil panel 2), ancak FSM stance'iyle kısmen faz kaymalıdır;
+   stance/swing ortalama farkını küçülten budur. GIb'nin 0,015'e düşmesi tutarlıdır: yük refleksi
+   fiilen kapalıdır, döngüyü iğcik (GIa/GII) taşımaktadır.
+3. **Diz ROM'u 12°** (−141…−129); G4 alt sınırına (−150) 9° mesafede.
+4. Ia SM ~300–560 pps — Blum fit aralığının (≲250) üstü; §I madde 3'teki ekstrapolasyon çekincesi
+   bu config'te de geçerlidir.
+
+**Yorum:** ölçütler ölçüt tanımı değiştirilmeden geçildi ve G9 kanıtı güçlüdür; iğcik geri
+beslemesinin yapısal gerekliliği artık nesneldir. Ancak elde edilen rejim "yük taşıyan toe-down
+yürüyüş"ten çok "minimal yüklü ritim"dir: optimizasyon, rijit ayak ve MTP'si olmayan modelde yük
+ile sınır uzaklığını aynı anda sağlayamayıp yükü küçülten çözüme gitmiştir. Bu, 54 numaralı belgedeki "gerçek stance
+yuvarlanması ancak MTP ile gelir" yapısal sınırıyla tutarlıdır. Poster iddiası "u(t)/r(t) yapısal
+kapalı döngü (G9 nesnel)" olarak edilebilir; "yük taşıyan digitigrad yürüyüş" iddiası bu config
+ile edilmemelidir. Toe-down ve daha yüksek yük istenirse iki yol vardır: (a) mevcut ölçütler
+içinde farklı başlangıçlarla yeni arama (G9'u bozma riski var), (b) MTP eklemi eklemek (ayrı iş).
+
+**Üreten:** `cl_best_9of9.json` (en iyi P), `cl_optimize.py` (warm start + Tsim = 6 arama),
+`cl_teslim_9of9.py` → `cl_teslim_9of9.png`/`.npz` (zaman serileri, faz portresi, G9 live–meanff
+karşılaştırması), `log1`…`log4` (koşu kayıtları). O günkü kopyalar: `tum/04_kapali_dongu_ESKI/`.
+
+---
+# M · 05.09.2026 — Köprü ortamı: NEURON ile OpenSim tek süreçte koşuyor
 
 **Soru:** PREPRINT bölüm 14 soru 3 ve `SDLC/05_MIMARI_RISK.md` risk-1, köprünün iki Python
 ortamını (3.14 NEURON / 3.13 OpenSim) nasıl buluşturacağını açık bırakıyordu. Risk-1'in gerekçesi
@@ -453,7 +759,7 @@ olmadığıdır.
 neuron 9.0.2 · opensim 4.6 · numpy 2.5.2 · scipy 1.18.1 · matplotlib 3.11.1.
 Beyan: `requirements-kopru.txt`. Ortam proje **dışındadır** (boşluksuz yol zorunluluğu, risk-4).
 
-**Ölçüm 3 — tek süreç kapısı.** İki import sırası da denendi ve her ikisinde de yalnız import
+**Ölçüm 3 — tek süreçte çalışma.** İki import sırası da denendi ve her ikisinde de yalnız import
 değil, iki simülatörün de **iş yaptığı** doğrulandı:
 
 | Sıra | NEURON (tek bölme, pasif, IClamp, 1 ms) | OpenSim (model yükle, realizePosition) |
@@ -472,11 +778,11 @@ Donanım: bu makine (Darwin/arm64).
 OpenSim'siz bir kas modeli gerekmiyor. `05_MIMARI_RISK.md` risk-1 ve PREPRINT 14.3 buna göre
 güncellendi. Bu ortam bundan sonra projenin NEURON ortamıdır (`nrnivmodl` dahil).
 
-**Üreten:** bu oturumun kapı betiği (geçici); ortam beyanı `requirements-kopru.txt`.
+**Üreten:** bu oturumun kontrol betiği (geçici); ortam beyanı `requirements-kopru.txt`.
 
 ---
 
-# N · Oturum 8 eki (5 Eylül 2026) — İP-4a kapandı: dört `.mod` klasörü derlendi, model GUI'siz koşuyor
+# N · 05.09.2026 — İP-4a kapandı: dört `.mod` klasörü derlendi, model GUI'siz koşuyor
 
 **Engel neydi:** `module1_2.mod` NEURON 9 ile derlenmiyordu (`U used as both variable and
 function`). `SDLC/00_DURUM.md` ve `02_IS_PAKETLERI.md` tek çakışma olduğunu kaydediyordu.
@@ -513,7 +819,7 @@ başka NEURON 9 uyumsuzluğu **çıkmadı**. Kalan uyarılar zararsızdır: `Cou
 cnexp method; using derivimplicit`, `Warning: dt undefined`, `libomp` arama yolu uyarısı.
 
 **Ölçüm 4 — YENİ KISIT: NEURON'un HOC dizgi arayüzü ASCII dışı karakter kabul etmiyor.**
-`h.xopen()`'a bu deponun mutlak yolu verildiğinde:
+`h.xopen()`'a bu reponun mutlak yolu verildiğinde:
 `python string arg cannot decode into c_str ... 'ascii' codec can't encode characters in
 position 46-47`. Konum 46-47 = `Sıçan` kelimesinin `ı` ve `ç` harfleri. Bu, risk-4'ün
 (boşluklu yol `nrnivmodl`'ü kırıyor) **ikinci ve ayrı bir yüzüdür**; boşluk değil, Türkçe
@@ -521,24 +827,24 @@ karakter kırıyor ve derleyiciyi değil HOC yorumlayıcısını etkiliyor.
 **Kural:** NEURON'a verilen her yol (`xopen`, `nrn_load_dll`, `load_file`) **göreli** olmalıdır;
 mutlak yol yasaktır. Python tarafı `os.chdir()` ile konumlanır.
 
-**Ölçüm 5 — GUI'siz koşum.** `neuron/kopru/motor_unit_batch.hoc` (orijinalden yalnız iki satır
+**Ölçüm 5 — GUI'siz koşu.** `neuron/kopru/motor_unit_batch.hoc` (orijinalden yalnız iki satır
 farklı: `nrngui.hoc` → `stdrun.hoc`, `fig.ses` çıkarılıp sayısal ayarları taşınmış) ile
 `fig2_4_6` modeli koştu:
 
 | Büyüklük | Ölçülen |
 |---|---|
 | Bölme sayısı | 315 section, **2655 segment** (`fixnseg.hoc` `d_lambda` kuralından) |
-| Koşum maliyeti | 12,51 s CPU / 3000 ms simülasyon → **4,17 s CPU per simüle saniye** |
-| Soma voltajı | min −70,75 · maks **+23,09 mV** (aksiyon potansiyeli var) |
-| Diken sayısı (NetCon, eşik −40 mV, `is` üzerinde) | 28 |
-| İlk / son diken | 1270,7 ms / 2975,4 ms |
+| Koşu maliyeti | 12,51 s CPU / 3000 ms simülasyon → **4,17 s CPU per simüle saniye** |
+| Soma voltajı | min −70,75 · maks **+23,09 mV** (aksiyon potansiyeli üretiliyor) |
+| Aksiyon potansiyeli sayısı (NetCon, eşik −40 mV, `is` üzerinde) | 28 |
+| İlk / son aksiyon potansiyeli | 1270,7 ms / 2975,4 ms |
 | Ortalama ateşleme frekansı | 15,8 Hz |
 
-Koşum koşulu: `dpath=600 µm`, `xm.amp=−8 mm`, `gmax_IaSyn=9,3e-6 S/cm²`, `RampIClamp` tepe
+Koşu koşulu: `dpath=600 µm`, `xm.amp=−8 mm`, `gmax_IaSyn=9,3e-6 S/cm²`, `RampIClamp` tepe
 20 nA @ 5 s (Kim'in Fig 2-7 varsayılanı). Ateşlemenin 1,27 s'de başlaması üçgen akım rampasının
 eşiği o civarda geçmesiyle tutarlıdır.
 
-**Sonuç:** İP-4a'nın derleme ve GUI'siz koşum adımları **bitti**. Kalan adım Kim Fig 2-7'nin
+**Sonuç:** İP-4a'nın derleme ve GUI'siz koşu adımları **bitti**. Kalan adım Kim Fig 2-7'nin
 tolerans bantlı yeniden üretimidir (`dpath` taraması).
 
 **Ölçek notu (İP-4b girdisi):** 4,17 s CPU / simüle saniye tek hücre içindir. 38 havuz için
@@ -547,13 +853,13 @@ geçerken `nseg` indirimi gerekebilir — gerekirse PIC konum etkisinin korundu�
 
 ---
 
-# O · Oturum 8 eki (5 Eylül 2026) — Motonöron havuzu için Python kurulumu ve HOC ile çapraz kontrolü
+# O · 05.09.2026 — Motonöron havuzu için Python kurulumu ve HOC ile çapraz kontrolü
 
 **Sorun:** `v_e_moto6_export.hoc` global `create soma, dend[311]` kullanıyor, **template değil**.
 38 motonöron havuzu (PREPRINT 6.4) aynı morfolojiden çok hücre gerektiriyor; bu dosya buna
 elverişli değil.
 
-**Seçilen yol:** Kim'in kaynak dosyalarına cerrahi müdahale edilmedi. Morfoloji bir kez HOC'tan
+**Seçilen yol:** Kim'in kaynak dosyalarına dokunulmadı. Morfoloji bir kez HOC'tan
 okunup veriye döküldü (`kod/kopru/morfoloji_cikar.py` → `veri/kopru/moto_morfoloji.npz`:
 315 section, 312'sinde 3B nokta, toplam 1580 nokta); biyofizik `kod/kopru/nrn_hucre.py`'de
 Kim'in hoc dosyalarıyla **aynı sırayla** yeniden uygulandı. Sıra kritiktir: geometri → bağlantı →
@@ -564,7 +870,7 @@ pasif (Ra, cm) → aktif → kas bölmesi kablo özelliği → `nseg` (d_lambda)
 
 **Çapraz kontrol (04_KURALLAR: bağımsız ikinci yöntem).** İki kurulum **aynı süreçte, aynı
 uyaranla** (`RampIClamp` tepe 20 nA), aynı zaman adımıyla (0,025 ms) 3000 ms koşturuldu.
-İki hücre elektriksel olarak bağımsızdır. Bant testten önce ilan edildi: diken zamanı farkı
+İki hücre elektriksel olarak bağımsızdır. Bant testten önce ilan edildi: aksiyon potansiyeli zamanı farkı
 < 0,025 ms (bir entegrasyon adımı); bu bir **regresyon** bandıdır, literatür doğrulaması değildir.
 
 | Büyüklük | HOC (Kim zinciri) | Python (`nrn_hucre.py`) |
@@ -573,17 +879,17 @@ uyaranla** (`RampIClamp` tepe 20 nA), aynı zaman adımıyla (0,025 ms) 3000 ms 
 | segment sayısı | 2655 | 2655 |
 | Cav1.3 PIC nokta süreci (`dpath`=600 µm) | — | 86 |
 | `IaSyn` takılı segment (`D_path`<1400 µm) | — | 1692 |
-| diken sayısı | 28 | 28 |
+| aksiyon potansiyeli sayısı | 28 | 28 |
 | soma v min | −70,7496 mV | −70,7496 mV |
 | soma v maks | +23,0852 mV | +23,0852 mV |
-| ilk diken | 1270,675 ms | 1270,675 ms |
-| son diken | 2975,425 ms | 2975,425 ms |
+| ilk aksiyon potansiyeli | 1270,675 ms | 1270,675 ms |
+| son aksiyon potansiyeli | 2975,425 ms | 2975,425 ms |
 
-**Diken zamanı farkı: maks 0,000000 ms · ortalama 0,000000 ms.
+**Aksiyon potansiyeli zamanı farkı: maks 0,000000 ms · ortalama 0,000000 ms.
 Soma voltaj izinin maksimum farkı: 0,000000 mV.**
 
 Yani iki kurulum bit düzeyinde aynıdır; bant kıl payı değil, tam eşleşmeyle geçilmiştir.
-Koşum maliyeti (iki hücre birlikte, 3000 ms): 24,4 s CPU.
+Koşu maliyeti (iki hücre birlikte, 3000 ms): 24,4 s CPU.
 
 **Sonuç:** `nrn_hucre.MotoNoron`, Kim modelinin doğrulanmış bir yeniden kurulumudur ve havuz
 için çoğaltılabilir. Karşılaştırma kas modülü (`CaSP`/`fHill`) **açıkken** yapıldı ki model HOC

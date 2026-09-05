@@ -1074,6 +1074,9 @@ Bu belgede kullanılan Türkçe terimlerin literatürdeki özgün karşılıklar
 yerleşmemişse metinde ilk geçtiği yerde İngilizcesi parantez içinde verilir; **uydurma karşılık
 kullanılmaz**, gerekirse terim doğrudan İngilizce yazılır.
 
+Buradaki liste **bilimsel** terimleri kapsar. Süreç ve belge terimleri (repo, doğrulama kaydı,
+gate, literatür özeti…) `SDLC/07_TERIMLER.md`'dedir; ikisi birbirini tekrar etmez.
+
 ### Sinir sistemi
 
 | Bu belgede | Literatürdeki özgün terim |
