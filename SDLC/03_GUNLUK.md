@@ -5,6 +5,76 @@
 
 ---
 
+## 2026-09-05 (4. oturum) — dizin hiyerarşisi yeniden düzenlendi
+
+**Ne yapıldı:**
+- **Klasörler numarasız anlamlı adlara alındı** (kullanıcı kararı): `01_model`→`model`,
+  `02_veri`→`veri`, `03_kod`→`kod/opensim`, `04_kapali_dongu`→`kod/kapali_dongu` (+ verisi
+  `veri/kapali_dongu`), `06_sekiller`→`sekiller`, `07_literatur`→`literatur`,
+  `inline-supplementary-material-1`→`neuron`. Tümü `git mv` ile (geçmiş korundu).
+- **Kim 2020 hoc/mod ağacı dış kaynak değil, kaynak kodumuz sayıldı** (kullanıcı kararı):
+  `neuron/` altında kendi ağacı oldu; nöron modelimiz bunun üzerine kurulacak.
+- **`arsiv/` açıldı** (kullanıcı kararı: silme, arşivle): aşılmış kapalı-döngü hattı
+  (`cl_sim2`, `cl_teslim`, `cl_emergent_teslim`, 7b/7c öncesi kopyalar), aşılmış veri kuşakları
+  (`u_stance_v4`, `r_tamdongu_v3`, `ib_drive_v2`), görüntüleme `.mot`'ları, koşum logları,
+  SimTK taban modeli ve Windows derlenmiş NEURON ikilileri. Her grubun gerekçesi
+  `arsiv/README.md`'de.
+- **İki birebir duplike düşürüldü:** `eski/cl_optimize.py` (üsttekiyle byte düzeyinde aynı) ve
+  `04_kapali_dongu/cl_teslim_9of9.png` (`06_sekiller/`dekiyle aynı, md5 eşleşiyor).
+- **`kod/yollar.py` eklendi:** depo-içi yolların tek kaynağı. Betikler artık çalışma dizinine
+  bağlı değil; yabancı mutlak yollar (`/home/claude/oturum5/`, `/mnt/user-data/uploads/`) ve
+  var olmayan `OTURUM5_YUKLE/` klasörü temizlendi. Kural `04_KURALLAR.md`'ye yazıldı.
+- **Doğrulama defteri köke alındı:** `04_kapali_dongu/02_DOGRULAMA_KAYDI.md` → `DOGRULAMA.md`.
+  İçeriği düzenlenmedi (tarihli tutanak); başına konum notu eklendi.
+- **`OKU.txt` kaldırıldı**, içeriği `README.md`'nin klasör haritasına katlandı. İki manifesto
+  drift üretiyordu ve OKU.txt zaten var olmayan dosya adları sayıyordu.
+- **Bağımlılıklar beyan edildi:** `matplotlib`+`cma` → `pyproject.toml`/`uv.lock`;
+  `opensim`+`scipy` → yeni `requirements-opensim.txt`. `requiremnts.txt` kaldırıldı.
+- **Yol referansları projenin her yerinde güncellendi:** `SDLC/*`, `README.md`,
+  `.claude/agents/*` (5 ajan tanımı klasör yapısını listeliyordu), `.gitignore`.
+  `SDLC/03_GUNLUK.md` ve `DOGRULAMA.md` **tarihli kayıt oldukları için düzenlenmedi**.
+  `PREPRINT.md` ve `literatur/*` paralel bir oturum tarafından güncellendi (commit `559d315`).
+
+**Ölçülen bulgular (hepsi koşularak):**
+- `cl_teslim_9of9.py` taşımadan sonra yeniden koşuldu: 24 çıktı dizisinin tamamı taşıma
+  öncesiyle **birebir aynı**, PNG bayt bayt aynı. Figür artık `sekiller/` altına yazılıyor.
+- `kod_02_swing_id_so.py` `.venv-osim` ile koşuldu ve `u_swing_v2.csv`'yi **sıfır sayısal
+  farkla** yeniden üretti (yalnız dosyanın yorum başlığı elle zenginleştirilmiş).
+- `neuron/fig2_4_6`'da `nrnivmodl` taşımadan önceki **aynı** hatayı veriyor:
+  `Error: U used as both variable and function in file module1_2.mod`. Taşıma bu engeli ne
+  yarattı ne çözdü — İP-4a aynen duruyor.
+- Doküman yol denetimi: tüm `.md`/`.txt`/`.toml` içindeki yol benzeri token'lar diskle
+  karşılaştırıldı; bilinmeyen kırık yol kalmadı (kasten var olmayanlar
+  `kod/opensim/README.md` ve risk-6'da listeli).
+
+**Düzeltilen yanlış kayıtlar (yeniden ölçülerek):**
+- "`cl_grid3d.npz` ve güncel `cl_*.py` depo dışında" — **yanlış**; ikisi de depoda, kapalı
+  döngü bu makinede koşuyor. `cl_best.json`'un karşılığı `cl_best_9of9.json`.
+- "`rig.py` depoda yok" — kayıp değil: `git show e0192ec^:kod/rig.py` (79 satır; `e0192ec`
+  "remove old folders" commit'inde eski `kod/` klasörüyle silinmiş).
+- risk-2 (bildirilmeyen bağımlılıklar) ve risk-10 (`requiremnts.txt`) **kapandı**.
+- `veri/kapali_dongu/cl_grid3d.npz` ve `arsiv/veri/cl_ref.npz` **yeniden üretilemez** —
+  üreteçleri (`stage0_grid.py`, `gate2_ref.py`) hiç depoya girmedi; bu artık yazılı.
+
+**Kararlar (kullanıcı):** numarasız anlamlı Türkçe klasör adları; ara ürün/eski sürüm/log
+arşive taşınır, silinmez; Kim 2020 hoc/mod kaynak kodun içine alınır; bağımlılıklar beyan
+edilir ve dizin değişikliği projenin her yerine işlenir.
+
+**Sonuç/artefakt:** yeni ağaç (`model/ veri/ kod/ neuron/ sekiller/ literatur/ arsiv/ SDLC/`),
+`kod/yollar.py`, `DOGRULAMA.md`, `README.md` (yeniden yazıldı), `arsiv/README.md`,
+`kod/opensim/README.md`, `kod/kapali_dongu/README.md`, `requirements-opensim.txt`,
+güncellenen `SDLC/{00_DURUM,01_PROJE,02_IS_PAKETLERI,04_KURALLAR,05_MIMARI_RISK,06_KURULUM,
+README}.md`, `.claude/agents/*`, `.gitignore`, `pyproject.toml`, `uv.lock`.
+
+**Değişen dosyalar:** yukarıdakiler. Bilimsel içerik (`PREPRINT.md`, `literatur/`) bu oturumda
+değiştirilmedi.
+
+**Commit:** `dce7d25` (hiyerarşi + arşiv), `fe77f26` (kapalı döngü yolları), `a706525`
+(veri hattı yolları + bağımlılık), `391ed5e` (doküman yol sweep'i + yanlış kayıt düzeltmeleri),
+bu günlük kaydı. Push onay bekliyor.
+
+---
+
 ## 2026-09-05 (3. oturum) — PREPRINT yeniden kuruldu; nöron-kas mimarisi ve diyagramlar
 
 **Ne yapıldı:**
