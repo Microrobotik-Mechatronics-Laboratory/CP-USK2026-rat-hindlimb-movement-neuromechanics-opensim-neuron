@@ -4,18 +4,23 @@
 
 ## İP-1 · OpenSim iskelet-kas modeli & moment kolu doğrulaması — **bitti**
 - **Hedef:** Ölçülmüş kinematikle uyumlu, moment kolları bağımsız doğrulanmış model.
-- **Çıktı:** `01_model/rat_hindlimb_faz1a.osim` (hesap), `..._KASLI_x10.osim` (GUI).
-- **Not:** Bağımsız doğrulama `../04_kapali_dongu/02_DOGRULAMA_KAYDI.md`'de (H1–H9 hataları dahil).
+- **Çıktı:** `model/rat_hindlimb_faz1a.osim` (hesap), `model/rat_hindlimb_KASLI_x10.osim` (GUI).
+- **Not:** Bağımsız doğrulama `../DOGRULAMA.md`'de (H1–H9 hataları dahil).
 
 ## İP-2 · Veri üretim hattı — **bitti**
 - **Hedef:** Swing/stance kas komutları (u) ve tam-çevrim duyu sinyalleri (r).
-- **Çıktı:** `02_veri/` içindeki `u_swing_v2.csv`, `u_stance_v4.csv`, `r_tamdongu_v3.csv`, `ib_drive_v2.csv` vb.
-- **Üreten kod:** `03_kod/` (`kod_01`, `kod_02`, `u_stance_pipeline`, `cop_dienes_turetme`, `spindle_*`, `rt_ara_uret`, `r31_uret`).
+- **Çıktı:** `veri/u_swing_v2.csv` (güncel). Aşılmış kuşaklar arşivde: `arsiv/veri/u_stance_v4.csv`
+  (v5 ile), `arsiv/veri/r_tamdongu_v3.csv` (v3.1 ile), `arsiv/veri/ib_drive_v2.csv` (v3 ile) —
+  gerekçeler `arsiv/README.md`'de.
+- **Üreten kod:** `kod/opensim/` (`kod_01`, `kod_02`, `u_stance_pipeline`, `cop_dienes_turetme`, `spindle_*`, `rt_ara_uret`, `r31_uret`).
 
 ## İP-3 · Kapalı-döngü nöromekanik kontrolcü — **bitti (teslim: 9of9)**
 - **Hedef:** Refleks + CPG ile emergent yürüyüş; referans servo/ölçülmüş GRF yok.
-- **Çıktı:** `04_kapali_dongu/cl_teslim_9of9.py`, `cl_teslim_9of9.npz`, `cl_best_9of9.json`, `cl_teslim_9of9.png`.
-- **Not:** Güncel çalışan sürümler (Tsim=6, ılık başlangıç) + `cl_grid3d.npz` depo dışında (bkz. risk).
+- **Çıktı:** `kod/kapali_dongu/cl_teslim_9of9.py` → `veri/kapali_dongu/cl_teslim_9of9.npz` +
+  `sekiller/cl_teslim_9of9.png`; parametre `veri/kapali_dongu/cl_best_9of9.json`.
+- **Not (2026-09-05 düzeltmesi):** "güncel sürümler depo dışında" kaydı **yanlıştı**; güncel
+  `cl_*.py` ve `cl_grid3d.npz` depodadır. Teslim koşusu bu makinede yeniden koşuldu ve 24 çıktı
+  dizisinin tamamı birebir aynı çıktı. 7b/7c öncesi kopyalar `arsiv/kod/` altındadır.
 
 ## İP-4a · NEURON motonöron modeli: derleme + tek nöron doğrulaması — **sürüyor**
 - **Hedef:** Kim modelini bu makinede (Darwin/arm64) koşturmak ve yayımlanmış davranışını
@@ -45,35 +50,42 @@
 - **Hedef:** `01_PROJE.md`'de tanımlanan Aşama 2 arayüzünü kurmak.
 - **Kapsam:**
   - **NEURON → kas:** havuz ateşlemesinden kas aktivasyon komutu **u(t)** türet (bugünkü
-    `u_swing_v2.csv` / `u_stance_v4.csv` sinyalinin yerini alır).
+    `veri/u_swing_v2.csv` sinyalinin yerini alır; basma fazı kapsam dışı).
   - **Kas → NEURON:** iğcik duyu sinyali **r(t)** (Ia/II) motonörona Ia sinapsı olarak girsin
-    (`group_Ia.hoc` / `syn_Ia.mod`).
+    (`neuron/fig2_4_6/group_Ia.hoc` / `syn_Ia.mod`).
   - Zaman adımı, birim ve ölçek sözleşmesini yazılı hale getir (NEURON ms/mV/uS ile
     kapalı-döngünün s/mm/N birimleri arasındaki dönüşüm kritik noktadır).
 - **Bağımlılık:** İP-4a bitmeden başlamaz.
 
-## İP-5 · Reprodüksiyon & bağımlılık bütünlüğü — **todo**
+## İP-5 · Reprodüksiyon & bağımlılık bütünlüğü — **sürüyor**
 - **Hedef:** Depoyu klonlayan birinin projeyi çalıştırabilmesi.
-- **Kapsam:**
-  - `matplotlib`, `cma` ana ortama; `opensim`, `scipy` OpenSim ortamına **beyan edilsin**
-    (bugün hiçbiri `pyproject.toml`'da yok).
-  - `03_kod/rig.py` **depoda yok** — `kod_01_rat_walk_bone_uret.py` bunsuz çalışmıyor; getirilsin.
-  - Depo-dışı kritik dosyaların (`cl_grid3d.npz`, güncel `cl_*.py`, `cl_best.json`) durumu çözülsün.
-  - `requiremnts.txt` yazım hatası düzeltilsin (eksik "e") veya dosya kaldırılsın.
-- **Not:** Kurulum belgesi (`06_KURULUM.md`) yazıldı; bu paket belgeyi gereksiz kılacak
-  düzeltmeleri yapar.
+- **Bitti (2026-09-05):**
+  - ~~`matplotlib`, `cma` ana ortama; `opensim`, `scipy` OpenSim ortamına beyan edilsin~~ →
+    `pyproject.toml` + `uv.lock` ve `requirements-opensim.txt`.
+  - ~~`requiremnts.txt` yazım hatası~~ → dosya kaldırıldı (pyproject ile birebir aynıydı).
+  - ~~Depo-dışı kritik dosyaların durumu çözülsün~~ → yeniden ölçüldü: `cl_grid3d.npz`, güncel
+    `cl_*.py` ve `cl_best_9of9.json` **depodadır**; kayıt yanlıştı. Kapalı döngü koşuyor.
+  - Betiklerin çalışma dizinine bağlılığı kaldırıldı (`kod/yollar.py`); OpenSim hattı
+    `u_swing_v2.csv`'yi sıfır farkla yeniden üretti.
+- **Kalan:**
+  - `kod/opensim/rig.py` getirilsin — **git geçmişinde duruyor:** `git show e0192ec^:kod/rig.py`.
+    Getirildikten sonra `kod_01_rat_walk_bone_uret.py` gerçekten koşuyor mu denenmeli
+    (iki `bauman_fig4_*.csv` girdisi de eksik).
+  - Kalan eksik girdiler ve biçim uyuşmazlıkları: `kod/opensim/README.md` tablosu.
+  - `veri/kapali_dongu/cl_grid3d.npz` ve `arsiv/veri/cl_ref.npz` yeniden üretilemez (üreteçleri `stage0_grid.py`,
+    `gate2_ref.py` hiç depoya girmedi) — bunlar getirilsin ya da durum kabul edilip yazılsın.
 
 ## İP-6 · Raporlama & yayın figürleri — **todo**
-- **Hedef:** `06_sekiller/` figürlerinin yayına hazır hale getirilmesi; SimTK lisans kontrolü.
+- **Hedef:** `sekiller/` figürlerinin yayına hazır hale getirilmesi; SimTK lisans kontrolü.
 - **Bağımlılık:** İP-9 altyapısı kurulduktan sonra figürler o altyapıyla yeniden üretilir.
 
 ## İP-7 · Literatür özüt defteri — **todo**
 - **Hedef:** Referans makalelerin materyal-metot ve sonuçlarını çıkarıp testlere kaynak yapmak.
 - **Kapsam:**
-  - Her makale için `07_literatur/oz_<kisa_ad>.md`: künye/DOI, tür ve deney koşulları,
+  - Her makale için `literatur/oz_<kisa_ad>.md`: künye/DOI, tür ve deney koşulları,
     materyal-metot özeti, çıkarılan sayısal sonuçlar (değer, birim, tablo/şekil numarası),
     bizim modele uygulanabilirliği.
-  - Çıkarılan her değer `07_literatur/referans_degerler.json`'a **tolerans bandı ve gerekçesiyle**
+  - Çıkarılan her değer `literatur/referans_degerler.json`'a **tolerans bandı ve gerekçesiyle**
     işlenir.
 - **Kaynak sırası:** Kim (motonöron/PIC/Ia) → Johnson 2008 (moment kolu/mimari) → Blum 2020
   (iğcik) → Dienes 2022 (bilek momenti/CoP) → Lewis (GRF).
@@ -88,9 +100,10 @@
 ## İP-9 · Rapor ve figür dışa aktarma altyapısı — **todo**
 - **Hedef:** Sonuçları tek komutla dışarı aktarabilmek.
 - **Kapsam:**
-  - Ortak figür yardımcısı: `Agg` backend, çıktı **daima** `06_sekiller/`, PNG 300 dpi.
+  - Ortak figür yardımcısı: `Agg` backend, çıktı **daima** `sekiller/`, PNG 300 dpi.
   - Her figürün yanında onu üreten sayısal veri aynı tabanla CSV olarak kaydedilir
     (`<ad>.png` + `<ad>.csv`).
   - Metin + gömülü figür **Markdown rapor**: sayısal tablo, hangi testin hangi bantta geçtiği.
-- **Not:** Mevcut betikler figürü çalışma dizinine yazıyor (`cl_teslim_9of9.py`,
-  `cl_emergent_teslim.py`); bu paket kapsamında `06_sekiller/`'e yönlendirilecek.
+- **Not:** ~~Mevcut betikler figürü çalışma dizinine yazıyor~~ — `cl_teslim_9of9.py` artık
+  `sekiller/` altına yazıyor (2026-09-05). Kalan: 300 dpi ve figür yanında kaynak CSV.
+  `arsiv/kod/cl_emergent_teslim.py` arşive alındı, bu paketin kapsamında değil.

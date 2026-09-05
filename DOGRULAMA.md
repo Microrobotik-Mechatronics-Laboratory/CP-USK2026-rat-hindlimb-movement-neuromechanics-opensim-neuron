@@ -1,5 +1,11 @@
 # DOĞRULAMA KAYDI
 
+> **Konum notu (05.09.2026):** bu dosya `04_kapali_dongu/02_DOGRULAMA_KAYDI.md` iken depo köküne
+> `DOGRULAMA.md` olarak alındı. Aşağıdaki kayıtlar **tarihli ölçüm tutanaklarıdır ve
+> düzenlenmezler**; içlerinde geçen dosya adları yazıldıkları günün düzenine göredir. Bugünkü
+> karşılıkları: `kod/opensim/`, `kod/kapali_dongu/`, `veri/kapali_dongu/`, `sekiller/`,
+> `arsiv/` (aşılmış sürümler). Güncel klasör haritası: `README.md`.
+
 **Ölçüm tarihi:** 27.07.2026
 **Nasıl ölçüldü:** `pip install opensim --break-system-packages` ile OpenSim **4.6** kuruldu. Depodaki scriptler (`build_osim.py`, `ma_validate.py`, `clean_ma.py`, `peak_ma.py`) çalıştırıldı. `rat_hindlimb_0.2.osim` dosyası XML olarak ayrıştırıldı. Johnson ve ark. 2008 tam metni PMC2322854'ten okundu.
 

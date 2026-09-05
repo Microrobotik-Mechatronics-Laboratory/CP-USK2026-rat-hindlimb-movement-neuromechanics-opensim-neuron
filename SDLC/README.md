@@ -27,9 +27,9 @@ ortamı** ister (3.14 NEURON / 3.13 OpenSim); sebebi orada anlatılır.
 Bu klasöre **kopyalanmayan**, referans verilen kaynaklar:
 - `../PREPRINT.md` — bildiri özeti (dokunulmaz referans), taahhüt kontrol listesi ve bildiri ile
   doğrulanmış durum arasındaki farklar. **Ne yapmaya çalıştığımızın anlatımı buradadır.**
-- `../OKU.txt` — klasör/dosya manifestosu
-- `../04_kapali_dongu/02_DOGRULAMA_KAYDI.md` — bilimsel doğrulama defteri
-- `../07_literatur/` — makale özütleri + testlerin okuduğu `referans_degerler.json`
+- `../README.md` — klasör/dosya manifestosu (kapı belgesi)
+- `../DOGRULAMA.md` — bilimsel doğrulama defteri
+- `../literatur/` — makale özütleri + testlerin okuduğu `referans_degerler.json`
 
 ---
 
@@ -42,7 +42,7 @@ Bu klasöre **kopyalanmayan**, referans verilen kaynaklar:
    - kapsam/hedef/iş paketi → `01_PROJE.md` + `02_IS_PAKETLERI.md`
    - teknik akış/risk → `05_MIMARI_RISK.md`
    - ortam kurulumu/çalıştırma → `06_KURULUM.md`
-   - literatür değeri veya tolerans bandı → `../07_literatur/referans_degerler.json`
+   - literatür değeri veya tolerans bandı → `../literatur/referans_degerler.json`
 4. Kullanıcıya **2-3 satır özet** ver: "Şu an X iş paketindeyiz, son oturumda Y yaptık,
    sıradaki adım Z." Ekstra soru sormadan çalışmaya hazır ol.
 

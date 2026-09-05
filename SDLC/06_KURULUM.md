@@ -23,13 +23,13 @@ yalnızca `cp311`, `cp312`, `cp313` ABI etiketleriyle geliyor. Ana ortam ise NEU
 3.14'tür (`neuron==9.0.2` cp314/arm64 tekerleğine sahiptir). Dolayısıyla tek bir ortamda hem
 OpenSim hem NEURON **kurulamaz**.
 
-Bu, mimarideki mevcut ayrımla zaten örtüşür (`05_MIMARI_RISK.md`): `04_kapali_dongu/` çalışma
+Bu, mimarideki mevcut ayrımla zaten örtüşür (`05_MIMARI_RISK.md`): `kod/kapali_dongu/` çalışma
 anında OpenSim kullanmaz, saf NumPy'dir.
 
 | Ortam | Python | Nerede | Ne çalıştırır | Paketler |
 |---|---|---|---|---|
-| **Ana** | 3.14 | `~/.venvs/usk26` (**proje dışı, zorunlu**) | `04_kapali_dongu/`, NEURON | neuron, numpy, sympy, mpmath, matplotlib, cma |
-| **OpenSim** | 3.13 | `.venv-osim` (proje içi) | `03_kod/` (ID + SO) | opensim 4.6, numpy, scipy |
+| **Ana** | 3.14 | `~/.venvs/usk26` (**proje dışı, zorunlu**) | `kod/kapali_dongu/`, NEURON | neuron, numpy, sympy, mpmath, matplotlib, cma |
+| **OpenSim** | 3.13 | `.venv-osim` (proje içi) | `kod/opensim/` (ID + SO) | opensim 4.6, numpy, scipy |
 
 ### Ana ortam neden proje klasörünün DIŞINDA olmak zorunda?
 
@@ -60,21 +60,16 @@ uv sync
 terminalde tekrarlanmalıdır. Ayarlanmadığında `uv sync` ortamı proje içindeki `.venv`'e kurar
 ve **NEURON derlemesi çalışmaz** (yukarıdaki gerekçe).
 
-`04_kapali_dongu/` betikleri ayrıca **`matplotlib`** (figür) ve **`cma`** (CMA-ES) kullanır;
-bunlar henüz `pyproject.toml`'da **beyan edilmemiştir** (bilinen açık: İP-5, risk-2). Beyan
-edilene kadar elle:
-
-```bash
-uv pip install matplotlib cma
-```
+`kod/kapali_dongu/` betiklerinin kullandığı **`matplotlib`** (figür) ve **`cma`** (CMA-ES)
+artık `pyproject.toml`'da beyan edilidir; `uv sync` bunları da kurar (2026-09-05, risk-2 kapandı).
 
 ## Adım 2 — OpenSim ortamı (Python 3.13, veri üretim hattı)
 
-Yalnızca `03_kod/` altındaki OpenSim hattını koşacaksanız gereklidir.
+Yalnızca `kod/opensim/` altındaki OpenSim hattını koşacaksanız gereklidir.
 
 ```bash
 uv venv --python 3.13 .venv-osim
-uv pip install --python .venv-osim opensim scipy numpy
+uv pip install --python .venv-osim -r requirements-opensim.txt
 ```
 
 İlk komut şu uyarıyı basar — **beklenen davranıştır, yok sayın**: *"The requested interpreter
@@ -84,7 +79,7 @@ resolved to Python 3.13.14, which is incompatible with the project's Python requ
 Çalıştırırken **yorumlayıcıyı doğrudan çağırın**:
 
 ```bash
-./.venv-osim/bin/python 03_kod/kod_02_swing_id_so.py
+./.venv-osim/bin/python kod/opensim/kod_02_swing_id_so.py
 ```
 
 `uv run --python .venv-osim ...` bu projede **çalışmaz**: `uv run` projenin
@@ -92,13 +87,13 @@ resolved to Python 3.13.14, which is incompatible with the project's Python requ
 
 ## Adım 3 — NEURON mekanizmalarını derle (İP-4a)
 
-`inline-supplementary-material-1/fig*/` klasörlerindeki `.o` dosyaları ve `nrnmech.dll`
+`neuron/fig*/` klasörlerindeki `.o` dosyaları ve `nrnmech.dll`
 **Windows 64-bit için derlenmiştir; bu makinede çalışmazlar.** Her figür klasöründeki `.mod`
 dosyaları yeniden derlenmelidir:
 
 ```bash
 export PATH="$HOME/.venvs/usk26/bin:$PATH"
-cd inline-supplementary-material-1/fig2_4_6 && nrnivmodl
+cd neuron/fig2_4_6 && nrnivmodl
 ```
 
 Başarılıysa klasörde `arm64/` dizini ve `arm64/special` yürütülebiliri oluşur. Aynısı
@@ -125,22 +120,24 @@ denenecek yoldur, ancak HOC tarafının `U`'ya erişip erişmediği kontrol edil
 Doğrulama: `module1_2.mod` geçici olarak dışarı alındığında kalan 11 dosya derlenip
 `Successfully created arm64/special` çıktısı alınmıştır.
 
-Modelin nasıl koşturulacağı `inline-supplementary-material-1/README.txt`'te (Kim'in orijinal
+Modelin nasıl koşturulacağı `neuron/README.txt`'te (Kim'in orijinal
 5 adımlı yönergesi) anlatılır; `dpath`, `gcalbar`, `gmax_IaSyn` ve `xm` değerleri oradan
 ayarlanır.
 
 ## Adım 4 — Depo bu haliyle tam değildir (kritik)
 
-Aşağıdaki dosyalar depoda **yoktur**, başka bir bilgisayardadır (`teslim_cc/`, bkz. `OKU.txt`).
-Bunlar olmadan ilgili hat **koşmaz**:
+**Bu bölüm 2026-09-05'te yeniden ölçüldü.** Eskiden "başka bir bilgisayarda" denen dosyaların
+çoğu aslında depodadır; kapalı döngü bu makinede koşar (`cl_teslim_9of9.py` koşuldu, 9/9 kapı
+geçen teslim çıktısı birebir yeniden üretildi).
 
-| Eksik | Etkisi |
+| Dosya | Gerçek durum |
 |---|---|
-| `cl_grid3d.npz` | kapalı-döngü bunsuz hiç koşmaz |
-| Güncel `cl_emergent.py`, `cl_selfcheck.py`, `cl_optimize.py` (Tsim=6, ılık başlangıç) | depodakiler eski kopyalardır |
-| `cl_best.json` | son optimizasyon sonucu |
-| `03_kod/rig.py` | `kod_01_rat_walk_bone_uret.py` bunu `import rig` ile çağırır; **depoda yok**, betik çalışmaz |
-| `01_model/Geometry/` mesh'leri | yalnız GUI görüntüleme; hesap için gerekmez |
+| `veri/kapali_dongu/cl_grid3d.npz` | **Depoda.** Üreteci (`stage0_grid.py`) yok, yani yeniden üretilemez; birincil varlık gibi korunur. |
+| `cl_emergent.py`, `cl_selfcheck.py`, `cl_optimize.py` | **Depoda ve güncel** (7b/7c düzeltmeli). 7b/7c öncesi kopyalar `arsiv/kod/` altındadır. |
+| `cl_best.json` | Karşılığı `veri/kapali_dongu/cl_best_9of9.json` — **depoda**. |
+| `model/Geometry/` mesh'leri | **Depoda** (yalnız GUI görüntüleme; hesap için gerekmez). |
+| `kod/opensim/rig.py` | **Eksik ama kayıp değil:** `git show e0192ec^:kod/rig.py`. Geri getirilene kadar `kod_01_rat_walk_bone_uret.py` koşmaz. |
+| `veri/bauman_fig4_*.csv`, `veri/rt_ara.npz`, `veri/spindle_ham/` | **Eksik.** Tam tablo ve etkileri: `kod/opensim/README.md`. |
 
 ## Adım 5 — Kurulum doğrulama
 

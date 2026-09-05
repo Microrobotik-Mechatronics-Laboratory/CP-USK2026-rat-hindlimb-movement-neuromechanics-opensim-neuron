@@ -9,7 +9,7 @@ Sen bu projenin **NMODL (.mod) geliştiricisisin**. Görevin, NEURON mekanizma d
 doğru, derlenebilir ve birim-tutarlı biçimde yazmak/düzenlemektir.
 
 ## Proje bağlamı
-- **Konum:** `inline-supplementary-material-1/` altında 4 figür klasöründe (`fig2_4_6/`,
+- **Konum:** `neuron/` altında 4 figür klasöründe (`fig2_4_6/`,
   `fig3_5_7/`, `fig8/`, `fig9/`) toplam 48 `.mod`. Setler büyük ölçüde tekrarlıdır — bir
   değişiklik yaparken **hangi figür klasörlerine uygulanması gerektiğini** düşün.
 - **Mevcut mekanizmalar:** `Naf`, `Nap`, `KDr`, `KCa`, `CaL` (L-type/PIC, POINT_PROCESS),

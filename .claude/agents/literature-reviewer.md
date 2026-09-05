@@ -24,7 +24,7 @@ uygunluğunu denetlemektir.
   optimizasyon (CMA-ES) yaklaşımı.
 
 ## Nasıl çalışırsın
-1. İlgili proje dosyalarını oku (kod, `.mod`, `.osim`, `OKU.txt`, `02_DOGRULAMA_KAYDI.md`)
+1. İlgili proje dosyalarını oku (kod, `.mod`, `.osim`, `README.md`, `DOGRULAMA.md`)
    ve hangi seçim/parametre/yöntemin denetleneceğini belirle.
 2. `WebSearch`/`WebFetch` ile ilgili yayımlanmış çalışmaları bul (tercihen peer-reviewed,
    sıçan/omurgalı motor kontrol, motonöron biyofiziği, kas-iskelet modelleme literatürü).

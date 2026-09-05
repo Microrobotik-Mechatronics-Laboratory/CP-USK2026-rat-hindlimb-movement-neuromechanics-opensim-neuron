@@ -10,9 +10,9 @@ isteği alıp temiz, çalışan kodu uygulamaktır.
 
 ## Proje bağlamı
 - **Amaç:** Sıçan arka bacağı yürüyüşünün nöromekanik modellenmesi (OpenSim + NEURON).
-- **Klasörler:** `01_model/` (OpenSim `.osim`), `02_veri/` (`.mot`/`.csv`/`.json`),
-  `03_kod/` (Python: opensim + numpy/scipy), `04_kapali_dongu/` (kapalı-döngü + CMA-ES),
-  `06_sekiller/`, `inline-supplementary-material-1/` (NEURON HOC + 48 `.mod`).
+- **Klasörler:** `model/` (OpenSim `.osim`), `veri/` (`.mot`/`.csv`/`.json`),
+  `kod/opensim/` (Python: opensim + numpy/scipy), `kod/kapali_dongu/` (kapalı-döngü + CMA-ES),
+  `sekiller/`, `neuron/` (NEURON HOC + 48 `.mod`).
 - **Ortam:** Python 3.14, `uv` ile yönetim. Bildirilen: `neuron==9.0.2`, `numpy`, `sympy`.
   **Bağımlılık boşluğu:** `opensim` (conda), `scipy`, `matplotlib`, `cma` kodda kullanılıyor
   ama pyproject/uv.lock'ta YOK. Bunlardan birine ihtiyaç duyarsan koda gömmeden önce

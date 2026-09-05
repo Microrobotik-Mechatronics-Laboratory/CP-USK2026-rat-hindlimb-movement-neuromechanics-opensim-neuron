@@ -12,14 +12,15 @@ denetlemektir.
 ## Proje bağlamı
 - **Amaç:** Sıçan arka bacağı yürüyüşünün nöromekanik modellenmesi. OpenSim kas-iskelet
   modeli, NEURON nöron/kas modeliyle kapalı-döngüde birleşir.
-- **Modeller (`01_model/`):** `rat_hindlimb_faz1a.osim` (**güncel hesap modeli**),
+- **Modeller (`model/`):** `rat_hindlimb_faz1a.osim` (**güncel hesap modeli**),
   `rat_hindlimb_KASLI_x10.osim` (yalnız GUI görüntüleme, 10x ölçek),
-  `rat_hindlimb_0_2.osim` (SimTK taban modeli — hesapta kullanılmaz, lisans uyarısı var).
+  `arsiv/model/rat_hindlimb_0_2.osim` (SimTK taban modeli — hesapta kullanılmaz, lisans uyarısı var).
   `Geometry/` altında kemik mesh `.vtp` (pelvis, femur, tibia, foot, spine).
-- **Veri (`02_veri/`):** kinematik `.mot` dosyaları — `rat_walk_bone_smooth.mot` (çekirdek),
-  `rat_emergent_best.mot`, `rat_kapali_dongu_referansli_zemin_x10*.mot`,
-  `bozucu_refleks_ACIK/KAPALI_x10_YAVAS4x.mot`. `.sto`/`.trc` yok.
-- **Python API (`03_kod/`):** `import opensim as osim` → `cop_dienes_turetme.py`,
+- **Veri (`veri/`):** kinematik `.mot` dosyaları — `veri/rat_walk_bone_smooth.mot` (çekirdek,
+  hesapta kullanılan tek kinematik), `veri/goruntuleme/` altında GUI animasyonu için x10 ikizi.
+  Aşılmış koşuların .mot'ları `arsiv/veri/` altındadır (emergent, referanslı, bozucu deneyi) ve
+  hesapta kullanılmazlar. `.sto`/`.trc` yok.
+- **Python API (`kod/opensim/`):** `import opensim as osim` → `cop_dienes_turetme.py`,
   `u_stance_pipeline.py`, `rt_ara_uret.py`, `kod_02_swing_id_so.py`.
 - **İş akışı:** `kod_01` → `smooth.mot`; `kod_02` (ID+SO) → `u_swing`; `u_stance_pipeline`
   → stance; CoP türetme.

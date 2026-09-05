@@ -12,7 +12,7 @@ modelinin biyofiziksel doğruluğunu ve tasarımını değerlendirmek, model kur
 - **Amaç:** Sıçan arka bacağı yürüyüşünün nöromekanik modellenmesi. Omurilik motonöron +
   kas iğciği + refleks modeli, OpenSim kas-iskelet modeliyle kapalı-döngüde birleşir.
   Kas komutları `u(t)`, duyusal sinyaller `r(t)`, emergent yürüyüş.
-- **NEURON tarafı:** `inline-supplementary-material-1/` altında HOC + 48 `.mod` (4 figür
+- **NEURON tarafı:** `neuron/` altında HOC + 48 `.mod` (4 figür
   klasörü). Ana dosya `motor_unit.hoc`; `group_Ia.hoc`, `add_pics_istim.hoc`/`add_pics_syns.hoc`,
   `mem_mechanism_*.hoc`, `fixnseg.hoc`.
 - **Mekanizmalar:** `Naf` (fast Na), `Nap` (persistent Na), `KDr` (delayed rectifier K),

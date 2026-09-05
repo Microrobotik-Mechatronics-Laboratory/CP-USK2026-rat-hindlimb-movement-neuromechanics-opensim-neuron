@@ -12,8 +12,8 @@ modellenmesi".
 
 ## Kas ile NEURON arasındaki bağ (projenin çekirdeği)
 
-Bugün iki taraf **ayrıktır**: Python/OpenSim tarafı (`03_kod`, `04_kapali_dongu`) refleksi
-fenomenolojik kazançlarla temsil eder; NEURON tarafı (`inline-supplementary-material-1`) ise
+Bugün iki taraf **ayrıktır**: Python/OpenSim tarafı (`kod/opensim`, `kod/kapali_dongu`) refleksi
+fenomenolojik kazançlarla temsil eder; NEURON tarafı (`neuron`) ise
 biyofiziksel motonöronu ayrı bir ada olarak barındırır. Projenin asıl hedefi bu sınırı
 kapatmaktır. Bağlantı **iki aşamada** kurulur:
 
@@ -26,11 +26,11 @@ durumları. Yeniden üretim başarısı **tolerans bandıyla** ölçülür (bkz.
 **Aşama 2 — Motonöron havuzu ile kas arasında köprü (İP-4b).**
 İki yönlü arayüz:
 - **NEURON → kas:** motonöron havuzunun ateşleme çıktısı, OpenSim/kapalı-döngü kasının
-  aktivasyon komutu **u(t)** olarak kullanılır (bugün `u_swing_v2.csv` / `u_stance_v4.csv`
-  ile temsil edilen sinyalin yerini alır).
+  aktivasyon komutu **u(t)** olarak kullanılır (bugün `veri/u_swing_v2.csv` ile temsil edilen
+  sinyalin yerini alır; basma fazı kapsam dışıdır, `arsiv/veri/u_stance_v4.csv`).
 - **Kas → NEURON:** kas iğciğinden türetilen duyu sinyali **r(t)** (Ia/II ateşleme oranları,
-  `r_tamdongu_v3.csv`) motonörona Ia sinapsı olarak girer (`group_Ia.hoc` / `syn_Ia.mod`
-  arayüzü).
+  `arsiv/veri/r_tamdongu_v3.csv`; resmî biçim v3.1'dir, `kod/opensim/r31_uret.py` üretir)
+  motonörona Ia sinapsı olarak girer (`neuron/fig2_4_6/group_Ia.hoc` / `syn_Ia.mod` arayüzü).
 
 Böylece refleks döngüsü fenomenolojik kazanç yerine biyofiziksel motonöron dinamiği üzerinden
 kapanır.
@@ -47,36 +47,37 @@ kapanır.
 - **Literatüre yakınlık:** üretilen sayısal sonuçlar, referans makalelerden çıkarılan değerlerin
   **önceden ilan edilmiş tolerans bandında** kalır. Birebir örtüşme aranmaz; aranan, farkın
   gerekçelendirilebilir olmasıdır. Kural: `04_KURALLAR.md`; değerler:
-  `07_literatur/referans_degerler.json`.
+  `literatur/referans_degerler.json`.
 
 ## Klasör yapısı (özet)
-Tam manifesto: **`../OKU.txt`** (kopyalanmaz, oraya bakılır).
-- `01_model/` — OpenSim `.osim` modelleri + `Geometry/` kemik mesh'leri
-- `02_veri/` — girdi/çıktı verileri (`.mot`, `.csv`, `.json`)
-- `03_kod/` — OpenSim veri-üretim hattı (Python: opensim+numpy+scipy)
-- `04_kapali_dongu/` — kapalı-döngü kontrolcü + CMA-ES optimizasyon (saf NumPy)
-- `06_sekiller/` — yayın figürleri; her figürün yanında onu üreten kaynak CSV
-- `07_literatur/` — referans makale özütleri + testlerin okuduğu `referans_degerler.json`
-- `inline-supplementary-material-1/` — Hojeong Kim NEURON motonöron modeli (HOC + `.mod`, 4 figür klasörü)
+Tam manifesto: **`../README.md`** klasör haritası (kopyalanmaz, oraya bakılır).
+- `model/` — OpenSim `.osim` modelleri + `Geometry/` kemik mesh'leri
+- `veri/` — girdi/çıktı verileri (`.mot`, `.csv`, `.json`)
+- `kod/opensim/` — OpenSim veri-üretim hattı (Python: opensim+numpy+scipy)
+- `kod/kapali_dongu/` — kapalı-döngü kontrolcü + CMA-ES optimizasyon (saf NumPy)
+- `sekiller/` — yayın figürleri; her figürün yanında onu üreten kaynak CSV
+- `literatur/` — referans makale özütleri + testlerin okuduğu `referans_degerler.json`
+- `neuron/` — Hojeong Kim NEURON motonöron modeli (HOC + `.mod`, 4 figür klasörü)
 - `SDLC/` — bu klasör (kurumsal hafıza)
 
 ## Dış kaynaklar ve literatür
 Künyeler ve bunlardan çıkarılan **sayısal referans değerler + tolerans bantları** makine-okunur
-biçimde `07_literatur/referans_degerler.json`'da tutulur; makale başına materyal-metot/sonuç
-özütü `07_literatur/oz_*.md` dosyalarındadır. Aşağıdaki liste yalnızca kaynakların rolünü
+biçimde `literatur/referans_degerler.json`'da tutulur; makale başına materyal-metot/sonuç
+özütü `literatur/oz_*.md` dosyalarındadır. Aşağıdaki liste yalnızca kaynakların rolünü
 gösterir:
 
 - **Johnson ve ark. 2008** (PMC2322854) — sıçan arka bacak kas mimarisi / moment kolları.
 - **Blum 2020** — kas iğciği (spindle) verisi (Ia/II ateşleme modelleri).
 - **Dienes 2022** — bilek momenti / CoP türetimi.
 - **Lewis GRF** — zemin tepki kuvveti girdisi.
-- **Hojeong Kim motonöron modeli** — PIC (Cav1.3), Ia afferent; `inline-supplementary-material-1/`.
-- **SimTK taban modeli** `rat_hindlimb_0_2.osim` — köken kaydı; yayından önce **SimTK lisansı** kontrol edilmeli.
+- **Hojeong Kim motonöron modeli** — PIC (Cav1.3), Ia afferent; `neuron/`.
+- **SimTK taban modeli** `arsiv/model/rat_hindlimb_0_2.osim` — köken kaydı (hesapta kullanılmaz);
+  yayından önce **SimTK lisansı** kontrol edilmeli.
 
 ## Ortam
 **Proje iki ayrı Python ortamı gerektirir**: `opensim` Python 3.14 için tekerlek yayımlamadığından
 (yalnız cp311/312/313), NEURON'un 3.14 ana ortamıyla aynı yere kurulamaz. Ana ortam (3.14):
-NEURON + NumPy + matplotlib + cma. İkincil ortam (3.13): OpenSim + SciPy, yalnız `03_kod/` için.
+NEURON + NumPy + matplotlib + cma. İkincil ortam (3.13): OpenSim + SciPy, yalnız `kod/opensim/` için.
 Kurulumun tamamı: **`06_KURULUM.md`**.
 
 Bildirilen (pyproject): `neuron==9.0.2`, `numpy`, `sympy`, `mpmath`.

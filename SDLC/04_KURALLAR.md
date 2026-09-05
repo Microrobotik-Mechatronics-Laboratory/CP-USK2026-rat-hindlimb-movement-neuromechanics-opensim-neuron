@@ -14,20 +14,23 @@
 - **Push/PR:** Değişiklikler otomatik commit'lenir; **push kullanıcı onayı ile**. Bir PR'a
   yetecek anlamlı değişiklik birikince push + pull request aç, uygunsa merge et.
 - **Hijyen:** `.DS_Store` git-ignore'da; commit'e girmemeli. Makale PDF'leri
-  (`07_literatur/pdf/`) telif nedeniyle commit edilmez.
+  (`literatur/pdf/`) telif nedeniyle commit edilmez.
 - Ana dal `main`, `origin`'i takip eder (herkese açık lab reposu).
 
 ## Bağımlılık
-- Yeni bir çalışma-zamanı bağımlılığı kullanan kod, **aynı commit'te** beyanını da ekler
-  (ana ortam için `pyproject.toml`). Beyansız `import` bırakılmaz — risk-2 tekrarını önler.
+- Yeni bir çalışma-zamanı bağımlılığı kullanan kod, **aynı commit'te** beyanını da ekler:
+  ana ortam (3.14) için `pyproject.toml`, OpenSim ortamı (3.13) için `requirements-opensim.txt`.
+  Beyansız `import` bırakılmaz — risk-2 tekrarını önler.
 - Bağımlılık hangi ortama ait olduğu belirtilerek eklenir: proje **iki ortamlıdır**
   (3.14 NEURON / 3.13 OpenSim). Ayrıntı: `06_KURULUM.md`.
 
 ## Dokümantasyon
 - Her `.py` betiği başında **Türkçe sağlayıcı/provenance başlığı**: ne ürettiği, girdisi/çıktısı,
-  hangi kaynaktan/önceki adımdan türediği (mevcut `03_kod` deseni). Betik hangi ortamda
+  hangi kaynaktan/önceki adımdan türediği (mevcut `kod/opensim` deseni). Betik hangi ortamda
   koşuyorsa (3.14 / 3.13) başlıkta belirtilir.
-- Bilimsel iddialar **bağımsız yeniden ölçülür**; `02_DOGRULAMA_KAYDI.md` tarzı doğrulama defteri
+- **Yol yazılmaz, çözülür.** Depo-içi hiçbir yol koda gömülmez; `kod/yollar.py` sabitleri
+  kullanılır. Çıplak dosya adı (çalışma dizinine bağlılık) ve mutlak yol yasaktır.
+- Bilimsel iddialar **bağımsız yeniden ölçülür**; `DOGRULAMA.md` tarzı doğrulama defteri
   tutulur. Devir belgelerinden taşınan sayı, yeniden ölçülene kadar "doğrulanmamış" sayılır.
 - Proje durumu/tarihçe her zaman `SDLC/`'ye yazılır.
 
@@ -50,18 +53,18 @@ Referans makalelerden gelen değerlerle karşılaştırma yapılırken **birebir
 Aranan, sonucun makul bir aralıkta kalması ve farkın gerekçelendirilebilir olmasıdır.
 
 1. **Bant önce ilan edilir.** Her karşılaştırma için `[alt, üst]` bandı, testi yazmadan **önce**
-   `07_literatur/referans_degerler.json`'a gerekçesiyle işlenir. Gerekçe, farkın kaynağını
+   `literatur/referans_degerler.json`'a gerekçesiyle işlenir. Gerekçe, farkın kaynağını
    söyler: tür/koşul farkı (ör. kedi motonöron verisinin sıçana uygulanması), ölçüm saçılımı
    (yayımlanmış SD/aralık), model basitleştirmesi.
 2. **Post-hoc bant genişletme yasaktır.** Ölçüm banda düşmüyorsa önce bant değil, **model ve
    varsayımlar** sorgulanır. Bant yine de değişecekse, eski bant/yeni bant ve gerekçesi
-   `02_DOGRULAMA_KAYDI.md`'ye yazılır — sessizce genişletilmez.
+   `DOGRULAMA.md`'ye yazılır — sessizce genişletilmez.
 3. **Her bant bir kaynağa bağlıdır.** Test, bandı `referans_degerler.json`'dan `kimlik` ile
    okur; sayı koda gömülmez. Kaynağı olmayan bant test edilmez.
 4. **Assert mesajı dört şeyi basar:** ölçülen · beklenen · bant · kaynak künye. Bir test
    düştüğünde, neyin neye göre düştüğü mesajdan anlaşılmalıdır.
 5. **Sonuç deftere işlenir.** Hangi büyüklüğün hangi bantta geçtiği/kaldığı
-   `02_DOGRULAMA_KAYDI.md`'ye yazılır.
+   `DOGRULAMA.md`'ye yazılır.
 
 Yeni bilimsel çıktı → mümkünse bağımsız ikinci yöntemle çapraz kontrol; sonucu DOGRULAMA'ya işle.
 
@@ -69,11 +72,12 @@ Yeni bilimsel çıktı → mümkünse bağımsız ikinci yöntemle çapraz kontr
 
 ### Figür
 - `matplotlib` **Agg** backend ile üretilir.
-- Çıktı **daima** `06_sekiller/` altına yazılır — betiğin çalışma dizinine değil. (Mevcut
-  `cl_teslim_9of9.py` ve `cl_emergent_teslim.py` bu kurala henüz uymuyor; İP-9'da düzeltilecek.)
-- PNG, **300 dpi**.
+- Çıktı **daima** `sekiller/` altına yazılır — betiğin çalışma dizinine değil. Yol
+  `kod/yollar.py`'den (`SEKILLER`) alınır, elle yazılmaz. (`cl_teslim_9of9.py` bu kurala
+  2026-09-05'te uydu.)
+- PNG, **300 dpi**. (`cl_teslim_9of9.py` hâlâ 140 dpi; İP-9'da düzeltilecek.)
 - **Her figürün yanında onu üreten sayısal veri CSV olarak** aynı tabanla kaydedilir:
-  `06_sekiller/<ad>.png` + `06_sekiller/<ad>.csv`. Amaç, figürün kaynak koda dönmeden
+  `sekiller/<ad>.png` + `sekiller/<ad>.csv`. Amaç, figürün kaynak koda dönmeden
   yeniden üretilebilir ve denetlenebilir olmasıdır.
 
 ### Rapor
@@ -83,5 +87,5 @@ Yeni bilimsel çıktı → mümkünse bağımsız ikinci yöntemle çapraz kontr
   `SDLC/03_GUNLUK.md`'ye.
 
 ## Proje yapısı
-Numaralı Türkçe klasörler (paket değil). Tam manifesto: `../OKU.txt`. Akış/risk: `05_MIMARI_RISK.md`.
+Numaralı Türkçe klasörler (paket değil). Tam manifesto: `../README.md` klasör haritası. Akış/risk: `05_MIMARI_RISK.md`.
 Kurulum: `06_KURULUM.md`.
