@@ -1,4 +1,4 @@
-# Özüt — Johnson 2008 (sıçan arka bacak geometrisi ve moment kolları)
+# Literatür özeti — Johnson 2008 (sıçan arka bacak geometrisi ve moment kolları)
 
 > Bu dosya makalenin **kayıplı sıkıştırmasıdır** — yerine geçmez. Amacı, makaleyi tekrar
 > açmadan modelleme kararı verebilmektir.
@@ -10,7 +10,7 @@
 - **Dergi / cilt / sayfa:** Journal of Biomechanics, 41(3): 610–619
 - **DOI / PMC:** makalenin bu (NIH yazar el yazması) sürümünde DOI yazılı değil; PMC'de Ocak 2009'dan itibaren erişilir deniyor
 - **PDF:** `pdf/A_three-dimensional_model_of_the_rat_hindlimb_musculoskeletal_geometry_and_muscle_moment_arms.pdf` (depoya girmez)
-- **Özütü çıkaran / tarih:** Claude / 05.09.2026
+- **Özeti çıkaran / tarih:** Claude / 05.09.2026
 
 - **Makale tipi:** deneysel (kadavra ölçümü) + yarı-statik bilgisayar modeli
 - **Projemizin hangi tarafına bakıyor:** mekanik (OpenSim) — modelimizin tabanı olan çalışma

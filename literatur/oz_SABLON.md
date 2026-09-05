@@ -1,15 +1,15 @@
-# Özüt — <Makale kısa adı>
+# Literatür özeti — <Makale kısa adı>
 
 <!-- ==========================================================================
-DOLDURAN İÇİN TALİMAT (özüt tamamlanınca bu blok silinebilir)
+DOLDURAN İÇİN TALİMAT (özet tamamlanınca bu blok silinebilir)
 
-Bu şablonu bir makale PDF'i ile birlikte aldıysan: makaleyi bu şablona göre özütle.
+Bu şablonu bir makale PDF'i ile birlikte aldıysan: makaleyi bu şablona göre özetle.
 
 ODAK — sadece iki şey önemli:
   (1) NEYİ NASIL YAPMIŞ  -> bölüm 3
   (2) NE SONUÇ BULMUŞ    -> bölüm 4
 Diğer bölümler bu ikisini kullanılabilir kılmak içindir. Makalenin tamamını
-aktarma; giriş/literatür taraması/teşekkür/uzun tartışma özüte GİRMEZ.
+aktarma; giriş/literatür taraması/teşekkür/uzun tartışma özete GİRMEZ.
 
 KURALLAR:
 - Şablonun bölüm sırasını ve başlıklarını aynen koru.
@@ -45,7 +45,7 @@ sinapsı olacak şekilde döngüyü kapatmak. Ayrıntı: ../PREPRINT.md
 - **Dergi / cilt / sayfa:**
 - **DOI / PMC:**
 - **PDF:** `pdf/<dosya>.pdf` (depoya girmez)
-- **Özütü çıkaran / tarih:**
+- **Özeti çıkaran / tarih:**
 
 - **Makale tipi:** deneysel · bilgisayar modeli · derleme · yöntem/araç · karma
 - **Projemizin hangi tarafına bakıyor:** nöron (NEURON) · mekanik (OpenSim) · köprü/kapalı döngü · genel
@@ -117,7 +117,7 @@ sinapsı olacak şekilde döngüyü kapatmak. Ayrıntı: ../PREPRINT.md
 
 ## 6 · Bizimle çelişen veya işimize gelmeyen bulgular
 > **Boş bırakılamaz.** Çelişki bulamadıysan ne aradığını yazarak "çelişki bulunamadı" de.
-> Özütlemede en kolay kaybolan şey, modelimizi desteklemeyen bulgudur.
+> Özet çıkarırken en kolay kaybolan şey, modelimizi desteklemeyen bulgudur.
 
 ## 7 · Testlere girecek değerler (varsa)
 > Yalnız bu makaleden bir **doğrulama testi** çıkacaksa doldurulur; çoğu makaleden çıkmaz —
@@ -129,7 +129,7 @@ sinapsı olacak şekilde döngüyü kapatmak. Ayrıntı: ../PREPRINT.md
 | | | | |
 
 ## 8 · Sıkıştırmada ne düştü
-> Özüte almadığın ama makalede olan, sonradan gerekebilecek şeyler: ham veri tabloları, ek
+> Özete almadığın ama makalede olan, sonradan gerekebilecek şeyler: ham veri tabloları, ek
 > dosyalar (supplementary), okunmayan bölümler, atlanan şekiller. Bir sayı tartışmalı hale
 > gelirse **önce buraya** bakılır, sonra PDF açılır.
 

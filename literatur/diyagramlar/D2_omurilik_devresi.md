@@ -89,8 +89,8 @@ flowchart TD
 | Geri besleme iletkenliği `gFB` ve CPG içi `gCPG` | Ritmin ne kadarının merkezden, ne kadarının duyudan geldiğini belirler | `oz_yu2021_kapalidongu.md` §4b — gFB↑ dış pertürbasyona gürbüz, iç gürültüye hassas | `[literatürden]` ödünleşim; değerler taranacak |
 | Ia monosinaptik eksitasyon (afferent → homonim MN) | Germe refleksinin doğrudan kolu | `oz_vincent2017_proprioseptor.md` §4b — Ia varikoziteleri lamina IX'ta triceps surae motor havuzunun ≥30 µm nöronlarıyla temas | `[literatürden]` anatomik kanıt |
 | II afferentin lamina V/VI'ya yönelmesi | II bilgisi motonörona **aktarım internöronu üzerinden** gider | `oz_vincent2017_proprioseptor.md` §4b — iğcik afferentleri LV/VI + LIX'te >%80; II, LV/VI'ya yanlı | `[literatürden]` |
-| Ia inhibitör internöron (resiprokal inhibisyon) | Antagonist havuzu susturur | özüt setinde **kaynak yok** | `[tasarım]` — kaynak eklenecek veya devre dışı bırakılacak |
-| Renshaw hücresi (rekürren inhibisyon) | Havuzun kendi çıkışını sınırlar | özüt setinde **kaynak yok** | `[tasarım]` — aynı uyarı |
+| Ia inhibitör internöron (resiprokal inhibisyon) | Antagonist havuzu susturur | literatür özetlerinde **kaynak yok** | `[tasarım]` — kaynak eklenecek veya devre dışı bırakılacak |
+| Renshaw hücresi (rekürren inhibisyon) | Havuzun kendi çıkışını sınırlar | literatür özetlerinde **kaynak yok** | `[tasarım]` — aynı uyarı |
 | Motonöron havuzu | Kim 2020 biyofiziksel motonöronu; ayrıntısı `D3` | `oz_kim2020_piclokasyonu.md` | `[literatürden]` hücre |
 
 ## Dürüstlük notu
@@ -98,7 +98,7 @@ flowchart TD
 `IaIN` ve `Renshaw` katmanları **bu projenin literatür setinde kaynağı olmayan** iki bileşendir.
 Devrenin çalışması için gerekli görünüyorlar ama şu an bir yayına dayanmıyorlar. İki seçenek:
 
-1. Bunları destekleyen bir kaynak `literatur/`'e eklenir ve özütlenir; ya da
+1. Bunları destekleyen bir kaynak `literatur/`'e eklenir ve özeti çıkarılır; ya da
 2. İlk sürümde devre dışı bırakılır — CPG'nin karşılıklı inhibisyonu zaten fleksör/ekstansör
    almaşmasını üretir (`oz_yu2021_kapalidongu.md`: HCO tek başına osilasyon veriyor).
 
@@ -111,5 +111,5 @@ Karar verilene kadar bu iki bileşen **iddia edilmez**.
 doğar. Yani **kapalı döngüyü kurmadan CPG'yi anlamak mümkün değil** — bu, bildiri özetinin
 "lokomosyon kapalı döngüdür" cümlesinin dinamik sistem karşılığıdır.
 
-Aynı özütün uyarısı da devrededir: `gFB` büyüdükçe duyusal gürültüye hassasiyet artar. `gFB/gCPG`
+Aynı literatür özetinin uyarısı da devrededir: `gFB` büyüdükçe duyusal gürültüye hassasiyet artar. `gFB/gCPG`
 taraması yapılırken bu ödünleşim raporlanacaktır.

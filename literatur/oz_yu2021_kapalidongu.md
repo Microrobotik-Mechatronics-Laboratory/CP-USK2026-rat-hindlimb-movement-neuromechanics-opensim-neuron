@@ -1,4 +1,4 @@
-# Özüt — Yu 2021 (yarım-merkez osilatörde duyusal geri beslemenin dinamik sonuçları)
+# Literatür özeti — Yu 2021 (yarım-merkez osilatörde duyusal geri beslemenin dinamik sonuçları)
 
 > Bu dosya makalenin **kayıplı sıkıştırmasıdır** — yerine geçmez. Amacı, makaleyi tekrar
 > açmadan modelleme kararı verebilmektir.
@@ -10,7 +10,7 @@
 - **Dergi / cilt / sayfa:** Biological Cybernetics, 115: 135–160
 - **DOI / PMC:** https://doi.org/10.1007/s00422-021-00864-y
 - **PDF:** `pdf/Dynamical_consequences_of_sensory_feedback_in_a_half-center_oscillator_coupled_to_a_simple_motor_system.pdf` (depoya girmez)
-- **Özütü çıkaran / tarih:** Claude / 05.09.2026
+- **Özeti çıkaran / tarih:** Claude / 05.09.2026
 
 - **Makale tipi:** bilgisayar modeli (dinamik sistemler / çatallanma analizi)
 - **Projemizin hangi tarafına bakıyor:** köprü/kapalı döngü (CPG ↔ kas ↔ duyusal geri besleme)
@@ -121,6 +121,6 @@ Bu makaleden test çıkmıyor: sayılar Aplysia-Morris–Lecar modeline özgü, 
 
 ## 9 · Açık sorular / doğrulanmayanlar
 
-- Bölüm 3.4 metni, salt CPG'li IE sisteminin "gCPG ≳ 1.0" için osilasyon üretemediğini yazıyor; Şekil 13 analizi ise eşiği gCPG = 0.0108 gösteriyor. İki değer 100 kat farklı; muhtemel dizgi sorunu. Özüte mekanizmalı olan (0.0108) alındı; alıntılarken dikkat.
+- Bölüm 3.4 metni, salt CPG'li IE sisteminin "gCPG ≳ 1.0" için osilasyon üretemediğini yazıyor; Şekil 13 analizi ise eşiği gCPG = 0.0108 gösteriyor. İki değer 100 kat farklı; muhtemel dizgi sorunu. Özete mekanizmalı olan (0.0108) alındı; alıntılarken dikkat.
 - Zaman birimi makalede açık tanımlanmamış; **varsayım:** ms ölçeği (C=1 µF/cm², iletkenlik µS/cm² ailesiyle uyumlu). Periyot değerleri bu belirsizlikle okunmalı.
 - mV→Hz çevrimi örtük (dipnot 2); u = V/2 ifadesinin birimi tanımsız.

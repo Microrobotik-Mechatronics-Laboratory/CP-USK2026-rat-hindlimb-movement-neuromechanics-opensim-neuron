@@ -104,7 +104,7 @@ Tek bir yarım-merkez çifti (RG) yalnız iki faz üretir: fleksör ve ekstansö
 salınım fazı ölçümü (`D7`) üç eklemin **farklı zamanlarda** tepe yaptığını gösteriyor: kalça
 fleksörleri %68,5, diz fleksörleri %76,0, ayak bileği dorsifleksörü %85,5. Tek fazlı bir
 girdi bu gecikmeleri veremez. Bu yüzden RG ile motonöron havuzları arasına eklem başına bir
-örüntü oluşturma katmanı (PF) konur. `[tasarım]` — özüt setinde doğrudan kaynağı yoktur;
+örüntü oluşturma katmanı (PF) konur. `[tasarım]` — literatür özetlerinde doğrudan kaynağı yoktur;
 gerekçesi kendi ölçümümüzdür.
 
 ## Havuz iç yapısı

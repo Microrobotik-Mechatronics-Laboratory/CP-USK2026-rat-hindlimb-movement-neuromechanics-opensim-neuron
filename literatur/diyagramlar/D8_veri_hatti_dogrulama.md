@@ -72,14 +72,14 @@ flowchart LR
 | `johnson2008.kas_sayisi` | 37 | — | `literatur` | JSON'da var |
 | `johnson2008.lokomosyon_diz_araligi` | [−110 · −60]° | — | `literatur` | JSON'da var |
 | `johnson2008.quad_diz_moment_kolu_egrisi` | — | — | `literatur` | **boş** — Şekil 3 karşılaştırması yapılmadı |
-| `Ia_Dyn_pfr_hizli` | 176,4 pps | [123 · 230] | `literatur` | özütte hazır (`oz_vincent2017` §7), **JSON'a girmedi** |
+| `Ia_Dyn_pfr_hizli` | 176,4 pps | [123 · 230] | `literatur` | literatür özetinde hazır (`oz_vincent2017` §7), **JSON'a girmedi** |
 | `Ia_DI_hizli` | 137,9 pps | [90 · 186] | `literatur` | aynı |
 | `II_Dyn_pfr_hizli` | 105,4 pps | [57 · 154] | `literatur` | aynı |
 | `Ia_ThrL` / `II_ThrL` | 0,2 / 0,6 mm | [0 · 0,4] / [0 · 1,2] | `literatur` | aynı |
-| `mn_frekans_TA_swing` | 97 Hz | [80 · 110] | `literatur` | özütte hazır (`oz_gorassini2000` §7), **JSON'a girmedi** |
+| `mn_frekans_TA_swing` | 97 Hz | [80 · 110] | `literatur` | literatür özetinde hazır (`oz_gorassini2000` §7), **JSON'a girmedi** |
 | `dublet_orani_hizli_uniteler` | ≥ %80 adım | [%50 · %100] | `literatur` | aynı |
-| `MN_esik_boy_dususu` | ~4 kat | [2 · 6] | `literatur` | özütte hazır (`oz_kim2020` §7), **JSON'a girmedi** |
-| `momentkolu_BFA_kalca_tamekstansiyon` | −15,3 mm | [−18 · −12] | `literatur` | özütte hazır (`oz_johnson2008` §7), **JSON'a girmedi** |
+| `MN_esik_boy_dususu` | ~4 kat | [2 · 6] | `literatur` | literatür özetinde hazır (`oz_kim2020` §7), **JSON'a girmedi** |
+| `momentkolu_BFA_kalca_tamekstansiyon` | −15,3 mm | [−18 · −12] | `literatur` | literatür özetinde hazır (`oz_johnson2008` §7), **JSON'a girmedi** |
 
 **Kural** (`SDLC/04_KURALLAR.md`): bant testten **önce** gerekçesiyle ilan edilir; ölçüm banda
 düşmezse önce model ve varsayımlar sorgulanır, bant sessizce genişletilmez.

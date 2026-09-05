@@ -1,4 +1,4 @@
-# Özüt — Fietkiewicz 2025 (NEURON + MuJoCo nöromekanik simülasyon)
+# Literatür özeti — Fietkiewicz 2025 (NEURON + MuJoCo nöromekanik simülasyon)
 
 > Bu dosya makalenin **kayıplı sıkıştırmasıdır** — yerine geçmez. Amacı, makaleyi tekrar
 > açmadan modelleme kararı verebilmektir.
@@ -10,7 +10,7 @@
 - **Dergi / cilt / sayfa:** ACM biçimli metin; Vol. 1, No. 1, s. 1–7, yayın tarihi June 2025 (dergi adı/cilt bilgisi metinde tam verilmemiş — makalede belirtilmemiş)
 - **DOI / PMC:** makalede belirtilmemiş
 - **PDF:** `pdf/Neuromechanical_Simulation_with_NEURON_and_MuJoCo.pdf` (depoya girmez)
-- **Özütü çıkaran / tarih:** Claude (özüt taslağı) / 2026-09-05 — insan doğrulaması bekliyor
+- **Özeti çıkaran / tarih:** Claude (özet taslağı) / 2026-09-05 — insan doğrulaması bekliyor
 
 - **Makale tipi:** yöntem/araç (bilgisayar modeli gösterimi)
 - **Projemizin hangi tarafına bakıyor:** köprü/kapalı döngü (NEURON ↔ fizik motoru)
@@ -90,7 +90,7 @@ NEURON + MuJoCo birleşimi, açık ve kapalı döngü nöromekanik modelleri bas
 ## 5 · Projemize ilgisi
 
 - **Doğrudan kullanılabilir mi?** Kısmen. İskelet tabanı bizimkiyle **aynı kaynak** (Johnson ve ark. 2008 sıçan arka bacağı) ve nöron tarafı NEURON; eşzamanlı adım senkronizasyonu (kuvvet → fizik motoru, boy → NEURON) bizim OpenSim köprümüzün birebir şablonudur. Ancak fizik motoru MuJoCo'dur ve kas dinamiği NEURON içindedir; bizim ters dinamik + statik optimizasyon iş akışımız burada yok.
-- **Hangi büyüklüğümüz veya parametremizle eşleşir?** (a) dt = 0.025 ms — Kim 2020 özütündeki NEURON adımıyla aynı; döngü senkronizasyonu için ortak adım seçimi örneği. (b) u(t) → aktüatör kuvveti ve X_m → r(t) veri akış yönleri. (c) Johnson 2008 iskelet geometrisi.
+- **Hangi büyüklüğümüz veya parametremizle eşleşir?** (a) dt = 0.025 ms — Kim 2020 özetindeki NEURON adımıyla aynı; döngü senkronizasyonu için ortak adım seçimi örneği. (b) u(t) → aktüatör kuvveti ve X_m → r(t) veri akış yönleri. (c) Johnson 2008 iskelet geometrisi.
 - **Bilinen sistematik fark:** MuJoCo aktüatörü kas-tendon dinamiği taşımaz (kuvvet dışarıdan yazılır); bizde Hill modeli OpenSim'de. Tek eklem, iki kas, yüzey teması yok — bizim çok-eklemli, temaslı lokomosyon hedefimizin çok altında. Gerilme reseptörü fizyolojik iğcik değil. Motonöron havuzu/PIC yok.
 - **Nereye girdi olacak:** model yapısı kararı (senkron adım köprü mimarisi; performans bütçesi planlaması — darboğazın fizik motoru olabileceği bilgisi) · yalnız tartışma (MuJoCo'ya geçiş gerekirse hız verisi).
 
@@ -119,4 +119,4 @@ Bu makaleden doğrulama testi çıkmıyor: tüm sayısal sonuçlar (çevrim sür
 - Gerilme reseptörünün fonksiyonel biçimi (eşik, kazanç, boydan iletkenliğe dönüşüm) bu makalede verilmemiş; [13] ve [33]'e bakılmalı.
 - "Moment kolu analizine göre tendon yerleşimi"nin ayrıntısı (hangi açı aralığı, hangi hedef moment kolları) belirtilmemiş.
 - Derginin künyesi (ACM hangi yayını) metinden çıkarılamıyor; **varsayım:** ön baskı/kabul aşaması biçimlendirmesi.
-- Özütü çıkaran not: bu özüt LLM tarafından üretildi; sayılar insan tarafından doğrulanmadan referans alınmamalı.
+- Özeti çıkaran not: bu özet LLM tarafından üretildi; sayılar insan tarafından doğrulanmadan referans alınmamalı.

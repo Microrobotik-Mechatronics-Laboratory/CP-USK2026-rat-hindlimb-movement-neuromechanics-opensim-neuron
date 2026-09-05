@@ -1,4 +1,4 @@
-# Özüt — Vincent 2017 (yetişkin sıçanda kas proprioseptörleri: sinyalleme ve omurilik sinaps dağılımı)
+# Literatür özeti — Vincent 2017 (yetişkin sıçanda kas proprioseptörleri: sinyalleme ve omurilik sinaps dağılımı)
 
 > Bu dosya makalenin **kayıplı sıkıştırmasıdır** — yerine geçmez. Amacı, makaleyi tekrar
 > açmadan modelleme kararı verebilmektir.
@@ -10,7 +10,7 @@
 - **Dergi / cilt / sayfa:** Journal of Neurophysiology, 118: 2687–2701
 - **DOI / PMC:** doi:10.1152/jn.00497.2017
 - **PDF:** `pdf/Muscle_proprioceptors_in_adult_rat_mechanosensory_signaling_and_synapse_distribution_in_spinal_cord.pdf` (depoya girmez)
-- **Özütü çıkaran / tarih:** Claude / 05.09.2026
+- **Özeti çıkaran / tarih:** Claude / 05.09.2026
 
 - **Makale tipi:** deneysel (in vivo elektrofizyoloji + tek akson morfolojisi)
 - **Projemizin hangi tarafına bakıyor:** nöron (kas iğciği Ia/II afferenti, Ib) + köprü (iğcik çıktısı r(t) → Ia sinapsı hedef laminaları)

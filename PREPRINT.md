@@ -14,7 +14,7 @@ uygulamasıdır, tersi değil.
 Kurallar:
 
 - **Kaynağı yazılamayan sayı bu dosyaya girmez.** Her sayının yanında kaynağı yazılıdır: ya bir
-  yayın (`literatur/oz_*.md` özütü üzerinden, tablo/şekil numarasıyla), ya bu çalışmada
+  yayın (`literatur/oz_*.md` literatür özeti üzerinden, tablo/şekil numarasıyla), ya bu çalışmada
   üretilmiş bir dosyanın yolu (`.osim` model, `.mot` kinematik, `.csv` sonuç, `.py`/`.hoc` kod).
 - Her ifade bir **durum etiketi** taşır:
   `[ölçüldü]` bu çalışmada ölçülmüş · `[literatürden]` bir yayından alınmış ·
@@ -29,7 +29,7 @@ Kurallar:
   Bir diyagram değişecekse **önce orada** düzeltilir.
 
 Bağlı belgeler: proje durumu `SDLC/00_DURUM.md` · kurallar `SDLC/04_KURALLAR.md` ·
-ölçüm defteri `DOGRULAMA.md` · literatür özütleri `literatur/oz_*.md`.
+ölçüm defteri `DOGRULAMA.md` · literatür özetleri `literatur/oz_*.md`.
 
 ---
 
@@ -390,11 +390,11 @@ flowchart TD
 | `gFB` / `gCPG` dengesi | ritmin ne kadarı merkezden, ne kadarı duyudan | `oz_yu2021` §4b | `[literatürden]` ödünleşim |
 | Ia monosinaptik eksitasyon | germe refleksinin doğrudan kolu | `oz_vincent2017` §4b — Ia varikoziteleri lamina IX'ta ≥30 µm gövdelerle temas | `[literatürden]` anatomik kanıt |
 | II → lamina V/VI aktarımı | II bilgisi internöron üzerinden gider | `oz_vincent2017` §4b | `[literatürden]` |
-| IaIN (resiprokal inhibisyon) | antagonist havuzu susturur | **özüt setinde kaynak yok** | `[tasarım]` |
-| Renshaw (rekürren inhibisyon) | havuzun çıkışını sınırlar | **özüt setinde kaynak yok** | `[tasarım]` |
+| IaIN (resiprokal inhibisyon) | antagonist havuzu susturur | **literatür özetlerinde kaynak yok** | `[tasarım]` |
+| Renshaw (rekürren inhibisyon) | havuzun çıkışını sınırlar | **literatür özetlerinde kaynak yok** | `[tasarım]` |
 
 **Dürüstlük notu:** `IaIN` ve `Renshaw` bu projenin literatür setinde kaynağı olmayan iki
-bileşendir. Ya bir kaynak eklenip özütlenecek, ya ilk sürümde devre dışı bırakılacaklardır —
+bileşendir. Ya bir kaynak eklenip özeti çıkarılacak, ya ilk sürümde devre dışı bırakılacaklardır —
 CPG'nin kendi karşılıklı inhibisyonu zaten fleksör/ekstansör almaşmasını üretir. Karar verilene
 kadar **iddia edilmezler**.
 
@@ -1004,9 +1004,10 @@ düşmezse önce model ve varsayımlar sorgulanır, bant sessizce genişletilmez
 `ic_olcum` kayıtları karıştırılmaz: iç ölçüm bandı bir **regresyon** bandıdır, literatür
 doğrulaması sayılmaz.
 
-Bugün `literatur/referans_degerler.json`'da 6 kayıt vardır (2'si `ic_olcum`). Özütlerde hazır
-olup JSON'a **henüz girmemiş** bantlar: Vincent'ın 6 afferent bandı, Gorassini'nin 6 motonöron
-bandı, Kim'in eşik bandı, Johnson'ın BFA kalça moment kolu bandı `[yapılacak]`.
+Bugün `literatur/referans_degerler.json`'da 6 kayıt vardır (2'si `ic_olcum`). Literatür
+özetlerinde hazır olup JSON'a **henüz girmemiş** bantlar: Vincent'ın 6 afferent bandı,
+Gorassini'nin 6 motonöron bandı, Kim'in eşik bandı, Johnson'ın BFA kalça moment kolu bandı
+`[yapılacak]`.
 
 ---
 
@@ -1047,7 +1048,7 @@ haritasının **ötesindedir** ve bu preprintin kapsamı dışındadır.
 
 ## 15 · Kaynaklar
 
-Tam özütler `literatur/oz_*.md` dosyalarındadır; aşağıdaki liste her kaynağın projedeki
+Literatür özetlerinin tamamı `literatur/oz_*.md` dosyalarındadır; aşağıdaki liste her kaynağın projedeki
 rolünü gösterir.
 
 | Kaynak | Künye | Projedeki rolü |
@@ -1059,10 +1060,11 @@ rolünü gösterir.
 | **Yu ve Thomas 2021** | *Dynamical consequences of sensory feedback in a half-center oscillator coupled to a simple motor system*, Biol Cybern 115:135–160 | CPG mimarisi ve `gFB`/`gCPG` ödünleşimi; yöntem şablonu. Parametre kaynağı değildir (Aplysia + Morris-Lecar). |
 | **Fietkiewicz ve ark. 2023** | *Tutorial: using NEURON for neuromechanical simulations*, Front Comput Neurosci 17:1143323 | NEURON içi modül bağlama tekniği (`POINTER`, NetCon), süreksiz (non-smooth) dinamik, zaman adımı yarılama testi. |
 | **Fietkiewicz ve ark. 2025** | *Neuromechanical Simulation with NEURON and MuJoCo* | İki simülatörün aynı zaman adımıyla eşzamanlı ilerletildiği köprü mimarisinin şablonu. Aynı iskelet tabanı (Johnson 2008) ama fizik motoru MuJoCo; bizim tercihimiz OpenSim. |
-| **Blum 2020** | iğcik Ia fit verisi | `veri/r_katsayilari_v3.json`'daki Ia katsayılarının kaynağı. **Özütü henüz yok** — `literatur/`'e eklenmeli. |
+| **Blum 2020** | iğcik Ia fit verisi | `veri/r_katsayilari_v3.json`'daki Ia katsayılarının kaynağı. **Literatür özeti henüz yok** — `literatur/`'e eklenmeli. |
 
-**Eksik kaynak uyarısı:** Blum 2020'nin özütü bu klasörde yoktur; Ia denklemi bugün özütsüz bir
-JSON kaydına dayanmaktadır. Ayrıca IaIN / Renshaw katmanlarının hiçbir kaynağı yoktur (bölüm 6.1).
+**Eksik kaynak uyarısı:** Blum 2020'nin literatür özeti bu klasörde yoktur; Ia denklemi bugün
+özeti çıkarılmamış bir JSON kaydına dayanmaktadır. Ayrıca IaIN / Renshaw katmanlarının hiçbir
+kaynağı yoktur (bölüm 6.1).
 
 ---
 
@@ -1127,6 +1129,7 @@ kullanılmaz**, gerekirse terim doğrudan İngilizce yazılır.
 
 | Bu belgede | Literatürdeki özgün terim |
 |---|---|
+| literatür özeti (`literatur/oz_*.md`) | bir makalenin yapılandırılmış özeti — bu projenin çalışma belgesi; makalenin yerine geçmez |
 | tolerans bandı | tolerance band |
 | ızgara | grid |
 | zaman adımı yarılama testi | step-halving convergence check |

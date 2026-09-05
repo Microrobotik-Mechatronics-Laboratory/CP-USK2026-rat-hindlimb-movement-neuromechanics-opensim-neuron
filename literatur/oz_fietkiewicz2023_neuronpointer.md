@@ -1,4 +1,4 @@
-# Özüt — Fietkiewicz 2023 (NEURON ile nöromekanik simülasyon eğitseli, pointer mimarisi)
+# Literatür özeti — Fietkiewicz 2023 (NEURON ile nöromekanik simülasyon eğitseli, pointer mimarisi)
 
 > Bu dosya makalenin **kayıplı sıkıştırmasıdır** — yerine geçmez. Amacı, makaleyi tekrar
 > açmadan modelleme kararı verebilmektir.
@@ -10,7 +10,7 @@
 - **Dergi / cilt / sayfa:** Frontiers in Computational Neuroscience 17:1143323 (yayın: 31 Temmuz 2023)
 - **DOI / PMC:** 10.3389/fncom.2023.1143323
 - **PDF:** `pdf/Tutorial_using_NEURON_for_neuromechanical_simulations.pdf` (depoya girmez)
-- **Özütü çıkaran / tarih:** Claude (özüt taslağı) / 2026-09-05 — insan doğrulaması bekliyor
+- **Özeti çıkaran / tarih:** Claude (özet taslağı) / 2026-09-05 — insan doğrulaması bekliyor
 
 - **Makale tipi:** yöntem/araç (eğitsel)
 - **Projemizin hangi tarafına bakıyor:** nöron (NEURON) + köprü/kapalı döngü (beyin↔beden bağlantısının NEURON içi tekniği)
@@ -118,4 +118,4 @@ Bu makaleden sayısal doğrulama testi çıkmıyor (eğitsel; tüm sayılar örn
 - w = 0.628 parametresinin birimi metinde yazılmamış; "varsayım:" t ms cinsinden olduğundan rad/ms kabul edildi (0.628 ≈ 2π/10 → 10 ms periyot; Fig. 16 ekseniyle uyumlu görünüyor, doğrulanmadı).
 - Değişken adım %28.6 kazancının ölçüm protokolü (kaç tekrar, hangi süreler) yalnız "birden çok simülasyon uzunluğunda tutarlı" ifadesiyle geçiyor.
 - Pointer kaynaklı kararsızlığın hangi koşullarda fiilen gözlendiğine dair örnek verilmemiş; uyarı teoriktir.
-- Özütü çıkaran not: bu özüt LLM tarafından üretildi; sayılar insan tarafından doğrulanmadan referans alınmamalı.
+- Özeti çıkaran not: bu özet LLM tarafından üretildi; sayılar insan tarafından doğrulanmadan referans alınmamalı.

@@ -1,4 +1,4 @@
-# Özüt — Kim 2020 (PIC lokasyonu × kas boyu, kapalı-döngü motor ünite)
+# Literatür özeti — Kim 2020 (PIC lokasyonu × kas boyu, kapalı-döngü motor ünite)
 
 > Bu dosya makalenin **kayıplı sıkıştırmasıdır** — yerine geçmez. Amacı, makaleyi tekrar
 > açmadan modelleme kararı verebilmektir.
@@ -10,7 +10,7 @@
 - **Dergi / cilt / sayfa:** eNeuro, March/April 2020, 7(2), ENEURO.0014-20.2020, s. 1–19
 - **DOI / PMC:** 10.1523/ENEURO.0014-20.2020
 - **PDF:** `pdf/Linking_Motoneuron_PIC_Location_to_Motor_Function_in_Closed-Loop_Motor_Unit_System_Including_Afferent_Feedback_A_Computational_Investigation.pdf` (depoya girmez)
-- **Özütü çıkaran / tarih:** Claude (özüt taslağı) / 2026-09-05 — insan doğrulaması bekliyor
+- **Özeti çıkaran / tarih:** Claude (özet taslağı) / 2026-09-05 — insan doğrulaması bekliyor
 
 - **Makale tipi:** bilgisayar modeli
 - **Projemizin hangi tarafına bakıyor:** nöron (NEURON) + köprü/kapalı döngü
@@ -161,4 +161,4 @@ Nitel doğrulama adayları (JSON'a sayı olarak girmez): proksimal/ara/distal PI
 - G_aff–X_m ilişkisinin üç nokta (−16/−8/0 mm) arasındaki ara değerlerde nasıl enterpole edildiği metinde açık değil; **varsayım:** ısınma protokolündeki sinüzoidal G_aff kullanımından doğrusal/düz enterpolasyon yapıldığı izlenimi doğuyor, doğrulanmadı.
 - "~4 kat eşik düşüşü" hem somatik hem dendritik koşul için söyleniyor ama tam sayısal tablo verilmemiş; Fig. 2A/3A'dan okunuyor.
 - İletim gecikmesi 10 ms'nin efferent/afferent arasında nasıl bölündüğü belirtilmemiş (tek parametre).
-- Özütü çıkaran not: bu özüt LLM tarafından üretildi; sayılar PDF ile satır satır doğrulanmadan `referans_degerler.json`'a işlenmemeli.
+- Özeti çıkaran not: bu özet LLM tarafından üretildi; sayılar PDF ile satır satır doğrulanmadan `referans_degerler.json`'a işlenmemeli.

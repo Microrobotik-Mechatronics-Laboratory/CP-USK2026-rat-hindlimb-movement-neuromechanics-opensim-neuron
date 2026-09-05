@@ -1,4 +1,4 @@
-# Özüt — Gorassini 2000 (yürüyen bilinçli sıçanda motor ünite aktivitesi)
+# Literatür özeti — Gorassini 2000 (yürüyen bilinçli sıçanda motor ünite aktivitesi)
 
 > Bu dosya makalenin **kayıplı sıkıştırmasıdır** — yerine geçmez. Amacı, makaleyi tekrar
 > açmadan modelleme kararı verebilmektir.
@@ -10,7 +10,7 @@
 - **Dergi / cilt / sayfa:** Journal of Neurophysiology, 83: 2002–2011
 - **DOI / PMC:** makalede DOI yazılı değil (2000 yılı basımı)
 - **PDF:** `pdf/Activity_of_Hindlimb_Motor_Units_During_Locomotion_in_the_Conscious_Rat.pdf` (depoya girmez)
-- **Özütü çıkaran / tarih:** Claude / 05.09.2026
+- **Özeti çıkaran / tarih:** Claude / 05.09.2026
 
 - **Makale tipi:** deneysel (in vivo, bilinçli hayvan, tek motor ünite EMG)
 - **Projemizin hangi tarafına bakıyor:** nöron (motonöron havuzu çıkışı) + köprü (motonöron → kas aktivasyonu u(t))
