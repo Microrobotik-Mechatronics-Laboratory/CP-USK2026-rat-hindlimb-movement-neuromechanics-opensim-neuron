@@ -81,7 +81,10 @@ Yol haritasının tamamı artık `PREPRINT.md` bölüm 13'tedir.
 - ~~Bildirilmeyen bağımlılıklar~~ **Kapandı** (risk-2).
 
 ## Bekleyen
-- ~~push bekleyen commit~~ **Yapıldı:** 15 yerel commit `origin/main`'e rebase edilip
+- ~~4. oturumun push'u~~ **Yapıldı:** 10 commit `origin/main`'e push edildi
+  (`730e332..1f3d1d0`, 2026-09-05). Dizin yeniden düzenlemesi ve PREPRINT terim denetimi dahil;
+  uzakta çakışma yoktu.
+- ~~3. oturumun push'u~~ **Yapıldı:** 15 yerel commit `origin/main`'e rebase edilip
   push edildi (2026-09-05). Uzakta bu arada eklenen GitHub Actions workflow'ları
   (`.github/workflows/`, PR #1) yerele alındı; çakışma olmadı.
 - ~~`literatur/` boş~~ **7 literatür özeti eklendi** (Johnson, Kim, Vincent, Gorassini, Yu,
