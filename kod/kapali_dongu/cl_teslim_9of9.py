@@ -1,12 +1,15 @@
 # cl_teslim_9of9.py — 9/9 kapiyi gecen en iyi P (cl_best_9of9.json) icin TESLIM sekli.
 # Ayni koşu: live (reclog) + meanff (G9 yapisal kanit). Zaman serileri + faz portresi + live-vs-meanff.
-# Cikti: cl_teslim_9of9.png + cl_teslim_9of9.npz + stdout ozet (ureten: bu dosya).
+# Cikti: sekiller/cl_teslim_9of9.png + veri/kapali_dongu/cl_teslim_9of9.npz + stdout ozet (ureten: bu dosya).
 import json, numpy as np
+import sys, pathlib
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))  # kod/yollar.py icin
 import matplotlib; matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from cl_emergent import run
+from yollar import VERI_CL, SEKILLER
 
-P = json.load(open('cl_best_9of9.json'))['P']
+P = json.load(open(VERI_CL/'cl_best_9of9.json'))['P']
 TS = 6.0
 print("live kosuluyor (Tsim=%.0f, dt=2e-5)..." % TS)
 L = run(dict(P), Tsim=TS, dt=2e-5, rec=20, reclog=True)
@@ -75,8 +78,8 @@ ax[5].set_title('G9 yapisal kanit: live limitten uzak; meanff limite cakiliyor (
 ax[5].legend(loc='center right', fontsize=8)
 
 plt.tight_layout()
-plt.savefig('cl_teslim_9of9.png', dpi=140)
-np.savez_compressed('cl_teslim_9of9.npz',
+plt.savefig(SEKILLER/'cl_teslim_9of9.png', dpi=140)
+np.savez_compressed(VERI_CL/'cl_teslim_9of9.npz',
     **{k: v for k, v in L.items() if isinstance(v, np.ndarray)},
     meanff_t=M['t'], meanff_ankle=M['ankle'], meanff_state=M['state'],
     n_trans_live=len(L['transitions']), n_trans_meanff=len(M['transitions']))

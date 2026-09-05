@@ -3,19 +3,22 @@
 #   pip install cma
 # Kosum:  python cl_optimize.py            (CMA-ES, paralel)
 #         python cl_optimize.py random 300 (yedek: rastgele arama)
-import numpy as np, json, sys, time
+import numpy as np, json, sys, time, pathlib
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))  # kod/yollar.py icin
 from multiprocessing import Pool
 from cl_selfcheck import fitness, verify, vec2P, PARSPEC
+from yollar import VERI_CL
+BEST = VERI_CL/'cl_best.json'
 
 def _f(x):
     try: return fitness(vec2P(x), Tsim=6.0)   # arama = dogrulama ufku (Tsim=3 optimumu 6 s'de bilegi limite surukluyordu)
     except Exception: return 1e6
 
 def run_cma(gens=60, popsize=32, workers=32, seed=0):   # Tsim=6 aramasi ~2x yavas; 60 jen ~6-7 saat
-    import cma, os
+    import cma
     x0=[0.4]*len(PARSPEC); sig=0.25
-    if os.path.exists('cl_best.json'):
-        b=json.load(open('cl_best.json'))
+    if BEST.exists():
+        b=json.load(open(BEST))
         x0=[(b['P'][n]-lo)/(hi-lo) for (n,lo,hi) in PARSPEC]
         sig=0.10
         print("ilik baslangic: maliyet %.3f"%b['cost'])
@@ -41,7 +44,7 @@ def run_random(n=300, workers=8):
 
 def _save(P,cost):
     json.dump({'P':{k:(list(v) if isinstance(v,(list,np.ndarray)) else float(v) if isinstance(v,(int,float,np.floating)) else v)
-                    for k,v in P.items()},'cost':float(cost)}, open('cl_best.json','w'),indent=2)
+                    for k,v in P.items()},'cost':float(cost)}, open(BEST,'w'),indent=2)
 
 if __name__=='__main__':
     if len(sys.argv)>1 and sys.argv[1]=='random': run_random(int(sys.argv[2]) if len(sys.argv)>2 else 300)

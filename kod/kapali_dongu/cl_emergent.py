@@ -17,7 +17,10 @@
 #    KONTROL hatasi DEGIL, entegrasyon artefaktiydi (cdf/cpf ile duzelmez). dt=2e-5'te sonuc
 #    yakinsak (dt=1e-5 ile birebir ayni); 5e-5/3e-5 hala artefakt. Varsayilan dt 2e-5 yapildi.
 import numpy as np
-g=np.load('cl_grid3d.npz',allow_pickle=True)
+import sys, pathlib
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))  # kod/yollar.py icin
+from yollar import VERI_CL
+g=np.load(VERI_CL/'cl_grid3d.npz',allow_pickle=True)   # modul seviyesinde: import aninda gerekir
 HIP=g['HIP']; KNE=g['KNE']; ANK=g['ANK']; R=g['R']; LM=g['LM']; LMT=g['LMT']
 MLEG=g['MLEG']; BG=g['BG']; FTOE=g['FTOE']; FHEEL=g['FHEEL']
 names=[str(x) for x in g['names']]; nM=len(names); tsl=g['tsl']; lmo=g['lmo']; cosa=g['cosa']; Fmax=g['Fmax']
