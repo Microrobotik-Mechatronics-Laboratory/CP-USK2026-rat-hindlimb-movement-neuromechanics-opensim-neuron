@@ -987,21 +987,39 @@ PREPRINT bölüm 8 bu testi **zorunlu** sayar: kuplaj dışsaldır, ortak Jacobi
 | `u` zıtfaz korelasyonu | −0,722 | −0,729 | — | — | değişmiyor |
 | **Eklem ROM** | **78,39°** | **61,33°** | **%21,77** | %10 | **DÜŞTÜ** |
 
-**Yorum ve karar.** Sinirsel taraf (ritim, frekans, faz ilişkisi) alışveriş adımından
-bağımsızdır; **mekanik açıklık değildir**. Bant **genişletilmemiştir** (04_KURALLAR: post-hoc
-bant genişletme yasak). İki aday açıklama var ve ayırt edilmelidir:
+**Yorum.** Sinirsel taraf (ritim, frekans, faz ilişkisi) alışveriş adımından bağımsızdır;
+mekanik açıklık o adımda değildir. Bant **genişletilmemiştir** (04_KURALLAR: post-hoc bant
+genişletme yasak); bunun yerine sebep arandı.
 
-1. **Sıfırıncı derece tutma (zero-order hold).** Uyarım köprü adımı boyunca sabit tutulur.
-   Bilek DOF'unun eylemsizliği çok küçüktür (`M[ankle,ankle]` ≈ 1,1·10⁻⁷, kalçanın ~1/120'si);
-   hızlı geçişlerde 0,3 ms'lik tutma ile 0,15 ms'lik tutma farklı itki verir.
-2. **Çalışma noktası model aralığının dışında.** Bilek −11 … +63° arasında salınıyor; proje
-   ızgarasının bilek aralığı −35 … +55°, ölçülmüş yürüyüşünki −2,89 … +30,65°. Bu uçlarda
-   moment kolu ve kuvvet-uzunluk eğrileri şiddetli doğrusal-olmayan bölgededir ve küçük
-   zamanlama farkları büyür.
+## P.6 · Üç noktalı yakınsama taraması — sebep bulundu: adım çok kabaydı
 
-İkisi de doğruysa, açıklığı fizyolojik aralığa çeken bir kalibrasyon yakınsamayı da düzeltir.
-**Bu çözülene kadar kapalı döngünün eklem açıklığına dayanan hiçbir sonuç bildirilmeyecektir.**
-Sinirsel ölçütler (çevrim süresi, frekans, faz) yakınsadıkları için raporlanabilir.
+İki nokta bir eğilim göstermez; üçüncü nokta eklendi. Aynı koşum (3 s), yalnız köprü adımı
+değişken:
+
+| `dt_k` | Çevrim süresi | Eklem ROM | Açı aralığı | CPU |
+|---|---|---|---|---|
+| 0,300 ms | 0,4020 s | 73,94° | −11,08 … +62,86° | 187,0 s |
+| 0,150 ms | 0,3749 s | 54,41° | +14,00 … +68,41° | 269,0 s |
+| 0,075 ms | 0,3787 s | 54,10° | +8,08 … +62,18° | 457,6 s |
+
+Ardışık bağıl farklar: ROM **%26,4** (0,30 → 0,15), sonra **%0,57** (0,15 → 0,075).
+Çevrim süresinde **%1,00** (0,15 → 0,075).
+
+**Sonuç: çözüm yakınsıyor; sorun kuplajın kendisi değil, 0,3 ms'in çok kaba olmasıydı.**
+Bu, ilk hipotezle (sıfırıncı derece tutma + bilek DOF'unun çok küçük eylemsizliği) tutarlıdır:
+uyarım köprü adımı boyunca sabit tutuluyor ve `M[ankle,ankle]` ≈ 1,1·10⁻⁷ olduğu için
+0,3 ms'lik tutma hızlı geçişlerde belirgin biçimde farklı itki veriyor.
+
+**Karar:** üretim köprü adımı **0,15 ms** yapıldı. Gecikmelerin tam sayı adım olma özelliği
+korunuyor: Ia 1,5/0,15 = **10 adım**, II 1,8/0,15 = **12 adım**, efferent 6/0,15 = **40 adım**;
+NEURON adımının katı olma özelliği de korunuyor (0,15/0,025 = **6 adım**). Bedeli yaklaşık
+1,4 kat CPU'dur.
+
+**Bant değil, adım değiştirildi.** Ölçüt banda uymadığında önce modelin sorgulanması kuralının
+(04_KURALLAR, madde 2) uygulanmasıdır bu.
+
+Yeni üretim değeriyle (`dt_k` = 0,15 ms) koşum ve adım yarılama testi yeniden yapılmıştır;
+sonuçları aşağıdadır.
 
 **Üreten:** `kod/kopru/adim_yarilama.py`, `kod/kopru/kos_ayakbilegi.py`.
 **Artefakt:** `veri/kopru/kosum_ayakbilegi.npz`, `sekiller/kopru_ayakbilegi.png` + `.csv`.
