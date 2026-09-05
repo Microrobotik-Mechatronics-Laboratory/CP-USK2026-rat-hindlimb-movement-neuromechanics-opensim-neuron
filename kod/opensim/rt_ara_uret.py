@@ -2,7 +2,7 @@
 # aktarım maliyeti ve hata riski yüksekti). Tarif 46_ §5'ten: lmt = GeometryPath.getLength
 # (201 kare, g=0..100 %0,5 adım), lm = sqrt((lmt−tsl)² + (lmo·sinα0)²) [rijit tendon, kart
 # kural 6], v = np.gradient(lm, t). DOĞRULAMA: bu üretimle u_stance_pipeline.salinim_dogrula
-# u_swing_v2'yi hedef fark bandında yeniden üretmeli — üretim ancak o zaman geçerli sayılır.
+# u_swing_v2'yi hedef fark aralığında yeniden üretmeli — üretim ancak o zaman geçerli sayılır.
 import numpy as np, json
 import opensim as osim
 import sys, pathlib

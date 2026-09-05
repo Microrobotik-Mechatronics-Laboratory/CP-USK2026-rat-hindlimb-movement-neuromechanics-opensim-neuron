@@ -104,22 +104,22 @@ Sıçan proprioseptörleri, kediden bilinen intraspinal hedef şablonunu büyük
 - **Doğrudan kullanılabilir mi?** Evet — iğcik afferent modelimizin (Ia/II) pasif germe çıktısı r(t) için birincil sıçan doğrulama seti; germe protokolü (3 mm, 20 mm/s, tut) simülasyonda birebir kopyalanabilir.
 - **Hangi büyüklüğümüzle eşleşir?** Ia/II model çıktısı ↔ Dyn(pfr), Stat(mfr), DI, ThrL; Ia sinapsının motonörona bağlanması ↔ LIX projeksiyon kanıtı; Ib eklemeyi tartışıyorsak pasif germe Ib istatistikleri.
 - **Bilinen sistematik fark:** Wistar (biz Sprague-Dawley); dişi; izofluran anestezisi; pasif kas (fusimotor sürücüsüz ≈ γ-suz durum — kapalı döngü lokomosyonda γ aktif olacaktır); triceps surae bütünü (soleus dahil).
-- **Nereye girdi olacak:** parametre seçimi (iğcik modeli kazançları sıçana ayarlanırken) + doğrulama testi (aşağıdaki bantlar) + model yapısı kararı (Ia→LIX monosinaps; Ib'nin şimdilik dışarıda tutulmasının bedeli).
+- **Nereye girdi olacak:** parametre seçimi (iğcik modeli kazançları sıçana ayarlanırken) + doğrulama testi (aşağıdaki aralıklar) + model yapısı kararı (Ia→LIX monosinaps; Ib'nin şimdilik dışarıda tutulmasının bedeli).
 
 ## 6 · Bizimle çelişen veya işimize gelmeyen bulgular
 
-- **Kedi tabanlı iğcik modelleri sıçana az gelir:** iğcik modelimiz kedi verisinden türetilmiş bir aileden geliyorsa (Matthews-tipi kazançlar), sıçan Ia dinamik duyarlılığı (DI/SFR 4.5'e 1.5) sistematik olarak eksik kalır. Kazançları sıçan verisine yeniden ayarlamadan doğrulama bantlarımız tutmayabilir.
+- **Kedi tabanlı iğcik modelleri sıçana az gelir:** iğcik modelimiz kedi verisinden türetilmiş bir aileden geliyorsa (Matthews-tipi kazançlar), sıçan Ia dinamik duyarlılığı (DI/SFR 4.5'e 1.5) sistematik olarak eksik kalır. Kazançları sıçan verisine yeniden ayarlamadan doğrulama aralıklarımız tutmayabilir.
 - **Ib pasif germede susmuyor:** modelimizde Ib yoksa (yalnız Ia/II iğcik döngüsü), salınım fazında omuriliğe giden gerçek afferent sinyalin bir bileşenini atıyoruz; derin dorsal boynuz üstünden kapanabilecek yolları temsil edemeyiz. Bilinçli basitleştirme olarak kaydedilmeli.
 - **Sınıf içi devasa saçılım ve sınıf örtüşmesi:** tek "temsilî Ia" parametre setiyle kurulan iğcik modeli, popülasyon çeşitliliğini temsil etmez; Stat(mfr) gruplar arasında ayırt edici bile değil. Statik frekansı sınıf kimliği doğrulaması olarak kullanamayız.
-- **Pasif koşul:** ölçümler γ-sürücüsüz duruma yakın; kapalı döngüde fusimotor eklediğimizde bu bantların doğrudan geçerliliği kalkar (yalnız pasif test koşulunda geçerli).
+- **Pasif koşul:** ölçümler γ-sürücüsüz duruma yakın; kapalı döngüde fusimotor eklediğimizde bu aralıkların doğrudan geçerliliği kalkar (yalnız pasif test koşulunda geçerli).
 
 ## 7 · Testlere girecek değerler (varsa)
 
-Test koşulu: pasif triceps surae, 3 mm rampa-tut, 20 mm/s (bantlar ±1 SD; makale koşulu birebir simüle edilmeli).
+Test koşulu: pasif triceps surae, 3 mm rampa-tut, 20 mm/s (aralıklar ±1 SD; makale koşulu birebir simüle edilmeli).
 
-| Kimlik | Değer | Bant [alt, üst] | Gerekçe (tür/koşul farkı, saçılım, model basitleştirmesi) |
+| Kimlik | Değer | Aralık [alt, üst] | Gerekçe (tür/koşul farkı, saçılım, model basitleştirmesi) |
 |---|---|---|---|
-| Ia_Dyn_pfr_hizli | 176.4 pps | [123, 230] | Tablo 4, ±1 SD (53.2); Wistar→SD soy farkı payı bandın içinde |
+| Ia_Dyn_pfr_hizli | 176.4 pps | [123, 230] | Tablo 4, ±1 SD (53.2); Wistar→SD soy farkı payı aralığın içinde |
 | Ia_DI_hizli | 137.9 pps | [90, 186] | Tablo 4, ±1 SD (48.4) |
 | II_Dyn_pfr_hizli | 105.4 pps | [57, 154] | Tablo 4, ±1 SD (48.9) |
 | II_ThrL | 0.6 mm | [0, 1.2] | Tablo 4, ±1 SD (0.6); alt sınır fiziksel 0 |

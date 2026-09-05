@@ -24,7 +24,7 @@ Sıçan arka bacağının dinamik bir kas-iskelet modeline giden ilk adım olara
 
 ### 3a · Denek / malzeme / model
 
-Yedi dişi Sprague-Dawley sıçanı (280 ± 16 g). İlk 3 hayvan kas bağlantı noktası sayısallaştırması, kalan 4 hayvan eklem merkezi belirleme için (Tablo 1). Hazırlık: diseksiyon sırasında anestezi (100 mg/kg ketamin + 5 mg/kg ksilazin, i.p.), krural ve ventromedial kalça kaslarına geçerken ötanazi (125 mg/kg sodyum pentobarbital, i.p.). Ölçüm aracı: iki dijital kamerayla stereofotogrametri (kameralar ~90° farklı bakış açısıyla), ticari yazılım SIMI Motion; tüm dönüşümler, fitler ve moment kolu hesapları MATLAB ile. Bipedal lokomosyon açıları için ayrıca 5 sıçan, 13 cm/s bantta, gövde askısıyla kısmi vücut ağırlığı desteğinde yürütülmüş; 4 kameralı hareket yakalama.
+Yedi dişi Sprague-Dawley sıçanı (280 ± 16 g). İlk 3 hayvan kas bağlantı noktası sayısallaştırması, kalan 4 hayvan eklem merkezi belirleme için (Tablo 1). Hazırlık: diseksiyon sırasında anestezi (100 mg/kg ketamin + 5 mg/kg ksilazin, i.p.), krural ve ventromedial kalça kaslarına geçerken ötanazi (125 mg/kg sodyum pentobarbital, i.p.). Ölçüm aracı: iki dijital kamerayla stereofotogrametri (kameralar ~90° farklı bakış açısıyla), ticari yazılım SIMI Motion; tüm dönüşümler, fitler ve moment kolu hesapları MATLAB ile. Bipedal lokomosyon açıları için ayrıca 5 sıçan, 13 cm/s koşu bandında, gövde askısıyla kısmi vücut ağırlığı desteğinde yürütülmüş; 4 kameralı hareket yakalama.
 
 ### 3b · Yöntem adımları
 
@@ -108,16 +108,16 @@ Eklem merkezleri eklem açısının 1. dereceden fonksiyonlarıyla doğru modell
 ## 6 · Bizimle çelişen veya işimize gelmeyen bulgular
 
 - **Model statik:** kas kuvveti, PCSA, lif boyu, tendon özellikleri YOK. Hill parametrelerimiz buradan gelemez; başka kaynak şart.
-- **Moment kolu eğrileri sayı olarak verilmemiş** (yalnız Şekil 3–4 grafikleri). Doğrulama testi kurarken şekilden okuma hatası kaçınılmaz; bant geniş tutulmalı.
+- **Moment kolu eğrileri sayı olarak verilmemiş** (yalnız Şekil 3–4 grafikleri). Doğrulama testi kurarken şekilden okuma hatası kaçınılmaz; aralık geniş tutulmalı.
 - **Postüre bağlı işlev değişimi bize ek yük:** bipedal senaryo simüle edersek quadrupedal aralık için doğrulanmış varsayımlar (moment kolu ~sabit, içsel stabilizasyon) geçersizleşiyor. Tek "lokomosyon moment kolu" sabiti kullanan basitleştirme bipedal tarafta ortalama %45 hata taşır.
 - **Diz için 0. ve 1. derece fit hatası eşit** (Tablo 4: %4.1 – %4.1); 1. derece seçimi hataya değil insan dizi literatürüne dayandırılmış. Dizde sabit merkez varsayımı da aynı doğrulukta savunulabilirdi.
 
 ## 7 · Testlere girecek değerler (varsa)
 
-| Kimlik | Değer | Bant [alt, üst] | Gerekçe (tür/koşul farkı, saçılım, model basitleştirmesi) |
+| Kimlik | Değer | Aralık [alt, üst] | Gerekçe (tür/koşul farkı, saçılım, model basitleştirmesi) |
 |---|---|---|---|
 | momentkolu_BFA_kalca_tamekstansiyon | −15.3 mm | [−18, −12] | Şekilden/metinden tek değer; hayvanlar arası SD 2.20 mm ve tanım farkı payı |
-| eklemmerkezi_bagil_hata_ust | ≤7 % | [0, 7] | Tablo 4 üst sınırı; OpenSim iskeletimizin uç nokta hatası bu bandı aşmamalı |
+| eklemmerkezi_bagil_hata_ust | ≤7 % | [0, 7] | Tablo 4 üst sınırı; OpenSim iskeletimizin uç nokta hatası bu aralığı aşmamalı |
 | pectineus_sifir_kesme_kalca | 21–40 ° | [15, 45] | Şekil 3B'den; şekil okuma ve birey farkı payı |
 
 ## 8 · Özete alınmayanlar
@@ -130,7 +130,7 @@ Eklem merkezleri eklem açısının 1. dereceden fonksiyonlarıyla doğru modell
 
 ## 9 · Açık sorular / doğrulanmayanlar
 
-- Moment kolu eğrilerinin sayısal verisi yayında yok; **varsayım:** doğrulama bantlarını şekillerden okuyacağız.
+- Moment kolu eğrilerinin sayısal verisi yayında yok; **varsayım:** doğrulama aralıklarını şekillerden okuyacağız.
 - Tablo 5 katsayılarının açı birimi makalede açıkça yazılmamış (Denklem 1'de θ, φ, ψ rotasyon açıları); **varsayım:** radyan. Modele girmeden birim, uç nokta hatasını yeniden üreterek test edilmeli.
 - MTL, kas kuvvet parametreleri, sarkomer verisi bu makalede belirtilmemiş.
 - DOI bu el yazması sürümünde yok; künye repoya işlenirken yayıncı sayfasından tamamlanmalı.

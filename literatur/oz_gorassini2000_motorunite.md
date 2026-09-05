@@ -101,7 +101,7 @@ Bilinçli sıçanda serbest yürüyüş sırasında motor ünite aktivasyonunun 
 - **Doğrudan kullanılabilir mi?** Kısmen — parametreden çok doğrulama hedefi: NEURON motonöron havuzumuzun lokomosyon çıktısı bu frekans ve dublet istatistiklerini üretmeli.
 - **Hangi büyüklüğümüzle eşleşir?** Motonöron ateşleme frekansı → kas aktivasyonu u(t) girdisi; PIC/Cav1.3 modellememiz için dublet mekanizması (plato potansiyeli) doğrudan destek; CPG→motonöron sürücüsünün faz yapısı (erken/orta-geç basma tipleri).
 - **Bilinen sistematik fark:** erkek Wistar (SOL: Møll-Wistar) vs bizim Sprague-Dawley temelimiz; zemin üstü serbest yürüyüş (hız kontrolsüz); ünite örneklemi büyük/yüzeysel FF ünitelerine yanlı; frekanslar EMG'den, hücre içi kayıt değil.
-- **Nereye girdi olacak:** doğrulama testi (frekans bantları, dublet oranları) + model yapısı kararı (havuz içi kompartman/sürücü çeşitliliği gerekip gerekmediği).
+- **Nereye girdi olacak:** doğrulama testi (frekans aralıkları, dublet oranları) + model yapısı kararı (havuz içi kompartman/sürücü çeşitliliği gerekip gerekmediği).
 
 ## 6 · Bizimle çelişen veya işimize gelmeyen bulgular
 
@@ -112,7 +112,7 @@ Bilinçli sıçanda serbest yürüyüş sırasında motor ünite aktivasyonunun 
 
 ## 7 · Testlere girecek değerler (varsa)
 
-| Kimlik | Değer | Bant [alt, üst] | Gerekçe (tür/koşul farkı, saçılım, model basitleştirmesi) |
+| Kimlik | Değer | Aralık [alt, üst] | Gerekçe (tür/koşul farkı, saçılım, model basitleştirmesi) |
 |---|---|---|---|
 | mn_frekans_SOL_yuruyus | 28 Hz | [20, 35] | Tablo 1 aralığı 25–31; n=3 küçük, soy farkı payı |
 | mn_frekans_MGLG_ortagec | 62–72 Hz | [50, 90] | Tablo 1 aralıkları 55–86; örneklem FF'ye yanlı |

@@ -98,8 +98,8 @@ Soru: motonöron dendritleri üzerindeki PIC (persistent inward current) üreten
 | — ara D_path | %147 / %312 | — | Fig. 4B–D; s. 8 | — |
 | — distal D_path | %72 / %100 | — | Fig. 4B–D; s. 8 | — |
 | Somatik, ara D_path: DCT'nin X_m ile artışı (optimal/maks) | %52 / %91 | — | Fig. 4D; s. 8 | — |
-| Somatik: 1/DCI minimum ve DFG belirgin olduğu bant | 0.5–0.8 mm (0.21λ–0.36λ) | mm (λ) | Fig. 6; s. 10 | — |
-| Dendritik: DFG'nin görüldüğü dar bant | ~0.5 mm (0.21λ) civarı | mm (λ) | Fig. 7; s. 12 | — |
+| Somatik: 1/DCI minimum ve DFG belirgin olduğu aralık | 0.5–0.8 mm (0.21λ–0.36λ) | mm (λ) | Fig. 6; s. 10 | — |
+| Dendritik: DFG'nin görüldüğü dar aralık | ~0.5 mm (0.21λ) civarı | mm (λ) | Fig. 7; s. 12 | — |
 | Dendritik, 1/DCI'nin X_m ile artışı (optimal/maks): proksimal | %180 / %288 | — | Fig. 5D; s. 10 | — |
 | — ara D_path | %106 / %156 | — | Fig. 5D; s. 10 | — |
 | — distal D_path | %33 / %49 | — | Fig. 5D; s. 10 | — |
@@ -139,11 +139,11 @@ Motonöron dendritlerindeki PIC aktivasyon konumu, motor ünitenin çıkış kar
 
 ## 7 · Testlere girecek değerler (varsa)
 
-Bu makaleden doğrudan sayısal test çıkarmak riskli (tek model, kedi, saçılım yok). Yalnız nitel/geniş-bantlı bir aday öneriyorum:
+Bu makaleden doğrudan sayısal test çıkarmak riskli (tek model, kedi, saçılım yok). Yalnız nitel/geniş-aralıklı bir aday öneriyorum:
 
-| Kimlik | Değer | Bant [alt, üst] | Gerekçe (tür/koşul farkı, saçılım, model basitleştirmesi) |
+| Kimlik | Değer | Aralık [alt, üst] | Gerekçe (tür/koşul farkı, saçılım, model basitleştirmesi) |
 |---|---|---|---|
-| MN_esik_boy_dususu (alım eşiğinin min→maks kas boyuyla azalma oranı, iğcik geri beslemesi açık) | ~4 kat (s. 15) | [2, 6] | Tek kedi modeli; sıçanda iğcik yoğunluğu/G_aff farklı; bant geniş tutuldu. Nitel beklenti: eşik boyla **monoton** azalmalı — monotonluk asıl test, oran ikincil. |
+| MN_esik_boy_dususu (alım eşiğinin min→maks kas boyuyla azalma oranı, iğcik geri beslemesi açık) | ~4 kat (s. 15) | [2, 6] | Tek kedi modeli; sıçanda iğcik yoğunluğu/G_aff farklı; aralık geniş tutuldu. Nitel beklenti: eşik boyla **monoton** azalmalı — monotonluk asıl test, oran ikincil. |
 
 Nitel doğrulama adayları (JSON'a sayı olarak girmez): proksimal/ara/distal PIC yerleşiminin sırasıyla Tip I / Tip IV / Tip III girdi-çıktı deseni üretmesi; ısınmanın yalnız ara-üst konum + kısalmış kasta belirmesi.
 

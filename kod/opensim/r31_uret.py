@@ -29,7 +29,7 @@ assert (II[n0][v0 < -0.1] <= c3[v0 < -0.1] + 1e-9).all()
 orl = np.array([(Ia[n].max()-Ia[n].min())/(II[n].max()-II[n].min())
                 for n in adlar if n not in {'GI','GP','TFL'}])
 print('v3.1 biçim sınaması: Ia/II derinlik oranı medyan %.3f (min %.3f · maks %.3f) · '
-      'hedef 2,544 · ±%%50 bandında %d/35' % (np.median(orl), orl.min(), orl.max(),
+      'hedef 2,544 · ±%%50 aralığında %d/35' % (np.median(orl), orl.min(), orl.max(),
       int(((orl > 0.5*2.544) & (orl < 1.5*2.544)).sum())))
 with open(VERI/'r_tamdongu_v3_1.csv','w') as f:
     f.write('# r(t) tam dongu v3.1 (karar: Deniz delegasyonu 1 Eylul, 50_; 02_ SF bulgusunun '

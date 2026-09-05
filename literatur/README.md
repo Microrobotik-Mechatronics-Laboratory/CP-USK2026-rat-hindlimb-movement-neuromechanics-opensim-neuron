@@ -1,4 +1,4 @@
-# literatur — Literatür Özetleri ve Tolerans Bantları
+# literatur — Literatür Özetleri ve Tolerans Aralıkları
 
 Bu klasör, projenin bilimsel iddialarının **dayandığı dış kaynakları** ve bu kaynaklardan
 çıkarılan **sayısal referans değerleri** tutar. Testler (İP-8) sayıyı koda gömmez; buradan okur.
@@ -9,7 +9,7 @@ Bu klasör, projenin bilimsel iddialarının **dayandığı dış kaynakları** 
 |---|---|
 | `oz_SABLON.md` | Literatür özeti şablonu — yeni bir makale eklerken kopyalanır |
 | `oz_<kisa_ad>.md` | Bir makalenin materyal-metot ve sonuç özeti (insan okur) |
-| `referans_degerler.json` | Çıkarılan sayısal değerler + tolerans bantları (kod okur) |
+| `referans_degerler.json` | Çıkarılan sayısal değerler + tolerans aralıkları (kod okur) |
 | `diyagramlar/` | Modelin nöron-kas yapısını gösteren Mermaid diyagramları (D1–D8) — **diyagramların kaynağı burasıdır**, `PREPRINT.md`'ye kopyalanır |
 | `pdf/` | Makale PDF'leri — **git-ignore'dadır, commit edilmez** (telif) |
 
@@ -19,8 +19,8 @@ Bu klasör, projenin bilimsel iddialarının **dayandığı dış kaynakları** 
 2. Makalenin özetini çıkar — `oz_SABLON.md`'yi `oz_<kisa_ad>.md` olarak kopyala ve doldur.
    Aşağıdaki istem bu iş için hazırdır.
 3. Kullanılacak her sayıyı `referans_degerler.json`'a bir kayıt olarak ekle: değer, birim,
-   nereden alındığı (tablo/şekil numarası), **tolerans bandı ve gerekçesi**.
-4. Testi ancak bundan sonra yaz (`04_KURALLAR.md`: bant önce ilan edilir).
+   nereden alındığı (tablo/şekil numarası), **tolerans aralığı ve gerekçesi**.
+4. Testi ancak bundan sonra yaz (`04_KURALLAR.md`: aralık önce ilan edilir).
 
 ## Özet çıkarma yönergesi (makaleyi Claude'a verirken kullan)
 
@@ -52,11 +52,11 @@ kas-iskelet modeli (Johnson ve ark. 2008 tabanlı), NEURON'da omurilik devresi (
 internöronlar, motonöron havuzu, Ia afferent). Ayrıntı: ../PREPRINT.md
 ```
 
-## Bant ilkesi (özet)
+## Aralık ilkesi (özet)
 
 Literatürle karşılaştırma **birebir eşleşme değildir.** Sonucun makul bir aralıkta kalması ve
-farkın gerekçelendirilebilir olması aranır. Bant **testten önce** ilan edilir; ölçüm banda
-düşmezse önce model ve varsayımlar sorgulanır, bant sessizce genişletilmez. Tam kural:
+farkın gerekçelendirilebilir olması aranır. Aralık **testten önce** ilan edilir; ölçüm banda
+düşmezse önce model ve varsayımlar sorgulanır, aralık sessizce genişletilmez. Tam kural:
 `../SDLC/04_KURALLAR.md` "Literatüre yakınlık" bölümü.
 
 ## Kayıt türleri
@@ -66,5 +66,5 @@ düşmezse önce model ve varsayımlar sorgulanır, bant sessizce genişletilmez
 - **`literatur`** — dış bir yayından çıkarılmış değer. Bandın gerekçesi tür/koşul farkını
   ve yayımlanmış saçılımı söyler.
 - **`ic_olcum`** — bu projede bağımsız olarak ölçülmüş ve `DOGRULAMA.md`'ye işlenmiş
-  değer. Bandı bir **regresyon** bandıdır (sayı değişirse haberimiz olsun), literatür bandı
+  değer. Bandı bir **regresyon** aralığıdır (sayı değişirse haberimiz olsun), literatür aralığı
   değildir. İkisi karıştırılmaz.

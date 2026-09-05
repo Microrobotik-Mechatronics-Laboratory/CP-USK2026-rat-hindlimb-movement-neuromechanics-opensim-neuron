@@ -361,7 +361,7 @@ atanması moment kolunun işaretinden çıkar.
 
 ```
 1. NEURON'u bir adim ilerlet
-2. motonoron havuzlarinin dikenlerini oku      -> u(t)   birimsiz 0-1
+2. motonoron havuzlarinin aksiyon potansiyellerini oku      -> u(t)   birimsiz 0-1
 3. u(t)'yi OpenSim kas aktivasyonlarina yaz
 4. OpenSim'i bir adim ilerlet
 5. kas-tendon boylarini ve hizlarini oku       -> l_mt, v_mt   (mm, mm/s)
@@ -385,7 +385,7 @@ iki kez üretilirdi.
 | Salınım aktivasyon tepeleri | kalça fleksörleri %68,5 · diz fleksörleri %76,0 · bilek dorsifleksörleri %85,5 |
 | `kod_02_swing_id_so.py` yeniden koşusu | `u_swing_v2.csv`'yi **sıfır** farkla üretiyor |
 | `cl_teslim_9of9.py` yeniden koşusu | 24 çıktı dizisi **birebir aynı** |
-| Motonöron çapraz kontrolü (Python vs HOC) | 315/315 section, 2655/2655 segment, 28/28 diken, **diken zamanı farkı 0,000000 ms, voltaj farkı 0,000000 mV** |
+| Motonöron çapraz kontrolü (Python vs HOC) | 315/315 section, 2655/2655 segment, 28/28 aksiyon potansiyeli, **aksiyon potansiyeli zamanı farkı 0,000000 ms, voltaj farkı 0,000000 mV** |
 
 Dürüstlük notu: quadriceps'in `+3,7 mm`'sini anatominin kendisi değil `femur_dist` WrapTorus'u
 üretiyor. Sarma kapatıldığında quadriceps fleksör oluyor (−0,65…−1,18 mm); torus yerine Johnson'ın
@@ -444,7 +444,7 @@ neuron/          NEURON kaynak agaci: Kim 2020 motonoron modeli (.hoc + .mod)
   kopru/                                 GUI'siz giris noktasi (motor_unit_batch.hoc)
 
 sekiller/        yayin figurleri
-literatur/       literatur ozetleri (oz_*.md), tolerans bantlari (referans_degerler.json),
+literatur/       literatur ozetleri (oz_*.md), tolerans araliklari (referans_degerler.json),
                  diyagramlar/ (D1-D8 Mermaid; PREPRINT'teki diyagramlarin kaynagi)
 ```
 

@@ -124,7 +124,7 @@ sinapsı olacak şekilde döngüyü kapatmak. Ayrıntı: ../PREPRINT.md
 > o durumda "bu makaleden test çıkmıyor" yaz. Doldurulursa bu satırlar
 > `referans_degerler.json`'a da işlenir (kural: `../SDLC/04_KURALLAR.md`).
 
-| Kimlik | Değer | Bant [alt, üst] | Gerekçe (tür/koşul farkı, saçılım, model basitleştirmesi) |
+| Kimlik | Değer | Aralık [alt, üst] | Gerekçe (tür/koşul farkı, saçılım, model basitleştirmesi) |
 |---|---|---|---|
 | | | | |
 

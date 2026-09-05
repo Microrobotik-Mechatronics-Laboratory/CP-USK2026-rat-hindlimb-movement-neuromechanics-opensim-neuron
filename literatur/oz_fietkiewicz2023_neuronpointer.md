@@ -35,7 +35,7 @@ Soru: yaygın nöral simülatör NEURON, ayrı bir fizik yazılımı olmadan, te
 1. Her modül (beyin/beden, kalsiyum/kuvvet, akım başına mekanizma) ayrı NMODL programı olarak yazılır; paylaşılacak değişkenler NEURON bloğunda `POINTER` ile bildirilir.
 2. hoc'ta bağlantı: `setpointer pointer, original`; durum değişkeni için `section.variable`, **parametre için yalnız** `parameter_mechanism` (bölüm adı ve konum yazılmaz — parametre tüm segmentlere tekdüze uygulanır) (s. 5–6).
 3. Python'da önerilen bağlantı: `pointer = original` ataması, `section(position).mechanism._ref_variable` sözdizimiyle; alternatif `h.setpointer(original, 'pointerAdı', mekanizma)` (sıralaması hoc'un tersi) (s. 7).
-4. Diken algılama: NetCon, hücre voltajını izler; eşik **−40 mV** aşılınca alıcı mekanizmanın `NET_RECEIVE` işlevi çağrılır ve diken zamanları dizisi güncellenir (Kim'in sürekli izleme yaklaşımının yerine olay-tabanlı verim iyileştirmesi) (s. 3–5).
+4. Aksiyon potansiyeli algılama: NetCon, hücre voltajını izler; eşik **−40 mV** aşılınca alıcı mekanizmanın `NET_RECEIVE` işlevi çağrılır ve aksiyon potansiyeli zamanları dizisi güncellenir (Kim'in sürekli izleme yaklaşımının yerine olay-tabanlı verim iyileştirmesi) (s. 3–5).
 5. Solunum modelinde NEURON'un örtük akım yönetimi kullanılır: her transmembran akım (k, na, nap, leak, syn) ayrı mekanizmadır; voltaj denklemini NEURON kendisi kurar; Na inaktivasyonunun K değişkeni n'ye bağımlılığı üçüncü bir pointer ile çözülür (s. 8–9).
 6. Non-smooth dinamik için üç teknik: (a) BREAKPOINT içinde `if` ile durumu sıfıra bastırma — basit ama değişken adımla uyumsuz; (b) DERIVATIVE'in çağırdığı FUNCTION içinde koşul — değişken adımla uyumlu; (c) Boole karşılaştırmalarını aritmetiğe gömme (NMODL'de true=1, false=0) — değişken adımla uyumlu, (b) ile aynı çıktı ve verim (s. 9–14).
 7. Aplysia modelinde a0–a2 [0, 1] aralığına elle yazılmış `maximum`/`minimum` FUNCTION'larıyla sınırlanır (NMODL'de yerleşik min/maks yok); kavrayıcı durumu r, a1 + a2 ≥ 1/2 eşiğiyle 0/1 arasında anahtarlanır (s. 15–16).
@@ -46,13 +46,13 @@ Soru: yaygın nöral simülatör NEURON, ayrı bir fizik yazılımı olmadan, te
 - "Beyin" ve "beden" burada **aynı NEURON section'ları içindeki iki NMODL mekanizmasıdır**; bizim projedeki beyin (NEURON) / beden (OpenSim) ayrımıyla adaş ama mimari olarak farklıdır.
 - HCO modelinde kas boyları L1, L2 **durum değişkeni değil parametredir** (türev denklemi yok, cebirsel güncellenir); pointer sözdizimi de bu yüzden farklıdır. Bizim X_m/r(t) değişkenlerimizi taşırken bu ayrım kritik.
 - "Kas" 1-boyutlu sarkaç/kavrayıcı gibi indirgenmiş mekaniklere kuvvet üretir; Hill tipi kas-tendon birimi yoktur.
-- Aplysia denklemlerindeki a değişkenleri popülasyon **ateşleme hızıdır** (birimsiz, [0,1]); diken üreten hücre değildir.
+- Aplysia denklemlerindeki a değişkenleri popülasyon **ateşleme hızıdır** (birimsiz, [0,1]); aksiyon potansiyeli üreten hücre değildir.
 
 ### 3d · Kullanılan parametreler ve değerleri
 
 | Parametre | Değer | Birim | Nereden (tablo/şekil/sayfa) |
 |---|---|---|---|
-| NetCon diken eşiği (nöromusküler model) | −40 | mV | Fig. 4, Fig. 7; s. 5, 7 |
+| NetCon aksiyon potansiyeli eşiği (nöromusküler model) | −40 | mV | Fig. 4, Fig. 7; s. 5, 7 |
 | Non-smooth osilatör: b0 / w | 1.0 / 0.628 | — (w: rad/ms; yorum: t ms olduğundan) | Fig. 14; s. 12 |
 | Aplysia μ (heteroklinik davranış) | 1 × 10⁻⁵ | — | s. 15–16, Fig. 22A |
 | Aplysia μ (limit çevrim davranışı) | 2 × 10⁻⁵ | — | s. 15–16, Fig. 22B |
@@ -90,7 +90,7 @@ Pointer mimarisi NEURON'da nöral ve biyomekanik bileşenlerin ayrılmasını ve
 ## 5 · Projemize ilgisi
 
 - **Doğrudan kullanılabilir mi?** Kısmen — kod tekniği düzeyinde evet, model içeriği düzeyinde hayır. NEURON içi modüllerimizin (CPG, internöron, motonöron, iğcik, kas aktivasyon ara katmanı) birbirine bağlanmasında pointer/NetCon desenleri doğrudan uygulanır.
-- **Hangi büyüklüğümüz veya parametremizle eşleşir?** (a) u(t) ve r(t) köprü değişkenlerinin NEURON tarafındaki taşınma tekniği (parametre-pointer: L1/L2 örneği, bizim X_m girişimizin birebir kalıbı). (b) Motonöron diken → kas kalsiyum iletimi için NetCon + NET_RECEIVE deseni (Kim modelinin olay-tabanlı sürümü; eşik −40 mV başlangıç değeri). (c) Duruş/salınım geçişi gibi temas kaynaklı non-smooth dinamikler için üç uygulama tekniği ve değişken-adım uyumluluk kuralları. (d) Adım-yarılama yakınsama testi — köprü doğrulama protokolümüze aday yöntem.
+- **Hangi büyüklüğümüz veya parametremizle eşleşir?** (a) u(t) ve r(t) köprü değişkenlerinin NEURON tarafındaki taşınma tekniği (parametre-pointer: L1/L2 örneği, bizim X_m girişimizin birebir kalıbı). (b) Motonöron aksiyon potansiyeli → kas kalsiyum iletimi için NetCon + NET_RECEIVE deseni (Kim modelinin olay-tabanlı sürümü; eşik −40 mV başlangıç değeri). (c) Duruş/salınım geçişi gibi temas kaynaklı non-smooth dinamikler için üç uygulama tekniği ve değişken-adım uyumluluk kuralları. (d) Adım-yarılama yakınsama testi — köprü doğrulama protokolümüze aday yöntem.
 - **Bilinen sistematik fark:** Bu makale fiziği NMODL içinde tutar; bizim mekanik taraf OpenSim'dedir (yazarların kendisi de fizik motoru arayüzünü gelecek iş olarak gösterir; 2025 NEURON+MuJoCo makalesi o adımdır). Model organizmaları (Aplysia, solunum, soyut HCO) sıçan lokomosyonuyla ilgisizdir; parametre değerleri taşınmaz.
 - **Nereye girdi olacak:** model yapısı kararı (NEURON içi modül bağlantı standardı; non-smooth teknik seçimi) · doğrulama testi yöntemi olarak adım-yarılama · yalnız tartışma.
 

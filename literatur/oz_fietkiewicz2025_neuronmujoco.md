@@ -18,7 +18,7 @@
 
 ## 2 · Makalenin sorusu ve ana iddiası
 
-Soru: nöral simülasyon platformları fiziksel dünyayı modelleyemezken, NEURON ile MuJoCo fizik motoru tek bir Python denetim programında birleştirilebilir mi? İddia: iki simülatörü aynı entegrasyon adımıyla eşzamanlı ilerleten basit bir Python döngüsüyle, gerçekçi bir sıçan arka bacağı kas-iskelet modeli hem açık-döngü (iki tip diken üreten nöron) hem kapalı-döngü (kas boyu geri beslemeli CPG) olarak sürülebilir. Üç model de bacakta salınımlı hareket üretmiştir; hesap yükünün çoğunu MuJoCo taşımaktadır.
+Soru: nöral simülasyon platformları fiziksel dünyayı modelleyemezken, NEURON ile MuJoCo fizik motoru tek bir Python denetim programında birleştirilebilir mi? İddia: iki simülatörü aynı entegrasyon adımıyla eşzamanlı ilerleten basit bir Python döngüsüyle, gerçekçi bir sıçan arka bacağı kas-iskelet modeli hem açık-döngü (iki tip aksiyon potansiyeli üreten nöron) hem kapalı-döngü (kas boyu geri beslemeli CPG) olarak sürülebilir. Üç model de bacakta salınımlı hareket üretmiştir; hesap yükünün çoğunu MuJoCo taşımaktadır.
 
 ---
 
@@ -29,7 +29,7 @@ Soru: nöral simülasyon platformları fiziksel dünyayı modelleyemezken, NEURO
 - Genel mimari: Python denetim programı, NEURON ve MuJoCo'yu **aynı sayısal entegrasyon adımıyla (dt = 0.025 ms) eşzamanlı** ilerleten bir döngü. Her adım öncesi NEURON'da hesaplanan kas kuvvetleri MuJoCo aktüatörlerine yazılır; kapalı-döngüde MuJoCo'da hesaplanan kas boyları NEURON'a yazılır. Tüm iletişim her platformun standart API'siyle (s. 2).
 - İskelet: halka açık bir OpenSim sıçan arka bacak modelinden (Johnson ve ark. 2008; kalça, femur, tibia, ayak) türetilmiş; geometriler STL, yerleşim XML olarak **MuJoCo v2.3.5**'e çevrilmiş. Fleksör-ekstansör tendonlar moment kolu analizine göre eklenmiş ve konumlandırılmış. **Tek eklem** femur tepesinde; tibia ve ayak femura göre sabit. Yüzey teması yok; bacak kalçadan dikey asılı (s. 2).
 - Nöron/kas tarafı: **NEURON v8.2**. Tüm modellerde iki nöron; her biri protraksiyon veya retraksiyonu süren tek bir kası inerve ediyor. Kas modeli Fietkiewicz ve ark. 2023'ten (Kim ve Heckman'dan uyarlanmış fizyolojik kas modeli) (s. 2).
-- Üç model: (1) açık-döngü, NEURON kütüphanesinden Hodgkin-Huxley nöronu; (2) açık-döngü, Purvis ve Butera 2005 tabanlı gerçekçi motonöron (HH'ye göre çok daha düşük diken hızı); (3) kapalı-döngü CPG — Yu ve Thomas 2021 modelinden, [13]'te NEURON'a uyarlanmış; iki iletkenlik-tabanlı nöron karşılıklı inhibisyon + kontralateral kasın gerilme reseptöründen inhibitör girdi alıyor (s. 2).
+- Üç model: (1) açık-döngü, NEURON kütüphanesinden Hodgkin-Huxley nöronu; (2) açık-döngü, Purvis ve Butera 2005 tabanlı gerçekçi motonöron (HH'ye göre çok daha düşük aksiyon potansiyeli hızı); (3) kapalı-döngü CPG — Yu ve Thomas 2021 modelinden, [13]'te NEURON'a uyarlanmış; iki iletkenlik-tabanlı nöron karşılıklı inhibisyon + kontralateral kasın gerilme reseptöründen inhibitör girdi alıyor (s. 2).
 
 ### 3b · Yöntem adımları
 
@@ -76,8 +76,8 @@ Soru: nöral simülasyon platformları fiziksel dünyayı modelleyemezken, NEURO
 
 ### 4b · Niteliksel bulgular
 
-- Açık-döngü modellerde diken salvosu kas kuvvetini kademeli yükseltir; nöron sustuktan sonra **kalsiyum dinamiği kuvveti bir süre taşır**, sonra kuvvet sıfıra döner; bacak açısı kuvvetle orantılı seyreder (s. 3).
-- İki kuvvetin örtüştüğü dönemde karşıt kas kuvvetleri eşitlendiğinde bacak açısı sıfıra döner; iki açık-döngü modelin zaman ölçeği farkı yalnız nöron diken hızlarından kaynaklanır (s. 3).
+- Açık-döngü modellerde aksiyon potansiyeli salvosu kas kuvvetini kademeli yükseltir; nöron sustuktan sonra **kalsiyum dinamiği kuvveti bir süre taşır**, sonra kuvvet sıfıra döner; bacak açısı kuvvetle orantılı seyreder (s. 3).
+- İki kuvvetin örtüştüğü dönemde karşıt kas kuvvetleri eşitlendiğinde bacak açısı sıfıra döner; iki açık-döngü modelin zaman ölçeği farkı yalnız nöron aksiyon potansiyeli hızlarından kaynaklanır (s. 3).
 - Kapalı-döngü model **dış uyarı olmadan** salınımı sürdürür; sonuçlar önceki sarkaç-tabanlı sürümlerle ([13], [33]) "çok benzer" (s. 3).
 - Nöral-kas-iskelet bileşenlerinin çift yönlü bağlanması başlangıçta geçici (transient) davranış üretir (s. 4).
 
