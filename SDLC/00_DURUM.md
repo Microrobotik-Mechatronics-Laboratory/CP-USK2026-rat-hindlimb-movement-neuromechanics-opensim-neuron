@@ -24,3 +24,7 @@ Python hattına entegre edilmesi.
 - Çalışmaya-kritik bazı dosyalar depo dışında (başka bilgisayarda): güncel `cl_*.py`,
   `cl_grid3d.npz`, `cl_best.json`, `Geometry/`. Detay: `05_MIMARI_RISK.md`.
 - Bildirilmeyen çalışma-zamanı bağımlılıkları: `opensim`, `scipy`, `cma` (pyproject/uv.lock'ta yok).
+
+## Bekleyen
+- `main` üzerinde origin'in önünde **6 yerel commit** var; push kullanıcı onayı bekliyor
+  (kullanıcı 2026-09-05 oturumunda "şimdilik bekle" dedi).
