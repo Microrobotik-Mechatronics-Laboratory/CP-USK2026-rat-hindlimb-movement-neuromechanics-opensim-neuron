@@ -41,12 +41,15 @@ def kos(dt_ms, sure):
 
 
 if __name__ == '__main__':
-    sure = float(sys.argv[1]) if len(sys.argv) > 1 else 1.5
-    a = kos(0.30, sure)
-    b = kos(0.15, sure)
+    sure = float(sys.argv[1]) if len(sys.argv) > 1 else 3.0
+    # Uretim adimi devre_par.json'dan okunur; test onu ve YARISINI karsilastirir.
+    import json
+    dt0 = json.load(open(pathlib.Path(__file__).resolve().parent / 'devre_par.json'))['kopru']['dt_kopru_ms']
+    a = kos(dt0, sure)
+    b = kos(dt0 / 2.0, sure)
     bagil = lambda x, y: abs(x - y) / max(abs(x), abs(y), 1e-12)
 
-    print('\n%-24s %14s %14s %10s' % ('olcut', 'dt_k=0.30 ms', 'dt_k=0.15 ms', 'bagil fark'))
+    print('\n%-24s %14s %14s %10s' % ('olcut', 'dt_k=%.3f ms' % dt0, 'dt_k=%.4f ms' % (dt0 / 2), 'bagil fark'))
     print('%-24s %14.4f %14.4f %9.2f%%' % ('cevrim suresi [s]', a['T'], b['T'], 100 * bagil(a['T'], b['T'])))
     print('%-24s %14.2f %14.2f %9.2f%%' % ('eklem ROM [derece]', a['rom'], b['rom'], 100 * bagil(a['rom'], b['rom'])))
     print('%-24s %14.3f %14.3f %10s' % ('u zitfaz korelasyonu', a['korel_u'], b['korel_u'], '-'))

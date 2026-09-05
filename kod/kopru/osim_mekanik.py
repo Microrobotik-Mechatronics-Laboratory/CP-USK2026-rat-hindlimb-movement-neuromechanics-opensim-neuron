@@ -36,6 +36,7 @@ class Mekanik:
     def __init__(self, serbest=('ankle_flx',), dt_kopru_s=3e-4, dogruluk=1e-4,
                  baslangic=None):
         self.dt = float(dt_kopru_s)
+        self.dogruluk = float(dogruluk)
         self.model = osim.Model(str(OSIM_FAZ1A))
         g = np.load(GRID3D, allow_pickle=True)
         fix = dict(zip([str(x) for x in g['cnames']], [float(v) for v in g['FIX']]))
@@ -89,7 +90,7 @@ class Mekanik:
         self.s.setTime(0.0)
         self.man = osim.Manager(self.model)
         self.man.setIntegratorMethod(osim.Manager.IntegratorMethod_RungeKuttaMerson)
-        self.man.setIntegratorAccuracy(1e-4)
+        self.man.setIntegratorAccuracy(self.dogruluk)
         self.man.initialize(self.s)
         self.t = 0.0
         return self.oku()
