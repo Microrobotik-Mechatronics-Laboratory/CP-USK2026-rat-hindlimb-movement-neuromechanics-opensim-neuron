@@ -3,8 +3,9 @@
 # Ortam: kopru (Python 3.13, ~/.venvs/usk26-kopru) -- saf NumPy, OpenSim/NEURON gerektirmez
 # Girdi:  veri/kopru/kosum_ayakbilegi.npz (kos_ayakbilegi.py uretir)
 #         veri/kapali_dongu/cl_grid3d.npz (kilitli koordinatlarin degerleri: FIX/cnames)
-# Cikti:  veri/goruntuleme/kopru_ayakbilegi.mot          -- 14 koordinat, GUI animasyonu
-#         veri/goruntuleme/kopru_ayakbilegi_kuvvet.sto   -- 38 kas uyarimi, kas renklendirmesi
+# Cikti:  veri/goruntuleme/kopru_ayakbilegi.mot      -- 14 koordinat + 38 kas uyarimi (TEK DOSYA;
+#                                                       GUI hem hareketi oynatir hem kaslari boyar)
+#         veri/goruntuleme/kopru_ayakbilegi_koordinat.mot -- yalniz koordinat (yedek)
 #
 # Neden ayri bir betik: kosum yalnizca SERBEST koordinati kaydeder (ayak bileginde ankle_flx);
 # GUI ise modelin 14 koordinatinin tamamini ister. Kilitli 13 koordinat kosumda sabit tutuldugu
@@ -69,24 +70,32 @@ def main():
         else:
             sut[:, j] = np.degrees(fix.get(n, 0.0))
     (VERI / 'goruntuleme').mkdir(parents=True, exist_ok=True)
-    mot = VERI / 'goruntuleme' / 'kopru_ayakbilegi.mot'
-    yaz_mot(mot, t, cnames, sut)
+    yedek = VERI / 'goruntuleme' / 'kopru_ayakbilegi_koordinat.mot'
+    yaz_mot(yedek, t, cnames, sut)
 
-    # --- 2) kas uyarimi: GUI kaslari bu dosyayla renklendirir -------------------------------
+    # --- 2) kas uyarimi ---------------------------------------------------------------------
     # Kosumda yalniz 10 bilek kasi surulur; kalan 28 kas sifir uyarimdadir.
     akt = np.zeros((len(t), len(izg_kas)))
     for kx, kas in enumerate(kosum_kas):
         akt[:, izg_kas.index(kas)] = d['u'][s, kx]
-    sto = VERI / 'goruntuleme' / 'kopru_ayakbilegi_kuvvet.sto'
-    yaz_sto(sto, t, ['%s.activation' % k for k in izg_kas], akt)
+
+    # --- 3) BIRLESIK dosya: OpenSim GUI tek dosyada hem oynatir hem kaslari boyar ------------
+    # GUI, yuklenen hareket dosyasinda '<kas>.activation' sutunlarini gorurse kaslari o degere
+    # gore renklendirir. inDegrees=yes yalniz KOORDINAT sutunlarini etkiler; aktivasyon
+    # sutunlari donusume girmez.
+    mot = VERI / 'goruntuleme' / 'kopru_ayakbilegi.mot'
+    yaz_mot(mot, t, cnames + ['%s.activation' % k for k in izg_kas],
+            np.hstack([sut, akt]))
 
     print('ornek sayisi : %d -> %d (%.0f Hz, seyreltme 1/%d)'
           % (len(t_ham), len(t), 1.0 / (t[1] - t[0]), adim))
     print('sure         : %.3f s' % t[-1])
     print('ankle_flx    : %.2f .. %.2f derece' % (sut[:, cnames.index('ankle_flx')].min(),
                                                   sut[:, cnames.index('ankle_flx')].max()))
-    print('yazildi      : %s' % mot.relative_to(mot.parents[2]))
-    print('               %s' % sto.relative_to(sto.parents[2]))
+    print('kas uyarimi  : %d kas surulu, %d kas sifir' % (len(kosum_kas), len(izg_kas) - len(kosum_kas)))
+    print('yazildi      : %s   (koordinat + kas uyarimi, GUI icin bunu yukleyin)'
+          % mot.relative_to(mot.parents[2]))
+    print('               %s   (yalniz koordinat, yedek)' % yedek.relative_to(yedek.parents[2]))
 
 
 if __name__ == '__main__':
