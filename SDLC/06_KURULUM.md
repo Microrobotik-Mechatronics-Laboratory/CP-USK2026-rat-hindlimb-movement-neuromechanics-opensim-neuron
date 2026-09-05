@@ -59,11 +59,18 @@ uv venv --python 3.13 .venv-osim
 uv pip install --python .venv-osim opensim scipy numpy
 ```
 
-Çalıştırırken bu ortamı açıkça seçin:
+İlk komut şu uyarıyı basar — **beklenen davranıştır, yok sayın**: *"The requested interpreter
+resolved to Python 3.13.14, which is incompatible with the project's Python requirement: >=3.14"*.
+`pyproject.toml` ana ortamı tarif eder; bu ikincil ortam kasıtlı olarak onun dışındadır.
+
+Çalıştırırken **yorumlayıcıyı doğrudan çağırın**:
 
 ```bash
-uv run --python .venv-osim python 03_kod/kod_02_swing_id_so.py
+./.venv-osim/bin/python 03_kod/kod_02_swing_id_so.py
 ```
+
+`uv run --python .venv-osim ...` bu projede **çalışmaz**: `uv run` projenin
+`requires-python = ">=3.14"` kısıtını uygular ve 3.13'ü reddeder (denendi, hata verir).
 
 ## Adım 3 — NEURON mekanizmalarını derle (İP-4a)
 
@@ -109,8 +116,18 @@ uv run python -c "import numpy, neuron; print('numpy', numpy.__version__); print
 OpenSim ortamı:
 
 ```bash
-uv run --python .venv-osim python -c "import opensim; print('opensim', opensim.__version__)"
+./.venv-osim/bin/python -c "import opensim, scipy; print('opensim', opensim.__version__, '| scipy', scipy.__version__)"
 ```
 
-Beklenen: ana ortamda numpy 2.4.x + NEURON 9.0.2; OpenSim ortamında 4.6. Hata alırsanız
-kurulum tamamlanmamıştır, ilerlemeyin.
+**2026-09-05'te bu makinede ölçülen çıktı:**
+
+```
+numpy 2.4.6
+neuron 9.0.2
+opensim 4.6 | scipy 1.18.1
+```
+
+NEURON'un bastığı `Warning: no DISPLAY environment variable. --No graphics will be displayed.`
+satırı zararsızdır; grafik arayüz olmadan (batch) koşulduğunu söyler.
+
+Hata alırsanız kurulum tamamlanmamıştır, ilerlemeyin.
