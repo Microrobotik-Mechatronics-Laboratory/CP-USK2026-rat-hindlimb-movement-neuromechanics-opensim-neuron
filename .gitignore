@@ -1,15 +1,54 @@
+# --- Sanal ortamlar --------------------------------------------------------
 .venv/
 .venv-osim/
-.DS_Store
-__pycache__/
-*.pyc
-.claude/settings.local.json
-literatur/pdf/
+.venv*/
 
-# NEURON derleme ciktilari
+# --- Surec / ajan dosyalari (diskte kalir, depoya girmez) -------------------
+.claude/
+.github/
+SDLC/
+CLAUDE.md
+
+# arsiv/ depoya girmez; tek istisna cl_ref.npz (ureteci hic repoya girmedi,
+# yeniden uretilemez birincil varlik). Git ignore'lu dizine inmedigi icin
+# istisna asama asama yeniden dahil edilir.
+/arsiv/*
+!/arsiv/veri/
+/arsiv/veri/*
+!/arsiv/veri/cl_ref.npz
+
+# --- Python ----------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# --- NEURON derleme ciktilari ----------------------------------------------
 arm64/
 x86_64/
+aarch64/
+i686/
+*.o
+*.so
+*.dylib
+*.dll
+special
+mod_func.c
 
-# OpenSim hattinin ara ciktilari (kod_02 ID adimi uretir)
+# --- OpenSim hattinin ara ciktilari (kod_02 ID adimi uretir) ----------------
 veri/id_bone.sto
 opensim.log
+
+# --- Telif nedeniyle depoya girmeyen kaynaklar -----------------------------
+literatur/pdf/
+
+# --- Isletim sistemi / editor ----------------------------------------------
+.DS_Store
+._*
+Thumbs.db
+.idea/
+.vscode/
+*.swp
