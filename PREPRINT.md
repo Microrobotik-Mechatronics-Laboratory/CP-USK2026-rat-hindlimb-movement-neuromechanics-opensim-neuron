@@ -109,7 +109,7 @@ Bildirideki her yöntem cümlesinin karşılığı depoda var mı:
 | 11 | Quadriceps diz moment kolu ~ +3,7 mm | ölçüldü | RF +3,70 · VL +3,73 · VI +3,72 · VM +3,70 |
 | 12 | Semimembranosus -4,1 mm | **çelişki** | ölçülen -3,87 mm; bkz. bölüm 4.1 |
 | 13 | Moment kolları kaynak çalışmanın **deneysel ölçümleriyle uyumlu** | **çelişki** | bkz. bölüm 4.3 |
-| 14 | Salınım fazı kas etkinlik sırası (kalça fleksör → ayak bileği dorsifleksör → kalça ekstansör) | doğrulanmadı | `u_swing_v2.csv`'den yeniden okunmalı |
+| 14 | Salınım fazı kas etkinlik sırası (kalça fleksör → ayak bileği dorsifleksör → kalça ekstansör) | **kısmen çelişki** | ölçüldü; sıranın son iki halkası ters çıktı, bkz. bölüm 4.5 |
 
 ---
 
@@ -162,7 +162,40 @@ Bu, bildirinin en kırılgan cümlesi. Doğrulama kaydının söyledikleri:
 **En savunulabilir sayı semimembranosus'tur:** -3,87 mm değeri sarmadan tamamen bağımsızdır
 (sarma açık/kapalı fark 0,00 mm).
 
-### 4.4 · Bildiri, projenin gerisinde
+### 4.4 · Salınım fazı etkinlik sırası: son iki halka ters çıkıyor
+
+Bildiri şunu söylüyor: *"Salınım fazının başında kalça fleksörleri, ortasında ayak bileği
+dorsifleksörleri, sonunda kalça ekstansörleri etkindir."*
+
+`02_veri/u_swing_v2.csv` üzerinde her kasın **tepe aktivasyon zamanı** ölçüldü (salınım aralığı
+gait %65-100, 71 örnek):
+
+| Grup | Kaslar (a > 0,01) | Tepe zamanı |
+|---|---|---|
+| Kalça fleksörleri | IP %69,0 (a=0,077) · RF %66,5 (0,044) | **%67,8** ortalama |
+| Kalça ekstansörleri | GMa %82,5 (0,046) · BFa %81,0 (0,057) · STp %77,0 (0,012) · BFp %65,0 (0,013) | **%76,4** ortalama |
+| Ayak bileği dorsifleksörleri | TA %85,5 (0,018) | **%85,5** |
+
+**Ölçülen sıra:** kalça fleksör (%67,8) → kalça ekstansör (%76-82) → **dorsifleksör (%85,5)**.
+**Bildirideki sıra:** kalça fleksör → dorsifleksör → kalça ekstansör.
+
+Yani son iki halka yer değiştirmiş görünüyor: TA'nın tepesi salınım fazının son üçte birinde
+(%85,5 ≈ fazın %59'u geçilmiş noktası), kalça ekstansörlerinin tepesi ise tam ortasında
+(GMa için %82,5 ≈ fazın %50'si).
+
+**Bu ölçümün sınırları — sonuç kesin değil:**
+- Kas gruplandırması bu ölçümde **anatomik atama ile** yapıldı (hangi kasın kalça ekstansörü
+  sayıldığı bir yorumdur; özellikle BFa ve BFp'nin sıçandaki işlevi kontrol edilmeli).
+- "Etkin" ölçütü **tepe zamanı** alındı; bildiri bir etkinlik *penceresi* kastediyor olabilir —
+  pencere tanımıyla sıra değişebilir.
+- Tüm aktivasyonlar küçük (a ≤ 0,08); statik optimizasyonun min Σa² çözümü zayıf uyarılmış
+  kasları eşit dağıtma eğilimindedir.
+
+**Yapılacak:** gruplandırma doğrulandıktan sonra ölçüm tekrarlanmalı ve sonuç
+`02_DOGRULAMA_KAYDI.md`'ye işlenmelidir. Poster metnindeki cümle ölçüme göre düzeltilmeli
+veya "pencere" tanımıyla yeniden ifade edilmelidir.
+
+### 4.5 · Bildiri, projenin gerisinde
 
 Bildiri "basma fazı **çözülecektir**" diyor. Depoda basma fazı (`u_stance_v4.csv`) ve refleks+CPG
 ile emergent kapalı-döngü yürüyüş (İP-3, teslim 9of9) **zaten var**. Bu bir çelişki değil,
@@ -205,5 +238,8 @@ tırıs verisi nereden). Poster önünde bunlar sorulacaktır; oradan tekrar oku
    yoksa cümle daraltılmalı mı?
 3. **NEURON tarafı posterde nereye kadar iddia edilecek?** Bildiri yalnız "seçilmiştir" diyor;
    İP-4a bitmezse posterde sonuç gösterilemez.
-4. **Salınım fazı kas etkinlik sırası** (kalça fleksör → dorsifleksör → kalça ekstansör)
-   `u_swing_v2.csv`'den yeniden ölçülüp doğrulanmalı.
+4. **Salınım fazı etkinlik sırası ölçümde ters çıktı** (bölüm 4.4). Önce kas gruplandırması
+   doğrulanmalı: BFa ve BFp sıçanda kalça ekstansörü mü, diz fleksörü mü? Gruplandırma
+   onaylanırsa poster cümlesi düzeltilmeli.
+5. **Poster hangi kapsamı gösterecek?** Bildiri salınım fazıyla sınırlı, ama depoda basma fazı
+   ve emergent kapalı-döngü de var (bölüm 4.5). Bunlar "devam eden çalışma" olarak gösterilsin mi?

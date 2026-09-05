@@ -1,14 +1,45 @@
 # Özüt — <Makale kısa adı>
 
-> **Ne olduğu:** Bu dosya bir makalenin **kayıplı sıkıştırmasıdır** — makalenin yerine geçmez.
-> Amacı, makaleyi tekrar açmadan modelleme kararı verebilmek ve testlere sayı sağlamaktır.
-> Doldurulan her sayı `referans_degerler.json`'a da işlenmelidir; yalnız burada kalan sayı
-> teste giremez.
->
-> Şablon kopyalanır: `cp oz_SABLON.md oz_<kisa_ad>.md`. Boş bırakılan alan **"bilinmiyor"**
-> demektir; tahminle doldurulmaz.
+<!-- ==========================================================================
+DOLDURAN İÇİN TALİMAT (özüt tamamlanınca bu blok silinebilir)
 
-## 1 · Künye
+Bu şablonu bir makale PDF'i ile birlikte aldıysan: makaleyi bu şablona göre özütle.
+
+ODAK — sadece iki şey önemli:
+  (1) NEYİ NASIL YAPMIŞ  -> bölüm 3
+  (2) NE SONUÇ BULMUŞ    -> bölüm 4
+Diğer bölümler bu ikisini kullanılabilir kılmak içindir. Makalenin tamamını
+aktarma; giriş/literatür taraması/teşekkür/uzun tartışma özüte GİRMEZ.
+
+KURALLAR:
+- Şablonun bölüm sırasını ve başlıklarını aynen koru.
+- Makalede olmayan hiçbir şeyi ekleme. Bilmiyorsan alanı boş bırak veya
+  "makalede belirtilmemiş" yaz. Tahminle doldurma.
+- Her sayının yanına birimini ve NEREDEN alındığını yaz (tablo/şekil/sayfa).
+  Kaynağı yazılamayan sayıyı hiç yazma.
+- Yuvarlama yapma; makaledeki basamak sayısını koru. Birim dönüştürdüysen
+  hem orijinali hem dönüştürülmüşü yaz.
+- Makalenin dediği ile senin çıkarımını karıştırma. Çıkarımı "yorum:" veya
+  "varsayım:" diye işaretle.
+- Bölüm 6 (çelişen bulgular) ZORUNLUDUR; boş bırakılamaz.
+- Uymayan bölümlere "bu makale için geçerli değil" yaz, silme.
+
+PROJE BAĞLAMI (bölüm 5'i buna göre doldur):
+Sprague-Dawley sıçanı arka bacağının nöromekanik kapalı-döngü modeli.
+Mekanik taraf: OpenSim, Hill tipi kas-iskelet modeli (Johnson ve ark. 2008 tabanlı),
+ters dinamik + statik optimizasyon. Nöron tarafı: NEURON — merkezi örüntü üreteci
+(CPG), internöronlar, motonöron havuzu (PIC/Cav1.3), kas iğciği Ia/II afferenti.
+Hedef: motonöron çıkışı -> kas aktivasyonu u(t), iğcik geri beslemesi r(t) -> Ia
+sinapsı olacak şekilde döngüyü kapatmak. Ayrıntı: ../PREPRINT.md
+========================================================================== -->
+
+> Bu dosya makalenin **kayıplı sıkıştırmasıdır** — yerine geçmez. Amacı, makaleyi tekrar
+> açmadan modelleme kararı verebilmektir.
+>
+> Kullanım: `cp oz_SABLON.md oz_<yazar><yil>_<konu>.md` (ör. `oz_johnson2008_momentkolu.md`).
+
+## 1 · Künye ve sınıflandırma
+
 - **Yazarlar / yıl:**
 - **Başlık:**
 - **Dergi / cilt / sayfa:**
@@ -16,61 +47,91 @@
 - **PDF:** `pdf/<dosya>.pdf` (depoya girmez)
 - **Özütü çıkaran / tarih:**
 
-## 2 · Ne yaptılar (açıklama)
-> 3-6 cümle. Makalenin sorusu, yaklaşımı ve ana iddiası. Bizim projemizle ilgisi burada değil,
-> bölüm 5'te kurulur — burası makalenin kendi anlatımıdır.
+- **Makale tipi:** deneysel · bilgisayar modeli · derleme · yöntem/araç · karma
+- **Projemizin hangi tarafına bakıyor:** nöron (NEURON) · mekanik (OpenSim) · köprü/kapalı döngü · genel
+- **Bizim için değeri:** parametre kaynağı · doğrulama referansı · yöntem örneği · yalnız tartışma/atıf
 
-## 3 · Materyal ve metot
+## 2 · Makalenin sorusu ve ana iddiası
+> 3-5 cümle. Ne sormuşlar, ne bulduklarını iddia ediyorlar. Bizim projemizle ilgisi burada
+> kurulmaz (o bölüm 5'tir) — burası makalenin kendi anlatımıdır.
 
-### 3a · Tür ve deney koşulları
-> Tolerans bandının gerekçesi buradan çıkar. Koşullar bizimkinden ne kadar farklıysa, bant
-> o kadar geniş olmalı ve gerekçesi o kadar açık yazılmalı.
+---
 
-- **Tür / soy / cinsiyet / ağırlık:**
-- **Hazırlık (in vivo / in vitro / ex vivo / bilgisayar modeli):**
-- **Sıcaklık, anestezi, yükleme/uyarım koşulu:**
-- **Örneklem sayısı (n) ve saçılım (SD / SEM / aralık):**
+## 3 · NEYİ NASIL YAPMIŞ (yöntem)
 
-### 3b · Ölçüm nasıl yapıldı
-> Yöntemin kendisi. **Tanım farkına dikkat:** aynı adı taşıyan büyüklük farklı tanımlanmış
-> olabilir (ör. moment kolu `-dL/dθ` ile mi, yarıçap vektörü çapraz çarpımıyla mı tanımlanmış).
-> Bizim yöntemimizden farklıysa açıkça yaz — sayılar aynı adı taşısa da aynı şeyi ölçmüyor olabilir.
+> **Ana bölüm.** Yöntemi, biri aynı işi tekrar yapabilecek kadar açık yaz — ama makalenin
+> metnini kopyalama, adımlara indir.
 
-## 4 · Çıkarılan sayısal sonuçlar
+### 3a · Denek / malzeme / model
+> Deneysel çalışmada: tür, soy, cinsiyet, ağırlık, n, hazırlık (in vivo / in vitro / ex vivo),
+> anestezi, sıcaklık, yükleme veya uyarım koşulu.
+> Bilgisayar modeli çalışmasında: model tipi, kaç bölme/hücre, hangi yazılım ve sürümü,
+> hangi önceki modelden türetilmiş, entegrasyon adımı.
+> Derlemede: hangi çalışmalar taranmış, dahil etme ölçütü.
 
-> Her satırın **nereden** geldiği (tablo/şekil/sayfa) yazılmadan kayıt tamam sayılmaz —
-> sonradan PDF'e dönebilmenin tek yolu budur.
+### 3b · Yöntem adımları
+> Numaralı liste. Ölçüm/hesap sırası, hangi aşamada neyin sabit tutulduğu.
 
-| Büyüklük | Değer | Birim | Nereden (tablo/şekil/sayfa) | Saçılım |
+### 3c · Tanım ve birim uyarıları
+> **Kritik.** Aynı adı taşıyan büyüklük farklı tanımlanmış olabilir (ör. moment kolunu
+> `-dL/dθ` ile mi, yarıçap vektörü çapraz çarpımıyla mı tanımlamış; iletkenliği hücre başına
+> mı, birim alana mı vermiş). Bizimkinden farklı olan her tanımı burada yaz.
+
+### 3d · Kullanılan parametreler ve değerleri
+> Modelin/deneyin girdileri. Bizim modelimize doğrudan aktarılabilecek sayılar çoğunlukla
+> buradadır.
+
+| Parametre | Değer | Birim | Nereden (tablo/şekil/sayfa) |
+|---|---|---|---|
+| | | | |
+
+---
+
+## 4 · NE SONUÇ BULMUŞ
+
+> **Ana bölüm.** Yazarların sonuçları — yorum katmadan.
+
+### 4a · Sayısal sonuçlar
+
+> Her satırın **nereden** geldiği yazılmadan kayıt tamam sayılmaz; sonradan PDF'e dönebilmenin
+> tek yolu budur.
+
+| Büyüklük | Değer | Birim | Nereden (tablo/şekil/sayfa) | Saçılım (SD/SEM/aralık, n) |
 |---|---|---|---|---|
 | | | | | |
 
-### 4a · Metinden okunan niteliksel bulgular
+### 4b · Niteliksel bulgular
 > Sayıya dökülmeyen ama modelleme kararını etkileyen ifadeler (ör. "moment kolları lokomosyon
-> bölgesinde tepe yapıp az değişir"). Alıntı biçiminde, kendi yorumun karıştırılmadan.
+> bölgesinde tepe yapıp az değişir"). Mümkünse alıntı biçiminde, kendi yorumun karıştırılmadan.
 
-## 5 · Bizim modele uygulanabilirliği
-- **Doğrudan karşılaştırılabilir mi?** (evet / kısmen / hayır — neden)
-- **Hangi büyüklüğümüzle eşleşir?** (`referans_degerler.json` kimliği)
-- **Bilinen sistematik fark:** (ölçek, tanım, tür, koşul)
-- **Hangi karara girdi olacak:** (parametre seçimi / doğrulama testi / yalnız tartışma)
+### 4c · Yazarların kendi çıkardığı sonuç
+> Makalenin sonuç bölümünün 2-4 cümlelik özeti. Yazarların koyduğu sınırlılıklar varsa ekle.
+
+---
+
+## 5 · Projemize ilgisi
+- **Doğrudan kullanılabilir mi?** (evet / kısmen / hayır — neden)
+- **Hangi büyüklüğümüz veya parametremizle eşleşir?**
+- **Bilinen sistematik fark:** (tür, ölçek, tanım, koşul, sıcaklık, hazırlık)
+- **Nereye girdi olacak:** parametre seçimi · doğrulama testi · model yapısı kararı · yalnız tartışma
 
 ## 6 · Bizimle çelişen veya işimize gelmeyen bulgular
-> **Bu bölüm boş bırakılamaz.** Boşsa "çelişki bulunamadı" yazılır ve ne arandığı belirtilir.
-> Özütleme sırasında en kolay kaybolan şey, modelimizi desteklemeyen bulgudur; bu yüzden
-> ayrı ve zorunlu bir bölümdür.
+> **Boş bırakılamaz.** Çelişki bulamadıysan ne aradığını yazarak "çelişki bulunamadı" de.
+> Özütlemede en kolay kaybolan şey, modelimizi desteklemeyen bulgudur.
 
-## 7 · Önerilen tolerans bandı
+## 7 · Testlere girecek değerler (varsa)
+> Yalnız bu makaleden bir **doğrulama testi** çıkacaksa doldurulur; çoğu makaleden çıkmaz —
+> o durumda "bu makaleden test çıkmıyor" yaz. Doldurulursa bu satırlar
+> `referans_degerler.json`'a da işlenir (kural: `../SDLC/04_KURALLAR.md`).
 
-| Kimlik | Bant [alt, üst] | Gerekçe (tür/koşul farkı, saçılım, model basitleştirmesi) |
-|---|---|---|
-| | | |
+| Kimlik | Değer | Bant [alt, üst] | Gerekçe (tür/koşul farkı, saçılım, model basitleştirmesi) |
+|---|---|---|---|
+| | | | |
 
 ## 8 · Sıkıştırmada ne düştü
-> Özüte girmeyen ama makalede olan, sonradan gerekebilecek şeyler: ham veri tabloları, ek
-> dosyalar (supplementary), okunmayan bölümler, atlanmış şekiller. Bir sayı teste girip
-> tartışmalı hale gelirse **önce buraya bakılır**, sonra PDF açılır.
+> Özüte almadığın ama makalede olan, sonradan gerekebilecek şeyler: ham veri tabloları, ek
+> dosyalar (supplementary), okunmayan bölümler, atlanan şekiller. Bir sayı tartışmalı hale
+> gelirse **önce buraya** bakılır, sonra PDF açılır.
 
 ## 9 · Açık sorular / doğrulanmayanlar
-> Makalede net olmayan, bizim varsayımla doldurduğumuz noktalar. Varsayım yaptıysan
-> "varsayım:" diye işaretle.
+> Makalede net olmayan, varsayımla doldurduğun noktalar. Varsayımları "varsayım:" diye işaretle.

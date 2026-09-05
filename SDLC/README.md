@@ -25,6 +25,8 @@ kaldığımızı ve nasıl çalıştığımızı bilmesi.
 ortamı** ister (3.14 NEURON / 3.13 OpenSim); sebebi orada anlatılır.
 
 Bu klasöre **kopyalanmayan**, referans verilen kaynaklar:
+- `../PREPRINT.md` — bildiri özeti (dokunulmaz referans), taahhüt kontrol listesi ve bildiri ile
+  doğrulanmış durum arasındaki farklar. **Ne yapmaya çalıştığımızın anlatımı buradadır.**
 - `../OKU.txt` — klasör/dosya manifestosu
 - `../04_kapali_dongu/02_DOGRULAMA_KAYDI.md` — bilimsel doğrulama defteri
 - `../07_literatur/` — makale özütleri + testlerin okuduğu `referans_degerler.json`
