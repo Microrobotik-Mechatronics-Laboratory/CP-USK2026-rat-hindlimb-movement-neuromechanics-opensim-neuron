@@ -56,14 +56,14 @@ Tam manifesto: **`../README.md`** klasör haritası (kopyalanmaz, oraya bakılı
 - `kod/opensim/` — OpenSim veri-üretim hattı (Python: opensim+numpy+scipy)
 - `kod/kapali_dongu/` — kapalı-döngü kontrolcü + CMA-ES optimizasyon (saf NumPy)
 - `sekiller/` — yayın figürleri; her figürün yanında onu üreten kaynak CSV
-- `literatur/` — referans makale özütleri + testlerin okuduğu `referans_degerler.json`
+- `literatur/` — literatür özetleri + testlerin okuduğu `referans_degerler.json`
 - `neuron/` — Hojeong Kim NEURON motonöron modeli (HOC + `.mod`, 4 figür klasörü)
 - `SDLC/` — bu klasör (kurumsal hafıza)
 
 ## Dış kaynaklar ve literatür
 Künyeler ve bunlardan çıkarılan **sayısal referans değerler + tolerans bantları** makine-okunur
 biçimde `literatur/referans_degerler.json`'da tutulur; makale başına materyal-metot/sonuç
-özütü `literatur/oz_*.md` dosyalarındadır. Aşağıdaki liste yalnızca kaynakların rolünü
+özeti `literatur/oz_*.md` dosyalarındadır. Aşağıdaki liste yalnızca kaynakların rolünü
 gösterir:
 
 - **Johnson ve ark. 2008** (PMC2322854) — sıçan arka bacak kas mimarisi / moment kolları.

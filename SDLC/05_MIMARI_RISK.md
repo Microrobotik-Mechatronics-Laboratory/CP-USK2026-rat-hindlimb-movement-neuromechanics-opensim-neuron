@@ -50,7 +50,7 @@ ve ara ürünler `arsiv/` altındadır ve hesapta kullanılmazlar (`arsiv/README
 ### Doğrulama akışı
 
 ```
-literatur/oz_*.md (makale özütleri)
+literatur/oz_*.md (literatür özetleri)
         │  değer + [alt, üst] bandı + gerekçe
         ▼
 literatur/referans_degerler.json  ──►  kod-içi assert'ler (İP-8)
@@ -99,7 +99,7 @@ literatur/referans_degerler.json  ──►  kod-içi assert'ler (İP-8)
    arka bacağı; Johnson/Blum/Dienes'in kendi koşulları). Bu yüzden karşılaştırma birebir değil
    **banttır** ve her bandın gerekçesi tür/koşul farkını açıkça söylemelidir. → `04_KURALLAR.md`.
 8. **Telif.** Makale PDF'leri repoya konulamaz; `literatur/pdf/` git-ignore'dadır. Depoya
-   yalnız künye, çıkarılan sayısal değer ve özüt girer.
+   yalnız künye, çıkarılan sayısal değer ve literatür özeti girer.
 9. **Lisans.** `arsiv/model/rat_hindlimb_0_2.osim` SimTK taban modeli — yayından/paylaşımdan önce
    SimTK lisansı kontrol edilmeli. Hesapta kullanılmıyor (yalnız köken kaydı).
 10. ~~**Küçük hijyen.**~~ **Kapandı:** yazım hatalı `requiremnts.txt` kaldırıldı;

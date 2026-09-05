@@ -48,7 +48,7 @@ neuron/          NEURON kaynak ağacı: Kim 2020 motonöron modeli (.hoc + .mod)
   fig2_4_6/  fig3_5_7/  fig8/  fig9/     figüre özel mekanizma kümeleri
 
 sekiller/        yayın figürleri (04_KURALLAR: figür DAİMA buraya yazılır)
-literatur/       makale özütleri (oz_*.md), tolerans bantları (referans_degerler.json),
+literatur/       literatür özetleri (oz_*.md), tolerans bantları (referans_degerler.json),
                  diyagramlar/ (D1-D8 Mermaid; PREPRINT'teki diyagramların kaynağı)
 arsiv/           aşılmış kuşaklar ve ara ürünler; hesapta kullanılmaz (arsiv/README.md)
 ```

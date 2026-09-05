@@ -79,7 +79,7 @@
 - **Hedef:** `sekiller/` figürlerinin yayına hazır hale getirilmesi; SimTK lisans kontrolü.
 - **Bağımlılık:** İP-9 altyapısı kurulduktan sonra figürler o altyapıyla yeniden üretilir.
 
-## İP-7 · Literatür özüt defteri — **todo**
+## İP-7 · Literatür özeti defteri — **todo**
 - **Hedef:** Referans makalelerin materyal-metot ve sonuçlarını çıkarıp testlere kaynak yapmak.
 - **Kapsam:**
   - Her makale için `literatur/oz_<kisa_ad>.md`: künye/DOI, tür ve deney koşulları,

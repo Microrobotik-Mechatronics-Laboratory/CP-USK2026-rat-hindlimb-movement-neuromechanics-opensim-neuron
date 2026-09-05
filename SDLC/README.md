@@ -29,7 +29,7 @@ Bu klasöre **kopyalanmayan**, referans verilen kaynaklar:
   doğrulanmış durum arasındaki farklar. **Ne yapmaya çalıştığımızın anlatımı buradadır.**
 - `../README.md` — klasör/dosya manifestosu (kapı belgesi)
 - `../DOGRULAMA.md` — bilimsel doğrulama defteri
-- `../literatur/` — makale özütleri + testlerin okuduğu `referans_degerler.json`
+- `../literatur/` — literatür özetleri + testlerin okuduğu `referans_degerler.json`
 
 ---
 
