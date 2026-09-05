@@ -21,13 +21,25 @@
 - **Hedef:** Kim modelini bu makinede (Darwin/arm64) koşturmak ve yayımlanmış davranışını
   yeniden üretmek.
 - **Adımlar:**
-  1. `inline-supplementary-material-1/fig*/` klasörlerinde `.mod` dosyalarını `nrnivmodl` ile
-     derle (mevcut `.o` / `nrnmech.dll` Windows-derlenmiş, çalışmaz). Yordam: `06_KURULUM.md` Adım 3.
-  2. `motor_unit.hoc` hattını Python'dan (veya HOC'tan) koştur; GUI'siz (batch) koşum yolu kur.
-  3. Fig 2-9 davranışını yeniden üret: PIC'in `dpath` / `gcalbar` bağımlılığı, Ia girdisi
+  1. ~~Derleme yolunu kur~~ **çözüldü (2026-09-05):** `nrnivmodl` boşluklu proje yolunda kurulu
+     NEURON ile çalışmıyordu; NEURON `~/.venvs/usk26` altına (boşluksuz yola) alınınca derleme
+     proje içinde sorunsuz koşuyor. Yordam: `06_KURULUM.md` Adım 1 ve 3.
+  2. **`module1_2.mod` NEURON 9 ile derlenmiyor — açık engel.** `fig2_4_6`'daki 12 `.mod`
+     dosyasının 11'i derleniyor (`Successfully created arm64/special` alındı), yalnız bu düşüyor:
+     `Error: U used as both variable and function`. `U` hem `RANGE` değişkeni (satır 10) hem
+     `FUNCTION U (x)` (satır 133) olarak tanımlı; eski NEURON izin veriyordu, 9'un `nocmodl`'ü
+     vermiyor. `U` sarkoplazmik retikulum kalsiyum pompası akısıdır, `module1_2.mod` kas kasılma
+     modülüdür — atlanamaz. İlk denenecek düzeltme: `RANGE` listesinden `U`'yu çıkarmak; önce
+     HOC tarafının `U`'ya erişip erişmediği kontrol edilmeli.
+  3. Kalan üç klasörü (`fig3_5_7`, `fig8`, `fig9`) derle; figüre özel mekanizmalarda
+     (`syn_ramp`, `SawtoothIClamp`, `mStepIClamp`, `syn_Ia_sinewave`) benzer NEURON 9
+     uyumsuzluğu olup olmadığını gör.
+  4. `motor_unit.hoc` hattını Python'dan (veya HOC'tan) koştur; GUI'siz (batch) koşum yolu kur.
+  5. Fig 2-9 davranışını yeniden üret: PIC'in `dpath` / `gcalbar` bağımlılığı, Ia girdisi
      (`gmax_IaSyn`), `xm` kas boyu koşulları.
-  4. Yeniden üretimi **tolerans bantlı** doğrula (İP-8 altyapısıyla); sonucu DOGRULAMA'ya işle.
+  6. Yeniden üretimi **tolerans bantlı** doğrula (İP-8 altyapısıyla); sonucu DOGRULAMA'ya işle.
 - **Çıktı:** derlenmiş mekanizmalar, batch koşum betiği, doğrulama kaydı.
+- **Sıradaki somut adım:** `module1_2.mod`'daki `U` çakışmasını çöz.
 
 ## İP-4b · Motonöron havuzu ile kas arasında köprü — **todo**
 - **Hedef:** `01_PROJE.md`'de tanımlanan Aşama 2 arayüzünü kurmak.

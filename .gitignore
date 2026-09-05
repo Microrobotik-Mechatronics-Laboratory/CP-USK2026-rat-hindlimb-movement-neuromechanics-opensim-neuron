@@ -5,3 +5,7 @@ __pycache__/
 *.pyc
 .claude/settings.local.json
 07_literatur/pdf/
+
+# NEURON derleme ciktilari
+arm64/
+x86_64/

@@ -19,7 +19,7 @@
 
 ## Bağımlılık
 - Yeni bir çalışma-zamanı bağımlılığı kullanan kod, **aynı commit'te** beyanını da ekler
-  (ana ortam için `pyproject.toml`). Beyansız `import` bırakılmaz — risk-1'in tekrarını önler.
+  (ana ortam için `pyproject.toml`). Beyansız `import` bırakılmaz — risk-2 tekrarını önler.
 - Bağımlılık hangi ortama ait olduğu belirtilerek eklenir: proje **iki ortamlıdır**
   (3.14 NEURON / 3.13 OpenSim). Ayrıntı: `06_KURULUM.md`.
 

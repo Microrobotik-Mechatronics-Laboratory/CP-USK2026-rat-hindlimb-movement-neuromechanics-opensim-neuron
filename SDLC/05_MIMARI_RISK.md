@@ -65,18 +65,28 @@ NEURON ms/mV/uS ile çalışır, kapalı-döngü s/mm/N ile.
    kodda kullanılıyor ama `pyproject.toml`/`uv.lock`/`requiremnts.txt`'te yok. → İP-5.
 3. **Windows-derlenmiş NEURON ikilileri.** `.o`/`.c`/`nrnmech.dll` Windows 64-bit için derlenmiş;
    bu makinede (Darwin/arm64) `.mod`'lar `nrnivmodl` ile **yeniden derlenmeli**. → İP-4a.
-4. **Depo-dışı kritik dosyalar.** Güncel `cl_*.py` (Tsim=6, ılık başlangıç), `cl_grid3d.npz`
+4. **Boşluklu depo yolu NEURON derlemesini kırıyor.** Depo yolu boşluk ve Türkçe karakter içerir
+   (`.../USK26 - Sıçan arka bacak .../Uygulama`). `nrnivmodl`, NEURON'un kurulu olduğu dizinin
+   yolunu derleyiciye tırnaklamadan geçirdiği için, NEURON proje içindeki `.venv`'e kuruluysa
+   derleme `clang++: no such file or directory: 'Sıçan'` ile düşer. **Çözüm uygulandı:** ana ortam
+   `~/.venvs/usk26` (boşluksuz) altına alınır — `06_KURULUM.md` Adım 1. Derlemenin proje içinde
+   yapılması sorun değildir; kısıt yalnız NEURON'un kendi kurulum yolundadır.
+5. **NEURON 9 ile eski `.mod` uyumsuzluğu.** `module1_2.mod` (kas kasılma modülü) `U` adını hem
+   `RANGE` değişkeni hem `FUNCTION` olarak kullanıyor; NEURON 9'un `nocmodl` çeviricisi bunu
+   reddediyor (eski NEURON kabul ediyordu). Aynı klasördeki diğer 11 mekanizma derleniyor.
+   Model dosyalarına dokunmayı gerektiren tek bilinen engel budur. → İP-4a.
+6. **Depo-dışı kritik dosyalar.** Güncel `cl_*.py` (Tsim=6, ılık başlangıç), `cl_grid3d.npz`
    (kapalı döngü bunsuz koşmaz), `cl_best.json`, `Geometry/` mesh'leri başka bilgisayarda
    (`teslim_cc/`). Ayrıca **`03_kod/rig.py` depoda yok** — `kod_01_rat_walk_bone_uret.py` onu
    `import rig` ile çağırıyor, yani veri hattının ilk halkası bu haliyle koşmuyor.
    Repo tam self-contained değil. → İP-5.
-5. **Literatür değerlerinin tür/koşul uyumsuzluğu.** Referans değerler farklı tür, farklı deney
+7. **Literatür değerlerinin tür/koşul uyumsuzluğu.** Referans değerler farklı tür, farklı deney
    koşulu veya farklı ölçüm yönteminden gelebilir (Kim motonöron modelinin kökeni ile sıçan
    arka bacağı; Johnson/Blum/Dienes'in kendi koşulları). Bu yüzden karşılaştırma birebir değil
    **banttır** ve her bandın gerekçesi tür/koşul farkını açıkça söylemelidir. → `04_KURALLAR.md`.
-6. **Telif.** Makale PDF'leri repoya konulamaz; `07_literatur/pdf/` git-ignore'dadır. Depoya
+8. **Telif.** Makale PDF'leri repoya konulamaz; `07_literatur/pdf/` git-ignore'dadır. Depoya
    yalnız künye, çıkarılan sayısal değer ve özüt girer.
-7. **Lisans.** `rat_hindlimb_0_2.osim` SimTK taban modeli — yayından/paylaşımdan önce SimTK
+9. **Lisans.** `rat_hindlimb_0_2.osim` SimTK taban modeli — yayından/paylaşımdan önce SimTK
    lisansı kontrol edilmeli. Hesapta kullanılmıyor (yalnız köken kaydı).
-8. **Küçük hijyen.** `requiremnts.txt` dosya adı yazım hatalı (eksik "e"); `.DS_Store` izleniyordu
+10. **Küçük hijyen.** `requiremnts.txt` dosya adı yazım hatalı (eksik "e"); `.DS_Store` izleniyordu
    (artık git-ignore'da).
