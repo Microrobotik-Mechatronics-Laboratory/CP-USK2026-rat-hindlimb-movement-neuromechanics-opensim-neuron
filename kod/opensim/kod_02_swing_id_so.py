@@ -12,9 +12,12 @@
 # Bayraklar: fV'nin (0.25+0.75a) terimi ihmal; pelvis reçeteli; stance kullanılamaz.
 # =============================================================================
 import opensim as osim, numpy as np
+import sys, pathlib
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))  # kod/yollar.py icin
 from scipy.optimize import minimize
+from yollar import VERI, OSIM_FAZ1A, MOT_SMOOTH
 DEG=np.pi/180; T=0.387; DUTY=64.8
-MODEL='rat_hindlimb_faz1a.osim'; MOT='rat_walk_bone_smooth.mot'
+MODEL=str(OSIM_FAZ1A); MOT=str(MOT_SMOOTH); ID_STO=VERI/'id_bone.sto'   # ID ara ciktisi
 
 # ---- 1) ID ----
 idt=osim.InverseDynamicsTool()
@@ -22,10 +25,10 @@ idt.setModelFileName(MODEL); idt.setCoordinatesFileName(MOT)
 idt.setStartTime(0.0); idt.setEndTime(T)
 ex=osim.ArrayStr(); ex.append('Muscles'); idt.setExcludedForces(ex)
 idt.setLowpassCutoffFrequency(15.0)
-idt.setResultsDir('.'); idt.setOutputGenForceFileName('id_bone.sto')
+idt.setResultsDir(str(VERI)); idt.setOutputGenForceFileName('id_bone.sto')
 assert idt.run()
 
-L=open('id_bone.sto').read().splitlines()
+L=open(ID_STO).read().splitlines()
 i0=[i for i,l in enumerate(L) if l.strip()=='endheader'][0]+1
 hdr=L[i0].split('\t')
 D={h:np.array([float(l.split('\t')[hdr.index(h)]) for l in L[i0+1:] if l.strip()]) for h in hdr}
@@ -89,5 +92,5 @@ hdr2="gait_pct,"+",".join(mn)
 out=["# u_swing v2 (bkz. 40_ kaydi 8h)",hdr2]
 for j2 in range(len(sw)):
     out.append(f"{g[sw[j2]]:.1f},"+",".join(f"{U[j2,i]:.5f}" for i in range(N)))
-open('u_swing_v2.csv','w').write("\n".join(out))
+open(VERI/'u_swing_v2.csv','w').write("\n".join(out))
 print("u_swing_v2.csv yazildi")

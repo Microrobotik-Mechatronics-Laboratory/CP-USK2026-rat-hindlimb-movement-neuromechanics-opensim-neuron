@@ -6,9 +6,12 @@
 import numpy as np, scipy.io as sio
 from scipy.signal import savgol_filter
 import glob, pickle
+import sys, pathlib
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))  # kod/yollar.py icin
+from yollar import VERI
 
 FS = 1000.0
-KOK = '/mnt/user-data/uploads/spindle_data/eLife_data/'
+HAM = VERI/'spindle_ham'     # Blum 2020 eLife ham .mat kumesi -- DEPODA YOK (boyut/telif)
 
 def deneme_isle(p):
     t = np.asarray(p.time).ravel().astype(float)
@@ -31,7 +34,7 @@ def deneme_isle(p):
 
 if __name__ == '__main__':
     depo = {}
-    for yol in sorted(glob.glob(KOK+'aff[0-9]*_proc.mat')):
+    for yol in sorted(glob.glob(str(HAM/'aff[0-9]*_proc.mat'))):
         ad = yol.split('/')[-1].replace('_proc.mat','')
         d = sio.loadmat(yol, squeeze_me=True, struct_as_record=False)
         pd = np.atleast_1d(d['proc_data'])
@@ -48,5 +51,5 @@ if __name__ == '__main__':
         depo[ad] = denemeler
         nsp = sum(len(r['st']) for r in denemeler)
         print(f"{ad}: {len(denemeler)} deneme islendi, toplam {nsp} spike")
-    pickle.dump(depo, open('spindle_cache.pkl','wb'))
+    pickle.dump(depo, open(VERI/'spindle_cache.pkl','wb'))
     print('kaydedildi: spindle_cache.pkl')

@@ -5,8 +5,11 @@
 # |v|^0.358) — 0 kırpma eklidir (ateşleme negatif olamaz; 46_ f0=0 varsayımıyla tutarlı).
 # d = lif boyu − döngü min [mm], v = lif hızı [mm/s] (rt_ara) — v3 sözleşmesi aynen.
 import numpy as np
+import sys, pathlib
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))  # kod/yollar.py icin
+from yollar import VERI
 
-ra = np.load('rt_ara.npz', allow_pickle=True)
+ra = np.load(VERI/'rt_ara.npz', allow_pickle=True)   # rt_ara_uret.py uretir
 adlar = list(ra.files)
 Ia, II = {}, {}
 for n in adlar:
@@ -28,7 +31,7 @@ orl = np.array([(Ia[n].max()-Ia[n].min())/(II[n].max()-II[n].min())
 print('v3.1 biçim sınaması: Ia/II derinlik oranı medyan %.3f (min %.3f · maks %.3f) · '
       'hedef 2,544 · ±%%50 bandında %d/35' % (np.median(orl), orl.min(), orl.max(),
       int(((orl > 0.5*2.544) & (orl < 1.5*2.544)).sum())))
-with open('r_tamdongu_v3_1.csv','w') as f:
+with open(VERI/'r_tamdongu_v3_1.csv','w') as f:
     f.write('# r(t) tam dongu v3.1 (karar: Deniz delegasyonu 1 Eylul, 50_; 02_ SF bulgusunun '
             'duzeltmesi) — Ia: v3 ile BIREBIR AYNI (Kademe-2 K-modeli, b=10.43 kL=26.59 '
             'kV=27.08 p=0.532, yalniz uzama hizi); II: max(0, 14.43.d + 21.25.sign(v).|v|^0.358) '

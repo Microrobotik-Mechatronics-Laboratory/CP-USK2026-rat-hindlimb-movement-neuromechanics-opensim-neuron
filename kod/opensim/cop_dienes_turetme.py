@@ -6,9 +6,14 @@
 #   → d = (−M_ic − z_a·F_h) / F_v      [birimler: N·m/kg / N/kg = m → kütleden bağımsız,
 #                                        uzunluk DIENES hayvanının metresi]
 import numpy as np, json
+import sys, pathlib
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))  # kod/yollar.py icin
+from yollar import VERI, LEWIS_GRF
 
-d_mom = np.load('dienes_bilek_momenti.npz')      # g (dongu %), M (N·m/kg), sd_ust, sd_alt
-grf = json.load(open('lewis_grf.json'))          # ayni makalenin Fig 3'u (N/kg)
+# NOT: bu iki girdi .npz bekliyor; depoda .json karsiliklari var (veri/dienes_bilek_momenti.json).
+# Bicim donusumu yapilmadi -- bkz. kod/opensim/README.md eksik girdi tablosu.
+d_mom = np.load(VERI/'dienes_bilek_momenti.npz')      # g (dongu %), M (N·m/kg), sd_ust, sd_alt
+grf = json.load(open(LEWIS_GRF))          # ayni makalenin Fig 3'u (N/kg)
 g = d_mom['g']; M = d_mom['M']
 
 def Fk(g_):
@@ -81,7 +86,7 @@ for gi in [5,10,15,20,25,30,35,40,45,50,55,60]:
     if gecerli[i]:
         print('  %%%d döngü (stance %%%d): s = %.3f  [%.3f–%.3f]' %
               (gi, round(100*gi/stance_son), s_merkez[i], s_alt[i], s_ust[i]))
-np.savez('cop_dienes.npz', g=st_g, s=s_merkez, s_alt=s_alt, s_ust=s_ust,
+np.savez(VERI/'cop_dienes.npz', g=st_g, s=s_merkez, s_alt=s_alt, s_ust=s_ust,
          stance_son=stance_son, rho=rho, geo_za=geo['za'])
 print('kaydedildi: cop_dienes.npz')
 

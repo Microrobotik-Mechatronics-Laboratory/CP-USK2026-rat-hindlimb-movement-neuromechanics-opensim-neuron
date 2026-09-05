@@ -4,8 +4,12 @@
 __pycache__/
 *.pyc
 .claude/settings.local.json
-07_literatur/pdf/
+literatur/pdf/
 
 # NEURON derleme ciktilari
 arm64/
 x86_64/
+
+# OpenSim hattinin ara ciktilari (kod_02 ID adimi uretir)
+veri/id_bone.sto
+opensim.log

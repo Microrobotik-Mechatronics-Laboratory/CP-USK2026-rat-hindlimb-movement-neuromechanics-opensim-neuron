@@ -8,11 +8,11 @@
 #   DOF kısıtları = hip_flx, hip_add, hip_int, knee_flx, ankle_flx, ankle_add, ankle_int
 #   kapasite = Fmax · fL_gauss(lmn; γ=0.45) · fV_Thelen(vn; Af=0.25, Flen=1.4) · cos(α0)
 #   pasif kuvvet YOK, vn = v / (10·lmo)  [vmax = 10 lmo/s]
-import numpy as np, json, csv, sys
+import numpy as np, json, csv, sys, pathlib
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))  # kod/yollar.py icin
 import opensim as osim
 from scipy.optimize import lsq_linear
-
-KOK = '/home/claude/oturum5/'
+from yollar import VERI, OSIM_FAZ1A, MOT_SMOOTH, U_SWING, KAS_PAR, LEWIS_GRF
 # Kısıt kümeleri (31 Ağustos gecesi yeniden-üretim testleriyle KİMLİKLENDİ):
 #   salınım SO = D7 (hip3+knee+ankle3), talep = tau_ID       → u_swing_v2'yi üretir
 #   stance  SO = D6 (ankle_int HARİÇ),  talep = tau_ID − Q   → cop_recete/A_c'yi üretir
@@ -29,22 +29,22 @@ KUTLE = 0.28                                          # kg (Johnson donör varsa
 
 class Makine:
     def __init__(self):
-        self.ra = np.load(KOK+'rt_ara.npz', allow_pickle=True)
-        self.kp = json.load(open(KOK+'kas_par.json'))
-        idt = np.load(KOK+'id_tau.npz', allow_pickle=True)
+        self.ra = np.load(VERI/'rt_ara.npz', allow_pickle=True)   # rt_ara_uret.py uretir
+        self.kp = json.load(open(KAS_PAR))
+        idt = np.load(VERI/'id_tau.npz', allow_pickle=True)   # depoda .json karsiligi var, bicim donusumu yapilmadi
         self.idcols = [str(c) for c in idt['cols']]; self.TAU = idt['TAU']
-        self.grf = json.load(open(KOK+'lewis_grf.json'))
-        lines = open(KOK+'OTURUM5_YUKLE/rat_walk_bone_smooth.mot').read().splitlines()
+        self.grf = json.load(open(LEWIS_GRF))
+        lines = open(MOT_SMOOTH).read().splitlines()
         i0 = [i for i,l in enumerate(lines) if l.startswith('time')][0]
         self.mcols = lines[i0].split()
-        self.mot = np.genfromtxt(KOK+'OTURUM5_YUKLE/rat_walk_bone_smooth.mot', skip_header=i0+1)
+        self.mot = np.genfromtxt(MOT_SMOOTH, skip_header=i0+1)
         self.T = self.mot[-1,0]
-        self.model = osim.Model(KOK+'OTURUM5_YUKLE/rat_hindlimb_faz1a.osim')
+        self.model = osim.Model(str(OSIM_FAZ1A))
         self.st = self.model.initSystem()
         self.cs = self.model.getCoordinateSet()
         self.foot = self.model.getBodySet().get('foot')
         mus = self.model.getMuscles()
-        rows = [r for r in csv.reader(open(KOK+'OTURUM5_YUKLE/u_swing_v2.csv')) if r and not r[0].startswith('#')]
+        rows = [r for r in csv.reader(open(U_SWING)) if r and not r[0].startswith('#')]
         self.names = rows[0][1:]
         self.uswing = np.array(rows[1:], float)
         self.mobj = {mus.get(i).getName(): mus.get(i) for i in range(mus.getSize())}

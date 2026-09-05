@@ -1,0 +1,7 @@
+# OpenSim ortami (Python 3.13, proje icindeki .venv-osim). Yalniz kod/opensim/ hattini kosar.
+# Kurulum:  uv venv --python 3.13 .venv-osim && uv pip install --python .venv-osim -r requirements-opensim.txt
+# Ana ortamin (Python 3.14, NEURON + kapali dongu) bagimliliklari pyproject.toml'dadir.
+# Iki ortam zorunlulugunun gerekcesi: SDLC/06_KURULUM.md
+opensim==4.6
+scipy
+numpy

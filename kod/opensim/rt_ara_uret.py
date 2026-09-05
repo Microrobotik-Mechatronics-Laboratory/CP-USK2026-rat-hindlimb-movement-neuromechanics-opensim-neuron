@@ -5,17 +5,20 @@
 # u_swing_v2'yi hedef fark bandında yeniden üretmeli — üretim ancak o zaman geçerli sayılır.
 import numpy as np, json
 import opensim as osim
+import sys, pathlib
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))  # kod/yollar.py icin
+from yollar import VERI, OSIM_FAZ1A, MOT_SMOOTH, KAS_PAR
 
-lines = open('OTURUM5_YUKLE/rat_walk_bone_smooth.mot').read().splitlines()
+lines = open(MOT_SMOOTH).read().splitlines()
 i0 = [i for i,l in enumerate(lines) if l.startswith('time')][0]
 mcols = lines[i0].split()
-mot = np.genfromtxt('OTURUM5_YUKLE/rat_walk_bone_smooth.mot', skip_header=i0+1)
+mot = np.genfromtxt(MOT_SMOOTH, skip_header=i0+1)
 T = mot[-1,0]
-model = osim.Model('OTURUM5_YUKLE/rat_hindlimb_faz1a.osim')
+model = osim.Model(str(OSIM_FAZ1A))
 st = model.initSystem()
 cs = model.getCoordinateSet()
 mus = model.getMuscles()
-kp = json.load(open('kas_par.json'))
+kp = json.load(open(KAS_PAR))
 adlar = [mus.get(i).getName() for i in range(mus.getSize())]
 
 g_ekseni = np.arange(0, 100.5, 0.5)
@@ -38,7 +41,7 @@ for n in adlar:
     lm = np.sqrt(np.maximum(lmt - tsl, 1e-9)**2 + (lmo*np.sin(alp))**2)
     v = np.gradient(lm, t_ekseni)
     cikti[n] = np.column_stack([lm, v])
-np.savez('rt_ara.npz', **cikti)
+np.savez(VERI/'rt_ara.npz', **cikti)
 print('rt_ara.npz üretildi: %d kas × %s' % (len(cikti), cikti[adlar[0]].shape))
 print('örnek TA lm/lmo aralığı: %.3f–%.3f' % ((cikti['TA'][:,0]/kp['TA']['lmo']).min(),
                                               (cikti['TA'][:,0]/kp['TA']['lmo']).max()))

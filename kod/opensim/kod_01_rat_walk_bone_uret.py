@@ -8,7 +8,11 @@
 #           sacrum_pitch 4-nokta (Bauman Fig 3 kemik pelvis doğrusu; 8. bölüm 6)
 # Çıktılar: rat_walk_bone.mot (ham v4), rat_walk_bone_smooth.mot (15 Hz)
 # =============================================================================
-import numpy as np, csv, pickle, rig
+import numpy as np, csv, pickle
+import sys, pathlib
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))  # kod/yollar.py icin
+from yollar import VERI
+import rig                                # kod/opensim/rig.py -- DEPODA YOK, git gecmisinde: git show e0192ec^:kod/rig.py
 from scipy.interpolate import CubicSpline
 from scipy.signal import butter, filtfilt
 DEG=np.pi/180
@@ -22,8 +26,8 @@ def oku(path, cols):
     rows=[r for r in csv.reader(open(path)) if r and not r[0].startswith('#')]
     h=rows[0]; return [np.array([float(r[h.index(c)]) for r in rows[1:]]) for c in cols]
 
-g,hipA,kneeA = oku('bauman_fig4_v3_hipknee.csv',['gait_pct','hip_bone_mean','knee_bone_mean'])
-ga,ankA0     = oku('bauman_fig4_v2_kapali_devre.csv',['gait_pct','ankle_bone_mean_deg'])
+g,hipA,kneeA = oku(VERI/'bauman_fig4_v3_hipknee.csv',['gait_pct','hip_bone_mean','knee_bone_mean'])
+ga,ankA0     = oku(VERI/'bauman_fig4_v2_kapali_devre.csv',['gait_pct','ankle_bone_mean_deg'])
 ankA=np.interp(g,ga,ankA0)
 
 # ---- diz merkezi: iki-taraflı çember fiti (tibia translation spline yayları) ----
@@ -90,7 +94,7 @@ def yaz(path, H,K,A, ad):
         vv=dict(fx); vv.update(time=t[i],sacrum_pitch=sp[i],hip_flx=H[i],knee_flx=K[i],ankle_flx=A[i])
         L.append('\t'.join(f"{vv[c]:.6f}" for c in cols))
     open(path,'w').write('\n'.join(L))
-yaz('rat_walk_bone.mot',hip,knee,ank,'rat_walk_bone')
+yaz(VERI/'rat_walk_bone.mot',hip,knee,ank,'rat_walk_bone')
 
 # ---- smooth: Butterworth 4, 15 Hz, sıfır-faz, periyodik dolgu ----
 fs=201/T; b,a=butter(4,15/(fs/2))

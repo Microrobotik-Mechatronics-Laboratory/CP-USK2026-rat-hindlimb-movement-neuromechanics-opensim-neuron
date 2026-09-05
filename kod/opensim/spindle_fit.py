@@ -8,8 +8,11 @@
 # Olcum: sinama spike'larinda RMSE (Hz) ve havuzlanmis R^2; ozellik sinavi ucgen serisinde.
 import numpy as np, pickle, json
 from scipy.optimize import least_squares
+import sys, pathlib
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))  # kod/yollar.py icin
+from yollar import VERI
 
-depo = pickle.load(open('spindle_cache.pkl','rb'))
+depo = pickle.load(open(VERI/'spindle_cache.pkl','rb'))   # spindle_onisle.py uretir
 
 def v2_tahmin(r):
     return np.clip(10.033*r['L'] + 64.60*np.abs(r['v'])**0.2729, 0, None)
@@ -76,5 +79,5 @@ for ad, denemeler in depo.items():
     print(f"{ad}: sinama RMSE(Hz) v2={s['v2']['rmse']} K={s['K']['rmse']} F={s['Fmod']['rmse']} | "
           f"R2 v2={s['v2']['r2']} K={s['K']['r2']} F={s['Fmod']['r2']} | K_prm={s['K_prm']} F_prm={s['F_prm']}")
 
-json.dump(sonuc, open('spindle_fit_sonuc.json','w'), indent=1)
+json.dump(sonuc, open(VERI/'spindle_fit_sonuc.json','w'), indent=1)
 print('kaydedildi: spindle_fit_sonuc.json')

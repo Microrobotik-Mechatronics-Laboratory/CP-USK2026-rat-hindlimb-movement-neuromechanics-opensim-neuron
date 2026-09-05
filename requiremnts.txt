@@ -1,7 +1,0 @@
-find-libpython==0.5.1
-mpmath==1.3.0
-neuron==9.0.2
-numpy==2.4.6
-packaging==26.3
-setuptools==84.0.0
-sympy==1.14.0
