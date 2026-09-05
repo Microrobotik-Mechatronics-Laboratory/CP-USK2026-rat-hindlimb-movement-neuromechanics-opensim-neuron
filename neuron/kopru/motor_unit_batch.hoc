@@ -1,0 +1,28 @@
+// motor_unit_batch.hoc -- Kim 2020 motor unitesinin GUI'siz (batch) giris noktasi.
+// Kaynak: ../fig2_4_6/motor_unit.hoc. Iki satir disinda birebir aynidir:
+//   s.1  load_file("nrngui.hoc") -> stdrun.hoc  (grafik kutuphanesi yerine yalniz kosum denetimi)
+//   s.14 xopen("fig.ses")        -> silindi; fig.ses'in SAYISAL ayarlari asagiya tasindi
+// Model dosyalarinin kendisinde hic GUI cagrisi yoktur (xpanel/Graph yalniz bu iki satirdaydi),
+// bu yuzden batch'e gecis modeli degistirmez.
+//
+// Cagiran taraf once fig2_4_6 dizinine gecmelidir: xopen() calisma dizinine goredir.
+load_file("stdrun.hoc")
+
+xopen("v_e_moto6_export.hoc")
+xopen("add_hil_is.hoc")
+xopen("add_muscle_unit.hoc")
+xopen("mem_mechanism_pass.hoc")
+xopen("mem_mechanism_acti.hoc")
+xopen("mem_mechanism_muscle.hoc")
+xopen("fixnseg.hoc")
+
+xopen("add_pics_istim.hoc")
+xopen("Xm.hoc")
+xopen("group_Ia.hoc")
+
+// fig.ses'ten tasinan sayisal ayarlar (fig2_4_6/fig.ses s.9, 20, 22, 24, 53):
+v_init = -70
+tstop = 15000
+dt = 0.025
+steps_per_ms = 40
+xm.amp = -8

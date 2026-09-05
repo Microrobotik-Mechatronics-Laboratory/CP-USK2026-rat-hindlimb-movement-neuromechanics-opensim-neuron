@@ -473,3 +473,74 @@ OpenSim'siz bir kas modeli gerekmiyor. `05_MIMARI_RISK.md` risk-1 ve PREPRINT 14
 güncellendi. Bu ortam bundan sonra projenin NEURON ortamıdır (`nrnivmodl` dahil).
 
 **Üreten:** bu oturumun kapı betiği (geçici); ortam beyanı `requirements-kopru.txt`.
+
+---
+
+# N · Oturum 8 eki (5 Eylül 2026) — İP-4a kapandı: dört `.mod` klasörü derlendi, model GUI'siz koşuyor
+
+**Engel neydi:** `module1_2.mod` NEURON 9 ile derlenmiyordu (`U used as both variable and
+function`). `SDLC/00_DURUM.md` ve `02_IS_PAKETLERI.md` tek çakışma olduğunu kaydediyordu.
+
+**Ölçüm 1 — engel sanılandan bir fazlaydı.** `nocmodl` ilk hatada durduğu için ikincisi
+görülmemişti. Dosyada **iki** ad çakışması vardır:
+
+| Satır | Ad | Çakışma |
+|---|---|---|
+| 10 | `U` | `RANGE U` + `FUNCTION U (x)` (s.133) |
+| 11 | `phi` | `RANGE phi` + `FUNCTION phi (x)` (s.138) |
+
+Ayrıca aynı satırdaki `phi0`, hiçbir `PARAMETER`/`ASSIGNED`/`STATE` bloğunda tanımlı değildi.
+
+**Ölçüm 2 — düzeltmenin güvenliği.** `U` ve `phi` hiçbir yerde **değişken olarak**
+okunmuyor/yazılmıyor; tek kullanımları `U(Ca)` (s.111, 114) ve `phi(cli)` (s.155) — üçü de
+fonksiyon çağrısı. `.hoc` ve `.ses` dosyalarının tamamı tarandı: `U`, `U_CaSP`, `phi`,
+`phi_CaSP` erişimi **sıfır**. NMODL'de `SUFFIX`'li mekanizmanın `FUNCTION`'ları `RANGE`'de
+olmasalar da `U_CaSP(x)` adıyla dışarı açılır — yetenek kaybı yoktur. Düzeltme iki `RANGE`
+satırıyla sınırlıdır; denklemlere dokunulmamıştır.
+
+**Ölçüm 3 — derleme.** Köprü ortamının `nrnivmodl`'ü ile **dört klasörün dördü de** derlendi
+(`Successfully created arm64/special`):
+
+| Klasör | `.mod` sayısı | Sonuç |
+|---|---|---|
+| `fig2_4_6` | 12 | 12/12 (önceki oturumda 11/12 idi) |
+| `fig3_5_7` | 12 | 12/12 |
+| `fig8` | 12 | 12/12 |
+| `fig9` | 12 | 12/12 |
+
+Figüre özel mekanizmalarda (`syn_ramp`, `SawtoothIClamp`, `mStepIClamp`, `syn_Ia_sinewave`)
+başka NEURON 9 uyumsuzluğu **çıkmadı**. Kalan uyarılar zararsızdır: `Could not translate using
+cnexp method; using derivimplicit`, `Warning: dt undefined`, `libomp` arama yolu uyarısı.
+
+**Ölçüm 4 — YENİ KISIT: NEURON'un HOC dizgi arayüzü ASCII dışı karakter kabul etmiyor.**
+`h.xopen()`'a bu deponun mutlak yolu verildiğinde:
+`python string arg cannot decode into c_str ... 'ascii' codec can't encode characters in
+position 46-47`. Konum 46-47 = `Sıçan` kelimesinin `ı` ve `ç` harfleri. Bu, risk-4'ün
+(boşluklu yol `nrnivmodl`'ü kırıyor) **ikinci ve ayrı bir yüzüdür**; boşluk değil, Türkçe
+karakter kırıyor ve derleyiciyi değil HOC yorumlayıcısını etkiliyor.
+**Kural:** NEURON'a verilen her yol (`xopen`, `nrn_load_dll`, `load_file`) **göreli** olmalıdır;
+mutlak yol yasaktır. Python tarafı `os.chdir()` ile konumlanır.
+
+**Ölçüm 5 — GUI'siz koşum.** `neuron/kopru/motor_unit_batch.hoc` (orijinalden yalnız iki satır
+farklı: `nrngui.hoc` → `stdrun.hoc`, `fig.ses` çıkarılıp sayısal ayarları taşınmış) ile
+`fig2_4_6` modeli koştu:
+
+| Büyüklük | Ölçülen |
+|---|---|
+| Bölme sayısı | 315 section, **2655 segment** (`fixnseg.hoc` `d_lambda` kuralından) |
+| Koşum maliyeti | 12,51 s CPU / 3000 ms simülasyon → **4,17 s CPU per simüle saniye** |
+| Soma voltajı | min −70,75 · maks **+23,09 mV** (aksiyon potansiyeli var) |
+| Diken sayısı (NetCon, eşik −40 mV, `is` üzerinde) | 28 |
+| İlk / son diken | 1270,7 ms / 2975,4 ms |
+| Ortalama ateşleme frekansı | 15,8 Hz |
+
+Koşum koşulu: `dpath=600 µm`, `xm.amp=−8 mm`, `gmax_IaSyn=9,3e-6 S/cm²`, `RampIClamp` tepe
+20 nA @ 5 s (Kim'in Fig 2-7 varsayılanı). Ateşlemenin 1,27 s'de başlaması üçgen akım rampasının
+eşiği o civarda geçmesiyle tutarlıdır.
+
+**Sonuç:** İP-4a'nın derleme ve GUI'siz koşum adımları **bitti**. Kalan adım Kim Fig 2-7'nin
+tolerans bantlı yeniden üretimidir (`dpath` taraması).
+
+**Ölçek notu (İP-4b girdisi):** 4,17 s CPU / simüle saniye tek hücre içindir. 38 havuz için
+naif ölçek ≈ 158 s CPU / simüle saniye. Ayak bileği aşaması (2 havuz) rahat; 38 havuza
+geçerken `nseg` indirimi gerekebilir — gerekirse PIC konum etkisinin korunduğu gösterilecektir.
