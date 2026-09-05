@@ -394,9 +394,13 @@ flowchart TD
 | Renshaw (rekürren inhibisyon) | havuzun çıkışını sınırlar | **literatür özetlerinde kaynak yok** | `[tasarım]` |
 
 **Dürüstlük notu:** `IaIN` ve `Renshaw` bu projenin literatür setinde kaynağı olmayan iki
-bileşendir. Ya bir kaynak eklenip özeti çıkarılacak, ya ilk sürümde devre dışı bırakılacaklardır —
-CPG'nin kendi karşılıklı inhibisyonu zaten fleksör/ekstansör almaşmasını üretir. Karar verilene
-kadar **iddia edilmezler**.
+bileşendir. **Karar (05.09.2026):** ilk sürümde devrededirler, `[tasarım]` etiketiyle —
+ama **iddia edilmezler**. Uygulamada (`kod/kopru/nrn_devre.py`) tek bölmeli, Kim'in kendi
+`Naf`/`KDr` mekanizmalarıyla kurulmuş internöronlardır; yeni bir hücre modeli uydurulmamıştır.
+Ağırlıkları `kod/kopru/devre_par.json`'dadır ve `iain_etkin` / `renshaw_etkin` bayraklarıyla
+kapatılabilirler, böylece katkıları ölçülebilir. Kaynak bulunana kadar bu ikisine dayanan
+hiçbir sonuç bildirilmeyecektir; CPG'nin kendi karşılıklı inhibisyonu zaten fleksör/ekstansör
+almaşmasını üretir.
 
 **Neden yarım-merkez:** `oz_yu2021` §4b, salt ileri beslemeli sistemin yalnız simetrik çevrim
 ürettiğini, geri besleme eklenince yeni davranışların (asimetrik çevrimler, zincir-refleks ritmi)
@@ -1017,12 +1021,12 @@ Gorassini'nin 6 motonöron bandı, Kim'in eşik bandı, Johnson'ın BFA kalça m
 |---|---|---|---|---|
 | 0 | Johnson Şekil 3 karşılaştırması | quadriceps moment kolu eğrisi vs model | `johnson2008.quad_diz_moment_kolu_egrisi` kaydı bant ile doldurulur | `[yapılacak]` |
 | 1 | GMa çelişkisinin çözümü | bağlantı noktası / işaret denetimi | GMa'nın kalça işlevi anatomiyle uyumlu hale gelir veya fark gerekçelenir | `[yapılacak]` |
-| 2 | NEURON derlemesi | `module1_2.mod` `U` çakışması çözülür, 4 figür klasörü derlenir | `nrnivmodl` hatasız; `special` üretilir | sürüyor |
+| 2 | NEURON derlemesi | `module1_2.mod` `U` ve `phi` çakışmaları çözülür, 4 figür klasörü derlenir | `nrnivmodl` hatasız; `special` üretilir | **bitti** — `DOGRULAMA.md` N |
 | 3 | Aşama 1: tek motonöron doğrulaması | Kim Fig 2–9 davranışının yeniden üretimi | `D_path` taraması Tip I / IV / III desenlerini verir; eşik-boy ilişkisi monoton | `[yapılacak]` |
 | 4 | İğcik modeli sıçana kalibrasyon | Ia/II denklemleri | Vincent bantlarına düşer (bölüm 7) | `[yapılacak]` |
-| 5 | 38 motonöron havuzu + CPG + internöronlar | NEURON devresi | havuz çıkışı Gorassini bantlarına düşer (bölüm 6.4) | `[yapılacak]` |
-| 6 | Köprü | `u(t)` çıkışı, `r(t)` girişi, aynı zaman adımı | zaman adımı yarılandığında sonuç değişmiyor | `[yapılacak]` |
-| 7 | Kapalı döngü koşusu | salınım fazının devre tarafından üretilmesi | zamanlama sırası bölüm 9.2 ile karşılaştırılır | `[hedef]` |
+| 5 | 38 motonöron havuzu + CPG + internöronlar | NEURON devresi | havuz çıkışı Gorassini bantlarına düşer (bölüm 6.4) | **kısmen** — devre kuruldu, ayak bileğinde 10 havuz koşuyor; frekanslar henüz bantta değil (bölüm 10.6) |
+| 6 | Köprü | `u(t)` çıkışı, `r(t)` girişi, aynı zaman adımı | zaman adımı yarılandığında sonuç değişmiyor | **bitti** — tek süreç, `dt_k` = 0,3 ms; bölüm 8 |
+| 7 | Kapalı döngü koşusu | salınım fazının devre tarafından üretilmesi | zamanlama sırası bölüm 9.2 ile karşılaştırılır | **kısmen** — tek eklemde (ayak bileği) kapalı döngü koşuyor; 3 DOF / 38 havuz `[yapılacak]` |
 
 Bildirinin "deneysel çalışmalar ile model güncellenip basma fazı çözülecektir" cümlesi bu yol
 haritasının **ötesindedir** ve bu preprintin kapsamı dışındadır.
@@ -1035,12 +1039,18 @@ haritasının **ötesindedir** ve bu preprintin kapsamı dışındadır.
    bildiri metni değişmez. Poster ikisinden birini seçmek zorunda.
 2. **"Kas yolları güncellenmiştir" cümlesi neye dayanıyor?** Bir güncelleme kaydı var mı, yoksa
    cümle poster metninde daraltılmalı mı? (bölüm 10.2)
-3. **Köprü iki Python ortamını nasıl buluşturacak?** NEURON 3.14 / OpenSim 3.13 ayrımı; tek süreç
-   mi, süreçler arası iletişim mi? (bölüm 8)
+3. ~~**Köprü iki Python ortamını nasıl buluşturacak?**~~ **KAPANDI (05.09.2026).** `neuron==9.0.2`
+   cp313 tekerleği yayımlıyor; ortak payda Python 3.13'tür. `~/.venvs/usk26-kopru` ortamında
+   `import opensim` ve `from neuron import h` aynı süreçte, her iki import sırasında da
+   çalışıyor ve iki simülatör de iş yapıyor `[ölçüldü]`. Köprü **tek süreçte, tek Python
+   döngüsündedir**; süreçler arası iletişim gerekmiyor. `DOGRULAMA.md` M.
 4. **GMa neden modelde kalça fleksörü çıkıyor?** Bağlantı noktası hatası mı, işaret kuralı
    farkı mı? Bu çözülmeden salınım fazı sıra bulgusu kesinleşmiyor. (bölüm 10.4)
-5. **IaIN ve Renshaw katmanları kalacak mı?** Literatür setinde kaynakları yok; ya kaynak eklenecek
-   ya ilk sürümde devre dışı bırakılacaklar. (bölüm 6.1)
+5. ~~**IaIN ve Renshaw katmanları kalacak mı?**~~ **KARAR VERİLDİ (05.09.2026, kullanıcı):**
+   ilk sürümde **devrededirler**, `[tasarım]` etiketiyle. Literatür setinde kaynakları
+   olmadığı için **hiçbir sonuç bunlara dayandırılarak iddia edilmez**; bölüm 6.1'in dürüstlük
+   notu aynen geçerlidir. `kod/kopru/devre_par.json` içindeki `iain_etkin` / `renshaw_etkin`
+   bayraklarıyla kapatılabilirler, böylece etkileri ölçülebilir. (bölüm 6.1)
 6. **Havuz büyüklüğü ne olacak?** Kas başına tek temsilî motonöron mu, gerçekçi havuz mu?
    Gorassini'nin dublet ve frekans bantları bir havuz gerektiriyor olabilir. (bölüm 6.4)
 
