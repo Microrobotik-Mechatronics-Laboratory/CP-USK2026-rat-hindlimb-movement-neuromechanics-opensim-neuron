@@ -899,3 +899,109 @@ ile birebir aynı olsun; köprüde kas modülünün kapatılması ayrı ve bilin
 başlangıç segmentindeki elektriksel yükü değiştirip ateşleme eşiğini kaydırırdı.
 
 **Üreten:** `kod/kopru/capraz_kontrol.py`.
+
+---
+
+# P · 05.09.2026 — Ayak bileğinde tam kapalı döngü: ilk koşum ve zaman adımı yarılama testi
+
+**Ne kuruldu.** `PREPRINT.md` bölüm 8'in köprüsü, tek eklemde (ayak bileği) uçtan uca koştu.
+Zincir: CPG (Morris-Lecar yarım-merkez) → örüntü oluşturma katmanı → 10 motonöron havuzu →
+`u(t)` → OpenSim **ileri dinamiği** → hareket → kas-tendon boyu/hızı → iğcik → Ia/II →
+iletim gecikmesi → Ia sinapsı. **Bilek açısı reçete değildir**; kas kuvvetlerinden doğar.
+Üreten: `kod/kopru/kos_ayakbilegi.py`. Ortam: `~/.venvs/usk26-kopru` (tek süreç).
+
+Kaslar (PREPRINT 6.4 moment kolu gruplandırması): dorsifleksör TA, EDL, Per · plantar fleksör
+Sol, MG, LG, Pla, TP, FDL, FHL. Havuz başına bir temsilî Kim hücresi (2655 segment).
+
+## P.1 · Yol boyunca bulunan üç hata (hepsi sessizdi)
+
+| # | Belirti | Sebep | Nasıl bulundu |
+|---|---|---|---|
+| 1 | Bütün motonöronlar sustu, `u(t)` = 0 | **NEURON nesneleri Python'da referans tutulmadığında çöp toplayıcı siliyor.** `gradli_baglanti()` dönüşü bir değişkende saklanmıyordu; CPG → PF sinapsı sessizce yok oldu | Sinaps yalıtılmış olarak sınandığında çalıştı, devrede çalışmadı; fark referans tutmaktı |
+| 2 | Kas uyarımı hiçbir etki yapmıyor (TA %100 ile bilek yörüngesi pasif koşumla **birebir aynı**) | `PrescribedController.prescribeControlForActuator` fonksiyonu **kopyalar**; dışarıdan tutulan `Constant` nesnesi modeldeki değil | Beş farklı uyarımın birebir aynı yörüngeyi vermesi. Çözüm: fonksiyonlar `initSystem()` sonrası kontrolcünün kendi kümesinden alınır |
+| 3 | İki yarım-merkez de −80 mV'a çakıldı, salınım yok | `oz_yu2021` Tablo 2'nin `gCPG` değeri **yoğunluktur (mS/cm²)**, nokta süreci µS'i değil; dönüşüm atlanınca sinaps membran iletkenliğinin ~40 katı oldu | Birim denetimi: Tablo 2 "µS/cm²" yazıyor ama Iext ile 1000 kat tutarsız; mS/cm² okununca tutarlı (özetin kendi uyarısı) |
+
+## P.2 · CPG kalibrasyonu
+
+`oz_yu2021`'in `phiN` = 0,0005 /ms değeri Aplysia ölçeğinde T ≈ 2254 ms verir; bizim ölçülmüş
+yürüyüş çevrimimiz **T = 0,387 s**'dir. `phiN`, serbest çevrim periyodu 387 ms olacak şekilde
+ikiye bölmeyle arandı `[tasarım]`:
+
+| Büyüklük | Değer |
+|---|---|
+| `gCPG` | 0,006 mS/cm² |
+| `phiN` | 0,0152 /ms |
+| Ölçülen serbest çevrim periyodu | **386,9 ms** (hedef 387,0) |
+| Yarım-merkez genliği | −19,56 … +26,84 mV |
+| RG-F ile RG-E korelasyonu | **−0,957** (zıtfaz — yarım-merkezin tanımı) |
+
+## P.3 · Antagonist moment dengesi (yeni ölçüm)
+
+Eşit CPG sürüşüyle eklem plantar fleksiyon ucuna çöküyor ve orada kalıyordu. Sebep ölçüldü:
+
+| Eklem açısı | Dorsifleksör kapasite | Plantar fleksör kapasite | Oran |
+|---|---|---|---|
+| +18,9° | 54,78 N·mm | −141,39 N·mm | 2,58 |
+| 0° | 48,74 | −147,69 | 3,03 |
+| −40° | 25,59 | −113,60 | 4,44 |
+| −80° | 9,42 | −49,53 | 5,26 |
+
+(Kapasite = |Σ F_max · moment kolu|.) Merkezi sinir sistemi bu dengesizliği sürüş dağılımıyla
+çözer; buradaki karşılığı, grup sürüşünün moment kapasitesiyle **ters ölçeklenmesidir**
+`[tasarım]`. +14°'de (ölçülmüş yürüyüş bilek aralığının ortası, PREPRINT 5.2) ölçülen kapasiteler
+53,68 / 144,36 N·mm → plantar fleksör sürüş ölçeği **0,372**. Bu uygulanmadan bilek −81,6°'de
+takılıyordu; uygulandıktan sonra salınım başladı.
+
+## P.4 · Kapalı döngü koşumu (3 s, ikinci yarı; geçici rejim atıldı)
+
+| Büyüklük | Ölçülen | Referans / bant |
+|---|---|---|
+| **Çevrim süresi** | **0,402 s** | `ic.kopru_cevrim_suresi` 0,387 s, bant [0,348 – 0,426] → **BANTTA** |
+| Bilek açısı | −11,08 … +62,86° (ROM 73,94°) | ölçülmüş yürüyüş aralığı −2,89 … +30,65° → **DIŞARIDA (çok geniş)** |
+| `u_DF` – `u_PF` korelasyonu | −0,699 | zıtfaz bekleniyor → **sağlandı** |
+| TA havuzu, etkin faz | 25,8 Hz | `gorassini2000.mn_frekans_TA_swing` 97 Hz, bant [80 – 110] → **DIŞARIDA (düşük)** |
+| Sol havuzu, etkin faz | 12,3 Hz | `gorassini2000.mn_frekans_SOL_yuruyus` 28 Hz, bant [20 – 35] → **DIŞARIDA (düşük)** |
+| MG/LG havuzu, etkin faz | 11,9 / 12,2 Hz | `gorassini2000.mn_frekans_MGLG_ortagec` 67 Hz, bant [50 – 90] → **DIŞARIDA (düşük)** |
+
+**Okunuşu.** Döngünün **yapısı** çalışıyor: ritim CPG'den doğuyor, iki grup zıtfaz almaşıyor,
+hareket kas kuvvetinden doğuyor, iğcik geri beslemesi devrede ve çevrim süresi ölçülmüş yürüyüş
+çevrimine düşüyor. Ama **nicel olarak kalibre değil**: ateşleme frekansları Gorassini bantlarının
+2–5 kat altında, eklem açıklığı fizyolojik aralığın 2 katından fazla. Bu iki sapma aynı yöne
+işaret ediyor: havuz az ateşliyor ama kas fazla iş yapıyor — yani `u = f_MN / f_ref` eşlemesindeki
+`f_ref` ve `pf_mn` sinaptik ağırlığı birlikte kalibre edilmemiş durumda.
+
+**Bu sayıların hiçbiri bir iddia olarak sunulmamaktadır.** İlk uçtan uca koşumun ölçümleridir.
+
+## P.5 · Zaman adımı yarılama testi — KISMEN DÜŞTÜ
+
+PREPRINT bölüm 8 bu testi **zorunlu** sayar: kuplaj dışsaldır, ortak Jacobian kurulamaz
+(`oz_fietkiewicz2023` §3b). Bantlar testten önce ilan edildi (iç ölçüm yakınsama bandı):
+çevrim süresi %5, ROM %10, ateşleme oranı %10. NEURON adımı (0,025 ms) sabit tutuldu; yalnız
+**alışveriş adımı** yarılandı. Koşum 4 s.
+
+| Ölçüt | `dt_k` = 0,30 ms | `dt_k` = 0,15 ms | Bağıl fark | Bant | Sonuç |
+|---|---|---|---|---|---|
+| Çevrim süresi | 0,3812 s | 0,3927 s | %2,91 | %5 | **geçti** |
+| Havuz DF ateşleme | 25,60 Hz | 25,28 Hz | %1,26 | %10 | **geçti** |
+| Havuz PF ateşleme | 12,05 Hz | 12,09 Hz | %0,38 | %10 | **geçti** |
+| `u` zıtfaz korelasyonu | −0,722 | −0,729 | — | — | değişmiyor |
+| **Eklem ROM** | **78,39°** | **61,33°** | **%21,77** | %10 | **DÜŞTÜ** |
+
+**Yorum ve karar.** Sinirsel taraf (ritim, frekans, faz ilişkisi) alışveriş adımından
+bağımsızdır; **mekanik açıklık değildir**. Bant **genişletilmemiştir** (04_KURALLAR: post-hoc
+bant genişletme yasak). İki aday açıklama var ve ayırt edilmelidir:
+
+1. **Sıfırıncı derece tutma (zero-order hold).** Uyarım köprü adımı boyunca sabit tutulur.
+   Bilek DOF'unun eylemsizliği çok küçüktür (`M[ankle,ankle]` ≈ 1,1·10⁻⁷, kalçanın ~1/120'si);
+   hızlı geçişlerde 0,3 ms'lik tutma ile 0,15 ms'lik tutma farklı itki verir.
+2. **Çalışma noktası model aralığının dışında.** Bilek −11 … +63° arasında salınıyor; proje
+   ızgarasının bilek aralığı −35 … +55°, ölçülmüş yürüyüşünki −2,89 … +30,65°. Bu uçlarda
+   moment kolu ve kuvvet-uzunluk eğrileri şiddetli doğrusal-olmayan bölgededir ve küçük
+   zamanlama farkları büyür.
+
+İkisi de doğruysa, açıklığı fizyolojik aralığa çeken bir kalibrasyon yakınsamayı da düzeltir.
+**Bu çözülene kadar kapalı döngünün eklem açıklığına dayanan hiçbir sonuç bildirilmeyecektir.**
+Sinirsel ölçütler (çevrim süresi, frekans, faz) yakınsadıkları için raporlanabilir.
+
+**Üreten:** `kod/kopru/adim_yarilama.py`, `kod/kopru/kos_ayakbilegi.py`.
+**Artefakt:** `veri/kopru/kosum_ayakbilegi.npz`, `sekiller/kopru_ayakbilegi.png` + `.csv`.
