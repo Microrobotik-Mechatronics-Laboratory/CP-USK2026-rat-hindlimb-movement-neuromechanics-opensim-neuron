@@ -22,9 +22,10 @@
 
 **Sonuç/artefakt:** `SDLC/*`, kök `CLAUDE.md`, `.claude/agents/logger.md`, `.gitignore`.
 
-**Değişen dosyalar:** yukarıdaki yeni dosyalar + `.gitignore`.
+**Değişen dosyalar:** yukarıdaki yeni dosyalar + `.gitignore` + proje yapılandırması izlemeye alındı.
 
-**Commit:** _(kapanışta doldurulacak)_
+**Commit:** `b9dbdf5` (git hijyeni), `761d200` (proje yapılandırması), `5bedf79` (alt-ajanlar),
+`1ea812d` (SDLC), `79f3565` (CLAUDE.md). Push henüz yapılmadı (onay bekliyor).
 
 ---
 
