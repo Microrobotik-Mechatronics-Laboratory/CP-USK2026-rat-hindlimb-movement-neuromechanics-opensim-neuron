@@ -1,0 +1,121 @@
+{
+  "surum": "1.0",
+  "aciklama": "Testlerin (IP-8) okudugu tek referans-deger kaynagi. Sayilar koda gomulmez, buradan okunur. Yeni kayit eklemeden once ilgili oz_<kisa_ad>.md dosyasi doldurulur. Kural: SDLC/04_KURALLAR.md 'Literature yakinlik'.",
+  "sema": {
+    "kimlik": "Testin bandi bulmak icin kullandigi benzersiz anahtar. Bicim: <kaynak>.<buyukluk>",
+    "kaynak_tipi": "literatur = dis yayindan cikarilmis deger | ic_olcum = bu projede olculmus, regresyon korumasi",
+    "kaynak": "kunye, tanimlayici (DOI/PMC/dosya), yer (tablo/sekil/bolum)",
+    "buyukluk": "Neyin olculdugunun insan-okur tanimi",
+    "birim": "SI veya proje birimi; birim yazilmadan deger kaydedilmez",
+    "deger": "Referans deger (sayi, dizi veya null)",
+    "bant": "[alt, ust] kapali aralik. null = bant tanimsiz (kategorik deger veya henuz ilan edilmedi)",
+    "bant_gerekcesi": "Bandin neden bu genislikte oldugu: tur/kosul farki, olcum sacilimi, model basitlestirmesi, sayisal tolerans",
+    "tur_kosul": "Degerin geldigi tur ve deney kosulu (bant gerekcesinin dayanagi)",
+    "durum": "dogrulandi = bagimsiz olculdu/okundu | olculdu = bu projede olculdu | dogrulanmadi = tasindi, henuz kontrol edilmedi | referans_bekliyor = karsilastirilacak literatur degeri henuz yok",
+    "not": "Serbest aciklama; bilinen tuzaklar buraya"
+  },
+  "kayitlar": [
+    {
+      "kimlik": "johnson2008.kas_sayisi",
+      "kaynak_tipi": "literatur",
+      "kaynak": {
+        "kunye": "Johnson ve ark. 2008",
+        "tanimlayici": "PMC2322854",
+        "yer": "Methods"
+      },
+      "buyukluk": "Modellenen sican arka bacak kasi sayisi",
+      "birim": "adet",
+      "deger": 37,
+      "bant": null,
+      "bant_gerekcesi": "Kategorik sayim; bant tanimsiz, tam esleme aranir.",
+      "tur_kosul": "Yedi disi Sprague-Dawley sican, 280 +/- 16 g",
+      "durum": "dogrulandi",
+      "not": "Depodaki .osim 38 kas icerir. Fark semitendinosus'tan: Johnson iki origin ama tek insertion verir, port bunu STa/STp diye ikiye bolmustur. 38 portun sayisidir, Johnson'in degil (DOGRULAMA H3)."
+    },
+    {
+      "kimlik": "johnson2008.lokomosyon_diz_araligi",
+      "kaynak_tipi": "literatur",
+      "kaynak": {
+        "kunye": "Johnson ve ark. 2008",
+        "tanimlayici": "PMC2322854",
+        "yer": "dortayak lokomosyon penceresi"
+      },
+      "buyukluk": "Dortayak lokomosyonda diz fleksiyon acisi araligi",
+      "birim": "derece",
+      "deger": [-110.0, -60.0],
+      "bant": null,
+      "bant_gerekcesi": "Degerin kendisi bir aralik; tolerans bandi degildir. Karsilastirmada bu aralik ile bizim aralik ORTUSME orani uzerinden konusulur.",
+      "tur_kosul": "Sprague-Dawley sican, dortayak lokomosyon",
+      "durum": "dogrulandi",
+      "not": "Bu calismanin trot araligi -123,1 ... -54,5 derece, iki uctan da genistir. 'Johnson'in araliginda' denemez (DOGRULAMA H7)."
+    },
+    {
+      "kimlik": "johnson2008.tepe_ma_lokomosyon_icinde_oran",
+      "kaynak_tipi": "literatur",
+      "kaynak": {
+        "kunye": "Johnson ve ark. 2008",
+        "tanimlayici": "PMC2322854",
+        "yer": "ana bulgu"
+      },
+      "buyukluk": "Moment kolu tepesi lokomosyon bolgesinin 15 derece icinde kalan kas orani",
+      "birim": "kas/kas",
+      "deger": [27, 37],
+      "bant": null,
+      "bant_gerekcesi": "Sayim orani; bant IP-7'de bu bulgu bir teste baglanirsa ilan edilecek.",
+      "tur_kosul": "Sprague-Dawley sican",
+      "durum": "dogrulandi",
+      "not": "Johnson'in ana bulgusu: moment kollari lokomosyon bolgesinde tepe yapip az degisir."
+    },
+    {
+      "kimlik": "ic.sm_diz_moment_kolu",
+      "kaynak_tipi": "ic_olcum",
+      "kaynak": {
+        "kunye": "Bu proje, 27.07.2026 dogrulama oturumu",
+        "tanimlayici": "04_kapali_dongu/02_DOGRULAMA_KAYDI.md",
+        "yer": "A bolumu + H9 tablosu"
+      },
+      "buyukluk": "Semimembranosus diz moment kolu (varsayilan diz acisi -120 derece)",
+      "birim": "mm",
+      "deger": -3.87,
+      "bant": [-3.92, -3.82],
+      "bant_gerekcesi": "REGRESYON bandi, literatur bandi degil. Ayni model uzerinde iki farkli turev yontemi (computeMomentArm ve getLength merkezi fark) 0,00 mm farkla ayni sonucu verdi; sarma acik/kapali fark da 0,00. Bant yalnizca sayisal turev toleransini kapsar (+/- 0,05 mm). Sayi bu bandin disina cikarsa model geometrisi degismis demektir.",
+      "tur_kosul": "OpenSim 4.6, rat_hindlimb_0_2.osim tureviyle kurulan model",
+      "durum": "olculdu",
+      "not": "Sarma yuzeyinden tamamen bagimsiz olan tek quad/hamstring degeri budur; DOGRULAMA'ya gore modelin en savunulabilir sayisi."
+    },
+    {
+      "kimlik": "ic.quad_diz_moment_kolu",
+      "kaynak_tipi": "ic_olcum",
+      "kaynak": {
+        "kunye": "Bu proje, 27.07.2026 dogrulama oturumu",
+        "tanimlayici": "04_kapali_dongu/02_DOGRULAMA_KAYDI.md",
+        "yer": "A bolumu"
+      },
+      "buyukluk": "Quadriceps dort basinin diz moment kolu (varsayilan diz acisi -120 derece)",
+      "birim": "mm",
+      "deger": [3.7, 3.73, 3.72, 3.7],
+      "bant": [3.65, 3.78],
+      "bant_gerekcesi": "REGRESYON bandi. Dort bas (RF, VL, VI, VM) icin olculen 3,70-3,73 araligi, +/- 0,05 mm sayisal tolerans ile genisletildi.",
+      "tur_kosul": "OpenSim 4.6, femur_dist WrapTorus etkin",
+      "durum": "olculdu",
+      "not": "DIKKAT (DOGRULAMA H1): bu sayiyi anatomi degil, femur_dist WrapTorus uretiyor ve degeri torusun inner_radius alanina baglidir (2 mm -> 2,94 | 4 mm -> 3,71 | 5 mm -> 4,02). Sarma kapatilinca quad modelde FLEKSOR oluyor (-0,65 ... -1,18 mm). Dort basin 0,03 mm icinde kumelenmesi torusun imzasidir, anatomik bulgu degildir. Bu kayit bir literatur dogrulamasi olarak KULLANILAMAZ."
+    },
+    {
+      "kimlik": "johnson2008.quad_diz_moment_kolu_egrisi",
+      "kaynak_tipi": "literatur",
+      "kaynak": {
+        "kunye": "Johnson ve ark. 2008",
+        "tanimlayici": "PMC2322854",
+        "yer": "Sekil 3"
+      },
+      "buyukluk": "Quadriceps diz moment kolunun diz acisina gore egrisi",
+      "birim": "mm",
+      "deger": null,
+      "bant": null,
+      "bant_gerekcesi": "Deger henuz makaleden cikarilmadi.",
+      "tur_kosul": "Sprague-Dawley sican",
+      "durum": "referans_bekliyor",
+      "not": "DOGRULAMA D bolumu: 'Johnson Sekil 3'teki quad egrisiyle karsilastirma YAPILMADI. Tek eksik geometri dogrulamasi budur.' IP-7'nin ilk hedeflerinden biri bu kaydi doldurmaktir."
+    }
+  ]
+}

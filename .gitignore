@@ -1,5 +1,7 @@
 .venv/
+.venv-osim/
 .DS_Store
 __pycache__/
 *.pyc
 .claude/settings.local.json
+07_literatur/pdf/
