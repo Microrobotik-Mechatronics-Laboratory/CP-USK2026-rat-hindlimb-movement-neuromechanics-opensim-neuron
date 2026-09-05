@@ -8,13 +8,13 @@
 # (38 havuz icin gerekli, cunku v_e_moto6_export.hoc template degil global create kullaniyor).
 # Yeniden uygulama sessiz sapma riski tasir. 04_KURALLAR'in "bagimsiz ikinci yontemle capraz
 # kontrol" kurali geregi iki kurulum AYNI surecte, AYNI uyaranla, AYNI zaman adimiyla kosturulup
-# diken zamanlari karsilastirilir. Iki hucre elektriksel olarak bagimsizdir; ayni surecte
+# aksiyon potansiyeli zamanlari karsilastirilir. Iki hucre elektriksel olarak bagimsizdir; ayni surecte
 # durmalari birbirlerini etkilemez, yalnizca hesap iki katina cikar.
 #
 # Karsilastirma kas modulu ACIK yapilir (kas_modulu=True) ki model HOC ile birebir ayni olsun;
 # koprudeki CaSP/fHill kesimi ayri ve bilincli bir karardir (nrn_hucre.py bayraklari).
 #
-# BANT: diken zamani farki < 0.025 ms (bir entegrasyon adimi). Bu bir REGRESYON bandidir,
+# ARALIK: aksiyon potansiyeli zamani farki < 0.025 ms (bir entegrasyon adimi). Bu bir REGRESYON araligidir,
 # literatur dogrulamasi degildir: iki kurulum ayni denklemleri cozdugu icin fark ancak kayan
 # nokta duzeyinde olabilir; bir adimdan buyuk fark yapisal sapma demektir.
 # =============================================================================
@@ -26,7 +26,7 @@ from nrn_ortam import h, yukle
 from yollar import NRN_BATCH_GORELI
 import nrn_hucre
 
-TSTOP, DT, ESIK, BANT_MS = 3000.0, 0.025, -40.0, 0.025
+TSTOP, DT, ESIK, ARALIK_MS = 3000.0, 0.025, -40.0, 0.025
 
 # --- HOC referans kurulumu (Kim'in kendi zinciri) ---------------------------------------
 yukle(NRN_BATCH_GORELI)
@@ -39,7 +39,7 @@ v_hoc = h.Vector().record(hoc_soma(0.5)._ref_v)
 
 # --- Python kurulumu --------------------------------------------------------------------
 py = nrn_hucre.MotoNoron('py', dpath=600.0, kas_modulu=True)
-dik_py = py.diken_kaydet(ESIK)
+dik_py = py.ap_kaydet(ESIK)
 v_py = h.Vector().record(py.soma(0.5)._ref_v)
 st = h.RampIClamp(py.soma(0.5)); st.pkamp = 20      # add_pics_istim.hoc:72-74 ile ayni uyaran
 py._st = st
@@ -59,25 +59,25 @@ print('%-28s %14d %14d' % ('section sayisi', len(hoc_sec), len(py.sec)))
 print('%-28s %14d %14d' % ('segment sayisi', nseg_h, py.segment_sayisi()))
 print('%-28s %14d %14d' % ('CaL nokta sureci (PIC)', int(h.iCaL_say) if hasattr(h, 'iCaL_say') else -1, len(py.iCaL)))
 print('%-28s %14d %14d' % ('IaSyn takili segment', -1, len(py.ia_bolmeleri)))
-print('%-28s %14d %14d' % ('diken sayisi', d_h.size, d_p.size))
+print('%-28s %14d %14d' % ('aksiyon potansiyeli sayisi', d_h.size, d_p.size))
 print('%-28s %14.4f %14.4f' % ('soma v min [mV]', vh.min(), vp.min()))
 print('%-28s %14.4f %14.4f' % ('soma v maks [mV]', vh.max(), vp.max()))
 if d_h.size:
-    print('%-28s %14.3f %14.3f' % ('ilk diken [ms]', d_h[0], d_p[0] if d_p.size else np.nan))
-    print('%-28s %14.3f %14.3f' % ('son diken [ms]', d_h[-1], d_p[-1] if d_p.size else np.nan))
+    print('%-28s %14.3f %14.3f' % ('ilk aksiyon potansiyeli [ms]', d_h[0], d_p[0] if d_p.size else np.nan))
+    print('%-28s %14.3f %14.3f' % ('son aksiyon potansiyeli [ms]', d_h[-1], d_p[-1] if d_p.size else np.nan))
 
-# --- bant sinamasi ----------------------------------------------------------------------
+# --- aralık sinamasi ----------------------------------------------------------------------
 assert d_h.size == d_p.size, (
-    'diken SAYISI farkli: olculen(Python)=%d, beklenen(HOC)=%d, bant=tam esleme, '
+    'aksiyon potansiyeli SAYISI farkli: olculen(Python)=%d, beklenen(HOC)=%d, aralık=tam esleme, '
     'kaynak=neuron/fig2_4_6 Kim 2020 hoc zinciri' % (d_p.size, d_h.size))
 if d_h.size:
     fark = np.abs(d_h - d_p)
     print()
-    print('diken zamani farki: maks %.6f ms, ortalama %.6f ms' % (fark.max(), fark.mean()))
-    assert fark.max() < BANT_MS, (
-        'diken ZAMANI banttan disari: olculen maks fark=%.6f ms, beklenen=0.0 ms, '
-        'bant=[0, %.3f] ms (bir entegrasyon adimi), kaynak=ic_olcum regresyon bandi'
-        % (fark.max(), BANT_MS))
+    print('aksiyon potansiyeli zamani farki: maks %.6f ms, ortalama %.6f ms' % (fark.max(), fark.mean()))
+    assert fark.max() < ARALIK_MS, (
+        'aksiyon potansiyeli ZAMANI aralıktan disari: olculen maks fark=%.6f ms, beklenen=0.0 ms, '
+        'aralık=[0, %.3f] ms (bir entegrasyon adimi), kaynak=ic_olcum regresyon araligi'
+        % (fark.max(), ARALIK_MS))
 dv = np.abs(vh - vp).max()
 print('soma voltaj izi maks farki: %.6f mV' % dv)
 print()

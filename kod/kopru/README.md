@@ -36,7 +36,7 @@ vermedi). `kopru.py` her `NetCon`, `Exp2Syn` ve `GradeSyn`'i `self._nc` / `self.
 | `nrn_ortam.py` | NEURON'u doğru dizinde ve doğru sırayla ayağa kaldırır (yukarıdaki iki kural) |
 | `morfoloji_cikar.py` | Kim'in morfolojisini bir kez HOC'tan okuyup `veri/kopru/moto_morfoloji.npz`'ye döker |
 | `nrn_hucre.py` | Kim 2020 motonöronunu Python'da kurar (çok örnekli; havuz için) |
-| `capraz_kontrol.py` | Python kurulumunun HOC kurulumuyla aynı olduğunu diken zamanlarından doğrular |
+| `capraz_kontrol.py` | Python kurulumunun HOC kurulumuyla aynı olduğunu aksiyon potansiyeli zamanlarından doğrular |
 | `nrn_devre.py` | CPG yarım-merkezleri (Morris-Lecar), PF, IaIN, Renshaw, II aktarım |
 | `igcik.py` | Kas-tendon boyu/hızı → Ia ve II ateşleme oranı (Blum fiti) |
 | `osim_mekanik.py` | OpenSim ileri dinamiği: kilitleme, uyarım yazma, adım |

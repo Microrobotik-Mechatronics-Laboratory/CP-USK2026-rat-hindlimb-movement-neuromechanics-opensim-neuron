@@ -56,7 +56,7 @@
     "dt_neuron_ms": 0.025,
     "dt_kopru_ms": 0.15,
     "_dt_gerekcesi": "0.15 ms, NEURON adiminin (0.025 ms) tam kati (6 adim), Ia gecikmesinin (1.5 ms -> 10 adim), II gecikmesinin (1.8 ms -> 12 adim) ve efferent gecikmenin (6 ms -> 40 adim) tam bolenidir; gecikme yuvarlama hatasi sifir olur.",
-    "_dt_olcum": "Ilk deger 0.3 ms idi ve ADIM YARILAMA TESTINI DUSURDU: eklem ROM'u 0.3 -> 0.15 ms'de %21.8 degisiyordu (bant %10). Uc noktali tarama (3 s kosum) sebebi gosterdi -- cozum yakinsiyor, 0.3 ms yalnizca cok kabaydi: ROM 73.94 -> 54.41 -> 54.10 derece ve cevrim suresi 0.4020 -> 0.3749 -> 0.3787 s. 0.15 ile 0.075 ms arasindaki fark ROM'da %0.57, cevrim suresinde %1.00. Bu yuzden uretim degeri 0.15 ms'tir. Bant genisletilmedi; adim kucultuldu.",
+    "_dt_olcum": "Ilk deger 0.3 ms idi ve ADIM YARILAMA TESTINI DUSURDU: eklem ROM'u 0.3 -> 0.15 ms'de %21.8 degisiyordu (aralık %10). Uc noktali tarama (3 s kosum) sebebi gosterdi -- cozum yakinsiyor, 0.3 ms yalnizca cok kabaydi: ROM 73.94 -> 54.41 -> 54.10 derece ve cevrim suresi 0.4020 -> 0.3749 -> 0.3787 s. 0.15 ile 0.075 ms arasindaki fark ROM'da %0.57, cevrim suresinde %1.00. Bu yuzden uretim degeri 0.15 ms'tir. Aralık genisletilmedi; adim kucultuldu.",
     "gecikme_ia_ms": 1.5,
     "gecikme_ii_ms": 1.8,
     "_gecikme_kaynagi": "oz_vincent2017 Tablo 4 (sican): Ia 1.5 +/- 0.2 ms, II 1.8 +/- 0.4 ms",
@@ -65,10 +65,10 @@
     "k_ia": 1.0,
     "_k_ia_gerekcesi": "[varsayim] Blum fiti rampa-tut protokolune uygundur; veri/r_katsayilari_v3.json 'surekli_hareket_sonumu' kaydi surekli harekette olcumun ~15 Hz, statik tahminin ~90 Hz (yaklasik 6 kat) oldugunu soyluyor. k_ia acik bir kalibrasyon carpanidir; varsayilani 1.0 ve etkisi raporlanir, sessiz olcekleme yapilmaz.",
     "f_ref_Hz": {
-      "_durum": "[tasarim] -- oz_gorassini2000 bantlarindan turetildi",
+      "_durum": "[tasarim] -- oz_gorassini2000 araliklarindan turetildi",
       "TA": 97.0, "Sol": 28.0, "MG": 67.0, "LG": 67.0, "varsayilan": 60.0
     },
     "u_filtre_tau_ms": 50.0,
-    "_u_filtre_notu": "[tasarim] Diken dizisinden anlik atesleme oranina ustel filtre. u = clip(f_MN/f_ref, 0, 1) OpenSim'e UYARIM (excitation) olarak verilir; aktivasyon dinamigini Thelen2003Muscle kendi coz er, boylece iki kez filtrelenmez."
+    "_u_filtre_notu": "[tasarim] Aksiyon potansiyeli dizisinden anlik atesleme oranina ustel filtre. u = clip(f_MN/f_ref, 0, 1) OpenSim'e UYARIM (excitation) olarak verilir; aktivasyon dinamigini Thelen2003Muscle kendi coz er, boylece iki kez filtrelenmez."
   }
 }

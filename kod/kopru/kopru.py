@@ -6,7 +6,7 @@
 #
 # YONTEM: iki simulator tek Python denetim dongusunde AYNI zaman adimiyla eszamanli
 # ilerletilir (oz_fietkiewicz2025 3b). PREPRINT bolum 8'in sozde-kodu:
-#     her adimda: NEURON ilerlet -> dikenleri oku -> u(t) -> OpenSim'e yaz -> OpenSim ilerlet
+#     her adimda: NEURON ilerlet -> aksiyon potansiyellerini oku -> u(t) -> OpenSim'e yaz -> OpenSim ilerlet
 #                 -> kas boyu/hizi oku -> igcikten r(t) -> gecikme -> Ia sinapsina yaz
 #
 # ==================== BIRIM VE ZAMAN SOZLESMESI (koprunun en kaygan yeri) ====================
@@ -25,8 +25,8 @@
 # - r(t) -> gmax_IaSyn esleme [tasarim]: Kim'in uc capasi (gmax = 0 / 9.3e-6 / 19e-6 S/cm2,
 #   xm = -16 / -8 / 0 mm) uzerinden dogrusal. gsc birimsiz olcektir; gsc=1 Kim'in optimal
 #   boy degeridir, ust sinir 19/9.3 = 2.043'tur. PREPRINT 6.3'un uygulamasi.
-# - diken -> u(t) [tasarim]: NetCon esigi -40 mV (oz_fietkiewicz2023 3b), ustel filtreyle
-#   anlik atesleme orani, u = clip(f_MN/f_ref, 0, 1). f_ref oz_gorassini2000 bantlarindan.
+# - aksiyon potansiyeli -> u(t) [tasarim]: NetCon esigi -40 mV (oz_fietkiewicz2023 3b), ustel filtreyle
+#   anlik atesleme orani, u = clip(f_MN/f_ref, 0, 1). f_ref oz_gorassini2000 araliklarindan.
 # - IaIN ve Renshaw KAYNAKSIZ bilesenlerdir (PREPRINT 6.1); devrededirler ama hicbir sonuc
 #   bunlara dayandirilarak iddia edilmez.
 # =============================================================================
@@ -70,8 +70,8 @@ class Havuz:
         self.gsc = h.Vector(1)
         self.gsc.x[0] = 0.0
         self._ia_koprule()
-        self.dikenler = self.hucre.diken_kaydet()
-        self.n_diken = 0
+        self.ap_zamanlari = self.hucre.ap_kaydet()
+        self.n_ap = 0
         self.f = 0.0                     # ustel filtreli anlik atesleme orani [Hz]
 
     def _ia_koprule(self):
@@ -87,10 +87,10 @@ class Havuz:
         self.gsc.x[0] = float(gsc)
 
     def oran_guncelle(self, dt_ms, tau_ms):
-        """Diken sayacindan ustel filtreli anlik atesleme orani. NetCon kaydi birikimlidir."""
-        yeni = len(self.dikenler) - self.n_diken
-        self.n_diken += yeni
-        anlik = yeni / (dt_ms * 1e-3)                 # bu adimdaki diken -> Hz
+        """Aksiyon potansiyeli sayacindan ustel filtreli anlik atesleme orani. NetCon kaydi birikimlidir."""
+        yeni = len(self.ap_zamanlari) - self.n_ap
+        self.n_ap += yeni
+        anlik = yeni / (dt_ms * 1e-3)                 # bu adimdaki aksiyon potansiyeli -> Hz
         a = dt_ms / tau_ms
         self.f += a * (anlik - self.f)
         return self.f
@@ -203,7 +203,7 @@ class Kopru:
                 self.iain[gad] = ip('IaIN_' + gad)
             if ir['renshaw_etkin']:
                 self.renshaw[gad] = ip('RC_' + gad)
-            # CPG -> PF: gradli eksitasyon (RG bir ML hucresi, diken uretmez)
+            # CPG -> PF: gradli eksitasyon (RG bir ML hucresi, aksiyon potansiyeli uretmez)
             self._gsyn.append(nrn_devre.gradli_baglanti(
                 rg[gad], self.pf[gad], c['gcpg_mScm2'] * self.par['sinaps']['cpg_pf_carpan'],
                 esyn=eks['e_mV'], ethr=c['ethr_mV'], eslope=c['eslope_mV']))
@@ -288,7 +288,7 @@ class Kopru:
             # 3) NEURON'u bir kopru adimi ilerlet
             h.continuerun(h.t + self.dt_ms)
 
-            # 4) dikenlerden u(t), sonra efferent gecikme
+            # 4) aksiyon potansiyellerinden u(t), sonra efferent gecikme
             f = np.array([self.havuz[k2].oran_guncelle(self.dt_ms, kp['u_filtre_tau_ms'])
                           for k2 in self.kaslar])
             u_ham = np.array([self.havuz[k2].u() for k2 in self.kaslar])

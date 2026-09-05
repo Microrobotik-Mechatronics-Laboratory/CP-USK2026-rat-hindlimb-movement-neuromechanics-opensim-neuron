@@ -47,12 +47,12 @@ flowchart LR
         M5["Motonoron atesleme frekansi"]
         M6["PIC konum davranisi"]
     end
-    subgraph KAY["Kaynak ve bant"]
-        K1["Johnson 2008 Sekil 3<br/>bant YOK - karsilastirma yapilmadi"]
-        K2["ic_olcum -3.87 mm<br/>bant -3.92 .. -3.82"]
-        K3["Bildiri cumlesi<br/>bant tanimlanmadi"]
-        K4["Vincent 2017 Tablo 4<br/>Ia Dyn pfr 176.4 - bant 123..230"]
-        K5["Gorassini 2000 Tablo 1<br/>TA 97 Hz - bant 80..110"]
+    subgraph KAY["Kaynak ve aralık"]
+        K1["Johnson 2008 Sekil 3<br/>aralık YOK - karsilastirma yapilmadi"]
+        K2["ic_olcum -3.87 mm<br/>aralık -3.92 .. -3.82"]
+        K3["Bildiri cumlesi<br/>aralık tanimlanmadi"]
+        K4["Vincent 2017 Tablo 4<br/>Ia Dyn pfr 176.4 - aralık 123..230"]
+        K5["Gorassini 2000 Tablo 1<br/>TA 97 Hz - aralık 80..110"]
         K6["Kim 2020 Tablo 1 ve Fig 4-7<br/>nitel: Tip I / IV / III"]
     end
     M1 --> K1
@@ -63,12 +63,12 @@ flowchart LR
     M6 --> K6
 ```
 
-## Bant durumu
+## Aralık durumu
 
-| Kimlik | Değer | Bant | Tür | Durum |
+| Kimlik | Değer | Aralık | Tür | Durum |
 |---|---|---|---|---|
-| `ic.quad_diz_moment_kolu` | 3,70 · 3,73 · 3,72 · 3,70 mm | [3,65 · 3,78] | `ic_olcum` | JSON'da **var** — regresyon bandı |
-| `ic.sm_diz_moment_kolu` | −3,87 mm | [−3,92 · −3,82] | `ic_olcum` | JSON'da **var** — regresyon bandı |
+| `ic.quad_diz_moment_kolu` | 3,70 · 3,73 · 3,72 · 3,70 mm | [3,65 · 3,78] | `ic_olcum` | JSON'da **var** — regresyon aralığı |
+| `ic.sm_diz_moment_kolu` | −3,87 mm | [−3,92 · −3,82] | `ic_olcum` | JSON'da **var** — regresyon aralığı |
 | `johnson2008.kas_sayisi` | 37 | — | `literatur` | JSON'da var |
 | `johnson2008.lokomosyon_diz_araligi` | [−110 · −60]° | — | `literatur` | JSON'da var |
 | `johnson2008.quad_diz_moment_kolu_egrisi` | — | — | `literatur` | **boş** — Şekil 3 karşılaştırması yapılmadı |
@@ -81,8 +81,8 @@ flowchart LR
 | `MN_esik_boy_dususu` | ~4 kat | [2 · 6] | `literatur` | literatür özetinde hazır (`oz_kim2020` §7), **JSON'a girmedi** |
 | `momentkolu_BFA_kalca_tamekstansiyon` | −15,3 mm | [−18 · −12] | `literatur` | literatür özetinde hazır (`oz_johnson2008` §7), **JSON'a girmedi** |
 
-**Kural** (`SDLC/04_KURALLAR.md`): bant testten **önce** gerekçesiyle ilan edilir; ölçüm banda
-düşmezse önce model ve varsayımlar sorgulanır, bant sessizce genişletilmez.
+**Kural** (`SDLC/04_KURALLAR.md`): aralık testten **önce** gerekçesiyle ilan edilir; ölçüm banda
+düşmezse önce model ve varsayımlar sorgulanır, aralık sessizce genişletilmez.
 
 ## Yöntem borçları (kaynağı belli, uygulanmadı)
 

@@ -119,12 +119,12 @@ gerekçesi kendi ölçümümüzdür.
 | Antagonist eşleşme | eklem başına fleksör ⇄ ekstansör grupları | moment kolu işaretinden `[ölçüldü]` |
 | Gruplanmayanlar | Pir, GMi, OE, OI, Pec, BFa — moment kolu işareti ızgarada kararsız | `[ölçüldü]` gerekçe |
 
-## Ateşleme hedefleri (havuz çıkışının doğrulanacağı bantlar)
+## Ateşleme hedefleri (havuz çıkışının doğrulanacağı aralıklar)
 
 Kaynak: `oz_gorassini2000_motorunite.md` §7 — bilinçli, serbest yürüyen sıçanda tek motor ünite
 kayıtları. Bunlar havuz **çıkışının** doğrulama hedefleridir; parametre değil.
 
-| Kimlik | Değer | Bant | Not |
+| Kimlik | Değer | Aralık | Not |
 |---|---|---|---|
 | `mn_frekans_TA_swing` | 97 Hz | [80, 110] | salınım fazı dorsifleksör |
 | `mn_frekans_MGLG_ortagec` | 62–72 Hz | [50, 90] | basma fazı; bizim kapsam dışı ama havuz sınırı |

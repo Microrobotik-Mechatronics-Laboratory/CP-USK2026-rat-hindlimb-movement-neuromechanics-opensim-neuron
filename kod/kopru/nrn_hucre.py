@@ -214,7 +214,7 @@ class MotoNoron:
             seg.IaSyn.gmax = gmax
 
     # -- olcum --------------------------------------------------------------------------
-    def diken_kaydet(self, esik=-40.0):
+    def ap_kaydet(self, esik=-40.0):
         """NetCon ile aksiyon potansiyeli zamanlarini kaydeder.
         Esik -40 mV: oz_fietkiewicz2023 3b. Baslangic segmenti (is) izlenir; AP orada dogar."""
         v = h.Vector()

@@ -22,11 +22,11 @@ bu klasör doğru kabul edilir.
 | `D1_sistem_kapali_dongu.md` | Kapalı döngünün tamamı: NEURON \| köprü \| OpenSim sınırları, taşınan değişkenler, birimler, gecikmeler | 4 |
 | `D2_omurilik_devresi.md` | Omurilik devresi hücre düzeyinde: CPG yarım-merkezleri, internöronlar, motonöron havuzları, işaretli bağlantılar | 6 |
 | `D3_motonoron_hucre.md` | Tek motonöron: bölmeler, kanal yerleşimi, Cav1.3 PIC hot-spot, Ia sinaps bölgesi | 6 |
-| `D4_igcik_afferent.md` | Kas iğciği ve Ia/II afferent yolu, ateşleme denklemleri, sıçan doğrulama bantları | 7 |
+| `D4_igcik_afferent.md` | Kas iğciği ve Ia/II afferent yolu, ateşleme denklemleri, sıçan doğrulama aralıkları | 7 |
 | `D5_kas_iskelet.md` | 5 segment, 7 bacak serbestlik derecesi, 38 kasın eklem-işlev haritası, Hill kas-tendon birimi | 5 |
 | `D6_havuz_kas_eslesme.md` | 38 motonöron havuzu ile 38 kasın eşleşmesi ve resiprokal inhibisyon çiftleri | 6 |
 | `D7_yuruyus_zamanlama.md` | Salınım fazı zaman çizelgesi: bildirinin iddia ettiği sıra ile ölçülen sıra | 9 |
-| `D8_veri_hatti_dogrulama.md` | İşlem hattı ve doğrulama haritası (hangi büyüklük hangi makaleye hangi bantla bağlı) | 12 |
+| `D8_veri_hatti_dogrulama.md` | İşlem hattı ve doğrulama haritası (hangi büyüklük hangi makaleye hangi aralıkla bağlı) | 12 |
 
 ## İşaretleme kuralı
 

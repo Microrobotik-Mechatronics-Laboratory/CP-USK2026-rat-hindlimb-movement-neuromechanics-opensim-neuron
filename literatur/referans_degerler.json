@@ -2,15 +2,15 @@
   "surum": "1.0",
   "aciklama": "Testlerin (IP-8) okudugu tek referans-deger kaynagi. Sayilar koda gomulmez, buradan okunur. Yeni kayit eklemeden once ilgili oz_<kisa_ad>.md dosyasi doldurulur. Kural: SDLC/04_KURALLAR.md 'Literature yakinlik'.",
   "sema": {
-    "kimlik": "Testin bandi bulmak icin kullandigi benzersiz anahtar. Bicim: <kaynak>.<buyukluk>",
+    "kimlik": "Testin araligi bulmak icin kullandigi benzersiz anahtar. Bicim: <kaynak>.<buyukluk>",
     "kaynak_tipi": "literatur = dis yayindan cikarilmis deger | ic_olcum = bu projede olculmus, regresyon korumasi",
     "kaynak": "kunye, tanimlayici (DOI/PMC/dosya), yer (tablo/sekil/bolum)",
     "buyukluk": "Neyin olculdugunun insan-okur tanimi",
     "birim": "SI veya proje birimi; birim yazilmadan deger kaydedilmez",
     "deger": "Referans deger (sayi, dizi veya null)",
-    "bant": "[alt, ust] kapali aralik. null = bant tanimsiz (kategorik deger veya henuz ilan edilmedi)",
-    "bant_gerekcesi": "Bandin neden bu genislikte oldugu: tur/kosul farki, olcum sacilimi, model basitlestirmesi, sayisal tolerans",
-    "tur_kosul": "Degerin geldigi tur ve deney kosulu (bant gerekcesinin dayanagi)",
+    "aralik": "[alt, ust] kapali aralik. null = aralık tanimsiz (kategorik deger veya henuz ilan edilmedi)",
+    "aralik_gerekcesi": "Araligin neden bu genislikte oldugu: tur/kosul farki, olcum sacilimi, model basitlestirmesi, sayisal tolerans",
+    "tur_kosul": "Degerin geldigi tur ve deney kosulu (aralık gerekcesinin dayanagi)",
     "durum": "dogrulandi = bagimsiz olculdu/okundu | olculdu = bu projede olculdu | dogrulanmadi = tasindi, henuz kontrol edilmedi | referans_bekliyor = karsilastirilacak literatur degeri henuz yok",
     "not": "Serbest aciklama; bilinen tuzaklar buraya"
   },
@@ -26,8 +26,8 @@
       "buyukluk": "Modellenen sican arka bacak kasi sayisi",
       "birim": "adet",
       "deger": 37,
-      "bant": null,
-      "bant_gerekcesi": "Kategorik sayim; bant tanimsiz, tam esleme aranir.",
+      "aralik": null,
+      "aralik_gerekcesi": "Kategorik sayim; aralık tanimsiz, tam esleme aranir.",
       "tur_kosul": "Yedi disi Sprague-Dawley sican, 280 +/- 16 g",
       "durum": "dogrulandi",
       "not": "Depodaki .osim 38 kas icerir. Fark semitendinosus'tan: Johnson iki origin ama tek insertion verir, port bunu STa/STp diye ikiye bolmustur. 38 portun sayisidir, Johnson'in degil (DOGRULAMA H3)."
@@ -46,8 +46,8 @@
         -110.0,
         -60.0
       ],
-      "bant": null,
-      "bant_gerekcesi": "Degerin kendisi bir aralik; tolerans bandi degildir. Karsilastirmada bu aralik ile bizim aralik ORTUSME orani uzerinden konusulur.",
+      "aralik": null,
+      "aralik_gerekcesi": "Degerin kendisi bir aralik; tolerans araligi degildir. Karsilastirmada bu aralik ile bizim aralik ORTUSME orani uzerinden konusulur.",
       "tur_kosul": "Sprague-Dawley sican, dortayak lokomosyon",
       "durum": "dogrulandi",
       "not": "Bu calismanin trot araligi -123,1 ... -54,5 derece, iki uctan da genistir. 'Johnson'in araliginda' denemez (DOGRULAMA H7)."
@@ -66,8 +66,8 @@
         27,
         37
       ],
-      "bant": null,
-      "bant_gerekcesi": "Sayim orani; bant IP-7'de bu bulgu bir teste baglanirsa ilan edilecek.",
+      "aralik": null,
+      "aralik_gerekcesi": "Sayim orani; aralık IP-7'de bu bulgu bir teste baglanirsa ilan edilecek.",
       "tur_kosul": "Sprague-Dawley sican",
       "durum": "dogrulandi",
       "not": "Johnson'in ana bulgusu: moment kollari lokomosyon bolgesinde tepe yapip az degisir."
@@ -83,11 +83,11 @@
       "buyukluk": "Semimembranosus diz moment kolu (varsayilan diz acisi -120 derece)",
       "birim": "mm",
       "deger": -3.87,
-      "bant": [
+      "aralik": [
         -3.92,
         -3.82
       ],
-      "bant_gerekcesi": "REGRESYON bandi, literatur bandi degil. Ayni model uzerinde iki farkli turev yontemi (computeMomentArm ve getLength merkezi fark) 0,00 mm farkla ayni sonucu verdi; sarma acik/kapali fark da 0,00. Bant yalnizca sayisal turev toleransini kapsar (+/- 0,05 mm). Sayi bu bandin disina cikarsa model geometrisi degismis demektir.",
+      "aralik_gerekcesi": "REGRESYON araligi, literatur araligi degil. Ayni model uzerinde iki farkli turev yontemi (computeMomentArm ve getLength merkezi fark) 0,00 mm farkla ayni sonucu verdi; sarma acik/kapali fark da 0,00. Aralık yalnizca sayisal turev toleransini kapsar (+/- 0,05 mm). Sayi bu araligin disina cikarsa model geometrisi degismis demektir.",
       "tur_kosul": "OpenSim 4.6, rat_hindlimb_0_2.osim tureviyle kurulan model",
       "durum": "olculdu",
       "not": "Sarma yuzeyinden tamamen bagimsiz olan tek quad/hamstring degeri budur; DOGRULAMA'ya gore modelin en savunulabilir sayisi."
@@ -108,11 +108,11 @@
         3.72,
         3.7
       ],
-      "bant": [
+      "aralik": [
         3.65,
         3.78
       ],
-      "bant_gerekcesi": "REGRESYON bandi. Dort bas (RF, VL, VI, VM) icin olculen 3,70-3,73 araligi, +/- 0,05 mm sayisal tolerans ile genisletildi.",
+      "aralik_gerekcesi": "REGRESYON araligi. Dort bas (RF, VL, VI, VM) icin olculen 3,70-3,73 araligi, +/- 0,05 mm sayisal tolerans ile genisletildi.",
       "tur_kosul": "OpenSim 4.6, femur_dist WrapTorus etkin",
       "durum": "olculdu",
       "not": "DIKKAT (DOGRULAMA H1): bu sayiyi anatomi degil, femur_dist WrapTorus uretiyor ve degeri torusun inner_radius alanina baglidir (2 mm -> 2,94 | 4 mm -> 3,71 | 5 mm -> 4,02). Sarma kapatilinca quad modelde FLEKSOR oluyor (-0,65 ... -1,18 mm). Dort basin 0,03 mm icinde kumelenmesi torusun imzasidir, anatomik bulgu degildir. Bu kayit bir literatur dogrulamasi olarak KULLANILAMAZ."
@@ -128,8 +128,8 @@
       "buyukluk": "Quadriceps diz moment kolunun diz acisina gore egrisi",
       "birim": "mm",
       "deger": null,
-      "bant": null,
-      "bant_gerekcesi": "Deger henuz makaleden cikarilmadi.",
+      "aralik": null,
+      "aralik_gerekcesi": "Deger henuz makaleden cikarilmadi.",
       "tur_kosul": "Sprague-Dawley sican",
       "durum": "referans_bekliyor",
       "not": "DOGRULAMA D bolumu: 'Johnson Sekil 3'teki quad egrisiyle karsilastirma YAPILMADI. Tek eksik geometri dogrulamasi budur.' IP-7'nin ilk hedeflerinden biri bu kaydi doldurmaktir."
@@ -145,11 +145,11 @@
       "buyukluk": "TA motor unite atesleme frekansi, salinim fazi",
       "birim": "Hz",
       "deger": 97.0,
-      "bant": [
+      "aralik": [
         80.0,
         110.0
       ],
-      "bant_gerekcesi": "Yayimlanmis ortalama etrafinda yaklasik +/- 1 SD. Tur/kosul farki: bilincli, serbest yuruyen SICAN, EMG'den tek unite ayirma (hucre ici kayit degil); ornekklem buyuk/yuzeysel unitelere yanli (oz_gorassini2000 5).",
+      "aralik_gerekcesi": "Yayimlanmis ortalama etrafinda yaklasik +/- 1 SD. Tur/kosul farki: bilincli, serbest yuruyen SICAN, EMG'den tek unite ayirma (hucre ici kayit degil); ornekklem buyuk/yuzeysel unitelere yanli (oz_gorassini2000 5).",
       "tur_kosul": "Wistar sican, bilincli serbest yuruyus, kronik EMG",
       "durum": "dogrulanmadi",
       "not": "Bizim modelimiz kas basina TEK temsili motonoron kullanir; havuz ortalamasi degil tek hucre orani olculur. Bu bir sistematik farktir."
@@ -165,11 +165,11 @@
       "buyukluk": "Soleus motor unite atesleme frekansi, yuruyus",
       "birim": "Hz",
       "deger": 28.0,
-      "bant": [
+      "aralik": [
         20.0,
         35.0
       ],
-      "bant_gerekcesi": "Yayimlanmis ortalama etrafinda yaklasik +/- 1 SD; yavas unite, dar dagilim.",
+      "aralik_gerekcesi": "Yayimlanmis ortalama etrafinda yaklasik +/- 1 SD; yavas unite, dar dagilim.",
       "tur_kosul": "Wistar sican, bilincli serbest yuruyus",
       "durum": "dogrulanmadi",
       "not": "Soleus icin tek ortak surucu varsayimi savunulabilir (oz_gorassini2000 6)."
@@ -185,11 +185,11 @@
       "buyukluk": "MG/LG motor unite atesleme frekansi, orta-gec basma",
       "birim": "Hz",
       "deger": 67.0,
-      "bant": [
+      "aralik": [
         50.0,
         90.0
       ],
-      "bant_gerekcesi": "Yayimlanan 62-72 Hz araligi olcum sacilimiyla genisletildi.",
+      "aralik_gerekcesi": "Yayimlanan 62-72 Hz araligi olcum sacilimiyla genisletildi.",
       "tur_kosul": "Wistar sican, bilincli serbest yuruyus",
       "durum": "dogrulanmadi",
       "not": "UYARI (oz_gorassini2000 6): MG/LG'de tek unite aktivitesi gros-EMG zarfindan kopuktur (r2=0.0015-0.010); tek ortak surucu varsayimi bu iki kas icin SORGULANIR."
@@ -205,14 +205,14 @@
       "buyukluk": "Ia afferent dinamik tepe atesleme frekansi",
       "birim": "pps",
       "deger": 176.4,
-      "bant": [
+      "aralik": [
         123.0,
         230.0
       ],
-      "bant_gerekcesi": "Yayimlanmis ortalama +/- 1 SD.",
+      "aralik_gerekcesi": "Yayimlanmis ortalama +/- 1 SD.",
       "tur_kosul": "Yetiskin Wistar sican, PASIF triceps surae, 3 mm rampa-tut, 20 mm/s, diz 120 derece",
       "durum": "dogrulanmadi",
-      "not": "Kosul farki kritik: bant PASIF germe ve rampa-tut protokolundendir; lokomotor kullanimda ayni degildir. veri/r_katsayilari_v3.json 'surekli_hareket_sonumu' kaydi surekli harekette yaklasik 6 kat asiri tahmin uyarisi veriyor."
+      "not": "Kosul farki kritik: aralık PASIF germe ve rampa-tut protokolundendir; lokomotor kullanimda ayni degildir. veri/r_katsayilari_v3.json 'surekli_hareket_sonumu' kaydi surekli harekette yaklasik 6 kat asiri tahmin uyarisi veriyor."
     },
     {
       "kimlik": "vincent2017.ia_dinamik_indeksi",
@@ -225,11 +225,11 @@
       "buyukluk": "Ia dinamik indeksi (DI)",
       "birim": "pps",
       "deger": 137.9,
-      "bant": [
+      "aralik": [
         90.0,
         186.0
       ],
-      "bant_gerekcesi": "Yayimlanmis ortalama +/- 1 SD.",
+      "aralik_gerekcesi": "Yayimlanmis ortalama +/- 1 SD.",
       "tur_kosul": "Yetiskin Wistar sican, pasif rampa-tut",
       "durum": "dogrulanmadi",
       "not": "Fusimotor (gama) yoktur; bizim modelde de yok (PREPRINT 11) -- bu yonden tutarli."
@@ -245,17 +245,17 @@
       "buyukluk": "II afferent dinamik tepe atesleme frekansi",
       "birim": "pps",
       "deger": 105.4,
-      "bant": [
+      "aralik": [
         57.0,
         154.0
       ],
-      "bant_gerekcesi": "Yayimlanmis ortalama +/- 1 SD; dagilim genis.",
+      "aralik_gerekcesi": "Yayimlanmis ortalama +/- 1 SD; dagilim genis.",
       "tur_kosul": "Yetiskin Wistar sican, pasif rampa-tut",
       "durum": "dogrulanmadi",
       "not": "Bizim II katsayilarimiz izlenebilir bir kaynaga dayanmiyor (r_katsayilari_v3.json: 'II bu pakette YOK'); II sonuclari [varsayim] etiketiyle kullanilir."
     },
     {
-      "kimlik": "kim2020.diken_esigi",
+      "kimlik": "kim2020.ap_esigi",
       "kaynak_tipi": "literatur",
       "kaynak": {
         "kunye": "Fietkiewicz ve ark. 2023",
@@ -265,8 +265,8 @@
       "buyukluk": "NetCon aksiyon potansiyeli algilama esigi",
       "birim": "mV",
       "deger": -40.0,
-      "bant": null,
-      "bant_gerekcesi": "Yontem secimidir, olculen bir buyukluk degil; bant tanimsiz.",
+      "aralik": null,
+      "aralik_gerekcesi": "Yontem secimidir, olculen bir buyukluk degil; aralık tanimsiz.",
       "tur_kosul": "NEURON, Kim tabanli noromuskuler model",
       "durum": "dogrulandi",
       "not": "Bu projede motonoronun BASLANGIC SEGMENTI (is) uzerinde uygulanir; aksiyon potansiyeli orada dogar."
@@ -282,14 +282,14 @@
       "buyukluk": "Kapali dongunun urettigi bilek salinimi cevrim suresi",
       "birim": "s",
       "deger": 0.387,
-      "bant": [
+      "aralik": [
         0.348,
         0.426
       ],
-      "bant_gerekcesi": "REGRESYON/tasarim hedefi bandi, literatur dogrulamasi DEGILDIR. Olculmus yuruyus cevrimi 0.387 s'dir; +/- %10 bant, CPG'nin serbest cevrim kalibrasyonundan (386.9 ms) duyusal geri beslemenin cevrimi kaydirmasina birakilan paydir (gFB/gCPG odunlesimi, oz_yu2021 4b).",
+      "aralik_gerekcesi": "REGRESYON/tasarim hedefi araligi, literatur dogrulamasi DEGILDIR. Olculmus yuruyus cevrimi 0.387 s'dir; +/- %10 aralık, CPG'nin serbest cevrim kalibrasyonundan (386.9 ms) duyusal geri beslemenin cevrimi kaydirmasina birakilan paydir (gFB/gCPG odunlesimi, oz_yu2021 4b).",
       "tur_kosul": "OpenSim ileri dinamik + NEURON, tek eklem (ankle_flx), 10 havuz",
       "durum": "olculdu",
-      "not": "Ilk olcum 0.402 s (bant icinde). CPG izole kalibrasyonu 386.9 ms idi; kapali donguda 0.402 s'e kaydi -- geri besleme kolunun etkisi."
+      "not": "Ilk olcum 0.402 s (aralık icinde). CPG izole kalibrasyonu 386.9 ms idi; kapali donguda 0.402 s'e kaydi -- geri besleme kolunun etkisi."
     }
   ]
 }

@@ -1,6 +1,6 @@
 TITLE Graded (non-spiking) sigmoid synapse for the half-center oscillator
 : --- USK26 koprusu ---------------------------------------------------------------
-: Yarim-merkez osilatorunde (HCO) karsilikli inhibisyon DIKENE degil, presinaptik
+: Yarim-merkez osilatorunde (HCO) karsilikli inhibisyon AKSIYON POTANSIYELINE degil, presinaptik
 : voltajin surekli sigmoid fonksiyonuna baglidir (oz_yu2021 3d: Ethresh, Eslope).
 : NEURON'un yerlesik Exp2Syn'i olay tabanlidir ve bu islevi goremez, bu yuzden ayri
 : bir nokta sureci yazildi.

@@ -51,7 +51,7 @@ class MLHucre:
 
 
 class SpikeHucre:
-    """Tek bolmeli dikensi internoron (PF, IaIN, Renshaw, II aktarim).
+    """Tek bolmeli aksiyon potansiyeli ureten internoron (PF, IaIN, Renshaw, II aktarim).
     Kim'in Naf/KDr mekanizmalarini kullanir; ayri bir hucre modeli uydurulmaz. [tasarim]"""
 
     def __init__(self, ad, alan_um2=1000.0, gnaf=0.35, gkdr=0.12, gpas=1.0 / 11000, epas=-70.0):
@@ -81,7 +81,7 @@ class SpikeHucre:
         self._ic = ic
         return ic
 
-    def diken_kaydet(self, esik=-40.0):
+    def ap_kaydet(self, esik=-40.0):
         v = h.Vector()
         nc = h.NetCon(self.sec(0.5)._ref_v, None, sec=self.sec)
         nc.threshold = esik
@@ -91,7 +91,7 @@ class SpikeHucre:
 
 
 def gradli_baglanti(once, sonra, gcpg_mscm2, esyn=-80.0, ethr=0.0, eslope=2.0):
-    """Presinaptik voltaja bagli (dikensiz) sinaps: HCO karsilikli inhibisyonu. oz_yu2021 3c.
+    """Presinaptik voltaja bagli (aksiyon potansiyeli uretmeyen) sinaps: HCO karsilikli inhibisyonu. oz_yu2021 3c.
 
     BIRIM (kritik): oz_yu2021 Tablo 2'de gCPG, diger iletkenliklerle AYNI yogunluk birimindedir
     (mS/cm2). GradeSyn ise bir NOKTA surecidir ve uS ister. Donusum burada, tek yerde yapilir:

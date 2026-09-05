@@ -109,7 +109,7 @@ flowchart TD
   Aksi halde kuvvet iki kez üretilmiş olur.
 - **Ib (Golgi tendon organı) döngüde yok** — bilinçli basitleştirme; bedeli
   `oz_vincent2017_proprioseptor.md` §6'da yazılı (sıçanda Ib pasif germede susmuyor).
-- **γ-motonöron (fusimotor) yok** — iğcik kazancı pasif kabul ediliyor; Vincent'ın bantları da
+- **γ-motonöron (fusimotor) yok** — iğcik kazancı pasif kabul ediliyor; Vincent'ın aralıkları da
   pasif koşulda ölçülmüştür, bu yüzden doğrulama tutarlıdır, ama lokomosyona genellenemez.
 - Geri beslemenin CPG'ye ve internöronlara giden okları `[tasarım]`; hangi kolun kullanılacağı
   (yalnız monosinaptik Ia mı, yoksa CPG'ye de mi) `gFB / gCPG` dengesiyle taranacaktır

@@ -1,22 +1,22 @@
 # =============================================================================
 # adim_yarilama.py — zaman adimi yarilama testi (step-halving convergence check).
 # Ortam: kopru (Python 3.13, ~/.venvs/usk26-kopru)
-# Cikti: ekrana karsilastirma tablosu; bant disina cikilirsa assert duser.
+# Cikti: ekrana karsilastirma tablosu; aralık disina cikilirsa assert duser.
 #
 # NEDEN ZORUNLU (PREPRINT bolum 8): iki simulator DISSAL olarak kuplenmistir; ortak bir
 # Jacobian kurulamaz ve pointer/alisveris tabanli kuplaj Jacobian'in capraz terimlerini
 # dusurur (oz_fietkiewicz2023 3b madde 8). Bu, sonucun zaman adimina bagli olmasi riskini
 # dogurur. Kullanicinin sonucun adimdan bagimsiz oldugunu HER ZAMAN dogrulamasi gerekir.
 #
-# NE KARSILASTIRILIR: yorunge degil, MAKROSKOPIK olcutler. Diken tabanli bir devrede iki
+# NE KARSILASTIRILIR: yorunge degil, MAKROSKOPIK olcutler. Aksiyon potansiyeli tabanli bir devrede iki
 # farkli adimla birebir ayni yorunge beklenmez; beklenen, cevrim suresi / ROM / atesleme
 # oranlarinin degismemesidir.
 #
-# BANT (testten ONCE ilan edildi, ic_olcum regresyon bandi):
+# ARALIK (testten ONCE ilan edildi, ic_olcum regresyon araligi):
 #   cevrim suresi        : bagil fark < %5
 #   eklem ROM            : bagil fark < %10
 #   grup atesleme orani  : bagil fark < %10
-# Gerekce: bu bir SAYISAL yakinsama testidir, literatur karsilastirmasi degil. Bantlar,
+# Gerekce: bu bir SAYISAL yakinsama testidir, literatur karsilastirmasi degil. Aralıklar,
 # NEURON adimi (0.025 ms) degismeden yalniz ALISVERIS adimi yarilandiginda beklenen
 # kalinti farki kapsar; daha genis bir fark kuplajin adima bagimli oldugunu gosterir.
 # =============================================================================
@@ -26,7 +26,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 import numpy as np
 import kos_ayakbilegi as KA
 
-BANT_T, BANT_ROM, BANT_F = 0.05, 0.10, 0.10
+ARALIK_T, ARALIK_ROM, ARALIK_F = 0.05, 0.10, 0.10
 
 
 def kos(dt_ms, sure):
@@ -60,15 +60,15 @@ if __name__ == '__main__':
                                                100 * bagil(fa[g], fb[g])))
     print('%-24s %14.1f %14.1f %10s' % ('CPU [s]', a['cpu'], b['cpu'], '-'))
 
-    assert bagil(a['T'], b['T']) < BANT_T, (
-        'cevrim suresi adima bagli: olculen bagil fark=%.4f, beklenen=0, bant=[0, %.2f], '
-        'kaynak=ic_olcum sayisal yakinsama bandi' % (bagil(a['T'], b['T']), BANT_T))
-    assert bagil(a['rom'], b['rom']) < BANT_ROM, (
-        'eklem ROM adima bagli: olculen bagil fark=%.4f, beklenen=0, bant=[0, %.2f], '
-        'kaynak=ic_olcum sayisal yakinsama bandi' % (bagil(a['rom'], b['rom']), BANT_ROM))
+    assert bagil(a['T'], b['T']) < ARALIK_T, (
+        'cevrim suresi adima bagli: olculen bagil fark=%.4f, beklenen=0, aralık=[0, %.2f], '
+        'kaynak=ic_olcum sayisal yakinsama araligi' % (bagil(a['T'], b['T']), ARALIK_T))
+    assert bagil(a['rom'], b['rom']) < ARALIK_ROM, (
+        'eklem ROM adima bagli: olculen bagil fark=%.4f, beklenen=0, aralık=[0, %.2f], '
+        'kaynak=ic_olcum sayisal yakinsama araligi' % (bagil(a['rom'], b['rom']), ARALIK_ROM))
     for g in fa:
-        assert bagil(fa[g], fb[g]) < BANT_F, (
+        assert bagil(fa[g], fb[g]) < ARALIK_F, (
             'havuz %s atesleme orani adima bagli: olculen bagil fark=%.4f, beklenen=0, '
-            'bant=[0, %.2f], kaynak=ic_olcum sayisal yakinsama bandi'
-            % (g, bagil(fa[g], fb[g]), BANT_F))
+            'aralık=[0, %.2f], kaynak=ic_olcum sayisal yakinsama araligi'
+            % (g, bagil(fa[g], fb[g]), ARALIK_F))
     print('\nADIM YARILAMA TESTI GECTI: sonuc kopru adimindan bagimsiz.')

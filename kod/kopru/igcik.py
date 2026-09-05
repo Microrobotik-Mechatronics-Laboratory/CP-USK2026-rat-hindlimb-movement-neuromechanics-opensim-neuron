@@ -21,7 +21,7 @@
 # - kod/kapali_dongu/cl_emergent.py:53-54 bu formullere JSON'da BULUNMAYAN +19.6 (Ia) ve
 #   +43.3 (II) ofsetleri ekliyor ve hizi 45 mm/s'de doyuruyor. Burada JSON ve r31_uret.py
 #   esas alinir; fark DOGRULAMA'ya not dusulmustur.
-# - II icin fusimotor (gama) yoktur; Vincent bantlari da pasif kosuldan gelir (PREPRINT 11).
+# - II icin fusimotor (gama) yoktur; Vincent araliklari da pasif kosuldan gelir (PREPRINT 11).
 # =============================================================================
 import json
 import numpy as np

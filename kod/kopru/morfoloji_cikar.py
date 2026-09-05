@@ -13,7 +13,7 @@
 # kosum aninda prototip hucre bellekte durmak zorunda kalmaz.
 #
 # Dogruluk guvencesi: Python'da kurulan hucrenin HOC'un kurdugu hucreyle ayni davrandigi
-# kod/kopru/capraz_kontrol.py ile diken zamanlari uzerinden sinanir (04_KURALLAR: bagimsiz
+# kod/kopru/capraz_kontrol.py ile aksiyon potansiyeli zamanlari uzerinden sinanir (04_KURALLAR: bagimsiz
 # ikinci yontemle capraz kontrol).
 #
 # BAYRAKLAR:

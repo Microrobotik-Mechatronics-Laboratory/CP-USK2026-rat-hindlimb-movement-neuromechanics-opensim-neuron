@@ -461,7 +461,7 @@ flowchart TD
 | `gcalbar` @ 600 µm | 1,37 | mS/cm² | Kim Tablo 1 | `[literatürden]` |
 | Ia sinaps bölgesi | soma + `D_path` < 1400 µm | µm | `group_Ia.hoc`; Segev 1990 | `[literatürden]` |
 | `gmax_IaSyn` | 0 / 9,3·10⁻⁶ / 19·10⁻⁶ (kısa/optimal/uzun kas) | S/cm² | `group_Ia.hoc` | `[literatürden]` |
-| Diken algılama eşiği | −40 | mV | `oz_fietkiewicz2023` §3b | `[literatürden]`, motonöronumuz için yeniden seçilecek |
+| Aksiyon potansiyeli algılama eşiği | −40 | mV | `oz_fietkiewicz2023` §3b | `[literatürden]`, motonöronumuz için yeniden seçilecek |
 | Entegrasyon adımı | 0,025 | ms | `oz_kim2020` §3d | `[literatürden]` |
 
 **PIC konumunun anlamı** (`oz_kim2020` §4b, Tablo 1): `gcalbar`, somaya ulaşan etkin Ca akımı
@@ -599,7 +599,7 @@ girdi bu gecikmeleri veremez. `[tasarım]` — gerekçesi kendi ölçümümüzd�
 
 **Havuz çıkışının doğrulama hedefleri** (`oz_gorassini2000` §7; bilinçli, serbest yürüyen sıçan):
 
-| Kimlik | Değer | Bant |
+| Kimlik | Değer | Aralık |
 |---|---|---|
 | `mn_frekans_TA_swing` | 97 Hz | [80, 110] |
 | `mn_frekans_SOL_yuruyus` | 28 Hz | [20, 35] |
@@ -659,16 +659,16 @@ f_Ia = max( 0 , 10,43 + 26,59 · d[mm] + 27,08 · max(v,0)[mm/s]^0,532 )
 Kaynak: Blum 2020 ham eğrileri, 7 Ia afferenti, medyan fit.
 
 **II için durum:** aynı JSON açıkça *"II bu pakette YOK"* diyor; II katsayıları izlenebilir bir
-kaynağa dayanmıyor `[varsayım]`. Vincent 2017 bantlarına yeniden fit edilecektir `[yapılacak]`.
+kaynağa dayanmıyor `[varsayım]`. Vincent 2017 aralıklarına yeniden fit edilecektir `[yapılacak]`.
 
 **Kalibrasyon uyarısı** (aynı JSON, `surekli_hareket_sonumu`): sürekli hareket denemesinde ölçüm
 ortalaması ~15 Hz iken statik tahmin ~90 Hz çıkıyor (≈6 kat aşırı). Fit **rampa-tut** protokolüne
 uygundur; lokomotor kullanımda `r(t)` aşağı kalibrasyon gerektirir.
 
-**Sıçan doğrulama bantları** (`oz_vincent2017` Tablo 4 ve §7; pasif triceps surae, 3 mm rampa-tut,
-20 mm/s, diz 120°; bantlar ±1 SD):
+**Sıçan doğrulama aralıkları** (`oz_vincent2017` Tablo 4 ve §7; pasif triceps surae, 3 mm rampa-tut,
+20 mm/s, diz 120°; aralıklar ±1 SD):
 
-| Büyüklük | Değer | Bant |
+| Büyüklük | Değer | Aralık |
 |---|---|---|
 | Ia dinamik tepe frekansı | 176,4 pps | [123, 230] |
 | Ia dinamik indeksi DI | 137,9 pps | [90, 186] |
@@ -719,7 +719,7 @@ gecikmenin (6 ms → 40 adım) **tam bölenidir**. Böylece gecikmeler halka tam
 olarak taşınır ve yuvarlama hatası sıfır olur.
 
 İlk seçim 0,3 ms idi ve **adım yarılama testini düşürdü** (eklem ROM'u %21,8 değişiyordu).
-Bant genişletilmedi; üç noktalı tarama yapıldı ve çözümün yakınsadığı, 0,3 ms'in yalnızca kaba
+Aralık genişletilmedi; üç noktalı tarama yapıldı ve çözümün yakınsadığı, 0,3 ms'in yalnızca kaba
 olduğu görüldü: ROM 73,94° → 54,41° → 54,10° (0,30 / 0,15 / 0,075 ms). 0,15 ile 0,075 arasında
 fark %0,57'dir. Ayrıntı: `DOGRULAMA.md` P.6–P.8. `[ölçüldü]`
 
@@ -948,21 +948,21 @@ etiketlidir ve NEURON tarafından üretilmiş tek bir sayı henüz yoktur.
 | Basitleştirme | Bedeli | Kaynak |
 |---|---|---|
 | **Ib (Golgi tendon organı) yok** | Sıçanda Ib pasif germede susmuyor; salınımda omuriliğe giden gerçek afferent sinyalin bir bileşeni atlanıyor | `oz_vincent2017` §6 |
-| **γ-motonöron (fusimotor) yok** | İğcik kazancı pasif; Vincent'ın bantları da pasif koşuldan, bu yüzden doğrulama tutarlı ama lokomosyona genellenemez | `oz_vincent2017` §6 |
+| **γ-motonöron (fusimotor) yok** | İğcik kazancı pasif; Vincent'ın aralıkları da pasif koşuldan, bu yüzden doğrulama tutarlı ama lokomosyona genellenemez | `oz_vincent2017` §6 |
 | **Tek bacak, tek taraf** | Sol-sağ koordinasyon ve karşı bacak geri beslemesi yok | — |
 | **Yalnız salınım fazı** | Basma fazı ve yer tepki kuvveti kapsam dışı (bildirinin kendi sınırı) | bildiri özeti |
 | **Addüksiyon/rotasyon eksenleri dondurulmuş** | Kinematik girdi üç eklemi sürüyor; 3B etkiler yok | `[ölçüldü]` bölüm 5.2 |
 | **Rijit tendon** | Tendon esnekliğinin lif boyu ve kuvvete etkisi yok | `kod/opensim/kod_02_swing_id_so.py` |
 | **`fV`'de `(0,25+0,75a)` terimi ihmal** | Düşük aktivasyonlarda kuvvet-hız ilişkisi yaklaşık | aynı |
 | **Motonöron modeli kediden** | PIC-konum etkileri sıçanda zayıf çıkabilir; yazarın kendi uyarısı | `oz_kim2020` §6.1 |
-| **Afferent verisi Wistar sıçandan** | Bizim taban Sprague-Dawley; soy farkı bantların içinde varsayılıyor | `oz_vincent2017` §5 |
+| **Afferent verisi Wistar sıçandan** | Bizim taban Sprague-Dawley; soy farkı aralıkların içinde varsayılıyor | `oz_vincent2017` §5 |
 | **Motonöron ateşleme verisi Wistar, EMG'den** | Hücre içi kayıt değil; örneklem büyük/yüzeysel ünitelere yanlı | `oz_gorassini2000` §5 |
 | **Statik optimizasyon min Σa²** | Ko-kontraksiyonu ve zayıf kasların dağılımını sistematik olarak etkiler | bölüm 5.4 |
 | **Johnson modeli statiktir** | Kas kuvveti, PCSA, lif boyu, tendon özellikleri Johnson'da **yok**; Hill parametreleri başka kaynaktan gelmek zorunda | `oz_johnson2008` §6 |
 
 ---
 
-## 12 · Doğrulama planı ve tolerans bantları
+## 12 · Doğrulama planı ve tolerans aralıkları
 
 > Diyagram kaynağı: `literatur/diyagramlar/D8_veri_hatti_dogrulama.md`
 
@@ -1010,12 +1010,12 @@ flowchart LR
         M5["Motonoron atesleme frekansi"]
         M6["PIC konum davranisi"]
     end
-    subgraph KAY["Kaynak ve bant"]
-        K1["Johnson 2008 Sekil 3<br/>bant YOK - karsilastirma yapilmadi"]
-        K2["ic_olcum -3.87 mm<br/>bant -3.92 .. -3.82"]
-        K3["Bildiri cumlesi<br/>bant tanimlanmadi"]
-        K4["Vincent 2017 Tablo 4<br/>Ia Dyn pfr 176.4 - bant 123..230"]
-        K5["Gorassini 2000 Tablo 1<br/>TA 97 Hz - bant 80..110"]
+    subgraph KAY["Kaynak ve aralık"]
+        K1["Johnson 2008 Sekil 3<br/>aralık YOK - karsilastirma yapilmadi"]
+        K2["ic_olcum -3.87 mm<br/>aralık -3.92 .. -3.82"]
+        K3["Bildiri cumlesi<br/>aralık tanimlanmadi"]
+        K4["Vincent 2017 Tablo 4<br/>Ia Dyn pfr 176.4 - aralık 123..230"]
+        K5["Gorassini 2000 Tablo 1<br/>TA 97 Hz - aralık 80..110"]
         K6["Kim 2020 Tablo 1 ve Fig 4-7<br/>nitel: Tip I / IV / III"]
     end
     M1 --> K1
@@ -1026,14 +1026,14 @@ flowchart LR
     M6 --> K6
 ```
 
-**Kural** (`SDLC/04_KURALLAR.md`): bant testten **önce** gerekçesiyle ilan edilir; ölçüm banda
-düşmezse önce model ve varsayımlar sorgulanır, bant sessizce genişletilmez. `literatur` ve
-`ic_olcum` kayıtları karıştırılmaz: iç ölçüm bandı bir **regresyon** bandıdır, literatür
+**Kural** (`SDLC/04_KURALLAR.md`): aralık testten **önce** gerekçesiyle ilan edilir; ölçüm banda
+düşmezse önce model ve varsayımlar sorgulanır, aralık sessizce genişletilmez. `literatur` ve
+`ic_olcum` kayıtları karıştırılmaz: iç ölçüm aralığı bir **regresyon** aralığıdır, literatür
 doğrulaması sayılmaz.
 
 Bugün `literatur/referans_degerler.json`'da 6 kayıt vardır (2'si `ic_olcum`). Literatür
-özetlerinde hazır olup JSON'a **henüz girmemiş** bantlar: Vincent'ın 6 afferent bandı,
-Gorassini'nin 6 motonöron bandı, Kim'in eşik bandı, Johnson'ın BFA kalça moment kolu bandı
+özetlerinde hazır olup JSON'a **henüz girmemiş** aralıklar: Vincent'ın 6 afferent aralığı,
+Gorassini'nin 6 motonöron aralığı, Kim'in eşik aralığı, Johnson'ın BFA kalça moment kolu aralığı
 `[yapılacak]`.
 
 ---
@@ -1042,12 +1042,12 @@ Gorassini'nin 6 motonöron bandı, Kim'in eşik bandı, Johnson'ın BFA kalça m
 
 | # | Adım | Çıktı | Bitti ölçütü | Durum |
 |---|---|---|---|---|
-| 0 | Johnson Şekil 3 karşılaştırması | quadriceps moment kolu eğrisi vs model | `johnson2008.quad_diz_moment_kolu_egrisi` kaydı bant ile doldurulur | `[yapılacak]` |
+| 0 | Johnson Şekil 3 karşılaştırması | quadriceps moment kolu eğrisi vs model | `johnson2008.quad_diz_moment_kolu_egrisi` kaydı aralık ile doldurulur | `[yapılacak]` |
 | 1 | GMa çelişkisinin çözümü | bağlantı noktası / işaret denetimi | GMa'nın kalça işlevi anatomiyle uyumlu hale gelir veya fark gerekçelenir | `[yapılacak]` |
 | 2 | NEURON derlemesi | `module1_2.mod` `U` ve `phi` çakışmaları çözülür, 4 figür klasörü derlenir | `nrnivmodl` hatasız; `special` üretilir | **bitti** — `DOGRULAMA.md` N |
 | 3 | Aşama 1: tek motonöron doğrulaması | Kim Fig 2–9 davranışının yeniden üretimi | `D_path` taraması Tip I / IV / III desenlerini verir; eşik-boy ilişkisi monoton | `[yapılacak]` |
-| 4 | İğcik modeli sıçana kalibrasyon | Ia/II denklemleri | Vincent bantlarına düşer (bölüm 7) | `[yapılacak]` |
-| 5 | 38 motonöron havuzu + CPG + internöronlar | NEURON devresi | havuz çıkışı Gorassini bantlarına düşer (bölüm 6.4) | **kısmen** — devre kuruldu, ayak bileğinde 10 havuz koşuyor; frekanslar henüz bantta değil (bölüm 10.6) |
+| 4 | İğcik modeli sıçana kalibrasyon | Ia/II denklemleri | Vincent aralıklarına düşer (bölüm 7) | `[yapılacak]` |
+| 5 | 38 motonöron havuzu + CPG + internöronlar | NEURON devresi | havuz çıkışı Gorassini aralıklarına düşer (bölüm 6.4) | **kısmen** — devre kuruldu, ayak bileğinde 10 havuz koşuyor; frekanslar henüz aralıkta değil (bölüm 10.6) |
 | 6 | Köprü | `u(t)` çıkışı, `r(t)` girişi, aynı zaman adımı | zaman adımı yarılandığında sonuç değişmiyor | **bitti** — tek süreç, `dt_k` = 0,3 ms; bölüm 8 |
 | 7 | Kapalı döngü koşusu | salınım fazının devre tarafından üretilmesi | zamanlama sırası bölüm 9.2 ile karşılaştırılır | **kısmen** — tek eklemde (ayak bileği) kapalı döngü koşuyor; 3 DOF / 38 havuz `[yapılacak]` |
 
@@ -1075,7 +1075,7 @@ haritasının **ötesindedir** ve bu preprintin kapsamı dışındadır.
    notu aynen geçerlidir. `kod/kopru/devre_par.json` içindeki `iain_etkin` / `renshaw_etkin`
    bayraklarıyla kapatılabilirler, böylece etkileri ölçülebilir. (bölüm 6.1)
 6. **Havuz büyüklüğü ne olacak?** Kas başına tek temsilî motonöron mu, gerçekçi havuz mu?
-   Gorassini'nin dublet ve frekans bantları bir havuz gerektiriyor olabilir. (bölüm 6.4)
+   Gorassini'nin dublet ve frekans aralıkları bir havuz gerektiriyor olabilir. (bölüm 6.4)
 
 ---
 
@@ -1088,7 +1088,7 @@ rolünü gösterir.
 |---|---|---|
 | **Johnson ve ark. 2008** | *A three-dimensional model of the rat hindlimb: musculoskeletal geometry and muscle moment arms*, J Biomech 41(3):610–619 | Kas-iskelet modelinin geometri tabanı; moment kolu doğrulama referansı. Uyarı: model statiktir, Hill parametreleri buradan gelmez. |
 | **Kim 2020** | *Linking Motoneuron PIC Location to Motor Function in Closed-Loop Motor Unit System Including Afferent Feedback*, eNeuro 7(2) | Motonöron hücresi, Cav1.3 PIC yerleşimi, Ia sinaps dağılımı, kapalı-döngü motor ünite mimarisi. Kedi kaynaklı. |
-| **Vincent ve ark. 2017** | *Muscle proprioceptors in adult rat: mechanosensory signaling and synapse distribution in spinal cord*, J Neurophysiol 118:2687–2701 | Sıçan Ia/II afferent doğrulama bantları; Ia → lamina IX monosinaptik bağlantının anatomik kanıtı. |
+| **Vincent ve ark. 2017** | *Muscle proprioceptors in adult rat: mechanosensory signaling and synapse distribution in spinal cord*, J Neurophysiol 118:2687–2701 | Sıçan Ia/II afferent doğrulama aralıkları; Ia → lamina IX monosinaptik bağlantının anatomik kanıtı. |
 | **Gorassini ve ark. 2000** | *Activity of Hindlimb Motor Units During Locomotion in the Conscious Rat*, J Neurophysiol 83:2002–2011 | Motonöron havuzu çıkışının doğrulama hedefleri: yürüyüşte frekanslar ve dublet oranları. |
 | **Yu ve Thomas 2021** | *Dynamical consequences of sensory feedback in a half-center oscillator coupled to a simple motor system*, Biol Cybern 115:135–160 | CPG mimarisi ve `gFB`/`gCPG` ödünleşimi; yöntem şablonu. Parametre kaynağı değildir (Aplysia + Morris-Lecar). |
 | **Fietkiewicz ve ark. 2023** | *Tutorial: using NEURON for neuromechanical simulations*, Front Comput Neurosci 17:1143323 | NEURON içi modül bağlama tekniği (`POINTER`, NetCon), süreksiz (non-smooth) dinamik, zaman adımı yarılama testi. |
@@ -1127,7 +1127,7 @@ gate, literatür özeti…) `SDLC/07_TERIMLER.md`'dedir; ikisi birbirini tekrar 
 | aktarıcı internöron | relay interneuron |
 | motonöron havuzu | motoneuron pool |
 | devreye alma / Henneman büyüklük ilkesi | recruitment / Henneman size principle |
-| aksiyon potansiyeli (diken) | action potential (spike) |
+| aksiyon potansiyeli (aksiyon potansiyeli) | action potential (spike) |
 | aksiyon potansiyeli dizisi | spike train |
 | kalıcı içeri akım | persistent inward current (PIC) |
 | yol uzaklığı (`D_path`) | path distance from soma |
@@ -1166,7 +1166,7 @@ gate, literatür özeti…) `SDLC/07_TERIMLER.md`'dedir; ikisi birbirini tekrar 
 | Bu belgede | Literatürdeki özgün terim |
 |---|---|
 | literatür özeti (`literatur/oz_*.md`) | bir makalenin yapılandırılmış özeti — bu projenin çalışma belgesi; makalenin yerine geçmez |
-| tolerans bandı | tolerance band |
+| tolerans aralığı | tolerance band |
 | ızgara | grid |
 | zaman adımı yarılama testi | step-halving convergence check |
 | süreksiz dinamik | non-smooth dynamics |

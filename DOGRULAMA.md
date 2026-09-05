@@ -276,9 +276,9 @@ Varejão ilk temasın parmakla olduğunu bildiriyorsa, temas anında CoP distal 
 
 **Ölçülen (doğrudan CoP; `cop_direct_v1.json` + `geo_varejao.py`):**
 
-- İlk temas (%0): CoP s = **0,376** (marker ±2 mm / ölçek bandı 0,341–0,428). Bilek ayak
+- İlk temas (%0): CoP s = **0,376** (marker ±2 mm / ölçek aralığı 0,341–0,428). Bilek ayak
   ekseninde s = 0,173'te; CoP bileğin 6,0 mm önünde. Yastık s = 0,665; CoP yastığın **0,289
-  gerisinde** (orta-metatars). Üst bant (en distal tahmin) s = 0,428 bile yastığın 0,212
+  gerisinde** (orta-metatars). Üst aralık (en distal tahmin) s = 0,428 bile yastığın 0,212
   gerisindedir; okuma "yastık değil" sonucuna dayanıklıdır.
 - Erken/orta stance: s, %0→33 arasında 0,38→0,55 (orta-ayak); yastığa (s ≈ 0,66) ancak %36'da
   ulaşıyor.
@@ -316,9 +316,9 @@ bir aktarımdır. Temas kinematiğini sayıyla sabitlemek makaleyi gerektirir.
 
 **Değerlendirme tablosu için öneri:** Varejão satırı karışık kalır; "parmak bölgesini gösteriyor →
 çözüldü" ifadesi çıkarılır; yerine: *"Doğrudan CoP ilk temasta bileğin 6 mm önünde ama yük
-yastığının proksimalinde (s ≈ 0,38; bant 0,34–0,43). Digitigrad ve topuk-yüksüz duruş doğrulanır.
+yastığının proksimalinde (s ≈ 0,38; aralık 0,34–0,43). Digitigrad ve topuk-yüksüz duruş doğrulanır.
 Parmak-önce temas ile orta-ayak CoP arasındaki fark kısmen kinematik–kinetik ayrımıdır; kalan
-proksimal sapma z/ρ ölçek bandına bağlı açık bir sınırdır. Geç stance'te s, ayak dikleşmesiyle
+proksimal sapma z/ρ ölçek aralığına bağlı açık bir sınırdır. Geç stance'te s, ayak dikleşmesiyle
 (%39+) tanımsızdır."*
 
 ---
@@ -362,7 +362,7 @@ refleksin kapatması; ikisi de çalışıyor (Gate 3).
 **Gate 3 — refleks kapanışı işlevsel** [`cl_sim2.py`, `gate3_test.py`]: kazanç taramasında
 GIa = 0,004, GII = 0,005 (GIb = 0) kararlı izleme verdi: kalça **0,8°** · diz **1,5°** · bilek
 **3,3°** rms sapma. Yüksek kazanç tersine kararsızlaştırıyor (GIa = 0,01 → 9–30° sapma, bilek
-sınıra çarpıyor); yani fizyolojik düşük kazanç bandı geçerli.
+sınıra çarpıyor); yani fizyolojik düşük kazanç aralığı geçerli.
 
 - **Refleks gerekli (kapatıp bakma):** kapalıyken 26/24/34° ıraksıyor; açıkken 0,8/1,5/3,3° izliyor.
 - **Rezerv düzeltmesi olmadan da izliyor:** 1,3/1,4/3,8° — geri besleme %10'luk rezervi kapatıyor.
@@ -376,7 +376,7 @@ sınıra çarpıyor); yani fizyolojik düşük kazanç bandı geçerli.
 açıklığı hızla değişiyor (yavaş −14…33°, nominal −6…29°, hızlı −2…22°): aynı merkezî sürüş yüksek
 hızda farklı kinematik veriyor, geri besleme düzenliyor. Tırıs yok, hepsi walk. u(t) 0–0,9
 (aktivasyon 0–0,65, excitation doygunluğu %0); r(t) Ia_Sol 30–223 pps, II_Sol 0–135 pps
-(Vincent/Blum bandı).
+(Vincent/Blum aralığı).
 
 **Bilinçli indirgemeler (kapsam sınırı):**
 
@@ -425,7 +425,7 @@ interpolasyon.
 **Emergent çıkan davranış (kilitli config, `cl_emergent.py`; `cl_emergent.npz`/`.png`):**
 
 - Kalça kendiliğinden salınıyor: **21°…58°** (genlik 37°), tekrarlı.
-- Diz referans bandında eşlik ediyor: **−123°…−107°** (quadriceps iki fazda tutuyor; ~15°
+- Diz referans aralığında eşlik ediyor: **−123°…−107°** (quadriceps iki fazda tutuyor; ~15°
   salınım), sınırdan uzak ve kararlı.
 - **Kapalı kalça-diz limit çevrimi** (faz portresinde kapalı halka → gerçek çekici).
 - Ritim duyusaldan doğuyor: adım sıklığı **3,3 Hz** (periyot 0,30 s), stance oranı **0,64** (walk).
@@ -562,7 +562,7 @@ Doğrusu kümeye bağlıdır: PCSA tam küme 1,80; kod alt kümesi 2,48; F_max 2
 **0,25** genişletildi. §J satırı düzeltildi.
 
 **B4 — GMi ters işaretliydi (düzeltildi).** `HIP_FLX` içinde GMi'nin kalça moment kolu çalışma
-bandında ters (−0,5…−0,16 mm), yani gruba karşı çalışıyordu. GMi `HIP_FLX`'ten çıkarıldı.
+aralığında ters (−0,5…−0,16 mm), yani gruba karşı çalışıyordu. GMi `HIP_FLX`'ten çıkarıldı.
 
 **B5 — kullanılmayan ve yanıltıcı kod temizlendi.** `DISTAL`, `STANCE_SYN`, `KNE_FLX` (yalnız
 `DISTAL`'ı besliyordu) ve `Foff` kaldırıldı; "monoartiküler" yorumu (BFp/STp aslında biartikülerdir
@@ -717,8 +717,8 @@ geçiş terimi); nearlim bileşeni baskın olduğundan sonuç değişmez, ama d�
 **Çekinceler (9/9'a rağmen):**
 
 1. **Bilek 18…19°'de dorsifleksiyonda sabitlenmiş (ROM ~1°).** Hedef ayağı toe-down −25…0°
-   bandına oturtmaktı ve "ayağı dorsifleksiyonda çevrimletme" uyarısı vardı; G4'ün formal bandı
-   (−40…35) geçiliyor, ancak optimizasyon G3'ü ayağı toe-down bandında sürerek değil,
+   aralığına oturtmaktı ve "ayağı dorsifleksiyonda çevrimletme" uyarısı vardı; G4'ün formal aralığı
+   (−40…35) geçiliyor, ancak optimizasyon G3'ü ayağı toe-down aralığında sürerek değil,
    dorsifleksiyonda sabit tutup yükü küçülterek çözdü.
 2. **Yük taşıma minimal:** F_c stance ortalaması 0,167 N (referans durumda 1,30 N'du); G6 eşiği
    (0,167 > 0,112 × 1,3 = 0,146) kıl payı geçiliyor. Çevrim içi modülasyon gerçek ve nettir
@@ -845,7 +845,7 @@ Koşu koşulu: `dpath=600 µm`, `xm.amp=−8 mm`, `gmax_IaSyn=9,3e-6 S/cm²`, `R
 eşiği o civarda geçmesiyle tutarlıdır.
 
 **Sonuç:** İP-4a'nın derleme ve GUI'siz koşu adımları **bitti**. Kalan adım Kim Fig 2-7'nin
-tolerans bantlı yeniden üretimidir (`dpath` taraması).
+tolerans aralıklı yeniden üretimidir (`dpath` taraması).
 
 **Ölçek notu (İP-4b girdisi):** 4,17 s CPU / simüle saniye tek hücre içindir. 38 havuz için
 naif ölçek ≈ 158 s CPU / simüle saniye. Ayak bileği aşaması (2 havuz) rahat; 38 havuza
@@ -870,8 +870,8 @@ pasif (Ra, cm) → aktif → kas bölmesi kablo özelliği → `nseg` (d_lambda)
 
 **Çapraz kontrol (04_KURALLAR: bağımsız ikinci yöntem).** İki kurulum **aynı süreçte, aynı
 uyaranla** (`RampIClamp` tepe 20 nA), aynı zaman adımıyla (0,025 ms) 3000 ms koşturuldu.
-İki hücre elektriksel olarak bağımsızdır. Bant testten önce ilan edildi: aksiyon potansiyeli zamanı farkı
-< 0,025 ms (bir entegrasyon adımı); bu bir **regresyon** bandıdır, literatür doğrulaması değildir.
+İki hücre elektriksel olarak bağımsızdır. Aralık testten önce ilan edildi: aksiyon potansiyeli zamanı farkı
+< 0,025 ms (bir entegrasyon adımı); bu bir **regresyon** aralığıdır, literatür doğrulaması değildir.
 
 | Büyüklük | HOC (Kim zinciri) | Python (`nrn_hucre.py`) |
 |---|---|---|
@@ -888,7 +888,7 @@ uyaranla** (`RampIClamp` tepe 20 nA), aynı zaman adımıyla (0,025 ms) 3000 ms 
 **Aksiyon potansiyeli zamanı farkı: maks 0,000000 ms · ortalama 0,000000 ms.
 Soma voltaj izinin maksimum farkı: 0,000000 mV.**
 
-Yani iki kurulum bit düzeyinde aynıdır; bant kıl payı değil, tam eşleşmeyle geçilmiştir.
+Yani iki kurulum bit düzeyinde aynıdır; aralık kıl payı değil, tam eşleşmeyle geçilmiştir.
 Koşu maliyeti (iki hücre birlikte, 3000 ms): 24,4 s CPU.
 
 **Sonuç:** `nrn_hucre.MotoNoron`, Kim modelinin doğrulanmış bir yeniden kurulumudur ve havuz
@@ -954,18 +954,18 @@ takılıyordu; uygulandıktan sonra salınım başladı.
 
 ## P.4 · Kapalı döngü koşumu (3 s, ikinci yarı; geçici rejim atıldı)
 
-| Büyüklük | Ölçülen | Referans / bant |
+| Büyüklük | Ölçülen | Referans / aralık |
 |---|---|---|
-| **Çevrim süresi** | **0,402 s** | `ic.kopru_cevrim_suresi` 0,387 s, bant [0,348 – 0,426] → **BANTTA** |
+| **Çevrim süresi** | **0,402 s** | `ic.kopru_cevrim_suresi` 0,387 s, aralık [0,348 – 0,426] → **ARALIKTA** |
 | Bilek açısı | −11,08 … +62,86° (ROM 73,94°) | ölçülmüş yürüyüş aralığı −2,89 … +30,65° → **DIŞARIDA (çok geniş)** |
 | `u_DF` – `u_PF` korelasyonu | −0,699 | zıtfaz bekleniyor → **sağlandı** |
-| TA havuzu, etkin faz | 25,8 Hz | `gorassini2000.mn_frekans_TA_swing` 97 Hz, bant [80 – 110] → **DIŞARIDA (düşük)** |
-| Sol havuzu, etkin faz | 12,3 Hz | `gorassini2000.mn_frekans_SOL_yuruyus` 28 Hz, bant [20 – 35] → **DIŞARIDA (düşük)** |
-| MG/LG havuzu, etkin faz | 11,9 / 12,2 Hz | `gorassini2000.mn_frekans_MGLG_ortagec` 67 Hz, bant [50 – 90] → **DIŞARIDA (düşük)** |
+| TA havuzu, etkin faz | 25,8 Hz | `gorassini2000.mn_frekans_TA_swing` 97 Hz, aralık [80 – 110] → **DIŞARIDA (düşük)** |
+| Sol havuzu, etkin faz | 12,3 Hz | `gorassini2000.mn_frekans_SOL_yuruyus` 28 Hz, aralık [20 – 35] → **DIŞARIDA (düşük)** |
+| MG/LG havuzu, etkin faz | 11,9 / 12,2 Hz | `gorassini2000.mn_frekans_MGLG_ortagec` 67 Hz, aralık [50 – 90] → **DIŞARIDA (düşük)** |
 
 **Okunuşu.** Döngünün **yapısı** çalışıyor: ritim CPG'den doğuyor, iki grup zıtfaz almaşıyor,
 hareket kas kuvvetinden doğuyor, iğcik geri beslemesi devrede ve çevrim süresi ölçülmüş yürüyüş
-çevrimine düşüyor. Ama **nicel olarak kalibre değil**: ateşleme frekansları Gorassini bantlarının
+çevrimine düşüyor. Ama **nicel olarak kalibre değil**: ateşleme frekansları Gorassini aralıklarının
 2–5 kat altında, eklem açıklığı fizyolojik aralığın 2 katından fazla. Bu iki sapma aynı yöne
 işaret ediyor: havuz az ateşliyor ama kas fazla iş yapıyor — yani `u = f_MN / f_ref` eşlemesindeki
 `f_ref` ve `pf_mn` sinaptik ağırlığı birlikte kalibre edilmemiş durumda.
@@ -975,11 +975,11 @@ işaret ediyor: havuz az ateşliyor ama kas fazla iş yapıyor — yani `u = f_M
 ## P.5 · Zaman adımı yarılama testi — KISMEN DÜŞTÜ
 
 PREPRINT bölüm 8 bu testi **zorunlu** sayar: kuplaj dışsaldır, ortak Jacobian kurulamaz
-(`oz_fietkiewicz2023` §3b). Bantlar testten önce ilan edildi (iç ölçüm yakınsama bandı):
+(`oz_fietkiewicz2023` §3b). Aralıklar testten önce ilan edildi (iç ölçüm yakınsama aralığı):
 çevrim süresi %5, ROM %10, ateşleme oranı %10. NEURON adımı (0,025 ms) sabit tutuldu; yalnız
 **alışveriş adımı** yarılandı. Koşum 4 s.
 
-| Ölçüt | `dt_k` = 0,30 ms | `dt_k` = 0,15 ms | Bağıl fark | Bant | Sonuç |
+| Ölçüt | `dt_k` = 0,30 ms | `dt_k` = 0,15 ms | Bağıl fark | Aralık | Sonuç |
 |---|---|---|---|---|---|
 | Çevrim süresi | 0,3812 s | 0,3927 s | %2,91 | %5 | **geçti** |
 | Havuz DF ateşleme | 25,60 Hz | 25,28 Hz | %1,26 | %10 | **geçti** |
@@ -988,7 +988,7 @@ PREPRINT bölüm 8 bu testi **zorunlu** sayar: kuplaj dışsaldır, ortak Jacobi
 | **Eklem ROM** | **78,39°** | **61,33°** | **%21,77** | %10 | **DÜŞTÜ** |
 
 **Yorum.** Sinirsel taraf (ritim, frekans, faz ilişkisi) alışveriş adımından bağımsızdır;
-mekanik açıklık o adımda değildir. Bant **genişletilmemiştir** (04_KURALLAR: post-hoc bant
+mekanik açıklık o adımda değildir. Aralık **genişletilmemiştir** (04_KURALLAR: post-hoc aralık
 genişletme yasak); bunun yerine sebep arandı.
 
 ## P.6 · Üç noktalı yakınsama taraması — sebep bulundu: adım çok kabaydı
@@ -1015,14 +1015,14 @@ korunuyor: Ia 1,5/0,15 = **10 adım**, II 1,8/0,15 = **12 adım**, efferent 6/0,
 NEURON adımının katı olma özelliği de korunuyor (0,15/0,025 = **6 adım**). Bedeli yaklaşık
 1,4 kat CPU'dur.
 
-**Bant değil, adım değiştirildi.** Ölçüt banda uymadığında önce modelin sorgulanması kuralının
+**Aralık değil, adım değiştirildi.** Ölçüt banda uymadığında önce modelin sorgulanması kuralının
 (04_KURALLAR, madde 2) uygulanmasıdır bu.
 
 ## P.7 · Üretim adımıyla (0,15 ms) kapalı döngü koşumu — kanonik sonuç
 
-| Büyüklük | Ölçülen | Referans / bant | Sonuç |
+| Büyüklük | Ölçülen | Referans / aralık | Sonuç |
 |---|---|---|---|
-| **Çevrim süresi** | **0,375 s** | `ic.kopru_cevrim_suresi` 0,387 s · bant [0,348 – 0,426] | **BANTTA** |
+| **Çevrim süresi** | **0,375 s** | `ic.kopru_cevrim_suresi` 0,387 s · aralık [0,348 – 0,426] | **ARALIKTA** |
 | Bilek açısı | +14,00 … +68,41° (ROM 54,41°) | ölçülmüş yürüyüş −2,89 … +30,65° | **dışarıda** |
 | `u_DF` – `u_PF` korelasyonu | **−0,734** | zıtfaz bekleniyor | **sağlandı** |
 | TA havuzu, etkin faz | 24,52 Hz | `gorassini2000.mn_frekans_TA_swing` 97 · [80 – 110] | **dışarıda (düşük)** |
@@ -1034,9 +1034,9 @@ Koşum maliyeti: 3 s simülasyon → 242,5 s CPU (10 havuz × 2655 segment + Ope
 ## P.8 · Adım yarılama testi — üretim adımıyla GEÇTİ
 
 Aynı test, üretim adımı (0,15 ms) ile yarısı (0,075 ms) karşılaştırılarak tekrarlandı.
-Bantlar değiştirilmedi (çevrim süresi %5, ROM %10, ateşleme %10).
+Aralıklar değiştirilmedi (çevrim süresi %5, ROM %10, ateşleme %10).
 
-| Ölçüt | `dt_k` = 0,150 ms | `dt_k` = 0,075 ms | Bağıl fark | Bant | Sonuç |
+| Ölçüt | `dt_k` = 0,150 ms | `dt_k` = 0,075 ms | Bağıl fark | Aralık | Sonuç |
 |---|---|---|---|---|---|
 | Çevrim süresi | 0,3749 s | 0,3787 s | %0,99 | %5 | **geçti** |
 | Eklem ROM | 54,41° | 54,10° | %0,57 | %10 | **geçti** |
@@ -1049,12 +1049,12 @@ Köprünün sonucu alışveriş adımından bağımsızdır.
 
 ## P.9 · Bugün ne iddia edilebilir, ne edilemez
 
-**Edilebilir** (yakınsadı ve bantta): kapalı döngü **yapısal olarak çalışıyor** — ritim CPG'den
+**Edilebilir** (yakınsadı ve aralıkta): kapalı döngü **yapısal olarak çalışıyor** — ritim CPG'den
 doğuyor, antagonist gruplar zıtfaz almaşıyor (−0,734), hareket kas kuvvetinden doğuyor
 (kinematik reçete değil), iğcik geri beslemesi devrede ve **çevrim süresi ölçülmüş yürüyüş
 çevrimine düşüyor** (0,375 s vs 0,387 s).
 
-**Edilemez** (bant dışında): motonöron ateşleme frekansları Gorassini bantlarının 2–5 katı
+**Edilemez** (aralık dışında): motonöron ateşleme frekansları Gorassini aralıklarının 2–5 katı
 altında; eklem açıklığı ölçülmüş yürüyüş aralığının dışında ve tamamen dorsifleksiyonda.
 Bu iki sapma aynı yöne işaret ediyor: **havuz az ateşliyor ama kas fazla iş yapıyor**, yani
 `u = f_MN / f_ref` eşlemesindeki `f_ref` ile PF → motonöron ağırlığı `pf_mn` birlikte kalibre

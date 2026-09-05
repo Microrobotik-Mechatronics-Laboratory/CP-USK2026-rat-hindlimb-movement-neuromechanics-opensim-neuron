@@ -48,19 +48,19 @@ Kaynak: Blum 2020 ham eğrileri, 7 Ia afferenti, medyan fit. `[literatürden]`
 **II için durum:** aynı JSON'un `II_v2` kaydı açıkça şunu yazıyor: *"II bu pakette YOK (20 Ia);
 II katsayıları Vincent v2 fitinde kaldı."* Yani II denkleminin katsayıları **doğrulanmamıştır**.
 Repodaki eski kapalı-döngü betiğinde bir II ifadesi bulunuyor ama kaynağı izlenemiyor; bu yüzden
-`[varsayım]` sayılır ve Vincent 2017 bantlarına yeniden fit edilecektir.
+`[varsayım]` sayılır ve Vincent 2017 aralıklarına yeniden fit edilecektir.
 
 **Kalibrasyon uyarısı (aynı JSON, `surekli_hareket_sonumu`):** sürekli hareket denemesinde ölçüm
 ortalaması ~15 Hz iken statik tahmin ~90 Hz çıkıyor (≈6 kat aşırı). Yani bu fit, **rampa-tut**
 protokolüne uygundur; lokomotor kullanımı aşağı kalibrasyon gerektirir. Kapalı döngüde `r(t)`
 ölçeklenirken bu not dikkate alınacaktır.
 
-## Sıçan doğrulama bantları (Vincent 2017)
+## Sıçan doğrulama aralıkları (Vincent 2017)
 
 Test koşulu: pasif triceps surae, 3 mm rampa-tut (MTL'nin %7'si), 20 mm/s, diz 120°.
-Bantlar ±1 SD; kaynak `oz_vincent2017_proprioseptor.md` Tablo 4 ve §7.
+Aralıklar ±1 SD; kaynak `oz_vincent2017_proprioseptor.md` Tablo 4 ve §7.
 
-| Büyüklük | Değer | Bant | Not |
+| Büyüklük | Değer | Aralık | Not |
 |---|---|---|---|
 | Ia dinamik tepe frekansı `Dyn(pfr)` | 176,4 pps | [123, 230] | n = 144 |
 | Ia dinamik indeksi `DI` | 137,9 pps | [90, 186] | `DI = Dyn(pfr) − Stat(mfr)` |
