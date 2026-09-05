@@ -28,7 +28,20 @@
   "sinaps": {
     "_durum": "[tasarim] -- agirliklarin hicbirinin literatur kaynagi yoktur",
     "eksitator": {"tau1_ms": 0.5, "tau2_ms": 5.0, "e_mV": 0.0},
-    "inhibitor": {"tau1_ms": 1.0, "tau2_ms": 10.0, "e_mV": -80.0}
+    "inhibitor": {"tau1_ms": 1.0, "tau2_ms": 10.0, "e_mV": -80.0},
+    "cpg_pf_carpan": 10.0,
+    "denge_pozu_derece": 14.0,
+    "_denge_notu": "Antagonist gruplarin moment kapasitesi bu eklem pozunda olculur ve grup surusu kapasiteyle ters olceklenir. 14 derece secildi cunku olculmus yuruyusun bilek araligi -2.89 .. +30.65 derecedir (PREPRINT 5.2) ve 14 onun ortasidir. [tasarim]",
+    "gfb_carpan": 0.5,
+    "agirlik_uS": {
+      "_not": "Exp2Syn tepe iletkenlikleri. Tek bir internoron bir POPULASYONU temsil eder, bu yuzden agirliklar tek sinaps olceginde degildir. Motonoronun olculen reobazi ~10 nA'dir (kas modulu kapali, somatik akim); Ia tek basina Kim'in ust capasinda (gsc=2.043) bile atesletemiyor (soma -61.4 mV'da kaliyor) -- bu fizyolojik olarak dogrudur, lokomotor surus CPG/PF kolundan gelir. pf_mn bu yuzden asil surustur ve kalibre edilir.",
+      "pf_mn": 0.60,
+      "ii_mn": 0.05,
+      "mn_rc": 0.05,
+      "rc_mn": 0.10,
+      "iain_mn": 0.15,
+      "pf_iain": 0.10
+    }
   },
 
   "iain_renshaw": {
