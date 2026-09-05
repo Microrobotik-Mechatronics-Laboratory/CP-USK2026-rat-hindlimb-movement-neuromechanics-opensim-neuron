@@ -40,6 +40,7 @@ tek bir mekanizma dosyası kaldı.**
 - Bildirilmeyen bağımlılıklar: `opensim`, `scipy`, `matplotlib`, `cma` (risk-2, İP-5).
 
 ## Bekleyen
-- `main` üzerinde origin'in önünde **yerel commit'ler** var; push kullanıcı onayı bekliyor
-  (kullanıcı 2026-09-05 oturumunda "şimdilik bekle" dedi).
+- ~~push bekleyen commit~~ **Yapıldı:** 15 yerel commit `origin/main`'e rebase edilip
+  push edildi (2026-09-05). Uzakta bu arada eklenen GitHub Actions workflow'ları
+  (`.github/workflows/`, PR #1) yerele alındı; çakışma olmadı.
 - `07_literatur/` iskeleti hazır ama **boş**: makale PDF'leri konup özütler çıkarılacak (İP-7).
