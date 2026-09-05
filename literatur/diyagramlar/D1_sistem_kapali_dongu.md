@@ -5,11 +5,11 @@ hareket üretir, hareket duyusal geri besleme doğurur, geri besleme omuriliğe 
 
 ```mermaid
 flowchart TD
-    DRV["Supraspinal tonik surus<br/>sabit akim I_drive<br/>[tasarim]"]
+    DRV["Supraspinal tonik girdi<br/>tonic drive - sabit akim I_drive<br/>[tasarim]"]
     CPG["CPG - yarim merkez cifti<br/>RG-F ve RG-E<br/>karsilikli inhibisyon<br/>[tasarim - Yu ve Thomas 2021 mimarisi]"]
     IN["Internoron katmani<br/>Ia-inhibitor - Renshaw - II-aktarim<br/>[tasarim]"]
     MN["38 motonoron havuzu<br/>Kim 2020 hucresi + Cav1.3 PIC<br/>[literaturden - hucre]"]
-    BR1["Kopru 1: diken dizisi to u<br/>NetCon + alcak gecirgen filtre<br/>[tasarim]"]
+    BR1["Kopru 1: aksiyon potansiyeli dizisi to u<br/>NetCon + alcak gecirgen filtre<br/>[tasarim]"]
     MUS["38 Hill kas-tendon birimi<br/>Thelen2003Muscle<br/>[olculdu - .osim]"]
     MOM["Moment kolu matrisi R q<br/>7 DOF x 38 kas<br/>[olculdu]"]
     DYN["Eklem dinamigi<br/>omurga-pelvis-femur-tibia-ayak<br/>[olculdu - 5 segment]"]
@@ -61,7 +61,7 @@ flowchart TD
 ```
    NEURON  (omurilik)                                 OpenSim  (kas-iskelet)
  ┌──────────────────────────┐                    ┌──────────────────────────────┐
- │ supraspinal tonik sürüş  │                    │  38 Hill kas-tendon birimi   │
+ │ supraspinal tonik girdi  │                    │  38 Hill kas-tendon birimi   │
  │            │             │                    │            │                 │
  │            ▼             │      u(t)          │            ▼                 │
  │   CPG  (RG-F ⇄ RG-E)     │  ───────────────►  │  moment kolu R(q) · 7 DOF    │
@@ -82,9 +82,9 @@ flowchart TD
 
 | Sembol | Ne | Birim | Yön | Durum |
 |---|---|---|---|---|
-| `u(t)` | kas aktivasyon komutu, kas başına bir sayı | birimsiz, 0–1 | NEURON → OpenSim | köprü `[tasarım]`; bugün `02_veri/u_swing_v2.csv` statik optimizasyondan üretiliyor `[ölçüldü]` |
+| `u(t)` | kas aktivasyon komutu, kas başına bir sayı | birimsiz, 0–1 | NEURON → OpenSim | köprü `[tasarım]`; bugün `veri/u_swing_v2.csv` statik optimizasyondan üretiliyor `[ölçüldü]` |
 | `r(t)` | Ia ve II afferent ateşleme oranı, kas başına | pps (≈ Hz) | OpenSim → NEURON | model `[literatürden]`, köprü `[tasarım]` |
-| `q`, `q̇` | eklem açıları ve hızları, 7 bacak DOF | rad, rad/s | OpenSim içi | `[ölçüldü]` — `02_veri/rat_walk_bone_smooth.mot` |
+| `q`, `q̇` | eklem açıları ve hızları, 7 bacak DOF | rad, rad/s | OpenSim içi | `[ölçüldü]` — `veri/rat_walk_bone_smooth.mot` |
 | `τ` | eklem momenti | N·mm | OpenSim içi | `[ölçüldü]` — ters dinamik çıktısı |
 | `l_mt`, `v_mt` | kas-tendon boyu ve hızı | mm, mm/s | OpenSim → iğcik | `[ölçüldü]` — kas yolu geometrisinden |
 | `F` | kas kuvveti | N | OpenSim içi | `[ölçüldü]` — Hill modeli |
@@ -94,11 +94,11 @@ flowchart TD
 | Büyüklük | Değer | Kaynak | Durum |
 |---|---|---|---|
 | NEURON entegrasyon adımı | 0,025 ms | `oz_kim2020_piclokasyonu.md` §3d; `oz_fietkiewicz2025_neuronmujoco.md` §3d | `[literatürden]` |
-| İki simülatörün eş adımla ilerletilmesi | aynı `dt` ile döngü | `oz_fietkiewicz2025_neuronmujoco.md` §3b | `[literatürden]` — yöntem |
+| İki simülatörün aynı zaman adımıyla eşzamanlı ilerletilmesi | aynı `dt` ile tek döngü | `oz_fietkiewicz2025_neuronmujoco.md` §3b | `[literatürden]` — yöntem |
 | Ia afferent iletim gecikmesi (sıçan) | 1,5 ± 0,2 ms | `oz_vincent2017_proprioseptor.md` Tablo 4 | `[literatürden]` |
 | II afferent iletim gecikmesi (sıçan) | 1,8 ± 0,4 ms | `oz_vincent2017_proprioseptor.md` Tablo 4 | `[literatürden]` |
 | Efferent (motonöron → kas) gecikmesi | seçilecek | Kim kedide toplam 10 ms kullanıyor; sıçanda kısalmalı | `[varsayım]` |
-| Kas-iskelet örnekleme | salınım fazı 71 örnek, gait %65–100 | `02_veri/u_swing_v2.csv` | `[ölçüldü]` |
+| Kas-iskelet örnekleme | salınım fazı 71 örnek, gait %65–100 | `veri/u_swing_v2.csv` | `[ölçüldü]` |
 
 ## Sınırlar ve okuma uyarıları
 

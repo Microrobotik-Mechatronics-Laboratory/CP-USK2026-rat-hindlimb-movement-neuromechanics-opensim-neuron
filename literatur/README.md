@@ -1,4 +1,4 @@
-# 07_literatur — Referans Makale Özütleri ve Tolerans Bantları
+# literatur — Referans Makale Özütleri ve Tolerans Bantları
 
 Bu klasör, projenin bilimsel iddialarının **dayandığı dış kaynakları** ve bu kaynaklardan
 çıkarılan **sayısal referans değerleri** tutar. Testler (İP-8) sayıyı koda gömmez; buradan okur.
@@ -15,7 +15,7 @@ Bu klasör, projenin bilimsel iddialarının **dayandığı dış kaynakları** 
 
 ## Yordam: bir makale nasıl eklenir
 
-1. PDF'i `07_literatur/pdf/` altına koy (depoya girmez).
+1. PDF'i `literatur/pdf/` altına koy (depoya girmez).
 2. Makaleyi özütle — `oz_SABLON.md`'yi `oz_<kisa_ad>.md` olarak kopyala ve doldur.
    Aşağıdaki istem bu iş için hazırdır.
 3. Kullanılacak her sayıyı `referans_degerler.json`'a bir kayıt olarak ekle: değer, birim,
@@ -28,7 +28,7 @@ Bu klasör, projenin bilimsel iddialarının **dayandığı dış kaynakları** 
 > yorum katmak değil.
 
 ```
-Bu makaleyi 07_literatur/oz_SABLON.md şablonuna göre özütle.
+Bu makaleyi literatur/oz_SABLON.md şablonuna göre özütle.
 
 Kurallar:
 - Şablonun bölüm sırasını ve başlıklarını aynen koru.
@@ -65,6 +65,6 @@ düşmezse önce model ve varsayımlar sorgulanır, bant sessizce genişletilmez
 
 - **`literatur`** — dış bir yayından çıkarılmış değer. Bandın gerekçesi tür/koşul farkını
   ve yayımlanmış saçılımı söyler.
-- **`ic_olcum`** — bu projede bağımsız olarak ölçülmüş ve `02_DOGRULAMA_KAYDI.md`'ye işlenmiş
+- **`ic_olcum`** — bu projede bağımsız olarak ölçülmüş ve `DOGRULAMA.md`'ye işlenmiş
   değer. Bandı bir **regresyon** bandıdır (sayı değişirse haberimiz olsun), literatür bandı
   değildir. İkisi karıştırılmaz.

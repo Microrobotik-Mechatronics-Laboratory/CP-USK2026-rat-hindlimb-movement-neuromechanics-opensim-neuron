@@ -14,7 +14,7 @@ flowchart TD
     MODC["nrnivmodl derleme<br/>fig2_4_6 - 12 mekanizmadan 11 derlendi<br/>module1_2.mod ENGEL"]
     MN1["Asama 1: tek motonoron dogrulamasi<br/>Kim Fig 2-9 yeniden uretimi<br/>[YAPILACAK]"]
     POOL["38 motonoron havuzu + CPG + internoronlar<br/>[YAPILACAK]"]
-    BR["Kopru: u t cikisi - r t girisi<br/>es adim dt = 0.025 ms<br/>[YAPILACAK]"]
+    BR["Kopru: u t cikisi - r t girisi<br/>ayni zaman adimi dt = 0.025 ms<br/>[YAPILACAK]"]
     CL["Kapali dongu kosusu<br/>[HEDEF]"]
 
     OSIM --> ID

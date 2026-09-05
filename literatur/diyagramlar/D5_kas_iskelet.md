@@ -1,6 +1,6 @@
 # D5 — Kas-iskelet yapısı: segmentler, serbestlik dereceleri, 38 kas
 
-Model: `01_model/rat_hindlimb_faz1a.osim`. Tabanı Johnson ve ark. 2008 sıçan arka bacak
+Model: `model/rat_hindlimb_faz1a.osim`. Tabanı Johnson ve ark. 2008 sıçan arka bacak
 geometrisidir; segmentler ve eklemler aşağıdadır.
 
 ```mermaid
@@ -21,11 +21,11 @@ flowchart TD
 
 **Sayım:** 5 segment `[ölçüldü]`, 14 koordinat, bunun **7'si bacak ekseni**
 (kalça 3 + diz 1 + bilek 3). Statik optimizasyon bu 7 DOF'u kısıt olarak kullanır
-(`03_kod/kod_02_swing_id_so.py`).
+(`kod/opensim/kod_02_swing_id_so.py`).
 
 ## Kinematik girdi: hangi eksen gerçekten hareket ediyor
 
-`02_veri/rat_walk_bone_smooth.mot` — 201 örnek, çevrim süresi **T = 0,387 s** `[ölçüldü]`:
+`veri/rat_walk_bone_smooth.mot` — 201 örnek, çevrim süresi **T = 0,387 s** `[ölçüldü]`:
 
 | Koordinat | Aralık | Durum |
 |---|---|---|
@@ -65,7 +65,7 @@ flowchart LR
     MA --> TAU
 ```
 
-Uygulama ayrıntısı (`03_kod/kod_02_swing_id_so.py` başlığından):
+Uygulama ayrıntısı (`kod/opensim/kod_02_swing_id_so.py` başlığından):
 
 - **rijit tendon:** `lm = sqrt((lmt − tsl)² + (lmo·sin α₀)²)`, `cos α = (lmt − tsl)/lm`
 - `fL = exp(−(l̃−1)²/γ)`, `fPE` Thelen, `fV` Thelen `a = 1` kapalı formu
@@ -75,8 +75,8 @@ Uygulama ayrıntısı (`03_kod/kod_02_swing_id_so.py` başlığından):
 
 ## 38 kasın eklem-işlev haritası (ölçülmüş moment kollarından)
 
-Referans poz: kalça +21,7°, diz −120°, bilek 0°. Değerler `04_kapali_dongu/cl_grid3d.npz`
-moment kolu ızgarasından okundu ve `02_DOGRULAMA_KAYDI.md` A bölümündeki diz değerleriyle
+Referans poz: kalça +21,7°, diz −120°, bilek 0°. Değerler `veri/kapali_dongu/cl_grid3d.npz`
+içindeki moment kolu ızgarasından (grid) okundu ve `DOGRULAMA.md` A bölümündeki diz değerleriyle
 tutarlıdır (RF +3,69 / +3,70; VL +3,72 / +3,73; SM −3,95 / −3,87 — fark, pozun kalça-bilek
 bileşeninden). İşaret sözleşmesi: **kalça +** = fleksiyon, **diz +** = ekstansiyon,
 **bilek +** = dorsifleksiyon.
@@ -137,4 +137,4 @@ bileşeninden). İşaret sözleşmesi: **kalça +** = fleksiyon, **diz +** = eks
 - Bilek addüksiyon/rotasyon eksenleri ile kalça addüksiyon/rotasyon momentleri bu tabloda yok;
   yalnız üç ana eksen (kalça fleksiyon, diz, bilek fleksiyon) gösterildi.
 - Quadriceps'in +3,7 mm'sinin **anatomiden değil, `femur_dist` sarma torusundan** geldiği
-  ölçülmüştür (`02_DOGRULAMA_KAYDI.md` H1). Ayrıntı PREPRINT bölüm 10'da.
+  ölçülmüştür (`DOGRULAMA.md` H1). Ayrıntı PREPRINT bölüm 10'da.

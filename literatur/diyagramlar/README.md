@@ -1,4 +1,4 @@
-# 07_literatur/diyagramlar — Model Diyagramları
+# literatur/diyagramlar — Model Diyagramları
 
 Bu klasör, projenin **nöron-kas yapısını** gösteren diyagramların **kaynağıdır**. Diyagramlar
 Mermaid ile yazılmıştır; VS Code, Obsidian, Typora ve GitHub bunları doğrudan çizer.
@@ -30,10 +30,10 @@ bu klasör doğru kabul edilir.
 
 ## İşaretleme sözleşmesi
 
-Diyagramlarda ve tablolarda her kutunun durumu şu etiketlerden biriyle verilir:
+Diyagramlarda ve tablolarda her bileşenin durumu şu etiketlerden biriyle verilir:
 
-- `[ölçüldü]` — bu depoda ölçülmüş, `04_kapali_dongu/02_DOGRULAMA_KAYDI.md`'ye işlenmiş.
-- `[literatürden]` — bir özütten alınmış; kaynağı satırda yazılıdır.
+- `[ölçüldü]` — bu çalışmada ölçülmüş, `DOGRULAMA.md`'ye işlenmiş.
+- `[literatürden]` — bir yayından alınmış; kaynağı satırda yazılıdır.
 - `[tasarım]` — bizim model kararımız; henüz ne ölçüm ne de literatür değeri.
 - `[varsayım]` — kaynağı olmayan, sonra doğrulanacak seçim.
 

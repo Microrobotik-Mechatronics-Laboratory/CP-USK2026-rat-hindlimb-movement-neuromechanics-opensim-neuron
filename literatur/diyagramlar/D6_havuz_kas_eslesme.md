@@ -1,7 +1,8 @@
 # D6 — 38 motonöron havuzu ile 38 kasın eşleşmesi
 
 **Kural:** OpenSim modelindeki her kasın **bir motonöron havuzu** vardır (38 kas → 38 havuz).
-Havuzlar CPG'ye doğrudan değil, eklem başına bir **örüntü katmanı** üzerinden bağlanır.
+Havuzlar CPG'ye doğrudan değil, eklem başına bir **örüntü oluşturma katmanı**
+(pattern formation, PF) üzerinden bağlanır.
 
 ```mermaid
 flowchart TD
@@ -97,14 +98,14 @@ flowchart TD
     MAD <-->|"resiprokal inhibisyon"| MAP
 ```
 
-## Neden eklem başına bir örüntü katmanı var
+## Neden eklem başına bir örüntü oluşturma katmanı var
 
-Tek bir yarım-merkez çifti (RG) yalnız iki faz üretir: fleksör ve ekstansör. Ama depodaki
+Tek bir yarım-merkez çifti (RG) yalnız iki faz üretir: fleksör ve ekstansör. Ama bu çalışmanın
 salınım fazı ölçümü (`D7`) üç eklemin **farklı zamanlarda** tepe yaptığını gösteriyor: kalça
-fleksörleri %67,8, kalça ekstansörleri %76,4, ayak bileği dorsifleksörü %85,5. Tek fazlı bir
-sürüş bu gecikmeleri veremez. Bu yüzden RG ile motonöron havuzları arasına eklem başına bir
-örüntü katmanı (PF) konur. `[tasarım]` — özüt setinde doğrudan kaynağı yoktur; gerekçesi kendi
-ölçümümüzdür.
+fleksörleri %68,5, diz fleksörleri %76,0, ayak bileği dorsifleksörü %85,5. Tek fazlı bir
+girdi bu gecikmeleri veremez. Bu yüzden RG ile motonöron havuzları arasına eklem başına bir
+örüntü oluşturma katmanı (PF) konur. `[tasarım]` — özüt setinde doğrudan kaynağı yoktur;
+gerekçesi kendi ölçümümüzdür.
 
 ## Havuz iç yapısı
 
@@ -113,8 +114,8 @@ sürüş bu gecikmeleri veremez. Bu yüzden RG ile motonöron havuzları arasın
 | Havuz sayısı | 38 (kas başına bir) | `[tasarım]` — kullanıcı kararı |
 | Havuzdaki motonöron sayısı `N` | ilk sürümde 1 (temsilî motonöron), sonra artırılacak | `[tasarım]` |
 | Motonöron modeli | Kim 2020 hücresi (`D3`) | `[literatürden]` |
-| Devreye alma (recruitment) | `F_max` sırasına göre boyut ilkesi | `[tasarım]` |
-| İki eklemli kaslar | **tek havuz**, iki örüntü katmanından da girdi alır (RF, BFp, STa, STp, GP, GA, MG, LG, Pla, EDL) | `[tasarım]` |
+| Devreye alma (recruitment) | `F_max` sırasına göre Henneman büyüklük ilkesi (size principle) | `[tasarım]` |
+| İki eklemli (biartiküler) kaslar | **tek havuz**, iki örüntü oluşturma katmanından da girdi alır (RF, BFp, STa, STp, GP, GA, MG, LG, Pla, EDL) | `[tasarım]` |
 | Antagonist eşleşme | eklem başına fleksör ⇄ ekstansör grupları | moment kolu işaretinden `[ölçüldü]` |
 | Gruplanmayanlar | Pir, GMi, OE, OI, Pec, BFa — moment kolu işareti ızgarada kararsız | `[ölçüldü]` gerekçe |
 

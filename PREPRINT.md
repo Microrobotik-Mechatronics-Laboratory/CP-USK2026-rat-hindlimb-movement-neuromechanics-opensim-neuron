@@ -13,19 +13,23 @@ uygulamasıdır, tersi değil.
 
 Kurallar:
 
-- **Kaynağı yazılamayan sayı bu dosyaya girmez.** Her sayının yanında ya bir depo dosyası ya bir
-  literatür özütü vardır.
+- **Kaynağı yazılamayan sayı bu dosyaya girmez.** Her sayının yanında kaynağı yazılıdır: ya bir
+  yayın (`literatur/oz_*.md` özütü üzerinden, tablo/şekil numarasıyla), ya bu çalışmada
+  üretilmiş bir dosyanın yolu (`.osim` model, `.mot` kinematik, `.csv` sonuç, `.py`/`.hoc` kod).
 - Her ifade bir **durum etiketi** taşır:
-  `[ölçüldü]` bu depoda ölçülmüş · `[literatürden]` bir özütten alınmış ·
-  `[tasarım]` bizim model kararımız · `[varsayım]` henüz kaynağı olmayan seçim ·
+  `[ölçüldü]` bu çalışmada ölçülmüş · `[literatürden]` bir yayından alınmış ·
+  `[tasarım]` model kararı · `[varsayım]` henüz kaynağı olmayan seçim ·
   `[yapılacak]` planlanmış ama yapılmamış.
+- **Terimler literatürdeki karşılıklarıyla kullanılır.** Türkçesi yerleşmemiş bir terim, ilk
+  geçtiği yerde İngilizce özgün biçimiyle birlikte yazılır; uydurma karşılık kullanılmaz.
+  Terim listesi bölüm 16'dadır.
 - **Bildiri özeti (bölüm 3) değiştirilemez.** Çalışma ondan saparsa sapma bölüm 10'da yazılır,
   özet düzeltilmez.
-- Diyagramların kaynağı `07_literatur/diyagramlar/`'dır; buraya kopya olarak gelirler.
+- Diyagramların kaynağı `literatur/diyagramlar/`'dır; buraya kopya olarak gelirler.
   Bir diyagram değişecekse **önce orada** düzeltilir.
 
 Bağlı belgeler: proje durumu `SDLC/00_DURUM.md` · kurallar `SDLC/04_KURALLAR.md` ·
-ölçüm defteri `04_kapali_dongu/02_DOGRULAMA_KAYDI.md` · literatür özütleri `07_literatur/oz_*.md`.
+ölçüm defteri `DOGRULAMA.md` · literatür özütleri `literatur/oz_*.md`.
 
 ---
 
@@ -93,15 +97,15 @@ oluşturacaktır.
 
 ## 4 · Sistem mimarisi
 
-> Diyagram kaynağı: `07_literatur/diyagramlar/D1_sistem_kapali_dongu.md`
+> Diyagram kaynağı: `literatur/diyagramlar/D1_sistem_kapali_dongu.md`
 
 ```mermaid
 flowchart TD
-    DRV["Supraspinal tonik surus<br/>sabit akim I_drive<br/>[tasarim]"]
+    DRV["Supraspinal tonik girdi<br/>tonic drive - sabit akim I_drive<br/>[tasarim]"]
     CPG["CPG - yarim merkez cifti<br/>RG-F ve RG-E<br/>karsilikli inhibisyon<br/>[tasarim - Yu ve Thomas 2021 mimarisi]"]
     IN["Internoron katmani<br/>Ia-inhibitor - Renshaw - II-aktarim<br/>[tasarim]"]
     MN["38 motonoron havuzu<br/>Kim 2020 hucresi + Cav1.3 PIC<br/>[literaturden - hucre]"]
-    BR1["Kopru 1: diken dizisi to u<br/>NetCon + alcak gecirgen filtre<br/>[tasarim]"]
+    BR1["Kopru 1: aksiyon potansiyeli dizisi to u<br/>NetCon + alcak gecirgen filtre<br/>[tasarim]"]
     MUS["38 Hill kas-tendon birimi<br/>Thelen2003Muscle<br/>[olculdu - .osim]"]
     MOM["Moment kolu matrisi R q<br/>7 DOF x 38 kas<br/>[olculdu]"]
     DYN["Eklem dinamigi<br/>omurga-pelvis-femur-tibia-ayak<br/>[olculdu - 5 segment]"]
@@ -153,7 +157,7 @@ Mermaid çizmeyen bir editör için aynı şekil:
 ```
    NEURON  (omurilik)                                 OpenSim  (kas-iskelet)
  ┌──────────────────────────┐                    ┌──────────────────────────────┐
- │ supraspinal tonik sürüş  │                    │  38 Hill kas-tendon birimi   │
+ │ supraspinal tonik girdi  │                    │  38 Hill kas-tendon birimi   │
  │            │             │                    │            │                 │
  │            ▼             │      u(t)          │            ▼                 │
  │   CPG  (RG-F ⇄ RG-E)     │  ───────────────►  │  moment kolu R(q) · 7 DOF    │
@@ -174,7 +178,7 @@ Mermaid çizmeyen bir editör için aynı şekil:
 
 | Sembol | Ne | Birim | Yön | Durum |
 |---|---|---|---|---|
-| `u(t)` | kas aktivasyon komutu, kas başına bir sayı | birimsiz 0–1 | NEURON → OpenSim | köprü `[tasarım]`; bugünkü karşılığı `02_veri/u_swing_v2.csv` `[ölçüldü]` |
+| `u(t)` | kas aktivasyon komutu, kas başına bir sayı | birimsiz 0–1 | NEURON → OpenSim | köprü `[tasarım]`; bugünkü karşılığı `veri/u_swing_v2.csv` `[ölçüldü]` |
 | `r(t)` | Ia ve II afferent ateşleme oranı, kas başına | pps (≈ Hz) | OpenSim → NEURON | model `[literatürden]`, köprü `[tasarım]` |
 | `q`, `q̇` | eklem açıları ve hızları, 7 bacak DOF | rad, rad/s | OpenSim içi | `[ölçüldü]` |
 | `τ` | eklem momenti | N·mm | OpenSim içi | `[ölçüldü]` |
@@ -186,11 +190,11 @@ Mermaid çizmeyen bir editör için aynı şekil:
 | Büyüklük | Değer | Kaynak | Durum |
 |---|---|---|---|
 | NEURON entegrasyon adımı | 0,025 ms | `oz_kim2020` §3d; `oz_fietkiewicz2025` §3d | `[literatürden]` |
-| İki simülatörün eş adımla ilerletilmesi | aynı `dt` ile tek Python döngüsü | `oz_fietkiewicz2025` §3b | `[literatürden]` yöntem |
+| İki simülatörün aynı zaman adımıyla eşzamanlı ilerletilmesi | aynı `dt` ile tek Python döngüsü | `oz_fietkiewicz2025` §3b | `[literatürden]` yöntem |
 | Ia iletim gecikmesi (sıçan) | 1,5 ± 0,2 ms | `oz_vincent2017` Tablo 4 | `[literatürden]` |
 | II iletim gecikmesi (sıçan) | 1,8 ± 0,4 ms | `oz_vincent2017` Tablo 4 | `[literatürden]` |
 | Efferent gecikme | seçilecek (Kim kedide toplam 10 ms) | `oz_kim2020` §3a | `[varsayım]` |
-| Yürüyüş çevrimi | T = 0,387 s | `02_veri/rat_walk_bone_smooth.mot` | `[ölçüldü]` |
+| Yürüyüş çevrimi | T = 0,387 s | `veri/rat_walk_bone_smooth.mot` | `[ölçüldü]` |
 
 ### 4.3 · Mimarinin iki kesin kuralı
 
@@ -203,8 +207,8 @@ Mermaid çizmeyen bir editör için aynı şekil:
 
 ## 5 · Kas-iskelet tarafı (OpenSim)
 
-> Diyagram kaynağı: `07_literatur/diyagramlar/D5_kas_iskelet.md`
-> Model dosyası: `01_model/rat_hindlimb_faz1a.osim`
+> Diyagram kaynağı: `literatur/diyagramlar/D5_kas_iskelet.md`
+> Model dosyası: `model/rat_hindlimb_faz1a.osim`
 
 ```mermaid
 flowchart TD
@@ -227,7 +231,7 @@ flowchart TD
 | Özellik | Değer | Durum |
 |---|---|---|
 | Taban | Johnson ve ark. 2008 sıçan arka bacak geometrisi | `[literatürden]` |
-| Segment | 5: spine, pelvis, femur, tibia, foot | `[ölçüldü]` — `02_DOGRULAMA_KAYDI.md` H2 |
+| Segment | 5: spine, pelvis, femur, tibia, foot | `[ölçüldü]` — `DOGRULAMA.md` H2 |
 | Koordinat | 14; **7'si bacak ekseni** (kalça 3 + diz 1 + bilek 3) | `[ölçüldü]` |
 | Kas | 38, tamamı `Thelen2003Muscle` (Hill tipi) | `[ölçüldü]` |
 | `F_max` aralığı | 0,35 – 16,48 N | `[ölçüldü]` |
@@ -237,7 +241,7 @@ flowchart TD
 
 ### 5.2 · Kinematik girdi
 
-`02_veri/rat_walk_bone_smooth.mot` — 201 örnek, T = 0,387 s `[ölçüldü]`:
+`veri/rat_walk_bone_smooth.mot` — 201 örnek, T = 0,387 s `[ölçüldü]`:
 
 | Koordinat | Aralık | Durum |
 |---|---|---|
@@ -273,7 +277,7 @@ flowchart LR
     MA --> TAU
 ```
 
-Uygulama (`03_kod/kod_02_swing_id_so.py`):
+Uygulama (`kod/opensim/kod_02_swing_id_so.py`):
 
 - rijit tendon: `lm = sqrt((lmt − tsl)² + (lmo·sin α₀)²)`, `cos α = (lmt − tsl)/lm`
 - `fL = exp(−(l̃−1)²/γ)`, `fPE` Thelen, `fV` Thelen `a = 1` kapalı formu
@@ -286,7 +290,7 @@ Uygulama (`03_kod/kod_02_swing_id_so.py`):
 2. **Moment kolu matrisi** `R(q)` — 7 DOF × 38 kas, OpenSim `computeMomentArm` `[ölçüldü]`.
 3. **Statik optimizasyon** — `min Σa² + 1e6·Σr²` kısıtı `R·F(a) + R·F_pasif + r = τ_ID`;
    çıktı her kasın aktivasyon zaman serisi `[ölçüldü]`.
-4. Çıktı: `02_veri/u_swing_v2.csv` — 38 kas × 71 örnek, gait %65–100.
+4. Çıktı: `veri/u_swing_v2.csv` — 38 kas × 71 örnek, gait %65–100.
 
 Salınım fazı seçilmiştir çünkü ayak yere değmez ve **yer tepki kuvveti gerekmez**; ölçülmemiş bir
 dış kuvvet varsayımı yapılmaz. Bu, bildirinin yöntem taahhüdüdür.
@@ -301,12 +305,12 @@ o seçimin **açılımıdır**; kurulum sürmektedir ve hiçbir sonuç henüz id
 
 ### 6.1 · Devrenin temel motifi (bir antagonist çift)
 
-> Diyagram kaynağı: `07_literatur/diyagramlar/D2_omurilik_devresi.md`
+> Diyagram kaynağı: `literatur/diyagramlar/D2_omurilik_devresi.md`
 > Oklar: `+` eksitatör, `−` inhibitör. Aynı motif kalça, diz ve ayak bileği için tekrarlanır.
 
 ```mermaid
 flowchart TD
-    DRV["Supraspinal tonik surus I_drive<br/>[tasarim]"]
+    DRV["Supraspinal tonik girdi - tonic drive<br/>I_drive<br/>[tasarim]"]
 
     RGF["RG-F<br/>fleksor yarim merkez<br/>iletkenlik tabanli noron"]
     RGE["RG-E<br/>ekstansor yarim merkez<br/>iletkenlik tabanli noron"]
@@ -381,16 +385,16 @@ flowchart TD
 
 | Katman | İşlev | Kaynak | Durum |
 |---|---|---|---|
-| Supraspinal sürüş | ritmi başlatan sabit sürüş | — | `[tasarım]` |
-| CPG yarım-merkezleri | karşılıklı inhibisyonla ritim üretir | `oz_yu2021` §3a — Morris-Lecar HCO | `[literatürden]` mimari |
+| Supraspinal tonik girdi (tonic drive) | ritmi başlatan sabit girdi | — | `[tasarım]` |
+| CPG yarım-merkezleri (half-centers) | karşılıklı inhibisyonla ritim üretir | `oz_yu2021` §3a — Morris-Lecar HCO | `[literatürden]` mimari |
 | `gFB` / `gCPG` dengesi | ritmin ne kadarı merkezden, ne kadarı duyudan | `oz_yu2021` §4b | `[literatürden]` ödünleşim |
 | Ia monosinaptik eksitasyon | germe refleksinin doğrudan kolu | `oz_vincent2017` §4b — Ia varikoziteleri lamina IX'ta ≥30 µm gövdelerle temas | `[literatürden]` anatomik kanıt |
 | II → lamina V/VI aktarımı | II bilgisi internöron üzerinden gider | `oz_vincent2017` §4b | `[literatürden]` |
 | IaIN (resiprokal inhibisyon) | antagonist havuzu susturur | **özüt setinde kaynak yok** | `[tasarım]` |
 | Renshaw (rekürren inhibisyon) | havuzun çıkışını sınırlar | **özüt setinde kaynak yok** | `[tasarım]` |
 
-**Dürüstlük notu:** `IaIN` ve `Renshaw` kutuları bu projenin literatür setinde kaynağı olmayan
-iki kutudur. Ya bir kaynak eklenip özütlenecek, ya ilk sürümde devre dışı bırakılacaklardır —
+**Dürüstlük notu:** `IaIN` ve `Renshaw` bu projenin literatür setinde kaynağı olmayan iki
+bileşendir. Ya bir kaynak eklenip özütlenecek, ya ilk sürümde devre dışı bırakılacaklardır —
 CPG'nin kendi karşılıklı inhibisyonu zaten fleksör/ekstansör almaşmasını üretir. Karar verilene
 kadar **iddia edilmezler**.
 
@@ -402,8 +406,8 @@ kapalı döngüdür" cümlesinin dinamik sistem karşılığıdır. Aynı kayna�
 
 ### 6.2 · Motonöron hücresi
 
-> Diyagram kaynağı: `07_literatur/diyagramlar/D3_motonoron_hucre.md`
-> Uygulama: `inline-supplementary-material-1/fig2_4_6/` (Kim 2020)
+> Diyagram kaynağı: `literatur/diyagramlar/D3_motonoron_hucre.md`
+> Uygulama: `neuron/fig2_4_6/` (Kim 2020)
 
 ```mermaid
 flowchart TD
@@ -415,12 +419,12 @@ flowchart TD
 
     SOMA["SOMA<br/>Naf - KDr - CaN 0.013 S/cm2<br/>KCa 0.0258 S/cm2 - Nap 3.3e-5 S/cm2<br/>Ca_conc<br/>IaSyn de burada"]
     HIL["Akson tepecigi hillock<br/>L = 20 um - cap 13 to 3 um<br/>Naf - KDr - Nap"]
-    IS["Baslangic segmenti is<br/>L = 30 um - cap 3.3 um<br/>Naf - KDr - Nap<br/>diken burada dogar"]
+    IS["Baslangic segmenti - initial segment<br/>L = 30 um - cap 3.3 um<br/>Naf - KDr - Nap<br/>aksiyon potansiyeli burada dogar"]
     MU["muscle_unit<br/>L = 10 um - cap 10 um<br/>CaSP + fHill + Xm<br/>[yalniz Asama 1 dogrulamasinda]"]
 
     IAIN["Ia afferent girisi<br/>gmax_IaSyn<br/>0 / 9.3e-6 / 19e-6 S/cm2<br/>kas boyuna gore"]
     XM["Xm - kas boyu parametresi<br/>xm = -16 / -8 / 0 mm"]
-    OUT["Diken cikisi<br/>NetCon esigi -40 mV<br/>to u t koprusu"]
+    OUT["Aksiyon potansiyeli cikisi - spike train<br/>NetCon esigi -40 mV<br/>to u t koprusu"]
 
     IAIN --> DPROX
     IAIN --> SOMA
@@ -435,7 +439,8 @@ flowchart TD
     XM -.->|"boy to Ia iletkenligi"| IAIN
 ```
 
-**Parametre tablosu** (hepsi `oz_kim2020_piclokasyonu.md` ve depodaki `.hoc` dosyalarından):
+**Parametre tablosu** (kaynaklar: `oz_kim2020_piclokasyonu.md` ve
+`neuron/fig2_4_6/` altındaki `.hoc` dosyaları):
 
 | Parametre | Değer | Birim | Kaynak | Durum |
 |---|---|---|---|---|
@@ -474,11 +479,11 @@ modelinin ürettiği `r(t)`'den türetilir `[tasarım]`.
 
 ### 6.4 · Motonöron havuzları ve kas eşleşmesi
 
-> Diyagram kaynağı: `07_literatur/diyagramlar/D6_havuz_kas_eslesme.md`
+> Diyagram kaynağı: `literatur/diyagramlar/D6_havuz_kas_eslesme.md`
 
 **Kural:** OpenSim modelindeki her kasın bir motonöron havuzu vardır — **38 kas, 38 havuz**
-`[tasarım]`. Havuzlar CPG'ye doğrudan değil, eklem başına bir **örüntü katmanı** (PF) üzerinden
-bağlanır.
+`[tasarım]`. Havuzlar CPG'ye doğrudan değil, eklem başına bir **örüntü oluşturma katmanı**
+(pattern formation, PF) üzerinden bağlanır.
 
 ```mermaid
 flowchart TD
@@ -574,17 +579,17 @@ flowchart TD
     MAD <-->|"resiprokal inhibisyon"| MAP
 ```
 
-**Neden eklem başına bir örüntü katmanı:** tek bir yarım-merkez çifti yalnız iki faz üretir. Ama
-kendi ölçümümüz (bölüm 9.2) üç eklemin farklı zamanlarda tepe yaptığını gösteriyor — kalça
-fleksörleri %68,5, diz fleksörleri %76,0, ayak bileği dorsifleksörü %85,5. Tek fazlı bir sürüş bu
-gecikmeleri veremez. `[tasarım]` — gerekçesi kendi ölçümümüzdür.
+**Neden eklem başına bir örüntü oluşturma katmanı:** tek bir yarım-merkez çifti yalnız iki faz
+üretir. Ama kendi ölçümümüz (bölüm 9.2) üç eklemin farklı zamanlarda tepe yaptığını gösteriyor —
+kalça fleksörleri %68,5, diz fleksörleri %76,0, ayak bileği dorsifleksörü %85,5. Tek fazlı bir
+girdi bu gecikmeleri veremez. `[tasarım]` — gerekçesi kendi ölçümümüzdür.
 
 | Karar | Seçim | Durum |
 |---|---|---|
 | Havuz sayısı | 38 (kas başına bir) | `[tasarım]` |
 | Havuzdaki motonöron sayısı | ilk sürümde 1 temsilî hücre, sonra artırılacak | `[tasarım]` |
-| Devreye alma | `F_max` sırasına göre boyut ilkesi | `[tasarım]` |
-| İki eklemli kaslar | tek havuz, iki örüntü katmanından girdi (RF, BFp, STa, STp, GP, GA, MG, LG, Pla, EDL) | `[tasarım]` |
+| Devreye alma (recruitment) | `F_max` sırasına göre Henneman büyüklük ilkesi (size principle) | `[tasarım]` |
+| İki eklemli (biartiküler) kaslar | tek havuz, iki örüntü oluşturma katmanından girdi (RF, BFp, STa, STp, GP, GA, MG, LG, Pla, EDL) | `[tasarım]` |
 | Antagonist eşleşme | eklem başına fleksör ⇄ ekstansör, moment kolu işaretinden | `[ölçüldü]` |
 | Gruplanmayanlar | Pir, GMi, OE, OI, Pec, BFa — işaret kararsız | `[ölçüldü]` gerekçe |
 
@@ -607,7 +612,7 @@ yavaş motonöronlarda fazla dublet üretiriz.
 
 ## 7 · Duyusal geri besleme: kas iğciği ve afferentler
 
-> Diyagram kaynağı: `07_literatur/diyagramlar/D4_igcik_afferent.md`
+> Diyagram kaynağı: `literatur/diyagramlar/D4_igcik_afferent.md`
 
 ```mermaid
 flowchart TD
@@ -641,7 +646,7 @@ flowchart TD
     IIIN --> CPGN
 ```
 
-**Ia denklemi** (`02_veri/r_katsayilari_v3.json`, kayıt `Ia_kinematik_v3`) `[literatürden]`:
+**Ia denklemi** (`veri/r_katsayilari_v3.json`, kayıt `Ia_kinematik_v3`) `[literatürden]`:
 
 ```
 f_Ia = max( 0 , 10,43 + 26,59 · d[mm] + 27,08 · max(v,0)[mm/s]^0,532 )
@@ -679,13 +684,13 @@ motonörona aktarım internöronu üzerinden gider; **Ib** lamina IX'a hiç girm
 
 ## 8 · Köprü: `u(t)` çıkışı, `r(t)` girişi
 
-Köprü, iki simülatörü tek bir Python denetim döngüsünde eş adımla ilerletir
-(`oz_fietkiewicz2025` §3b) `[tasarım]`:
+Köprü, iki simülatörü tek bir Python denetim döngüsünde **aynı zaman adımıyla eşzamanlı**
+ilerletir (`oz_fietkiewicz2025` §3b) `[tasarım]`:
 
 ```
 her adimda (dt = 0.025 ms):
     1. NEURON'u bir adim ilerlet
-    2. motonoron havuzlarinin diken cikislarini oku      -> u(t)
+    2. motonoron havuzlarinin aksiyon potansiyellerini oku -> u(t)
     3. u(t)'yi OpenSim kas aktivasyonlarina yaz
     4. OpenSim'i bir adim ilerlet
     5. kas-tendon boylarini ve hizlarini oku             -> l_mt, v_mt
@@ -695,10 +700,10 @@ her adimda (dt = 0.025 ms):
 
 | Karar | Seçim | Kaynak | Durum |
 |---|---|---|---|
-| Diken → aktivasyon | NetCon ile diken algıla, alçak geçirgen filtreyle `u(t)` üret | `oz_fietkiewicz2023` §3b | `[tasarım]` |
+| Aksiyon potansiyeli → aktivasyon | NetCon ile aksiyon potansiyelini algıla, alçak geçirgen filtreyle `u(t)` üret | `oz_fietkiewicz2023` §3b | `[tasarım]` |
 | Değişken taşıma tekniği (NEURON içi) | `POINTER` / parametre-pointer | `oz_fietkiewicz2023` §3a-3b | `[literatürden]` yöntem |
 | Ortak adım | 0,025 ms, sabit | `oz_fietkiewicz2025` §3d | `[literatürden]` |
-| Sayısal kararlılık kontrolü | adım-yarılama yakınsama testi | `oz_fietkiewicz2023` §5 | `[yapılacak]` — bizde **zorunlu**, çünkü kuplaj dışsal ve ortak Jacobian kurulamıyor |
+| Sayısal kararlılık kontrolü | zaman adımını yarılayıp sonucun değişmediğini doğrulama (step-halving convergence check) | `oz_fietkiewicz2023` §5 | `[yapılacak]` — bizde **zorunlu**, çünkü kuplaj dışsal ve ortak Jacobian kurulamıyor |
 | İki Python ortamı | NEURON 3.14 ana ortam, OpenSim 3.13 `.venv-osim` | `SDLC/06_KURULUM.md` | `[ölçüldü]` kısıt |
 
 **Ortam kısıtı (risk):** `opensim` Python 3.14 için tekerlek yayımlamıyor; NEURON 3.14
@@ -706,7 +711,7 @@ gerektiriyor. Bu yüzden proje iki ortamlıdır. Köprünün bu iki ortamı nas�
 (tek süreçte mi, süreçler arası mı) **açık bir tasarım sorusudur** — bölüm 14, soru 3.
 
 **Doğrulama hedefi:** köprü kurulduğunda NEURON'un ürettiği `u(t)`, statik optimizasyonun
-ürettiği `02_veri/u_swing_v2.csv` ile karşılaştırılacaktır. Bu iki sinyalin **aynı olması
+ürettiği `veri/u_swing_v2.csv` ile karşılaştırılacaktır. Bu iki sinyalin **aynı olması
 beklenmez** (biri optimizasyon, diğeri devre çıktısı); beklenen, salınım fazı zamanlamasının
 (bölüm 9.2) yeniden üretilmesidir.
 
@@ -717,7 +722,7 @@ beklenmez** (biri optimizasyon, diğeri devre çıktısı); beklenen, salınım 
 ### 9.1 · Moment kolları
 
 Ölçüm koşulu: diz açısı −120° (modelin varsayılan pozu). Kaynak:
-`04_kapali_dongu/02_DOGRULAMA_KAYDI.md` A bölümü, 27.07.2026 bağımsız ölçüm oturumu.
+`DOGRULAMA.md` A bölümü, 27.07.2026 bağımsız ölçüm oturumu.
 
 | Büyüklük | Ölçülen | Durum |
 |---|---|---|
@@ -743,12 +748,12 @@ Bildirinin "ekstansör kasların diz moment kolları pozitif, fleksör kasların
 **doğrulanmıştır.** Quadriceps için "yaklaşık +3,7 mm" cümlesi de doğrulanmıştır. Semimembranosus
 için bildiri −4,1 mm yazar; ölçülen −3,87 mm'dir (bölüm 10.1).
 
-Üç eklemin tamamı için kas-işlev haritası `07_literatur/diyagramlar/D5_kas_iskelet.md`'dedir.
+Üç eklemin tamamı için kas-işlev haritası `literatur/diyagramlar/D5_kas_iskelet.md`'dedir.
 
 ### 9.2 · Salınım fazı kas etkinlik sırası
 
-> Diyagram kaynağı: `07_literatur/diyagramlar/D7_yuruyus_zamanlama.md`
-> Veri: `02_veri/u_swing_v2.csv`, gait %65–100, 71 örnek.
+> Diyagram kaynağı: `literatur/diyagramlar/D7_yuruyus_zamanlama.md`
+> Veri: `veri/u_swing_v2.csv`, gait %65–100, 71 örnek.
 
 Bildirinin iddiası:
 
@@ -788,6 +793,10 @@ Kas kas tepe aktivasyon zamanları (tepe `a` > 0,005 olanlar; kalan 25 kas sessi
 | GMe | 0,0097 | 71,5 | kalça fleksör (zayıf) |
 | TFL | 0,0087 | 65,0 | kalça fleksör |
 | CF | 0,0054 | 100,0 | kalça ekstansör |
+
+Tabloda geçen **kararlılık**, bu çalışmada tanımlanmış bir ölçüttür: kasın moment kolu işaretinin,
+taranan eklem açısı ızgarasının (grid) kaçta kaçında aynı kaldığı. 1,00 = tüm çalışma aralığında
+aynı işaret; 0,50 ≈ işaret rastgele değişiyor, o kasa işlev atanamaz.
 
 Grup düzeyinde (moment kolu işaretine göre gruplanmış):
 
@@ -829,7 +838,7 @@ sonucun sınırları bölüm 10.4'tedir.
 ## 10 · Bildiri ile ölçüm arasındaki farklar
 
 > Bunlar poster önünde sorulabilecek sorulardır; hazırlıksız yakalanmamak için açık yazılıyor.
-> Kaynak: `04_kapali_dongu/02_DOGRULAMA_KAYDI.md`.
+> Kaynak: `DOGRULAMA.md`.
 
 ### 10.1 · Semimembranosus: bildiri −4,1 mm, ölçüm −3,87 mm
 
@@ -902,7 +911,7 @@ Bu ölçümün sınırları:
 
 Bildiri omurilik tarafı için yalnız "NEURON seçilmiştir" der. Bu preprint bölüm 6'da **tam bir
 mimari tasarım** verir; bu, bildirinin ötesine geçmek değil, seçimin açılımıdır. Ancak bölüm 6'daki
-hiçbir kutu bir **sonuç** olarak sunulmamaktadır: tamamı `[tasarım]` veya `[literatürden]`
+hiçbir bileşen bir **sonuç** olarak sunulmamaktadır: tamamı `[tasarım]` veya `[literatürden]`
 etiketlidir ve NEURON tarafından üretilmiş tek bir sayı henüz yoktur.
 
 ---
@@ -916,7 +925,7 @@ etiketlidir ve NEURON tarafından üretilmiş tek bir sayı henüz yoktur.
 | **Tek bacak, tek taraf** | Sol-sağ koordinasyon ve karşı bacak geri beslemesi yok | — |
 | **Yalnız salınım fazı** | Basma fazı ve yer tepki kuvveti kapsam dışı (bildirinin kendi sınırı) | bildiri özeti |
 | **Addüksiyon/rotasyon eksenleri dondurulmuş** | Kinematik girdi üç eklemi sürüyor; 3B etkiler yok | `[ölçüldü]` bölüm 5.2 |
-| **Rijit tendon** | Tendon esnekliğinin lif boyu ve kuvvete etkisi yok | `03_kod/kod_02_swing_id_so.py` |
+| **Rijit tendon** | Tendon esnekliğinin lif boyu ve kuvvete etkisi yok | `kod/opensim/kod_02_swing_id_so.py` |
 | **`fV`'de `(0,25+0,75a)` terimi ihmal** | Düşük aktivasyonlarda kuvvet-hız ilişkisi yaklaşık | aynı |
 | **Motonöron modeli kediden** | PIC-konum etkileri sıçanda zayıf çıkabilir; yazarın kendi uyarısı | `oz_kim2020` §6.1 |
 | **Afferent verisi Wistar sıçandan** | Bizim taban Sprague-Dawley; soy farkı bantların içinde varsayılıyor | `oz_vincent2017` §5 |
@@ -928,7 +937,7 @@ etiketlidir ve NEURON tarafından üretilmiş tek bir sayı henüz yoktur.
 
 ## 12 · Doğrulama planı ve tolerans bantları
 
-> Diyagram kaynağı: `07_literatur/diyagramlar/D8_veri_hatti_dogrulama.md`
+> Diyagram kaynağı: `literatur/diyagramlar/D8_veri_hatti_dogrulama.md`
 
 İşlem hattı:
 
@@ -944,7 +953,7 @@ flowchart TD
     MODC["nrnivmodl derleme<br/>fig2_4_6 - 12 mekanizmadan 11 derlendi<br/>module1_2.mod ENGEL"]
     MN1["Asama 1: tek motonoron dogrulamasi<br/>Kim Fig 2-9 yeniden uretimi<br/>[YAPILACAK]"]
     POOL["38 motonoron havuzu + CPG + internoronlar<br/>[YAPILACAK]"]
-    BR["Kopru: u t cikisi - r t girisi<br/>es adim dt = 0.025 ms<br/>[YAPILACAK]"]
+    BR["Kopru: u t cikisi - r t girisi<br/>ayni zaman adimi dt = 0.025 ms<br/>[YAPILACAK]"]
     CL["Kapali dongu kosusu<br/>[HEDEF]"]
 
     OSIM --> ID
@@ -995,7 +1004,7 @@ düşmezse önce model ve varsayımlar sorgulanır, bant sessizce genişletilmez
 `ic_olcum` kayıtları karıştırılmaz: iç ölçüm bandı bir **regresyon** bandıdır, literatür
 doğrulaması sayılmaz.
 
-Bugün `07_literatur/referans_degerler.json`'da 6 kayıt vardır (2'si `ic_olcum`). Özütlerde hazır
+Bugün `literatur/referans_degerler.json`'da 6 kayıt vardır (2'si `ic_olcum`). Özütlerde hazır
 olup JSON'a **henüz girmemiş** bantlar: Vincent'ın 6 afferent bandı, Gorassini'nin 6 motonöron
 bandı, Kim'in eşik bandı, Johnson'ın BFA kalça moment kolu bandı `[yapılacak]`.
 
@@ -1011,7 +1020,7 @@ bandı, Kim'in eşik bandı, Johnson'ın BFA kalça moment kolu bandı `[yapıla
 | 3 | Aşama 1: tek motonöron doğrulaması | Kim Fig 2–9 davranışının yeniden üretimi | `D_path` taraması Tip I / IV / III desenlerini verir; eşik-boy ilişkisi monoton | `[yapılacak]` |
 | 4 | İğcik modeli sıçana kalibrasyon | Ia/II denklemleri | Vincent bantlarına düşer (bölüm 7) | `[yapılacak]` |
 | 5 | 38 motonöron havuzu + CPG + internöronlar | NEURON devresi | havuz çıkışı Gorassini bantlarına düşer (bölüm 6.4) | `[yapılacak]` |
-| 6 | Köprü | `u(t)` çıkışı, `r(t)` girişi, eş adım | adım-yarılama testi geçer | `[yapılacak]` |
+| 6 | Köprü | `u(t)` çıkışı, `r(t)` girişi, aynı zaman adımı | zaman adımı yarılandığında sonuç değişmiyor | `[yapılacak]` |
 | 7 | Kapalı döngü koşusu | salınım fazının devre tarafından üretilmesi | zamanlama sırası bölüm 9.2 ile karşılaştırılır | `[hedef]` |
 
 Bildirinin "deneysel çalışmalar ile model güncellenip basma fazı çözülecektir" cümlesi bu yol
@@ -1038,7 +1047,7 @@ haritasının **ötesindedir** ve bu preprintin kapsamı dışındadır.
 
 ## 15 · Kaynaklar
 
-Tam özütler `07_literatur/oz_*.md` dosyalarındadır; aşağıdaki liste her kaynağın projedeki
+Tam özütler `literatur/oz_*.md` dosyalarındadır; aşağıdaki liste her kaynağın projedeki
 rolünü gösterir.
 
 | Kaynak | Künye | Projedeki rolü |
@@ -1048,9 +1057,85 @@ rolünü gösterir.
 | **Vincent ve ark. 2017** | *Muscle proprioceptors in adult rat: mechanosensory signaling and synapse distribution in spinal cord*, J Neurophysiol 118:2687–2701 | Sıçan Ia/II afferent doğrulama bantları; Ia → lamina IX monosinaptik bağlantının anatomik kanıtı. |
 | **Gorassini ve ark. 2000** | *Activity of Hindlimb Motor Units During Locomotion in the Conscious Rat*, J Neurophysiol 83:2002–2011 | Motonöron havuzu çıkışının doğrulama hedefleri: yürüyüşte frekanslar ve dublet oranları. |
 | **Yu ve Thomas 2021** | *Dynamical consequences of sensory feedback in a half-center oscillator coupled to a simple motor system*, Biol Cybern 115:135–160 | CPG mimarisi ve `gFB`/`gCPG` ödünleşimi; yöntem şablonu. Parametre kaynağı değildir (Aplysia + Morris-Lecar). |
-| **Fietkiewicz ve ark. 2023** | *Tutorial: using NEURON for neuromechanical simulations*, Front Comput Neurosci 17:1143323 | NEURON içi modül bağlama tekniği (`POINTER`, NetCon), non-smooth dinamik, adım-yarılama testi. |
-| **Fietkiewicz ve ark. 2025** | *Neuromechanical Simulation with NEURON and MuJoCo* | Eş adımlı köprü mimarisinin şablonu. Aynı iskelet tabanı (Johnson 2008) ama fizik motoru MuJoCo; bizim tercihimiz OpenSim. |
-| **Blum 2020** | iğcik Ia fit verisi | `02_veri/r_katsayilari_v3.json`'daki Ia katsayılarının kaynağı. **Özütü henüz yok** — `07_literatur/`'e eklenmeli. |
+| **Fietkiewicz ve ark. 2023** | *Tutorial: using NEURON for neuromechanical simulations*, Front Comput Neurosci 17:1143323 | NEURON içi modül bağlama tekniği (`POINTER`, NetCon), süreksiz (non-smooth) dinamik, zaman adımı yarılama testi. |
+| **Fietkiewicz ve ark. 2025** | *Neuromechanical Simulation with NEURON and MuJoCo* | İki simülatörün aynı zaman adımıyla eşzamanlı ilerletildiği köprü mimarisinin şablonu. Aynı iskelet tabanı (Johnson 2008) ama fizik motoru MuJoCo; bizim tercihimiz OpenSim. |
+| **Blum 2020** | iğcik Ia fit verisi | `veri/r_katsayilari_v3.json`'daki Ia katsayılarının kaynağı. **Özütü henüz yok** — `literatur/`'e eklenmeli. |
 
 **Eksik kaynak uyarısı:** Blum 2020'nin özütü bu klasörde yoktur; Ia denklemi bugün özütsüz bir
 JSON kaydına dayanmaktadır. Ayrıca IaIN / Renshaw katmanlarının hiçbir kaynağı yoktur (bölüm 6.1).
+
+---
+
+## 16 · Terimler
+
+Bu belgede kullanılan Türkçe terimlerin literatürdeki özgün karşılıkları. Bir terimin Türkçesi
+yerleşmemişse metinde ilk geçtiği yerde İngilizcesi parantez içinde verilir; **uydurma karşılık
+kullanılmaz**, gerekirse terim doğrudan İngilizce yazılır.
+
+### Sinir sistemi
+
+| Bu belgede | Literatürdeki özgün terim |
+|---|---|
+| merkezi örüntü üreteci (MÖÜ) | central pattern generator (CPG) |
+| yarım-merkez osilatör | half-center oscillator (HCO) |
+| ritim üretici katman | rhythm generator (RG) |
+| örüntü oluşturma katmanı | pattern formation (PF) layer |
+| supraspinal tonik girdi | (supraspinal) tonic drive |
+| mezensefalik lokomotor bölge | mesencephalic locomotor region (MLR) |
+| internöron | interneuron |
+| resiprokal inhibisyon | reciprocal inhibition |
+| rekürren inhibisyon | recurrent inhibition |
+| Renshaw hücresi | Renshaw cell |
+| aktarıcı internöron | relay interneuron |
+| motonöron havuzu | motoneuron pool |
+| devreye alma / Henneman büyüklük ilkesi | recruitment / Henneman size principle |
+| aksiyon potansiyeli (diken) | action potential (spike) |
+| aksiyon potansiyeli dizisi | spike train |
+| kalıcı içeri akım | persistent inward current (PIC) |
+| yol uzaklığı (`D_path`) | path distance from soma |
+| akson tepeciği | axon hillock |
+| başlangıç segmenti | (axon) initial segment |
+| kas iğciği | muscle spindle |
+| birincil / ikincil afferent | group Ia / group II afferent |
+| Golgi tendon organı | Golgi tendon organ (group Ib) |
+| dinamik indeks | dynamic index (DI) |
+| dublet / triplet | doublet / triplet |
+| iletim gecikmesi | conduction delay |
+
+### Kas-iskelet
+
+| Bu belgede | Literatürdeki özgün terim |
+|---|---|
+| kas-tendon birimi | muscle-tendon unit (MTU) |
+| moment kolu | moment arm |
+| ters dinamik | inverse dynamics (ID) |
+| statik optimizasyon | static optimization (SO) |
+| kasılan eleman / paralel eleman / seri eleman | contractile / parallel / series element (CE, PE, SE) |
+| pennasyon açısı | pennation angle |
+| optimal lif boyu (`lmo`) | optimal fiber length |
+| tendon boşluk boyu (`tsl`) | tendon slack length |
+| maksimum izometrik kuvvet (`F_max`) | maximum isometric force |
+| fizyolojik kesit alanı | physiological cross-sectional area (PCSA) |
+| sarma nesnesi | wrap object (OpenSim: `WrapTorus`, `WrapCylinder`) |
+| ara nokta | via point |
+| iki eklemli kas | biarticular muscle |
+| salınım / basma fazı | swing / stance phase |
+| dorsifleksiyon / plantar fleksiyon | dorsiflexion / plantarflexion |
+| yer tepki kuvveti | ground reaction force (GRF) |
+
+### Yöntem ve sayısal terimler
+
+| Bu belgede | Literatürdeki özgün terim |
+|---|---|
+| tolerans bandı | tolerance band |
+| ızgara | grid |
+| zaman adımı yarılama testi | step-halving convergence check |
+| süreksiz dinamik | non-smooth dynamics |
+| aynı zaman adımıyla eşzamanlı ilerletme | co-simulation with a shared time step |
+
+### Bu çalışmada tanımlanan ölçütler (literatürde karşılığı yoktur)
+
+| Terim | Tanım |
+|---|---|
+| **işaret kararlılığı** | Bir kasın moment kolu işaretinin, taranan eklem açısı ızgarasının kaçta kaçında aynı kaldığı (0,5–1,0). 1,00 = tüm aralıkta aynı işaret. |
+| **aktivasyon ağırlık merkezi** | Bir kas grubunun salınım fazı boyunca aktivasyonla ağırlıklandırılmış ortalama zamanı: `Σ(a·t)/Σa`. |

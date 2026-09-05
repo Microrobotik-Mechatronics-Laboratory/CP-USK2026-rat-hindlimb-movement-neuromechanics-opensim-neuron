@@ -1,6 +1,6 @@
 # D7 — Salınım fazı zamanlaması: iddia edilen sıra ile ölçülen sıra
 
-Kaynak veri: `02_veri/u_swing_v2.csv` — ters dinamik + statik optimizasyon çıktısı, salınım
+Kaynak veri: `veri/u_swing_v2.csv` — ters dinamik + statik optimizasyon çıktısı, salınım
 aralığı gait %65–100, 71 örnek, çevrim süresi T = 0,387 s.
 
 ## Bildirinin iddiası

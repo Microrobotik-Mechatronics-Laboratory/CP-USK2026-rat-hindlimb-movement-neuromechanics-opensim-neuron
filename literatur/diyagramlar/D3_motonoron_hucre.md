@@ -1,7 +1,7 @@
 # D3 — Tek motonöron: bölmeler, kanallar, PIC ve Ia sinapsı
 
 Havuzun yapı taşı, Kim 2020'nin NEURON motonöronudur. Depodaki uygulama:
-`inline-supplementary-material-1/fig2_4_6/`.
+`neuron/fig2_4_6/`.
 
 ```mermaid
 flowchart TD
@@ -13,12 +13,12 @@ flowchart TD
 
     SOMA["SOMA<br/>Naf - KDr - CaN 0.013 S/cm2<br/>KCa 0.0258 S/cm2 - Nap 3.3e-5 S/cm2<br/>Ca_conc<br/>IaSyn de burada"]
     HIL["Akson tepecigi hillock<br/>L = 20 um - cap 13 to 3 um<br/>Naf - KDr - Nap"]
-    IS["Baslangic segmenti is<br/>L = 30 um - cap 3.3 um<br/>Naf - KDr - Nap<br/>diken burada dogar"]
+    IS["Baslangic segmenti - initial segment<br/>L = 30 um - cap 3.3 um<br/>Naf - KDr - Nap<br/>aksiyon potansiyeli burada dogar"]
     MU["muscle_unit<br/>L = 10 um - cap 10 um<br/>CaSP + fHill + Xm<br/>[yalniz Asama 1 dogrulamasinda]"]
 
     IAIN["Ia afferent girisi<br/>gmax_IaSyn<br/>0 / 9.3e-6 / 19e-6 S/cm2<br/>kas boyuna gore"]
     XM["Xm - kas boyu parametresi<br/>xm = -16 / -8 / 0 mm"]
-    OUT["Diken cikisi<br/>NetCon esigi -40 mV<br/>to u t koprusu"]
+    OUT["Aksiyon potansiyeli cikisi - spike train<br/>NetCon esigi -40 mV<br/>to u t koprusu"]
 
     IAIN --> DPROX
     IAIN --> SOMA

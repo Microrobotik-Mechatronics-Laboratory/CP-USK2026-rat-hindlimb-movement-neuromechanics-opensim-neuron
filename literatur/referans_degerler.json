@@ -71,7 +71,7 @@
       "kaynak_tipi": "ic_olcum",
       "kaynak": {
         "kunye": "Bu proje, 27.07.2026 dogrulama oturumu",
-        "tanimlayici": "04_kapali_dongu/02_DOGRULAMA_KAYDI.md",
+        "tanimlayici": "DOGRULAMA.md",
         "yer": "A bolumu + H9 tablosu"
       },
       "buyukluk": "Semimembranosus diz moment kolu (varsayilan diz acisi -120 derece)",
@@ -88,7 +88,7 @@
       "kaynak_tipi": "ic_olcum",
       "kaynak": {
         "kunye": "Bu proje, 27.07.2026 dogrulama oturumu",
-        "tanimlayici": "04_kapali_dongu/02_DOGRULAMA_KAYDI.md",
+        "tanimlayici": "DOGRULAMA.md",
         "yer": "A bolumu"
       },
       "buyukluk": "Quadriceps dort basinin diz moment kolu (varsayilan diz acisi -120 derece)",

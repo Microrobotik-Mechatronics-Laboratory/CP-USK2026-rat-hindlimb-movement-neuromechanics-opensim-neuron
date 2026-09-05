@@ -7,7 +7,7 @@ Oklar: `+` eksitatör, `−` inhibitör.
 
 ```mermaid
 flowchart TD
-    DRV["Supraspinal tonik surus I_drive<br/>[tasarim]"]
+    DRV["Supraspinal tonik girdi - tonic drive<br/>I_drive<br/>[tasarim]"]
 
     RGF["RG-F<br/>fleksor yarim merkez<br/>iletkenlik tabanli noron"]
     RGE["RG-E<br/>ekstansor yarim merkez<br/>iletkenlik tabanli noron"]
@@ -84,7 +84,7 @@ flowchart TD
 
 | Katman | Ne yapar | Kaynak | Durum |
 |---|---|---|---|
-| Supraspinal sürüş | Ritmi başlatan sabit sürüş; MLR benzeri | — | `[tasarım]` |
+| Supraspinal tonik girdi (tonic drive) | Ritmi başlatan sabit girdi; mezensefalik lokomotor bölge (MLR) benzeri | — | `[tasarım]` |
 | CPG yarım-merkezleri (RG-F, RG-E) | Karşılıklı inhibisyonla ritim üretir | `oz_yu2021_kapalidongu.md` §3a-3b — Morris-Lecar HCO, karşılıklı inhibitör sinapslar | `[literatürden]` mimari; hücre modeli `[tasarım]` |
 | Geri besleme iletkenliği `gFB` ve CPG içi `gCPG` | Ritmin ne kadarının merkezden, ne kadarının duyudan geldiğini belirler | `oz_yu2021_kapalidongu.md` §4b — gFB↑ dış pertürbasyona gürbüz, iç gürültüye hassas | `[literatürden]` ödünleşim; değerler taranacak |
 | Ia monosinaptik eksitasyon (afferent → homonim MN) | Germe refleksinin doğrudan kolu | `oz_vincent2017_proprioseptor.md` §4b — Ia varikoziteleri lamina IX'ta triceps surae motor havuzunun ≥30 µm nöronlarıyla temas | `[literatürden]` anatomik kanıt |
@@ -95,14 +95,14 @@ flowchart TD
 
 ## Dürüstlük notu
 
-`IaIN` ve `Renshaw` katmanları **bu projenin literatür setinde kaynağı olmayan** iki kutudur.
+`IaIN` ve `Renshaw` katmanları **bu projenin literatür setinde kaynağı olmayan** iki bileşendir.
 Devrenin çalışması için gerekli görünüyorlar ama şu an bir yayına dayanmıyorlar. İki seçenek:
 
-1. Bunları destekleyen bir kaynak `07_literatur/`'e eklenir ve özütlenir; ya da
+1. Bunları destekleyen bir kaynak `literatur/`'e eklenir ve özütlenir; ya da
 2. İlk sürümde devre dışı bırakılır — CPG'nin karşılıklı inhibisyonu zaten fleksör/ekstansör
    almaşmasını üretir (`oz_yu2021_kapalidongu.md`: HCO tek başına osilasyon veriyor).
 
-Karar verilene kadar bu iki kutu **iddia edilmez**.
+Karar verilene kadar bu iki bileşen **iddia edilmez**.
 
 ## Neden yarım-merkez seçildi
 

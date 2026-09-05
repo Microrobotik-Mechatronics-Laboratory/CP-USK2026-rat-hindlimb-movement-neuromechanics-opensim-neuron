@@ -37,7 +37,7 @@ flowchart TD
 
 ## Model denklemi ve kaynağı
 
-`02_veri/r_katsayilari_v3.json`, kayıt `Ia_kinematik_v3`:
+`veri/r_katsayilari_v3.json`, kayıt `Ia_kinematik_v3`:
 
 ```
 f_Ia = max( 0 , 10,43 + 26,59 · d[mm] + 27,08 · max(v,0)[mm/s]^0,532 )
@@ -89,4 +89,4 @@ Bantlar ±1 SD; kaynak `oz_vincent2017_proprioseptor.md` Tablo 4 ve §7.
   (`oz_vincent2017_proprioseptor.md` §9). Doğrulama koşusunda açıkça tanımlanacak.
 - Ia → CPG kolu: `oz_yu2021_kapalidongu.md`'deki `gFB` yerine burada II üzerinden çizildi; hangi
   afferentin CPG'ye bağlanacağı taranacak bir tasarım kararıdır.
-- γ-motonöron (fusimotor) sürüş yok; iğcik pasif.
+- γ-motonöron (fusimotor) girdisi yok; iğcik pasif.
