@@ -13,15 +13,21 @@ kaldığımızı ve nasıl çalıştığımızı bilmesi.
 |---|---|---|
 | `00_DURUM.md` | **Anlık durum panosu** — şu an neredeyiz, sıradaki adım | SICAK — her oturum |
 | `03_GUNLUK.md` | **Oturum günlüğü** — ne yaptık (append-only, tarihli) | SICAK — her oturum |
-| `01_PROJE.md` | Proje tanımı, amaç, kapsam, kaynaklar | referans (nadir) |
+| `01_PROJE.md` | Proje tanımı, amaç, kapsam, kas-NEURON köprüsü, kaynaklar | referans (nadir) |
 | `02_IS_PAKETLERI.md` | İş paketleri (WBS) ve durumları | yarı-sıcak |
-| `04_KURALLAR.md` | Git, dokümantasyon, yorum, test, raporlama kuralları | referans (nadir) |
+| `04_KURALLAR.md` | Git, bağımlılık, dokümantasyon, yorum, test, raporlama kuralları | referans (nadir) |
 | `05_MIMARI_RISK.md` | Veri-akış haritası + bilinen riskler | referans (nadir) |
+| `06_KURULUM.md` | Sıfırdan kurulum (uv, iki ortam, NEURON derlemesi) | referans (nadir) |
 
 **Sıcak dosyalar** (SICAK) her oturum güncellenir. Diğerleri sadece ilgili şey değişince.
 
-Klasör/dosya manifestosu için ayrıca `../OKU.txt`; bilimsel doğrulama defteri için
-`../04_kapali_dongu/02_DOGRULAMA_KAYDI.md`. Bu iki dosya **buraya kopyalanmaz**, referans verilir.
+**Projeyi ilk kez kuruyorsanız** doğrudan `06_KURULUM.md`'ye gidin. Proje **iki ayrı Python
+ortamı** ister (3.14 NEURON / 3.13 OpenSim); sebebi orada anlatılır.
+
+Bu klasöre **kopyalanmayan**, referans verilen kaynaklar:
+- `../OKU.txt` — klasör/dosya manifestosu
+- `../04_kapali_dongu/02_DOGRULAMA_KAYDI.md` — bilimsel doğrulama defteri
+- `../07_literatur/` — makale özütleri + testlerin okuduğu `referans_degerler.json`
 
 ---
 
@@ -33,6 +39,8 @@ Klasör/dosya manifestosu için ayrıca `../OKU.txt`; bilimsel doğrulama defter
    - kod/git/test/yorum yazacaksan → `04_KURALLAR.md`
    - kapsam/hedef/iş paketi → `01_PROJE.md` + `02_IS_PAKETLERI.md`
    - teknik akış/risk → `05_MIMARI_RISK.md`
+   - ortam kurulumu/çalıştırma → `06_KURULUM.md`
+   - literatür değeri veya tolerans bandı → `../07_literatur/referans_degerler.json`
 4. Kullanıcıya **2-3 satır özet** ver: "Şu an X iş paketindeyiz, son oturumda Y yaptık,
    sıradaki adım Z." Ekstra soru sormadan çalışmaya hazır ol.
 
