@@ -709,14 +709,19 @@ her kopru adiminda (dt_k = 0.3 ms; NEURON kendi icinde 12 x 0.025 ms adim atar):
 | Aksiyon potansiyeli → aktivasyon | NetCon ile aksiyon potansiyelini algıla, alçak geçirgen filtreyle `u(t)` üret | `oz_fietkiewicz2023` §3b | `[tasarım]` |
 | Değişken taşıma tekniği (NEURON içi) | `POINTER` / parametre-pointer | `oz_fietkiewicz2023` §3a-3b | `[literatürden]` yöntem |
 | NEURON entegrasyon adımı | 0,025 ms, sabit | `oz_fietkiewicz2025` §3d | `[literatürden]` |
-| Köprü alışveriş adımı `dt_k` | **0,3 ms** | bu çalışma | `[tasarım]` — gerekçe aşağıda |
+| Köprü alışveriş adımı `dt_k` | **0,15 ms** | bu çalışma | `[ölçüldü]` — yakınsama taramasıyla seçildi, gerekçe aşağıda |
 | Sayısal kararlılık kontrolü | zaman adımını yarılayıp sonucun değişmediğini doğrulama (step-halving convergence check) | `oz_fietkiewicz2023` §5 | `[ölçüldü]` — bizde **zorunlu**, çünkü kuplaj dışsal ve ortak Jacobian kurulamıyor; `kod/kopru/adim_yarilama.py` |
 | Ortam | **tek süreç**: `~/.venvs/usk26-kopru` (Python 3.13, NEURON 9.0.2 + OpenSim 4.6) | `SDLC/06_KURULUM.md` | `[ölçüldü]` |
 
-**`dt_k` = 0,3 ms neden:** 0,3 ms hem NEURON adımının (0,025 ms) tam katıdır (12 adım), hem Ia
-iletim gecikmesinin (1,5 ms → 5 adım) hem II gecikmesinin (1,8 ms → 6 adım) **tam bölenidir**.
-Böylece gecikmeler halka tamponunda tam sayı adım olarak taşınır ve yuvarlama hatası sıfır olur.
-Efferent gecikme 6 ms = 20 adım `[varsayım]`.
+**`dt_k` = 0,15 ms neden:** 0,15 ms hem NEURON adımının (0,025 ms) tam katıdır (6 adım), hem Ia
+iletim gecikmesinin (1,5 ms → 10 adım), II gecikmesinin (1,8 ms → 12 adım) ve efferent
+gecikmenin (6 ms → 40 adım) **tam bölenidir**. Böylece gecikmeler halka tamponunda tam sayı adım
+olarak taşınır ve yuvarlama hatası sıfır olur.
+
+İlk seçim 0,3 ms idi ve **adım yarılama testini düşürdü** (eklem ROM'u %21,8 değişiyordu).
+Bant genişletilmedi; üç noktalı tarama yapıldı ve çözümün yakınsadığı, 0,3 ms'in yalnızca kaba
+olduğu görüldü: ROM 73,94° → 54,41° → 54,10° (0,30 / 0,15 / 0,075 ms). 0,15 ile 0,075 arasında
+fark %0,57'dir. Ayrıntı: `DOGRULAMA.md` P.6–P.8. `[ölçüldü]`
 
 **Ortam sorusu kapandı (05.09.2026):** `opensim` Python 3.14 için tekerlek yayımlamıyor ama
 `neuron==9.0.2` **cp313 tekerleği yayımlıyor**; ortak payda 3.13'tür. `import opensim` ve
