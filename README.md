@@ -19,8 +19,10 @@ The longer-term motivation is a substrate for developing neuroprostheses after s
 
 Where the work stands today: the musculoskeletal half is built and swing-phase muscle activations
 have been solved; the motoneuron cell is built in Python and matches the reference HOC
-implementation bit-for-bit; NEURON and OpenSim have been shown to run inside one Python process.
-Wiring the full 38-pool spinal circuit is the step in progress.
+implementation bit-for-bit; NEURON and OpenSim have been shown to run inside one Python process;
+and the spinal circuit above the motoneuron — CPG half-centres, the pattern-formation layer, and
+the reciprocal/recurrent interneurons — is now built and calibrated to the gait cycle. Closing the
+loop end to end, with all 38 pools, is the step in progress.
 
 `PREPRINT.md` is the scientific source of truth (method, numbers, claims, open questions).
 `DOGRULAMA.md` is the measurement log — what was verified, when, and what was not.
@@ -157,9 +159,12 @@ force would be generated twice.
 | Motoneuron cross-check (Python vs HOC) | 315/315 sections, 2655/2655 segments, 28/28 spikes, **spike-time difference 0.000000 ms, voltage difference 0.000000 mV** |
 
 Honesty note: the quadriceps `+3.7 mm` is produced by the `femur_dist` WrapTorus, not by the
-underlying anatomy — with wrapping disabled the quadriceps become flexors. The comparison against
-Johnson's Figure 3 has **not** been made, so these values do not yet carry an experimental
-validation claim. Full detail, including the GMa sign contradiction, is in `PREPRINT.md` §10.
+underlying anatomy. With wrapping disabled the quadriceps become flexors (−0.65 to −1.18 mm); with
+Johnson's Table 6 via points instead of the torus the sign is correct but the magnitude falls to
++1.01…+1.51 mm and the tight clustering disappears. So the four heads agreeing within 0.03 mm is an
+artefact of the torus, not an anatomical finding. The semimembranosus −3.87 mm, by contrast, is
+completely independent of wrapping — it is the most defensible number here. Full detail, including
+the GMa sign contradiction, is in `PREPRINT.md` §10 and `DOGRULAMA.md` §B-C.
 
 ### What runs today
 
@@ -170,7 +175,7 @@ validation claim. Full detail, including the GMa sign contradiction, is in `PREP
 | NEURON mechanisms (`neuron/`) | **Compile.** 12/12 across all four figure folders. |
 | NEURON-OpenSim bridge (`kod/kopru/`) | **Runs.** Single process; motoneuron verified against HOC. |
 | Rest of the OpenSim pipeline | Missing inputs — see the table in `kod/opensim/README.md`. |
-| Full 38-pool spinal circuit | Designed, not yet wired. |
+| Spinal circuit (`kod/kopru/nrn_devre.py`) | **Built and calibrated** to the gait cycle; end-to-end loop closure with all 38 pools not yet logged in `DOGRULAMA.md`. |
 
 The repository is not fully self-contained: `kod/opensim/rig.py` and a few raw datasets
 (Bauman CSVs, Blum `.mat` files) are not here, so the scripts depending on them do not run.
@@ -200,7 +205,10 @@ kod/             all Python
   yollar.py                     single source of in-repo paths; every script uses it
   opensim/                      ID + static optimization pipeline (Python 3.13, .venv-osim)
   kapali_dongu/                 emergent closed loop + CMA-ES (Python 3.14, pure NumPy)
-  kopru/                        NEURON-OpenSim bridge, motoneuron in Python (Python 3.13)
+  kopru/                        NEURON-OpenSim bridge (Python 3.13)
+    nrn_hucre.py  nrn_devre.py      motoneuron cell and the spinal circuit above it
+    igcik.py  osim_mekanik.py       muscle spindle; OpenSim forward dynamics
+    devre_par.json                  synaptic weights and calibration values (never in code)
 
 neuron/          NEURON source tree: the Kim 2020 motoneuron model (.hoc + .mod)
   fig2_4_6/  fig3_5_7/  fig8/  fig9/     per-figure mechanism sets
@@ -242,8 +250,9 @@ kurmak.
 
 Bugünkü nokta: kas-iskelet yarısı kurulu ve salınım fazı kas aktivasyonları çözüldü; motonöron
 hücresi Python'da kuruldu ve referans HOC uygulamasıyla birebir doğrulandı; NEURON ile OpenSim'in
-tek bir Python sürecinde birlikte koştuğu gösterildi. Sıradaki adım 38 havuzluk omurilik devresini
-bağlamak.
+tek bir Python sürecinde birlikte koştuğu gösterildi; motonöronun üstündeki omurilik devresi —
+CPG yarım-merkezleri, örüntü oluşturma katmanı, resiprokal ve rekürren internöronlar — kuruldu ve
+yürüyüş çevrimine kalibre edildi. Sıradaki adım döngüyü 38 havuzla uçtan uca kapatmak.
 
 `PREPRINT.md` bilimsel tek doğruluk kaynağıdır (yöntem, sayılar, iddialar, açık sorular).
 `DOGRULAMA.md` ölçüm defteridir — ne, ne zaman doğrulandı ve ne doğrulanmadı.
@@ -379,9 +388,12 @@ iki kez üretilirdi.
 | Motonöron çapraz kontrolü (Python vs HOC) | 315/315 section, 2655/2655 segment, 28/28 diken, **diken zamanı farkı 0,000000 ms, voltaj farkı 0,000000 mV** |
 
 Dürüstlük notu: quadriceps'in `+3,7 mm`'sini anatominin kendisi değil `femur_dist` WrapTorus'u
-üretiyor — sarma kapatıldığında quadriceps fleksör oluyor. Johnson'ın Şekil 3'üyle karşılaştırma
-**yapılmadı**, dolayısıyla bu değerler henüz bir deneysel doğrulama iddiası taşımıyor. Ayrıntı ve
-GMa işaret çelişkisi `PREPRINT.md` bölüm 10'dadır.
+üretiyor. Sarma kapatıldığında quadriceps fleksör oluyor (−0,65…−1,18 mm); torus yerine Johnson'ın
+Tablo 6 via point'leri konduğunda işaret düzeliyor ama büyüklük +1,01…+1,51 mm'ye düşüyor ve
+kümelenme kayboluyor. Yani dört başın 0,03 mm içinde kümelenmesi torusun ürettiği yapay bir
+sonuçtur, anatomik bir bulgu değildir. Buna karşılık semimembranosus'un −3,87 mm'si sarmadan
+tamamen bağımsızdır — buradaki en savunulabilir sayı odur. Ayrıntı ve GMa işaret çelişkisi
+`PREPRINT.md` bölüm 10 ile `DOGRULAMA.md` §B-C'dedir.
 
 ### Depo bugün ne kadar koşuyor
 
@@ -392,7 +404,7 @@ GMa işaret çelişkisi `PREPRINT.md` bölüm 10'dadır.
 | NEURON mekanizmaları (`neuron/`) | **Derleniyor.** Dört figür klasöründe 12/12. |
 | NEURON-OpenSim köprüsü (`kod/kopru/`) | **Koşar.** Tek süreç; motonöron HOC'a karşı doğrulandı. |
 | OpenSim hattının kalanı | Girdileri eksik — tablo: `kod/opensim/README.md`. |
-| 38 havuzluk tam omurilik devresi | Tasarlandı, henüz bağlanmadı. |
+| Omurilik devresi (`kod/kopru/nrn_devre.py`) | **Kuruldu ve** yürüyüş çevrimine **kalibre edildi**; 38 havuzla uçtan uca döngü kapanışı henüz `DOGRULAMA.md`'ye işlenmedi. |
 
 Depo tam self-contained değildir: `kod/opensim/rig.py` ve bazı ham veri kümeleri (Bauman CSV'leri,
 Blum `.mat` dosyaları) burada yoktur; bunlara bağlı betikler koşmaz.
@@ -422,7 +434,10 @@ kod/             tum Python
   yollar.py                     depo-ici yollarin tek kaynagi; betikler bunu kullanir
   opensim/                      ID + Statik Optimizasyon hatti (Python 3.13, .venv-osim)
   kapali_dongu/                 emergent kapali-dongu + CMA-ES (Python 3.14, saf NumPy)
-  kopru/                        NEURON-OpenSim koprusu, Python'da motonoron (Python 3.13)
+  kopru/                        NEURON-OpenSim koprusu (Python 3.13)
+    nrn_hucre.py  nrn_devre.py      motonoron hucresi ve ustundeki omurilik devresi
+    igcik.py  osim_mekanik.py       kas igcigi; OpenSim ileri dinamigi
+    devre_par.json                  sinaptik agirliklar ve kalibrasyon degerleri (koda gomulmez)
 
 neuron/          NEURON kaynak agaci: Kim 2020 motonoron modeli (.hoc + .mod)
   fig2_4_6/  fig3_5_7/  fig8/  fig9/     figure ozel mekanizma kumeleri
