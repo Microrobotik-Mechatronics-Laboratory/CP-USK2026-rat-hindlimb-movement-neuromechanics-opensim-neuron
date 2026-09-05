@@ -1018,8 +1018,51 @@ NEURON adımının katı olma özelliği de korunuyor (0,15/0,025 = **6 adım**)
 **Bant değil, adım değiştirildi.** Ölçüt banda uymadığında önce modelin sorgulanması kuralının
 (04_KURALLAR, madde 2) uygulanmasıdır bu.
 
-Yeni üretim değeriyle (`dt_k` = 0,15 ms) koşum ve adım yarılama testi yeniden yapılmıştır;
-sonuçları aşağıdadır.
+## P.7 · Üretim adımıyla (0,15 ms) kapalı döngü koşumu — kanonik sonuç
+
+| Büyüklük | Ölçülen | Referans / bant | Sonuç |
+|---|---|---|---|
+| **Çevrim süresi** | **0,375 s** | `ic.kopru_cevrim_suresi` 0,387 s · bant [0,348 – 0,426] | **BANTTA** |
+| Bilek açısı | +14,00 … +68,41° (ROM 54,41°) | ölçülmüş yürüyüş −2,89 … +30,65° | **dışarıda** |
+| `u_DF` – `u_PF` korelasyonu | **−0,734** | zıtfaz bekleniyor | **sağlandı** |
+| TA havuzu, etkin faz | 24,52 Hz | `gorassini2000.mn_frekans_TA_swing` 97 · [80 – 110] | **dışarıda (düşük)** |
+| Sol havuzu, etkin faz | 12,27 Hz | `gorassini2000.mn_frekans_SOL_yuruyus` 28 · [20 – 35] | **dışarıda (düşük)** |
+| MG / LG havuzu, etkin faz | 12,25 / 12,21 Hz | `gorassini2000.mn_frekans_MGLG_ortagec` 67 · [50 – 90] | **dışarıda (düşük)** |
+
+Koşum maliyeti: 3 s simülasyon → 242,5 s CPU (10 havuz × 2655 segment + OpenSim ileri dinamiği).
+
+## P.8 · Adım yarılama testi — üretim adımıyla GEÇTİ
+
+Aynı test, üretim adımı (0,15 ms) ile yarısı (0,075 ms) karşılaştırılarak tekrarlandı.
+Bantlar değiştirilmedi (çevrim süresi %5, ROM %10, ateşleme %10).
+
+| Ölçüt | `dt_k` = 0,150 ms | `dt_k` = 0,075 ms | Bağıl fark | Bant | Sonuç |
+|---|---|---|---|---|---|
+| Çevrim süresi | 0,3749 s | 0,3787 s | %0,99 | %5 | **geçti** |
+| Eklem ROM | 54,41° | 54,10° | %0,57 | %10 | **geçti** |
+| Havuz DF ateşleme | 25,25 Hz | 24,87 Hz | %1,51 | %10 | **geçti** |
+| Havuz PF ateşleme | 12,25 Hz | 11,96 Hz | %2,36 | %10 | **geçti** |
+| `u` zıtfaz korelasyonu | −0,734 | −0,716 | — | — | değişmiyor |
+
+**PREPRINT bölüm 8'in zorunlu saydığı sayısal kararlılık kontrolü karşılanmıştır.**
+Köprünün sonucu alışveriş adımından bağımsızdır.
+
+## P.9 · Bugün ne iddia edilebilir, ne edilemez
+
+**Edilebilir** (yakınsadı ve bantta): kapalı döngü **yapısal olarak çalışıyor** — ritim CPG'den
+doğuyor, antagonist gruplar zıtfaz almaşıyor (−0,734), hareket kas kuvvetinden doğuyor
+(kinematik reçete değil), iğcik geri beslemesi devrede ve **çevrim süresi ölçülmüş yürüyüş
+çevrimine düşüyor** (0,375 s vs 0,387 s).
+
+**Edilemez** (bant dışında): motonöron ateşleme frekansları Gorassini bantlarının 2–5 katı
+altında; eklem açıklığı ölçülmüş yürüyüş aralığının dışında ve tamamen dorsifleksiyonda.
+Bu iki sapma aynı yöne işaret ediyor: **havuz az ateşliyor ama kas fazla iş yapıyor**, yani
+`u = f_MN / f_ref` eşlemesindeki `f_ref` ile PF → motonöron ağırlığı `pf_mn` birlikte kalibre
+edilmemiş durumdadır. Bir sonraki adım budur.
+
+**Ayrıca kaynaksız kalan bileşenler** (PREPRINT 6.1): `IaIN` ve `Renshaw` devrededir ama
+literatür kaynakları yoktur; `II` katsayıları da izlenebilir bir kaynağa dayanmıyor. Bu
+üçüne dayanan hiçbir sonuç bildirilmemektedir.
 
 **Üreten:** `kod/kopru/adim_yarilama.py`, `kod/kopru/kos_ayakbilegi.py`.
 **Artefakt:** `veri/kopru/kosum_ayakbilegi.npz`, `sekiller/kopru_ayakbilegi.png` + `.csv`.
