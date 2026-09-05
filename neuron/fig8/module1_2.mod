@@ -1,4 +1,14 @@
 TITLE Calcium dynamics and cross-bridge formation
+: --- USK26 uyarlamasi (2026-09-05) ------------------------------------------------
+: NEURON 9'un nocmodl cevirici si bir adin hem RANGE degiskeni hem FUNCTION olmasini
+: reddediyor ("used as both variable and function"); eski NEURON (7.x) izin veriyordu.
+: Bu dosyada iki cakisma vardi: U (RANGE + FUNCTION U(x)) ve phi (RANGE + FUNCTION phi(x)).
+: Ikisi de yalnizca fonksiyon olarak cagriliyor -- U(Ca) ve phi(cli) -- hicbir .hoc/.ses
+: dosyasi bunlara degisken olarak erismiyor (tarandi). SUFFIX'li bir mekanizmanin
+: FUNCTION'lari RANGE'de olmasalar da U_CaSP(x) adiyla disari acilir; yetenek kaybi yok.
+: Ayrica phi0 hicbir PARAMETER/ASSIGNED/STATE blogunda tanimli degildi, o da cikarildi.
+: Degisiklik yalnizca iki RANGE satirindadir; denklemlere dokunulmamistir.
+: ---------------------------------------------------------------------------------
  
 UNITS { }
 
@@ -7,8 +17,8 @@ NEURON {
 	
 	::module 1::
 	RANGE k1, k2, k3, k4, k5, k6, k, k5i, k6i 
-	RANGE Umax, Rmax, t1, t2, R, vth, U
-	RANGE phi0, phi1, phi2, phi3, phi4, phi
+	RANGE Umax, Rmax, t1, t2, R, vth
+	RANGE phi1, phi2, phi3, phi4
 
 	::module 2::
 	RANGE c1, c2, c3, c4, c5 
