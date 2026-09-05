@@ -5,6 +5,56 @@
 
 ---
 
+## 2026-09-05 (3. oturum) — PREPRINT yeniden kuruldu; nöron-kas mimarisi ve diyagramlar
+
+**Ne yapıldı:**
+- **`PREPRINT.md` sıfırdan yazıldı** (1056 satır, 15 bölüm) ve projenin **bilimsel tek doğruluk
+  kaynağı** ilan edildi. `CLAUDE.md` buna göre güncellendi: PREPRINT bilimsel içeriğin, SDLC
+  sürecin kaynağı.
+- **Omurilik devresi tasarımı yazıldı:** supraspinal sürüş → CPG yarım-merkezleri → eklem başına
+  örüntü katmanı → 38 motonöron havuzu → u(t) → OpenSim Hill kası → iğcik → Ia/II → geri.
+  Her kutu kaynağı ve durum etiketiyle (`[ölçüldü]` / `[literatürden]` / `[tasarım]` /
+  `[varsayım]`) işaretlendi.
+- **`07_literatur/diyagramlar/` kuruldu:** D1 sistem, D2 omurilik devresi, D3 motonöron hücresi,
+  D4 iğcik/afferent, D5 kas-iskelet, D6 havuz-kas eşleşmesi, D7 yürüyüş zamanlaması,
+  D8 hat + doğrulama haritası; README'de drift kuralı (kaynak burası, PREPRINT'e kopyalanır).
+- Diyagramlar PREPRINT'e gömüldü (11 blok) — Markdown editöründe okunabilir.
+
+**Ölçülen bulgular (bu oturumda, depo verisinden):**
+- 38 kasın üç eklem için moment kolları ve **işaret kararlılığı** (`cl_grid3d.npz`, referans poz
+  kalça +21,7° / diz −120° / bilek 0°). Diz değerleri `02_DOGRULAMA_KAYDI.md` A bölümüyle
+  tutarlı (RF +3,69 vs +3,70; VL +3,72 vs +3,73; SM −3,95 vs −3,87 — fark pozdan).
+- **`GMa` modelde kalça fleksörü çıkıyor** (+5,39 mm, ızgaranın tamamında aynı işaret) —
+  anatomiyle çelişki, açık soru olarak kaydedildi.
+- `Pir`, `GMi`, `OE`, `Pec`, `BFa` moment kolu işaretleri kararsız (≤0,77) — işlevsel gruplara
+  atanmadılar.
+- Salınım fazı grup zamanlamaları (`u_swing_v2.csv`): kalça fleksör tepe %68,5 · diz ekstansör
+  %66,5 · diz fleksör %76,0 · dorsifleksör %85,5 · plantar fleksör %87,0; kalça ekstansör grubu
+  toplam aktivasyonu yalnız 0,883 (kalça fleksörlerinde 7,851).
+- Kinematik girdi yalnız **üç eklemi** sürüyor (hip_flx, knee_flx, ankle_flx + sacrum_pitch);
+  add/rot eksenleri sabit.
+
+**Kararlar (kullanıcı):**
+- NEURON tarafı preprintte **tasarım + parametre tablosu** olarak ve **hedef kapalı döngü**
+  olarak yazılır; hiçbir NEURON sonucu iddia edilmez.
+- **Kas başına bir motonöron havuzu** (38 kas → 38 havuz).
+- Eski basma fazı / fenomenolojik emergent kapalı-döngü anlatısı **preprintten tamamen çıkarıldı**
+  (dosyalar depoda duruyor, silinmedi).
+- Semimembranosus için **ölçülen −3,87 mm** esas; bildirideki −4,1 mm fark olarak kayıtlı.
+
+**Doğrulama:** 22 Mermaid bloğunun tamamı `@mermaid-js/mermaid-cli` ile derlendi (hepsi çizildi);
+bildiri özeti metni git'teki önceki sürümle **birebir aynı** olduğu diff ile doğrulandı; preprintte
+kapsam dışı bırakılan terimler (`stance`, `emergent`, `CMA-ES`, `9/9`) grep ile arandı, bulunmadı.
+
+**Sonuç/artefakt:** `PREPRINT.md` (yeniden yazıldı), `07_literatur/diyagramlar/` (9 yeni dosya),
+`07_literatur/README.md`, `CLAUDE.md`, `SDLC/00_DURUM.md`, bu günlük.
+
+**Değişen dosyalar:** yukarıdakiler. Kod ve veri dosyalarına dokunulmadı.
+
+**Commit:** bu oturumun sonunda atıldı; push onay bekliyor.
+
+---
+
 ## 2026-09-05 (2. oturum) — SDLC genişletildi; NEURON derleme yolu çözüldü
 
 **Ne yapıldı:**

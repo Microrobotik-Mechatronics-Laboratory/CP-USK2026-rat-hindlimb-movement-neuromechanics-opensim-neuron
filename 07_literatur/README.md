@@ -10,6 +10,7 @@ Bu klasör, projenin bilimsel iddialarının **dayandığı dış kaynakları** 
 | `oz_SABLON.md` | Makale özütü şablonu — yeni bir makale eklerken kopyalanır |
 | `oz_<kisa_ad>.md` | Bir makalenin materyal-metot ve sonuç özütü (insan okur) |
 | `referans_degerler.json` | Çıkarılan sayısal değerler + tolerans bantları (kod okur) |
+| `diyagramlar/` | Modelin nöron-kas yapısını gösteren Mermaid diyagramları (D1–D8) — **diyagramların kaynağı burasıdır**, `PREPRINT.md`'ye kopyalanır |
 | `pdf/` | Makale PDF'leri — **git-ignore'dadır, commit edilmez** (telif) |
 
 ## Yordam: bir makale nasıl eklenir
