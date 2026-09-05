@@ -692,27 +692,45 @@ Köprü, iki simülatörü tek bir Python denetim döngüsünde **aynı zaman ad
 ilerletir (`oz_fietkiewicz2025` §3b) `[tasarım]`:
 
 ```
-her adimda (dt = 0.025 ms):
-    1. NEURON'u bir adim ilerlet
-    2. motonoron havuzlarinin aksiyon potansiyellerini oku -> u(t)
-    3. u(t)'yi OpenSim kas aktivasyonlarina yaz
-    4. OpenSim'i bir adim ilerlet
-    5. kas-tendon boylarini ve hizlarini oku             -> l_mt, v_mt
-    6. igcik modelinden r(t) hesapla, gecikmeyi uygula
-    7. r(t)'yi Ia sinaps iletkenligine yaz               -> gmax_IaSyn
+her kopru adiminda (dt_k = 0.3 ms; NEURON kendi icinde 12 x 0.025 ms adim atar):
+    1. OpenSim'den kas-tendon boyu ve hizini oku         -> l_mt, v_mt
+    2. rijit tendonla lif boyu/hizina cevir, igcikten    -> Ia(t), II(t)  [pps]
+    3. iletim gecikmesini uygula (Ia 5 adim, II 6 adim)
+    4. Ia'yi olceklendirip Ia sinapsina yaz              -> gsc (gmax_IaSyn carpani)
+    5. NEURON'u bir kopru adimi ilerlet
+    6. havuzlarin aksiyon potansiyellerini oku, ustel filtreyle -> u(t)
+    7. efferent gecikmeyi uygula (20 adim = 6 ms)
+    8. u(t)'yi OpenSim kas UYARIMINA yaz (aktivasyonu Thelen kendi cozer)
+    9. OpenSim'i bir kopru adimi ilerlet
 ```
 
 | Karar | Seçim | Kaynak | Durum |
 |---|---|---|---|
 | Aksiyon potansiyeli → aktivasyon | NetCon ile aksiyon potansiyelini algıla, alçak geçirgen filtreyle `u(t)` üret | `oz_fietkiewicz2023` §3b | `[tasarım]` |
 | Değişken taşıma tekniği (NEURON içi) | `POINTER` / parametre-pointer | `oz_fietkiewicz2023` §3a-3b | `[literatürden]` yöntem |
-| Ortak adım | 0,025 ms, sabit | `oz_fietkiewicz2025` §3d | `[literatürden]` |
-| Sayısal kararlılık kontrolü | zaman adımını yarılayıp sonucun değişmediğini doğrulama (step-halving convergence check) | `oz_fietkiewicz2023` §5 | `[yapılacak]` — bizde **zorunlu**, çünkü kuplaj dışsal ve ortak Jacobian kurulamıyor |
-| İki Python ortamı | NEURON 3.14 ana ortam, OpenSim 3.13 `.venv-osim` | `SDLC/06_KURULUM.md` | `[ölçüldü]` kısıt |
+| NEURON entegrasyon adımı | 0,025 ms, sabit | `oz_fietkiewicz2025` §3d | `[literatürden]` |
+| Köprü alışveriş adımı `dt_k` | **0,3 ms** | bu çalışma | `[tasarım]` — gerekçe aşağıda |
+| Sayısal kararlılık kontrolü | zaman adımını yarılayıp sonucun değişmediğini doğrulama (step-halving convergence check) | `oz_fietkiewicz2023` §5 | `[ölçüldü]` — bizde **zorunlu**, çünkü kuplaj dışsal ve ortak Jacobian kurulamıyor; `kod/kopru/adim_yarilama.py` |
+| Ortam | **tek süreç**: `~/.venvs/usk26-kopru` (Python 3.13, NEURON 9.0.2 + OpenSim 4.6) | `SDLC/06_KURULUM.md` | `[ölçüldü]` |
 
-**Ortam kısıtı (risk):** `opensim` Python 3.14 için tekerlek yayımlamıyor; NEURON 3.14
-gerektiriyor. Bu yüzden proje iki ortamlıdır. Köprünün bu iki ortamı nasıl buluşturacağı
-(tek süreçte mi, süreçler arası mı) **açık bir tasarım sorusudur** — bölüm 14, soru 3.
+**`dt_k` = 0,3 ms neden:** 0,3 ms hem NEURON adımının (0,025 ms) tam katıdır (12 adım), hem Ia
+iletim gecikmesinin (1,5 ms → 5 adım) hem II gecikmesinin (1,8 ms → 6 adım) **tam bölenidir**.
+Böylece gecikmeler halka tamponunda tam sayı adım olarak taşınır ve yuvarlama hatası sıfır olur.
+Efferent gecikme 6 ms = 20 adım `[varsayım]`.
+
+**Ortam sorusu kapandı (05.09.2026):** `opensim` Python 3.14 için tekerlek yayımlamıyor ama
+`neuron==9.0.2` **cp313 tekerleği yayımlıyor**; ortak payda 3.13'tür. `import opensim` ve
+`from neuron import h` aynı süreçte, her iki import sırasında da çalışır ve iki simülatör de iş
+yapar `[ölçüldü]` (`DOGRULAMA.md` M). Köprü bu yüzden **tek süreçtedir**; süreçler arası
+iletişim gerekmiyor. Eski "tek ortamda ikisi birden kurulamaz" kaydı NEURON tarafı için
+yanlıştı.
+
+**Kas dinamiği nerede:** `u(t)` OpenSim'e **uyarım (excitation)** olarak verilir; aktivasyon
+dinamiğini `Thelen2003Muscle` kendi içinde çözer. Böylece sinyal iki kez alçak geçirgen
+filtreden geçmez ve bölüm 4.3'ün birinci kuralı (kas dinamiği OpenSim'dedir) korunur.
+Motonöron hücresindeki `muscle_unit` bölmesi **kurulur ama `CaSP`/`fHill` takılmaz**: bölme
+`is(0)`'a bağlıdır ve `cm` = 20 taşır, silinmesi başlangıç segmentindeki elektriksel yükü
+değiştirip ateşleme eşiğini kaydırırdı.
 
 **Doğrulama hedefi:** köprü kurulduğunda NEURON'un ürettiği `u(t)`, statik optimizasyonun
 ürettiği `veri/u_swing_v2.csv` ile karşılaştırılacaktır. Bu iki sinyalin **aynı olması
