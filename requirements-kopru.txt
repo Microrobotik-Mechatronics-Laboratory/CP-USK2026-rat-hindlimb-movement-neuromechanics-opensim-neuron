@@ -1,0 +1,17 @@
+# Kopru ortami (Python 3.13, ~/.venvs/usk26-kopru). NEURON ile OpenSim'i AYNI surecte bulusturur;
+# kod/kopru/ hattini ve NEURON derlemesini (nrnivmodl) bu ortam kosar.
+# Kurulum:
+#   uv venv --python 3.13 "$HOME/.venvs/usk26-kopru"
+#   uv pip install --python "$HOME/.venvs/usk26-kopru" -r requirements-kopru.txt
+#
+# Neden ayri ve neden proje DISINDA: nrnivmodl, NEURON'un kurulu oldugu dizinin yolunu derleyiciye
+# tirnaklamadan gecirir; bu deponun yolu bosluk ve Turkce karakter icerdiginden NEURON bosluksuz
+# bir yola kurulmak zorundadir. Gerekce: SDLC/06_KURULUM.md, 05_MIMARI_RISK.md risk-4.
+#
+# Ortak payda 3.13'tur: opensim 3.14 tekerlegi yayimlamiyor (cp311/312/313), neuron ise
+# cp313-macosx_11_0_arm64 tekerlegine sahiptir. Uc ortamin gorev dagilimi: SDLC/06_KURULUM.md
+neuron==9.0.2
+opensim==4.6
+numpy
+scipy
+matplotlib

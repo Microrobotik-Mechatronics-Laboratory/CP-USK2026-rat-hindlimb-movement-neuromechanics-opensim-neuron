@@ -434,3 +434,42 @@ Deniz 7c paketini (`rat_emergent_cc_7c`) + `55_CC_DEVIR.md`'yi bu oturuma getird
 **Yorum:** kapılar dürüstçe, deformasyonsuz geçildi ve G9 kanıtı güçlü — iğcik geri beslemesinin yapısal gerekliliği artık nesnel. Ama rejim "yük taşıyan toe-down yürüyüş"ten çok "minimal-yük ritim"dir: optimizasyon, katı-ayak/MTP'siz modelde yük ile limit-uzaklığını aynı anda bulamayıp yükü küçülten çözüme gitti. Bu, 54'ün "gerçek stance yuvarlanması ancak MTP ile gelir" yapısal sınırıyla tutarlı. Poster iddiası "u(t)/r(t) yapısal kapalı döngü (G9 nesnel)" olarak edilebilir; "yük taşıyan digitigrad yürüyüş" iddiası bu config ile EDİLMEMELİ. Toe-down + daha yüksek yük istenirse iki yol: (a) mevcut kapılar içinde farklı başlangıçlarla yeni arama (G9'u bozma riski var), (b) MTP eklemi (Deniz onaylı ayrı iş).
 
 **Dosyalar:** `cl_best_9of9.json` (en iyi P), `cl_optimize.py` (ılık başlangıç + Tsim=6 arama), `cl_teslim_9of9.py` → `cl_teslim_9of9.png/.npz` (zaman serileri + faz portresi + G9 live-vs-meanff), `log1..log4` (koşum kayıtları). Kopyalar: `tum/04_kapali_dongu_ESKI/`.
+
+---
+
+# M · Oturum 8 eki (5 Eylül 2026) — Köprü ortamı: NEURON ile OpenSim tek süreçte koşuyor
+
+**Soru:** PREPRINT bölüm 14 soru 3 ve `SDLC/05_MIMARI_RISK.md` risk-1, köprünün iki Python
+ortamını (3.14 NEURON / 3.13 OpenSim) nasıl buluşturacağını açık bırakıyordu. Risk-1'in gerekçesi
+"tek ortamda ikisi birden **kurulamaz**" idi.
+
+**Ölçüm 1 — tekerlek denetimi (PyPI JSON API).** `neuron==9.0.2` şu ABI etiketlerini yayımlıyor:
+cp310, cp311, cp312, **cp313**, cp314 (macosx_11_0_arm64 dahil). `opensim==4.6` ise cp311, cp312,
+**cp313** yayımlıyor (3.14 yok). Yani **ortak payda Python 3.13'tür**; risk-1'in "kurulamaz"
+gerekçesi NEURON tarafı için yanlıştır — doğru olan yalnızca `opensim`'in 3.14 tekerleği
+olmadığıdır.
+
+**Ölçüm 2 — kurulum.** `~/.venvs/usk26-kopru` (Python 3.13.14) kuruldu:
+neuron 9.0.2 · opensim 4.6 · numpy 2.5.2 · scipy 1.18.1 · matplotlib 3.11.1.
+Beyan: `requirements-kopru.txt`. Ortam proje **dışındadır** (boşluksuz yol zorunluluğu, risk-4).
+
+**Ölçüm 3 — tek süreç kapısı.** İki import sırası da denendi ve her ikisinde de yalnız import
+değil, iki simülatörün de **iş yaptığı** doğrulandı:
+
+| Sıra | NEURON (tek bölme, pasif, IClamp, 1 ms) | OpenSim (model yükle, realizePosition) |
+|---|---|---|
+| `from neuron import h` sonra `import opensim` | t = 1,000 ms · v = −68,1211 mV | 38 kas · TA boyu 0,036766 m |
+| `import opensim` sonra `from neuron import h` | t = 1,000 ms · v = −68,1211 mV | 38 kas · TA boyu 0,036766 m |
+
+İki sırada da sayılar birebir aynı; sembol çakışması, çökme veya sessiz bozulma gözlenmedi.
+
+**Ölçüm 4 — ileri dinamik maliyeti.** `rat_hindlimb_faz1a.osim`, `Manager` +
+RungeKuttaMerson (doğruluk 1e-4), 0,5 ms dış adım: **65,6 ms CPU/adım** → 0,387 s'lik yürüyüş
+çevrimi ≈ **51 s**. 38 kasın boyunu okumak: **0,013 ms/çağrı** (ihmal edilebilir).
+Donanım: bu makine (Darwin/arm64).
+
+**Sonuç:** köprü **tek süreçte, tek Python döngüsünde** kurulabilir; süreçler arası iletişim veya
+OpenSim'siz bir kas modeli gerekmiyor. `05_MIMARI_RISK.md` risk-1 ve PREPRINT 14.3 buna göre
+güncellendi. Bu ortam bundan sonra projenin NEURON ortamıdır (`nrnivmodl` dahil).
+
+**Üreten:** bu oturumun kapı betiği (geçici); ortam beyanı `requirements-kopru.txt`.
