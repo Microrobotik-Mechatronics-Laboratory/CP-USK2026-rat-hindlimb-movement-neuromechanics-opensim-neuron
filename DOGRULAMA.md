@@ -544,3 +544,52 @@ tolerans bantlı yeniden üretimidir (`dpath` taraması).
 **Ölçek notu (İP-4b girdisi):** 4,17 s CPU / simüle saniye tek hücre içindir. 38 havuz için
 naif ölçek ≈ 158 s CPU / simüle saniye. Ayak bileği aşaması (2 havuz) rahat; 38 havuza
 geçerken `nseg` indirimi gerekebilir — gerekirse PIC konum etkisinin korunduğu gösterilecektir.
+
+---
+
+# O · Oturum 8 eki (5 Eylül 2026) — Motonöron havuzu için Python kurulumu ve HOC ile çapraz kontrolü
+
+**Sorun:** `v_e_moto6_export.hoc` global `create soma, dend[311]` kullanıyor, **template değil**.
+38 motonöron havuzu (PREPRINT 6.4) aynı morfolojiden çok hücre gerektiriyor; bu dosya buna
+elverişli değil.
+
+**Seçilen yol:** Kim'in kaynak dosyalarına cerrahi müdahale edilmedi. Morfoloji bir kez HOC'tan
+okunup veriye döküldü (`kod/kopru/morfoloji_cikar.py` → `veri/kopru/moto_morfoloji.npz`:
+315 section, 312'sinde 3B nokta, toplam 1580 nokta); biyofizik `kod/kopru/nrn_hucre.py`'de
+Kim'in hoc dosyalarıyla **aynı sırayla** yeniden uygulandı. Sıra kritiktir: geometri → bağlantı →
+pasif (Ra, cm) → aktif → kas bölmesi kablo özelliği → `nseg` (d_lambda). `fixnseg.hoc:40-43`
+`nseg`'i en sona bırakır çünkü d_lambda kuralı Ra ve cm'e bağlıdır.
+
+**Risk:** yeniden uygulama sessiz sapma üretebilir.
+
+**Çapraz kontrol (04_KURALLAR: bağımsız ikinci yöntem).** İki kurulum **aynı süreçte, aynı
+uyaranla** (`RampIClamp` tepe 20 nA), aynı zaman adımıyla (0,025 ms) 3000 ms koşturuldu.
+İki hücre elektriksel olarak bağımsızdır. Bant testten önce ilan edildi: diken zamanı farkı
+< 0,025 ms (bir entegrasyon adımı); bu bir **regresyon** bandıdır, literatür doğrulaması değildir.
+
+| Büyüklük | HOC (Kim zinciri) | Python (`nrn_hucre.py`) |
+|---|---|---|
+| section sayısı | 315 | 315 |
+| segment sayısı | 2655 | 2655 |
+| Cav1.3 PIC nokta süreci (`dpath`=600 µm) | — | 86 |
+| `IaSyn` takılı segment (`D_path`<1400 µm) | — | 1692 |
+| diken sayısı | 28 | 28 |
+| soma v min | −70,7496 mV | −70,7496 mV |
+| soma v maks | +23,0852 mV | +23,0852 mV |
+| ilk diken | 1270,675 ms | 1270,675 ms |
+| son diken | 2975,425 ms | 2975,425 ms |
+
+**Diken zamanı farkı: maks 0,000000 ms · ortalama 0,000000 ms.
+Soma voltaj izinin maksimum farkı: 0,000000 mV.**
+
+Yani iki kurulum bit düzeyinde aynıdır; bant kıl payı değil, tam eşleşmeyle geçilmiştir.
+Koşum maliyeti (iki hücre birlikte, 3000 ms): 24,4 s CPU.
+
+**Sonuç:** `nrn_hucre.MotoNoron`, Kim modelinin doğrulanmış bir yeniden kurulumudur ve havuz
+için çoğaltılabilir. Karşılaştırma kas modülü (`CaSP`/`fHill`) **açıkken** yapıldı ki model HOC
+ile birebir aynı olsun; köprüde kas modülünün kapatılması ayrı ve bilinçli bir karardır
+(kas dinamiği OpenSim'dedir — PREPRINT 4.3 kural 1). Kapatılırken `muscle_unit` bölmesi ve kablo
+özellikleri (`g_pas`=2e-3, `cm`=20) **korunur**; bölme `is(0)`'a bağlı olduğu için silinmesi
+başlangıç segmentindeki elektriksel yükü değiştirip ateşleme eşiğini kaydırırdı.
+
+**Üreten:** `kod/kopru/capraz_kontrol.py`.

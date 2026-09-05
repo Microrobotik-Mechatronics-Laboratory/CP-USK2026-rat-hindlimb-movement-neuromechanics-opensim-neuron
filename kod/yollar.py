@@ -21,6 +21,9 @@ VERI_CL   = VERI / 'kapali_dongu'  # kapali dongunun onceden pisirilmis izgarala
 SEKILLER  = KOK / 'sekiller'       # yayin figurleri (04_KURALLAR: figur DAIMA buraya yazilir)
 LITERATUR = KOK / 'literatur'      # ozutler + referans_degerler.json (tolerans bantlari)
 NEURON    = KOK / 'neuron'         # Kim 2020 hoc/mod kaynak agaci
+NEURON_FIG = NEURON / 'fig2_4_6'   # derlenmis mekanizmalarin ve Kim hoc zincirinin bulundugu klasor
+NEURON_KOPRU = NEURON / 'kopru'    # koprunun kendi hoc/mod dosyalari (batch giris, IaSyn, CPG)
+VERI_KOPRU = VERI / 'kopru'        # koprunun uretttigi/okudugu diziler (morfoloji, lmin, kosum ciktilari)
 ARSIV     = KOK / 'arsiv'          # asilmis kusaklar; hesapta kullanilmaz
 
 # Hattin cok yerden okunan tekil dosyalari
@@ -29,3 +32,11 @@ MOT_SMOOTH = VERI  / 'rat_walk_bone_smooth.mot'  # olculmus kemik eklem acilari,
 U_SWING    = VERI  / 'u_swing_v2.csv'            # salinim fazi kas komutlari (38 kas x 71 ornek)
 KAS_PAR    = VERI  / 'kas_par.json'
 LEWIS_GRF  = VERI  / 'lewis_grf.json'
+R_KATSAYI  = VERI  / 'r_katsayilari_v3.json'     # igcik Ia/II cevirici katsayilari (Blum fiti)
+GRID3D     = VERI_CL / 'cl_grid3d.npz'           # 13^3 izgara; FIX/cnames/names tek kaynak
+
+# NEURON'a verilen yollar GORELI olmak zorundadir: HOC dizgi arayuzu ASCII disi karakter
+# kabul etmiyor ve bu deponun yolu Turkce karakter iceriyor (DOGRULAMA N, olcum 4).
+# Bu yuzden NEURON tarafi os.chdir(NEURON_FIG) ile konumlanir, yol sabitleri oraya gore yazilir.
+NRN_MEKANIZMA_GORELI = 'arm64/libnrnmech.dylib'
+NRN_BATCH_GORELI     = '../kopru/motor_unit_batch.hoc'
