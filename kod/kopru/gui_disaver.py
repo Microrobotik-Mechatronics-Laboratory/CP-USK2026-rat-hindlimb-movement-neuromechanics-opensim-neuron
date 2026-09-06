@@ -1,19 +1,19 @@
 # =============================================================================
-# gui_disaver.py — kapali dongu kosumunu OpenSim GUI'nin oynatabilecegi bicime cevirir.
+# gui_disaver.py — kapali dongu kosuyu OpenSim GUI'nin oynatabilecegi bicime cevirir.
 # Ortam: kopru (Python 3.13, ~/.venvs/usk26-kopru) -- saf NumPy, OpenSim/NEURON gerektirmez
-# Girdi:  veri/kopru/kosum_ayakbilegi.npz (kos_ayakbilegi.py uretir)
+# Girdi:  veri/kopru/kosu_ayakbilegi.npz (kos_ayakbilegi.py uretir)
 #         veri/kapali_dongu/cl_grid3d.npz (kilitli koordinatlarin degerleri: FIX/cnames)
 # Cikti:  veri/goruntuleme/kopru_ayakbilegi.mot      -- 14 koordinat + 38 kas uyarimi (TEK DOSYA;
 #                                                       GUI hem hareketi oynatir hem kaslari boyar)
 #         veri/goruntuleme/kopru_ayakbilegi_koordinat.mot -- yalniz koordinat (yedek)
 #
-# Neden ayri bir betik: kosum yalnizca SERBEST koordinati kaydeder (ayak bileginde ankle_flx);
-# GUI ise modelin 14 koordinatinin tamamini ister. Kilitli 13 koordinat kosumda sabit tutuldugu
-# degerlere (cl_grid3d.npz FIX) doldurulur -- yani dosya kosumun gercekten oldugu pozu gosterir,
+# Neden ayri bir betik: kosu yalnizca SERBEST koordinati kaydeder (ayak bileginde ankle_flx);
+# GUI ise modelin 14 koordinatinin tamamini ister. Kilitli 13 koordinat kosuda sabit tutuldugu
+# degerlere (cl_grid3d.npz FIX) doldurulur -- yani dosya kosunun gercekten oldugu pozu gosterir,
 # uydurma bir poz degil.
 #
-# BAYRAKLAR:
-# - Kosum 0.15 ms adimla kaydedilir (3 s icin 20000 ornek). GUI icin seyreltilir; seyreltme
+# BILINEN SAPMALAR:
+# - Kosu 0.15 ms adimla kaydedilir (3 s icin 20000 ornek). GUI icin seyreltilir; seyreltme
 #   yalniz GORUNTULEME icindir, hesap dosyalari (npz) dokunulmadan kalir.
 # - .mot dosyasi inDegrees=yes'tir; OpenSim aci koordinatlarini dereceye cevirir, otelemeleri
 #   (sacrum_x/y/z) cevirmez -- bu yuzden otelemeler metre olarak yazilir.
@@ -46,19 +46,19 @@ def yaz_sto(yol, t, ad_sut, veri, ad='kopru_ayakbilegi_kuvvet'):
 
 
 def main():
-    d = np.load(VERI_KOPRU / 'kosum_ayakbilegi.npz', allow_pickle=True)
+    d = np.load(VERI_KOPRU / 'kosu_ayakbilegi.npz', allow_pickle=True)
     g = np.load(GRID3D, allow_pickle=True)
     cnames = [str(x) for x in g['cnames']]
     fix = dict(zip(cnames, [float(v) for v in g['FIX']]))
     izg_kas = [str(x) for x in g['names']]
-    kosum_kas = [str(x) for x in d['kaslar']]
+    kosu_kas = [str(x) for x in d['kaslar']]
 
     t_ham = d['t']
     adim = max(1, int(round(1.0 / (HEDEF_HZ * (t_ham[1] - t_ham[0])))))
     s = slice(None, None, adim)
     t = t_ham[s]
 
-    # --- 1) koordinat dosyasi: serbest olan kosumdan, kilitli olanlar FIX'ten ---------------
+    # --- 1) koordinat dosyasi: serbest olan kosudan, kilitli olanlar FIX'ten ---------------
     ACI = {'sacrum_x', 'sacrum_y', 'sacrum_z'}          # bunlar oteleme, dereceye cevrilmez
     sut = np.zeros((len(t), len(cnames)))
     for j, n in enumerate(cnames):
@@ -74,9 +74,9 @@ def main():
     yaz_mot(yedek, t, cnames, sut)
 
     # --- 2) kas uyarimi ---------------------------------------------------------------------
-    # Kosumda yalniz 10 bilek kasi surulur; kalan 28 kas sifir uyarimdadir.
+    # Kosuda yalniz 10 bilek kasi surulur; kalan 28 kas sifir uyarimdadir.
     akt = np.zeros((len(t), len(izg_kas)))
-    for kx, kas in enumerate(kosum_kas):
+    for kx, kas in enumerate(kosu_kas):
         akt[:, izg_kas.index(kas)] = d['u'][s, kx]
 
     # --- 3) BIRLESIK dosya: OpenSim GUI tek dosyada hem oynatir hem kaslari boyar ------------
@@ -92,7 +92,7 @@ def main():
     print('sure         : %.3f s' % t[-1])
     print('ankle_flx    : %.2f .. %.2f derece' % (sut[:, cnames.index('ankle_flx')].min(),
                                                   sut[:, cnames.index('ankle_flx')].max()))
-    print('kas uyarimi  : %d kas surulu, %d kas sifir' % (len(kosum_kas), len(izg_kas) - len(kosum_kas)))
+    print('kas uyarimi  : %d kas surulu, %d kas sifir' % (len(kosu_kas), len(izg_kas) - len(kosu_kas)))
     print('yazildi      : %s   (koordinat + kas uyarimi, GUI icin bunu yukleyin)'
           % mot.relative_to(mot.parents[2]))
     print('               %s   (yalniz koordinat, yedek)' % yedek.relative_to(yedek.parents[2]))

@@ -1,6 +1,6 @@
 // motor_unit_batch.hoc -- Kim 2020 motor unitesinin GUI'siz (batch) giris noktasi.
 // Kaynak: ../fig2_4_6/motor_unit.hoc. Iki satir disinda birebir aynidir:
-//   s.1  load_file("nrngui.hoc") -> stdrun.hoc  (grafik kutuphanesi yerine yalniz kosum denetimi)
+//   s.1  load_file("nrngui.hoc") -> stdrun.hoc  (grafik kutuphanesi yerine yalniz kosu denetimi)
 //   s.14 xopen("fig.ses")        -> silindi; fig.ses'in SAYISAL ayarlari asagiya tasindi
 // Model dosyalarinin kendisinde hic GUI cagrisi yoktur (xpanel/Graph yalniz bu iki satirdaydi),
 // bu yuzden batch'e gecis modeli degistirmez.

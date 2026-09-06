@@ -12,7 +12,7 @@
 # Ia katsayilari JSON'dan okunur, koda gomulmez. II katsayilari JSON'da YOKTUR
 # ("II bu pakette YOK"); v3.1 bicimindeki degerler burada acikca [varsayim] olarak durur.
 #
-# BAYRAKLAR:
+# BILINEN SAPMALAR:
 # - KALIBRASYON: r_katsayilari_v3.json'un 'surekli_hareket_sonumu' kaydi, surekli harekette
 #   olcum ortalamasi ~15 Hz iken statik tahminin ~90 Hz (yaklasik 6 kat) ciktigini soyluyor.
 #   Fit RAMPA-TUT protokoluna uygundur; lokomotor kullanimda asagi kalibrasyon gerekir.

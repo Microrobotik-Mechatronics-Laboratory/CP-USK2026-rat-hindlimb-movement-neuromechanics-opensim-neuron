@@ -18,7 +18,7 @@ süreçte* bulunduğu tek ortam budur. Kurulum ve gerekçe: `SDLC/06_KURULUM.md`
 Her ikisi de `nrn_ortam.py`'de tek yerde tutulur; doğrudan `from neuron import h` yazmayın.
 
 1. **Yollar göreli olmalıdır.** NEURON'un HOC dizgi arayüzü ASCII dışı karakter kabul etmiyor
-   ve bu deponun yolu Türkçe karakter içeriyor. Mutlak yol verilirse
+   ve bu reponun yolu Türkçe karakter içeriyor. Mutlak yol verilirse
    `python string arg cannot decode into c_str` hatası alınır. (`DOGRULAMA.md` N, ölçüm 4)
 2. **Mekanizmalar kendiliğinden yüklenir.** NEURON, import anında çalışma dizinindeki
    `arm64/libnrnmech.dylib`'i yükler. Bu yüzden `os.chdir` **import'tan önce** olmalı ve
@@ -66,7 +66,7 @@ yuvarlama hatası sıfırdır.
 `IaIN` (resiprokal inhibisyon) ve `Renshaw` (rekürren inhibisyon) bu projenin literatür setinde
 **kaynağı olmayan** iki bileşendir (PREPRINT 6.1). Kullanıcı kararıyla ilk sürümde devrededirler
 ama **hiçbir sonuç bunlara dayandırılarak iddia edilmez**. `devre_par.json` içindeki
-`iain_renshaw.iain_etkin` / `renshaw_etkin` bayraklarıyla kapatılabilirler.
+`iain_renshaw.iain_etkin` / `renshaw_etkin` bilinen sapma etiketleriyle kapatılabilirler.
 
 Aynı şekilde `II` katsayıları izlenebilir bir kaynağa dayanmıyor
 (`veri/r_katsayilari_v3.json`: "II bu pakette YOK") ve `[varsayım]` etiketlidir.

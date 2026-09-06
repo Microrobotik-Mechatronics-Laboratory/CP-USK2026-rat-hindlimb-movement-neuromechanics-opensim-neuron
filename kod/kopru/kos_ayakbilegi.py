@@ -2,7 +2,7 @@
 # kos_ayakbilegi.py — Asama 3: ayak bileginde TAM KAPALI DONGU (tek serbestlik derecesi).
 # Ortam: kopru (Python 3.13, ~/.venvs/usk26-kopru)
 # Girdi:  kod/kopru/devre_par.json; model/rat_hindlimb_faz1a.osim; veri/kapali_dongu/cl_grid3d.npz
-# Cikti:  veri/kopru/kosum_ayakbilegi.npz
+# Cikti:  veri/kopru/kosu_ayakbilegi.npz
 #         sekiller/kopru_ayakbilegi.png (300 dpi) + sekiller/kopru_ayakbilegi.csv
 #
 # Zincir: CPG (Morris-Lecar yarim-merkez) -> PF -> motonoron havuzu -> u(t) -> OpenSim ileri
@@ -17,7 +17,7 @@
 #   dorsifleksor  TA (+3.43) EDL (+2.48) Per (+2.46)
 #   plantarfleks. Sol (-4.00) MG (-3.43) LG (-3.08) Pla (-4.13) TP (-1.88) FDL (-2.25) FHL (-2.26)
 #
-# BAYRAKLAR:
+# BILINEN SAPMALAR:
 # - IaIN ve Renshaw devrededir ama literatur setinde KAYNAKLARI YOKTUR (PREPRINT 6.1);
 #   hicbir sonuc bunlara dayandirilarak iddia edilmez.
 # - Bilek eklemine acisal limit kuvveti yoktur (.osim'de CoordinateLimitForce tanimli degil);
@@ -50,7 +50,7 @@ def kur(dt_kopru_ms=None):
 
 
 def ozet(kk, iz, yari_atla=True):
-    """Kosumun sayisal ozeti. Gecici rejimi atmak icin varsayilan olarak ikinci yari alinir."""
+    """Kosuun sayisal ozeti. Gecici rejimi atmak icin varsayilan olarak ikinci yari alinir."""
     n = len(iz['t']) // 2 if yari_atla else 0
     t, q = iz['t'][n:], np.degrees(iz['q'][n:, 0])
     ix = {k: i for i, k in enumerate(kk.kaslar)}
@@ -125,7 +125,7 @@ if __name__ == '__main__':
              {g: round(v, 3) for g, v in kk.denge.items()}))
     t0 = time.perf_counter()
     iz = kk.kos(sure, ilerleme=int(0.5 / kk.dt_s))
-    print('kosum: %.1f s simulasyon -> %.1f s CPU' % (sure, time.perf_counter() - t0))
+    print('kosu: %.1f s simulasyon -> %.1f s CPU' % (sure, time.perf_counter() - t0))
 
     o = ozet(kk, iz)
     print('\n--- ikinci yari (gecici rejim atildi) ---')
@@ -137,6 +137,6 @@ if __name__ == '__main__':
         print('%-6s %12.2f %12.2f' % (k, o['frek'][k][0], o['frek'][k][1]))
 
     VERI_KOPRU.mkdir(parents=True, exist_ok=True)
-    np.savez_compressed(VERI_KOPRU / 'kosum_ayakbilegi.npz', kaslar=np.array(kk.kaslar), **iz)
+    np.savez_compressed(VERI_KOPRU / 'kosu_ayakbilegi.npz', kaslar=np.array(kk.kaslar), **iz)
     figur(kk, iz)
-    print('\nyazildi: veri/kopru/kosum_ayakbilegi.npz, sekiller/kopru_ayakbilegi.{png,csv}')
+    print('\nyazildi: veri/kopru/kosu_ayakbilegi.npz, sekiller/kopru_ayakbilegi.{png,csv}')

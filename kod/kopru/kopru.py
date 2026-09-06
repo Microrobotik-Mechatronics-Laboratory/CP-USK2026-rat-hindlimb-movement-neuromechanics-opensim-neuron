@@ -21,7 +21,7 @@
 # tam bolenidir; gecikme yuvarlama hatasi SIFIR olur. Efferent gecikme 6 ms = 20 adim.
 # =============================================================================================
 #
-# BAYRAKLAR:
+# BILINEN SAPMALAR:
 # - r(t) -> gmax_IaSyn esleme [tasarim]: Kim'in uc capasi (gmax = 0 / 9.3e-6 / 19e-6 S/cm2,
 #   xm = -16 / -8 / 0 mm) uzerinden dogrusal. gsc birimsiz olcektir; gsc=1 Kim'in optimal
 #   boy degeridir, ust sinir 19/9.3 = 2.043'tur. PREPRINT 6.3'un uygulamasi.
@@ -140,7 +140,7 @@ class Kopru:
         # bilekte plantar fleksorler dorsifleksorlerin 2.6-5.3 kati). Esit CPG surusu verilirse
         # eklem gucli grubun ucuna coker ve orada kalir. Merkezi sinir sistemi bu dengesizligi
         # surus dagilimiyla cozer; burada karsiligi, grup surusunun moment kapasitesiyle ters
-        # olceklenmesidir. [tasarim] -- olculen kapasiteler kosum ciktisina yazilir.
+        # olceklenmesidir. [tasarim] -- olculen kapasiteler kosu ciktisina yazilir.
         self.kapasite = self._kapasite_olc(self.par['sinaps'].get('denge_pozu_derece', 14.0))
         c_ref = min(self.kapasite.values())
         self.denge = {g: c_ref / self.kapasite[g] for g in self.kapasite}
@@ -254,7 +254,7 @@ class Kopru:
         self._nc.append((nc, syn))
         return nc
 
-    # -- kosum ----------------------------------------------------------------------------
+    # -- kosu ----------------------------------------------------------------------------
     def kos(self, sure_s, ilerleme=None):
         kp = self.par['kopru']
         nadim = int(round(sure_s / self.dt_s))

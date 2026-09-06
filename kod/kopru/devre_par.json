@@ -12,7 +12,7 @@
     "eslope_mV": 2.0,
     "esyn_mV": -80.0,
     "_kalibrasyon_notu": "Yu ve Thomas'in kendi degeri phin=0.0005 /ms Aplysia olceginde T~2254 ms verir; bizim olculmus yuruyus cevrimimiz T=0.387 s'dir (veri/rat_walk_bone_smooth.mot). phin, serbest cevrim periyodu 387 ms olacak sekilde ikiye bolmeyle arandi. OLCULEN: T=386.9 ms, genlik -19.56..+26.84 mV, F-E korelasyonu -0.957 (zitfaz). Ureten: kalibrasyon taramasi, oturum 8.",
-    "_bayrak": "Parametreler Aplysia'dan gelir; sican omuriligi icin dogrulanmis degildir. Bu bir MIMARI odunc almadir, parametre odunc almasi degil (PREPRINT bolum 15 uyarisi)."
+    "_bilinen_sapma": "Parametreler Aplysia'dan gelir; sican omuriligi icin dogrulanmis degildir. Bu bir MIMARI odunc almadir, parametre odunc almasi degil (PREPRINT bolum 15 uyarisi)."
   },
 
   "internoron": {
@@ -56,7 +56,7 @@
     "dt_neuron_ms": 0.025,
     "dt_kopru_ms": 0.15,
     "_dt_gerekcesi": "0.15 ms, NEURON adiminin (0.025 ms) tam kati (6 adim), Ia gecikmesinin (1.5 ms -> 10 adim), II gecikmesinin (1.8 ms -> 12 adim) ve efferent gecikmenin (6 ms -> 40 adim) tam bolenidir; gecikme yuvarlama hatasi sifir olur.",
-    "_dt_olcum": "Ilk deger 0.3 ms idi ve ADIM YARILAMA TESTINI DUSURDU: eklem ROM'u 0.3 -> 0.15 ms'de %21.8 degisiyordu (aralık %10). Uc noktali tarama (3 s kosum) sebebi gosterdi -- cozum yakinsiyor, 0.3 ms yalnizca cok kabaydi: ROM 73.94 -> 54.41 -> 54.10 derece ve cevrim suresi 0.4020 -> 0.3749 -> 0.3787 s. 0.15 ile 0.075 ms arasindaki fark ROM'da %0.57, cevrim suresinde %1.00. Bu yuzden uretim degeri 0.15 ms'tir. Aralık genisletilmedi; adim kucultuldu.",
+    "_dt_olcum": "Ilk deger 0.3 ms idi ve ADIM YARILAMA TESTINI DUSURDU: eklem ROM'u 0.3 -> 0.15 ms'de %21.8 degisiyordu (aralık %10). Uc noktali tarama (3 s kosu) sebebi gosterdi -- cozum yakinsiyor, 0.3 ms yalnizca cok kabaydi: ROM 73.94 -> 54.41 -> 54.10 derece ve cevrim suresi 0.4020 -> 0.3749 -> 0.3787 s. 0.15 ile 0.075 ms arasindaki fark ROM'da %0.57, cevrim suresinde %1.00. Bu yuzden uretim degeri 0.15 ms'tir. Aralık genisletilmedi; adim kucultuldu.",
     "gecikme_ia_ms": 1.5,
     "gecikme_ii_ms": 1.8,
     "_gecikme_kaynagi": "oz_vincent2017 Tablo 4 (sican): Ia 1.5 +/- 0.2 ms, II 1.8 +/- 0.4 ms",

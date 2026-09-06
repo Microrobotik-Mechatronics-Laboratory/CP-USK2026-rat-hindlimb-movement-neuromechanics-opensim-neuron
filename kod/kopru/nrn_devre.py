@@ -17,7 +17,7 @@
 # iki bilesendir. Kullanici karariyla ilk surumde DEVREDE tutuluyorlar ama hicbir sonuc
 # bunlara dayandirilarak IDDIA EDILMEZ; her ciktida etiketleri tasinir.
 #
-# BAYRAKLAR:
+# BILINEN SAPMALAR:
 # - Morris-Lecar parametreleri Aplysia olceginden gelir (oz_yu2021 Tablo 2); phin bu projede
 #   yuruyus cevrimine kalibre edilir. Kalibrasyon degeri devre_par.json'dadir, koda gomulmez.
 # - Internoronlar Kim'in kendi Naf/KDr mekanizmalariyla kurulur; yeni bir hucre modeli

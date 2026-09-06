@@ -12,7 +12,7 @@
 # durmalari birbirlerini etkilemez, yalnizca hesap iki katina cikar.
 #
 # Karsilastirma kas modulu ACIK yapilir (kas_modulu=True) ki model HOC ile birebir ayni olsun;
-# koprudeki CaSP/fHill kesimi ayri ve bilincli bir karardir (nrn_hucre.py bayraklari).
+# koprudeki CaSP/fHill kesimi ayri ve bilincli bir karardir (nrn_hucre.py bilinen sapmalari).
 #
 # ARALIK: aksiyon potansiyeli zamani farki < 0.025 ms (bir entegrasyon adimi). Bu bir REGRESYON araligidir,
 # literatur dogrulamasi degildir: iki kurulum ayni denklemleri cozdugu icin fark ancak kayan
@@ -44,7 +44,7 @@ v_py = h.Vector().record(py.soma(0.5)._ref_v)
 st = h.RampIClamp(py.soma(0.5)); st.pkamp = 20      # add_pics_istim.hoc:72-74 ile ayni uyaran
 py._st = st
 
-# --- tek kosum, iki hucre ---------------------------------------------------------------
+# --- tek kosu, iki hucre ---------------------------------------------------------------
 h.dt = DT
 t0 = time.perf_counter(); h.finitialize(-70); h.continuerun(TSTOP); t1 = time.perf_counter()
 
@@ -52,7 +52,7 @@ d_h, d_p = np.array(dik_hoc), np.array(dik_py)
 vh, vp = np.array(v_hoc), np.array(v_py)
 nseg_h = sum(s.nseg for s in hoc_sec)
 
-print('kosum: tstop=%.0f ms, iki hucre birlikte %.1f s CPU' % (TSTOP, t1 - t0))
+print('kosu: tstop=%.0f ms, iki hucre birlikte %.1f s CPU' % (TSTOP, t1 - t0))
 print()
 print('%-28s %14s %14s' % ('buyukluk', 'HOC', 'Python'))
 print('%-28s %14d %14d' % ('section sayisi', len(hoc_sec), len(py.sec)))

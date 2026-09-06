@@ -10,13 +10,13 @@
 # degil. 38 motonoron havuzu icin ayni morfolojiden COK hucre gerekiyor. HOC dosyasina cerrahi
 # mudahale etmek yerine morfoloji bir kez okunup veri olarak saklanir; hucreler Python'da bu
 # veriden kurulur (kod/kopru/nrn_hucre.py). Boylece Kim'in kaynak dosyalari hic degismez ve
-# kosum aninda prototip hucre bellekte durmak zorunda kalmaz.
+# kosu aninda prototip hucre bellekte durmak zorunda kalmaz.
 #
 # Dogruluk guvencesi: Python'da kurulan hucrenin HOC'un kurdugu hucreyle ayni davrandigi
 # kod/kopru/capraz_kontrol.py ile aksiyon potansiyeli zamanlari uzerinden sinanir (04_KURALLAR: bagimsiz
 # ikinci yontemle capraz kontrol).
 #
-# BAYRAKLAR:
+# BILINEN SAPMALAR:
 # - 3B nokta verisi (pt3d) oldugu gibi tasinir; nseg burada KAYDEDILMEZ, cunku d_lambda kurali
 #   Ra/cm atandiktan SONRA uygulanmalidir (fixnseg.hoc:41-42 sirasi).
 # =============================================================================

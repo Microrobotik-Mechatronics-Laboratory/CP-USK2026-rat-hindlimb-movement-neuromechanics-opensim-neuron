@@ -19,7 +19,7 @@
 #   add_pics_istim.hoc      Cav1.3 PIC yerlesimi (dpath, gcalbar)
 #   group_Ia.hoc            Ia sinaps dagilimi (soma + D_path<1400 um dendritler)
 #
-# BAYRAKLAR:
+# BILINEN SAPMALAR:
 # - kas_modulu=False (varsayilan) oldugunda muscle_unit bolmesi KURULUR ve kablo ozellikleri
 #   (g_pas=2e-3, cm=20) verilir ama CaSP/fHill takilmaz. Bolme silinmez, cunku is(0)'a bagli ve
 #   cm=20 tasiyor; silmek is uzerindeki elektriksel yuku degistirip atesleme esigini kaydirir.
@@ -209,7 +209,7 @@ class MotoNoron:
         return bolmeler
 
     def ia_yaz(self, gmax):
-        """Ia iletkenligini kosum sirasinda gunceller (kopru: r(t) -> gmax_IaSyn)."""
+        """Ia iletkenligini kosu sirasinda gunceller (kopru: r(t) -> gmax_IaSyn)."""
         for seg in self.ia_bolmeleri:
             seg.IaSyn.gmax = gmax
 

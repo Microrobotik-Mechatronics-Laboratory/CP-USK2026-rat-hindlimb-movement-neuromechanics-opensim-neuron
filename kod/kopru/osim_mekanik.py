@@ -10,7 +10,7 @@
 #
 # TASARIM KARARLARI:
 # - Serbest olmayan koordinatlar KILITLENIR (set_locked). Kilit degerleri cl_grid3d.npz'nin
-#   FIX/cnames dizilerinden alinir; boylece bu kosum mevcut kapali dongu sonuclariyla ayni
+#   FIX/cnames dizilerinden alinir; boylece bu kosu mevcut kapali dongu sonuclariyla ayni
 #   pozda olur ve karsilastirilabilir.
 # - Kas uyarimi PrescribedController + Constant fonksiyonlarla verilir; her kopru adiminda
 #   Constant'in degeri guncellenir. u UYARIM'dir (excitation); aktivasyon dinamigini
@@ -18,7 +18,7 @@
 # - Entegratör RungeKuttaMerson, degisken ic adimli. Kopru adimi disaridan sabittir; NEURON
 #   ile ayni ani paylasmak icin gereken budur, OpenSim'in ic adim sayisi serbesttir.
 #
-# BAYRAKLAR:
+# BILINEN SAPMALAR:
 # - Bilek DOF'unun eylemsizligi cok kucuktur (kapali dongu notu: M[ankle,ankle] ~ 1.1e-7,
 #   kalcanin ~1/120'si). Acik entegrasyonda kararsizlik kaynagi budur; burada degisken adimli
 #   ortuk-olmayan RK kullanildigi icin entegratör kendi adimini kucultur.
@@ -74,7 +74,7 @@ class Mekanik:
 
         # KRITIK: prescribeControlForActuator fonksiyonu KOPYALAR. Disaridan yazilan nesne
         # modeldeki nesne degildir; ona setValue yapmak sessizce hicbir sey yapmaz (olculdu:
-        # TA %100 uyarimla bile bilek yorungesi pasif kosumla birebir ayni cikti). Bu yuzden
+        # TA %100 uyarimla bile bilek yorungesi pasif kosula birebir ayni cikti). Bu yuzden
         # fonksiyon nesneleri initSystem'den SONRA kontrolcunun kendi kumesinden alinir.
         fs = self.kont.upd_ControlFunctions()
         self.fonk = [osim.Constant.safeDownCast(fs.get(i)) for i in range(self.n)]
@@ -84,7 +84,7 @@ class Mekanik:
         assert self.adlar == self.izgara_par['adlar'], (
             'kas sirasi uyusmuyor: model=%s izgara=%s' % (self.adlar[:3], self.izgara_par['adlar'][:3]))
 
-    # -- kosum --------------------------------------------------------------------------
+    # -- kosu --------------------------------------------------------------------------
     def baslat(self):
         self.model.equilibrateMuscles(self.s)
         self.s.setTime(0.0)
