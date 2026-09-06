@@ -902,7 +902,7 @@ başlangıç segmentindeki elektriksel yükü değiştirip ateşleme eşiğini k
 
 ---
 
-# P · 05.09.2026 — Ayak bileğinde tam kapalı döngü: ilk koşum ve zaman adımı yarılama testi
+# P · 05.09.2026 — Ayak bileğinde tam kapalı döngü: ilk koşu ve zaman adımı yarılama testi
 
 **Ne kuruldu.** `PREPRINT.md` bölüm 8'in köprüsü, tek eklemde (ayak bileği) uçtan uca koştu.
 Zincir: CPG (Morris-Lecar yarım-merkez) → örüntü oluşturma katmanı → 10 motonöron havuzu →
@@ -918,7 +918,7 @@ Sol, MG, LG, Pla, TP, FDL, FHL. Havuz başına bir temsilî Kim hücresi (2655 s
 | # | Belirti | Sebep | Nasıl bulundu |
 |---|---|---|---|
 | 1 | Bütün motonöronlar sustu, `u(t)` = 0 | **NEURON nesneleri Python'da referans tutulmadığında çöp toplayıcı siliyor.** `gradli_baglanti()` dönüşü bir değişkende saklanmıyordu; CPG → PF sinapsı sessizce yok oldu | Sinaps yalıtılmış olarak sınandığında çalıştı, devrede çalışmadı; fark referans tutmaktı |
-| 2 | Kas uyarımı hiçbir etki yapmıyor (TA %100 ile bilek yörüngesi pasif koşumla **birebir aynı**) | `PrescribedController.prescribeControlForActuator` fonksiyonu **kopyalar**; dışarıdan tutulan `Constant` nesnesi modeldeki değil | Beş farklı uyarımın birebir aynı yörüngeyi vermesi. Çözüm: fonksiyonlar `initSystem()` sonrası kontrolcünün kendi kümesinden alınır |
+| 2 | Kas uyarımı hiçbir etki yapmıyor (TA %100 ile bilek yörüngesi pasif koşuyla **birebir aynı**) | `PrescribedController.prescribeControlForActuator` fonksiyonu **kopyalar**; dışarıdan tutulan `Constant` nesnesi modeldeki değil | Beş farklı uyarımın birebir aynı yörüngeyi vermesi. Çözüm: fonksiyonlar `initSystem()` sonrası kontrolcünün kendi kümesinden alınır |
 | 3 | İki yarım-merkez de −80 mV'a çakıldı, salınım yok | `oz_yu2021` Tablo 2'nin `gCPG` değeri **yoğunluktur (mS/cm²)**, nokta süreci µS'i değil; dönüşüm atlanınca sinaps membran iletkenliğinin ~40 katı oldu | Birim denetimi: Tablo 2 "µS/cm²" yazıyor ama Iext ile 1000 kat tutarsız; mS/cm² okununca tutarlı (özetin kendi uyarısı) |
 
 ## P.2 · CPG kalibrasyonu
@@ -952,7 +952,7 @@ Eşit CPG sürüşüyle eklem plantar fleksiyon ucuna çöküyor ve orada kalıy
 53,68 / 144,36 N·mm → plantar fleksör sürüş ölçeği **0,372**. Bu uygulanmadan bilek −81,6°'de
 takılıyordu; uygulandıktan sonra salınım başladı.
 
-## P.4 · Kapalı döngü koşumu (3 s, ikinci yarı; geçici rejim atıldı)
+## P.4 · Kapalı döngü koşusu (3 s, ikinci yarı; geçici rejim atıldı)
 
 | Büyüklük | Ölçülen | Referans / aralık |
 |---|---|---|
@@ -970,14 +970,14 @@ hareket kas kuvvetinden doğuyor, iğcik geri beslemesi devrede ve çevrim süre
 işaret ediyor: havuz az ateşliyor ama kas fazla iş yapıyor — yani `u = f_MN / f_ref` eşlemesindeki
 `f_ref` ve `pf_mn` sinaptik ağırlığı birlikte kalibre edilmemiş durumda.
 
-**Bu sayıların hiçbiri bir iddia olarak sunulmamaktadır.** İlk uçtan uca koşumun ölçümleridir.
+**Bu sayıların hiçbiri bir iddia olarak sunulmamaktadır.** İlk uçtan uca koşunun ölçümleridir.
 
 ## P.5 · Zaman adımı yarılama testi — KISMEN DÜŞTÜ
 
 PREPRINT bölüm 8 bu testi **zorunlu** sayar: kuplaj dışsaldır, ortak Jacobian kurulamaz
 (`oz_fietkiewicz2023` §3b). Aralıklar testten önce ilan edildi (iç ölçüm yakınsama aralığı):
 çevrim süresi %5, ROM %10, ateşleme oranı %10. NEURON adımı (0,025 ms) sabit tutuldu; yalnız
-**alışveriş adımı** yarılandı. Koşum 4 s.
+**alışveriş adımı** yarılandı. Koşu 4 s.
 
 | Ölçüt | `dt_k` = 0,30 ms | `dt_k` = 0,15 ms | Bağıl fark | Aralık | Sonuç |
 |---|---|---|---|---|---|
@@ -993,7 +993,7 @@ genişletme yasak); bunun yerine sebep arandı.
 
 ## P.6 · Üç noktalı yakınsama taraması — sebep bulundu: adım çok kabaydı
 
-İki nokta bir eğilim göstermez; üçüncü nokta eklendi. Aynı koşum (3 s), yalnız köprü adımı
+İki nokta bir eğilim göstermez; üçüncü nokta eklendi. Aynı koşu (3 s), yalnız köprü adımı
 değişken:
 
 | `dt_k` | Çevrim süresi | Eklem ROM | Açı aralığı | CPU |
@@ -1018,7 +1018,7 @@ NEURON adımının katı olma özelliği de korunuyor (0,15/0,025 = **6 adım**)
 **Aralık değil, adım değiştirildi.** Ölçüt banda uymadığında önce modelin sorgulanması kuralının
 (04_KURALLAR, madde 2) uygulanmasıdır bu.
 
-## P.7 · Üretim adımıyla (0,15 ms) kapalı döngü koşumu — kanonik sonuç
+## P.7 · Üretim adımıyla (0,15 ms) kapalı döngü koşusu — kanonik sonuç
 
 | Büyüklük | Ölçülen | Referans / aralık | Sonuç |
 |---|---|---|---|
@@ -1029,7 +1029,7 @@ NEURON adımının katı olma özelliği de korunuyor (0,15/0,025 = **6 adım**)
 | Sol havuzu, etkin faz | 12,27 Hz | `gorassini2000.mn_frekans_SOL_yuruyus` 28 · [20 – 35] | **dışarıda (düşük)** |
 | MG / LG havuzu, etkin faz | 12,25 / 12,21 Hz | `gorassini2000.mn_frekans_MGLG_ortagec` 67 · [50 – 90] | **dışarıda (düşük)** |
 
-Koşum maliyeti: 3 s simülasyon → 242,5 s CPU (10 havuz × 2655 segment + OpenSim ileri dinamiği).
+Koşu maliyeti: 3 s simülasyon → 242,5 s CPU (10 havuz × 2655 segment + OpenSim ileri dinamiği).
 
 ## P.8 · Adım yarılama testi — üretim adımıyla GEÇTİ
 

@@ -1,4 +1,4 @@
-# rt_ara_uret.py — Oturum 6: rt_ara.npz'yi SAHNEDEN yeniden üretir (projeden aktarmak yerine;
+# rt_ara_uret.py — Oturum 6: rt_ara.npz'yi CALISMA ORTAMINDAN yeniden üretir (projeden aktarmak yerine;
 # aktarım maliyeti ve hata riski yüksekti). Tarif 46_ §5'ten: lmt = GeometryPath.getLength
 # (201 kare, g=0..100 %0,5 adım), lm = sqrt((lmt−tsl)² + (lmo·sinα0)²) [rijit tendon, kart
 # kural 6], v = np.gradient(lm, t). DOĞRULAMA: bu üretimle u_stance_pipeline.salinim_dogrula

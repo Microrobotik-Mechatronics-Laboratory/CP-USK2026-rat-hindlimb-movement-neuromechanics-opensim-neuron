@@ -56,7 +56,7 @@ class Makine:
         # DİKKAT (H10 dersi): yalnız sacrum_x/y/z ÇEVİRİDİR (metre, ham geçer);
         # sacrum_pitch/roll/yaw dahil BÜTÜN açılar dereceden radyana çevrilir.
         # 31 Ağustos gecesi bu satırdaki yanlış koşul (startswith('sacrum_'))
-        # sacrum_pitch'i radyan sanıp sahneyi bozdu ve yanıltıcı H10 alarmı üretti.
+        # sacrum_pitch'i radyan sanıp hesabı bozdu ve yanıltıcı H10 alarmı üretti.
         t = g/100.0*self.T
         for j,c in enumerate(self.mcols):
             if c=='time': continue

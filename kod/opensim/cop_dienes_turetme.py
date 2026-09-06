@@ -27,8 +27,8 @@ esik = 0.05*V.max()
 stance_son = gg[np.argmax((gg>20) & (V<esik))]
 print('stance sonu (V<%%5 tepe): %%%.1f dongu  (Tablo 1: 63.9±3.6)' % stance_son)
 
-# --- geometri (bizim dogrulanmis sahneden; VARSAYIM etiketli) ---
-# u_stance_pipeline sahnesinden stance karelerinde: bilek ekleminin yer-x izdusumu,
+# --- geometri (bizim dogrulanmis calisma ortamimizdan; VARSAYIM etiketli) ---
+# u_stance_pipeline calisma ortamindan stance karelerinde: bilek ekleminin yer-x izdusumu,
 # bilek yuksekligi z_a, topuk-arka ve parmak-ucu yer-x'leri. Olcek: Dienes ayak
 # parcasi (bilek→5.MT) 35.9 mm ↔ bizim model bilek→MTP istasyonu mesafesi.
 from u_stance_pipeline import Makine, V_CAL, V_TOE
@@ -57,7 +57,7 @@ model_ayak = float(np.mean(olcek_paydasi))        # bizim bilek→MTP (m)
 DIENES_AYAK = 0.0359                              # m (Tablo 1)
 rho = model_ayak/DIENES_AYAK
 print('model bilek→MTP %.1f mm; Dienes 35.9 mm; ölçek rho=%.3f' % (1000*model_ayak, rho))
-print('bilek yüksekliği z_a (bizim sahne): %.1f–%.1f mm' % (1000*geo['za'].min(), 1000*geo['za'].max()))
+print('bilek yüksekliği z_a (bizim calisma ortami): %.1f–%.1f mm' % (1000*geo['za'].min(), 1000*geo['za'].max()))
 
 def turet(z_carpan=1.0, M_carpan=1.0, rho_carpan=1.0):
     s_list = []

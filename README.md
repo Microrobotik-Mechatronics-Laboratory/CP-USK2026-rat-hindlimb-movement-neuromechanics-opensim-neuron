@@ -241,7 +241,7 @@ details; NEURON's own run instructions are in `neuron/README.txt`.
 
 ### Bu ne?
 
-Bu depo, Sprague-Dawley sıçanının arka bacağında **omurilikten kasa uzanan kapalı döngüyü**
+Bu repo, Sprague-Dawley sıçanının arka bacağında **omurilikten kasa uzanan kapalı döngüyü**
 bilgisayarda kuruyor. Mekaniği **OpenSim** taşıyor — bacağın kas-iskelet modeli. Sinirsel komutu
 **NEURON** taşıyor — motonöronlar ve üstlerindeki omurilik devresi. Döngü kendi üstüne kapanıyor:
 motonöron havuzları kasları sürer, doğan hareket kas iğciklerini gerer, Ia/II afferent sinyali
@@ -255,7 +255,7 @@ CPG yarım-merkezleri, örüntü oluşturma katmanı, resiprokal ve rekürren in
 yürüyüş çevrimine kalibre edildi. Sıradaki adım döngüyü 38 havuzla uçtan uca kapatmak.
 
 `PREPRINT.md` bilimsel tek doğruluk kaynağıdır (yöntem, sayılar, iddialar, açık sorular).
-`DOGRULAMA.md` ölçüm defteridir — ne, ne zaman doğrulandı ve ne doğrulanmadı.
+`DOGRULAMA.md` doğrulama kaydıdır — ne, ne zaman doğrulandı ve ne doğrulanmadı.
 
 ### Gereksinimler
 
@@ -277,7 +277,7 @@ oraya import edilebilir.
 | OpenSim | 3.13 | `.venv-osim` (proje içi) | `kod/opensim/` |
 | Köprü | 3.13 | `~/.venvs/usk26-kopru` (proje dışı) | `kod/kopru/`, `nrnivmodl`, NEURON |
 
-Bu deponun kendi dizin adı boşluk ve Türkçe karakter içerdiği için **iki yol kısıtı** doğuyor:
+Bu reponun kendi dizin adı boşluk ve Türkçe karakter içerdiği için **iki yol kısıtı** doğuyor:
 
 1. **NEURON boşluksuz bir yola kurulmalı.** `nrnivmodl`, kurulum dizinini derleyiciye *tırnaklamadan*
    geçirir; boşluk derlemeyi düşürür. Ana ve köprü ortamlarının `~/.venvs` altında olmasının nedeni
@@ -395,18 +395,18 @@ sonuçtur, anatomik bir bulgu değildir. Buna karşılık semimembranosus'un −
 tamamen bağımsızdır — buradaki en savunulabilir sayı odur. Ayrıntı ve GMa işaret çelişkisi
 `PREPRINT.md` bölüm 10 ile `DOGRULAMA.md` §B-C'dedir.
 
-### Depo bugün ne kadar koşuyor
+### Repo bugün ne kadar koşuyor
 
 | Hat | Durum |
 |---|---|
-| Kapalı döngü (`kod/kapali_dongu/`) | **Koşar.** Teslim koşusu bu makinede yeniden üretildi. |
+| Kapalı döngü (`kod/kapali_dongu/`) | **Koşar.** Sonuç koşusu bu makinede yeniden üretildi. |
 | OpenSim ID + SO (`kod/opensim/kod_02_swing_id_so.py`) | **Koşar.** `u_swing_v2.csv`'yi sıfır farkla üretti. |
 | NEURON mekanizmaları (`neuron/`) | **Derleniyor.** Dört figür klasöründe 12/12. |
 | NEURON-OpenSim köprüsü (`kod/kopru/`) | **Koşar.** Tek süreç; motonöron HOC'a karşı doğrulandı. |
 | OpenSim hattının kalanı | Girdileri eksik — tablo: `kod/opensim/README.md`. |
 | Omurilik devresi (`kod/kopru/nrn_devre.py`) | **Kuruldu ve** yürüyüş çevrimine **kalibre edildi**; 38 havuzla uçtan uca döngü kapanışı henüz `DOGRULAMA.md`'ye işlenmedi. |
 
-Depo tam self-contained değildir: `kod/opensim/rig.py` ve bazı ham veri kümeleri (Bauman CSV'leri,
+Repo tam self-contained değildir: `kod/opensim/rig.py` ve bazı ham veri kümeleri (Bauman CSV'leri,
 Blum `.mat` dosyaları) burada yoktur; bunlara bağlı betikler koşmaz.
 
 ### Klasör haritası
@@ -431,7 +431,7 @@ veri/            girdi ve uretilen seriler
   kopru/                        moto_morfoloji.npz (motonoron morfoloji dokumu)
 
 kod/             tum Python
-  yollar.py                     depo-ici yollarin tek kaynagi; betikler bunu kullanir
+  yollar.py                     repo-ici yollarin tek kaynagi; betikler bunu kullanir
   opensim/                      ID + Statik Optimizasyon hatti (Python 3.13, .venv-osim)
   kapali_dongu/                 emergent kapali-dongu + CMA-ES (Python 3.14, saf NumPy)
   kopru/                        NEURON-OpenSim koprusu (Python 3.13)
