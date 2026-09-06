@@ -21,8 +21,10 @@ Where the work stands today: the musculoskeletal half is built and swing-phase m
 have been solved; the motoneuron cell is built in Python and matches the reference HOC
 implementation bit-for-bit; NEURON and OpenSim have been shown to run inside one Python process;
 and the spinal circuit above the motoneuron — CPG half-centres, the pattern-formation layer, and
-the reciprocal/recurrent interneurons — is now built and calibrated to the gait cycle. Closing the
-loop end to end, with all 38 pools, is the step in progress.
+the reciprocal/recurrent interneurons — is built and calibrated to the measured gait period.
+**The loop now closes end to end at one joint:** at the ankle, ten motoneuron pools drive OpenSim
+*forward* dynamics and the joint angle emerges from the muscle forces rather than being prescribed.
+Calibrating that run and scaling it to 3 DOF and 38 pools is the step in progress.
 
 `PREPRINT.md` is the scientific source of truth (method, numbers, claims, open questions).
 `DOGRULAMA.md` is the measurement log — what was verified, when, and what was not.
@@ -100,6 +102,9 @@ $HOME/.venvs/usk26/bin/python kod/kapali_dongu/cl_teslim_9of9.py
 
 # Motoneuron cross-check: Python build vs HOC build, same process, same stimulus
 $HOME/.venvs/usk26-kopru/bin/python kod/kopru/capraz_kontrol.py
+
+# Full closed loop at the ankle: CPG -> pools -> muscles -> movement -> spindle -> Ia
+$HOME/.venvs/usk26-kopru/bin/python kod/kopru/kos_ayakbilegi.py
 ```
 
 `kod/kapali_dongu/cl_optimize.py` runs the CMA-ES parameter search (~6-7 hours). The closed-loop
@@ -175,7 +180,9 @@ the GMa sign contradiction, is in `PREPRINT.md` §10 and `DOGRULAMA.md` §B-C.
 | NEURON mechanisms (`neuron/`) | **Compile.** 12/12 across all four figure folders. |
 | NEURON-OpenSim bridge (`kod/kopru/`) | **Runs.** Single process; motoneuron verified against HOC. |
 | Rest of the OpenSim pipeline | Missing inputs — see the table in `kod/opensim/README.md`. |
-| Spinal circuit (`kod/kopru/nrn_devre.py`) | **Built and calibrated** to the gait cycle; end-to-end loop closure with all 38 pools not yet logged in `DOGRULAMA.md`. |
+| Spinal circuit (`kod/kopru/nrn_devre.py`) | **Built.** CPG free-run period calibrated to 386.9 ms against the measured 387.0 ms; half-centre anti-phase correlation −0.957. |
+| Full closed loop (`kod/kopru/kos_ayakbilegi.py`) | **Runs at one joint.** Ankle, 10 pools, forward dynamics, joint angle emergent. Not yet calibrated: pool rates fall below the Gorassini ranges while the joint travel leaves the physiological range (`DOGRULAMA.md` §P). |
+| Scaling to 3 DOF / 38 pools | Next step. |
 
 The repository is not fully self-contained: `kod/opensim/rig.py` and a few raw datasets
 (Bauman CSVs, Blum `.mat` files) are not here, so the scripts depending on them do not run.
@@ -208,6 +215,7 @@ kod/             all Python
   kopru/                        NEURON-OpenSim bridge (Python 3.13)
     nrn_hucre.py  nrn_devre.py      motoneuron cell and the spinal circuit above it
     igcik.py  osim_mekanik.py       muscle spindle; OpenSim forward dynamics
+    kopru.py  kos_ayakbilegi.py     the loop itself; the single-joint closed-loop run
     devre_par.json                  synaptic weights and calibration values (never in code)
 
 neuron/          NEURON source tree: the Kim 2020 motoneuron model (.hoc + .mod)
@@ -219,8 +227,8 @@ literatur/       literature summaries (oz_*.md), tolerance bands (referans_deger
                  diyagramlar/ (D1-D8 Mermaid sources of the diagrams in PREPRINT.md)
 ```
 
-`kod/opensim/`, `kod/kapali_dongu/` and `literatur/` each have their own `README.md` with the
-details; NEURON's own run instructions are in `neuron/README.txt`.
+`kod/opensim/`, `kod/kapali_dongu/`, `kod/kopru/` and `literatur/` each have their own `README.md`
+with the details; NEURON's own run instructions are in `neuron/README.txt`.
 
 ### References
 
@@ -252,7 +260,9 @@ Bugünkü nokta: kas-iskelet yarısı kurulu ve salınım fazı kas aktivasyonla
 hücresi Python'da kuruldu ve referans HOC uygulamasıyla birebir doğrulandı; NEURON ile OpenSim'in
 tek bir Python sürecinde birlikte koştuğu gösterildi; motonöronun üstündeki omurilik devresi —
 CPG yarım-merkezleri, örüntü oluşturma katmanı, resiprokal ve rekürren internöronlar — kuruldu ve
-yürüyüş çevrimine kalibre edildi. Sıradaki adım döngüyü 38 havuzla uçtan uca kapatmak.
+ölçülmüş yürüyüş periyoduna kalibre edildi. **Döngü artık tek eklemde uçtan uca kapanıyor:** ayak
+bileğinde on motonöron havuzu OpenSim **ileri dinamiğini** sürüyor ve eklem açısı reçete değil,
+kas kuvvetlerinden doğuyor. Sıradaki adım bu koşumu kalibre edip 3 DOF ve 38 havuza ölçeklemek.
 
 `PREPRINT.md` bilimsel tek doğruluk kaynağıdır (yöntem, sayılar, iddialar, açık sorular).
 `DOGRULAMA.md` doğrulama kaydıdır — ne, ne zaman doğrulandı ve ne doğrulanmadı.
@@ -329,6 +339,9 @@ $HOME/.venvs/usk26/bin/python kod/kapali_dongu/cl_teslim_9of9.py
 
 # Motonoron capraz kontrolu: Python kurulumu vs HOC kurulumu, ayni surec, ayni uyaran
 $HOME/.venvs/usk26-kopru/bin/python kod/kopru/capraz_kontrol.py
+
+# Ayak bileginde tam kapali dongu: CPG -> havuzlar -> kaslar -> hareket -> igcik -> Ia
+$HOME/.venvs/usk26-kopru/bin/python kod/kopru/kos_ayakbilegi.py
 ```
 
 `kod/kapali_dongu/cl_optimize.py` CMA-ES parametre aramasını koşar (~6-7 saat). Kapalı döngü
@@ -404,7 +417,9 @@ tamamen bağımsızdır — buradaki en savunulabilir sayı odur. Ayrıntı ve G
 | NEURON mekanizmaları (`neuron/`) | **Derleniyor.** Dört figür klasöründe 12/12. |
 | NEURON-OpenSim köprüsü (`kod/kopru/`) | **Koşar.** Tek süreç; motonöron HOC'a karşı doğrulandı. |
 | OpenSim hattının kalanı | Girdileri eksik — tablo: `kod/opensim/README.md`. |
-| Omurilik devresi (`kod/kopru/nrn_devre.py`) | **Kuruldu ve** yürüyüş çevrimine **kalibre edildi**; 38 havuzla uçtan uca döngü kapanışı henüz `DOGRULAMA.md`'ye işlenmedi. |
+| Omurilik devresi (`kod/kopru/nrn_devre.py`) | **Kuruldu.** CPG serbest çevrim periyodu ölçülmüş 387,0 ms'ye karşı 386,9 ms'ye kalibre edildi; yarım-merkez zıtfaz korelasyonu −0,957. |
+| Tam kapalı döngü (`kod/kopru/kos_ayakbilegi.py`) | **Tek eklemde koşuyor.** Ayak bileği, 10 havuz, ileri dinamik, eklem açısı emergent. Henüz kalibre değil: havuz frekansları Gorassini aralıklarının altında kalırken eklem açıklığı fizyolojik aralığın dışına çıkıyor (`DOGRULAMA.md` §P). |
+| 3 DOF / 38 havuza ölçekleme | Sıradaki adım. |
 
 Repo tam self-contained değildir: `kod/opensim/rig.py` ve bazı ham veri kümeleri (Bauman CSV'leri,
 Blum `.mat` dosyaları) burada yoktur; bunlara bağlı betikler koşmaz.
@@ -437,6 +452,7 @@ kod/             tum Python
   kopru/                        NEURON-OpenSim koprusu (Python 3.13)
     nrn_hucre.py  nrn_devre.py      motonoron hucresi ve ustundeki omurilik devresi
     igcik.py  osim_mekanik.py       kas igcigi; OpenSim ileri dinamigi
+    kopru.py  kos_ayakbilegi.py     dongunun kendisi; tek eklemli kapali dongu kosumu
     devre_par.json                  sinaptik agirliklar ve kalibrasyon degerleri (koda gomulmez)
 
 neuron/          NEURON kaynak agaci: Kim 2020 motonoron modeli (.hoc + .mod)
@@ -448,8 +464,9 @@ literatur/       literatur ozetleri (oz_*.md), tolerans araliklari (referans_deg
                  diyagramlar/ (D1-D8 Mermaid; PREPRINT'teki diyagramlarin kaynagi)
 ```
 
-`kod/opensim/`, `kod/kapali_dongu/` ve `literatur/` klasörlerinin kendi `README.md`'leri vardır;
-ayrıntı oradadır. NEURON'un kendi çalıştırma yönergesi `neuron/README.txt`'tedir.
+`kod/opensim/`, `kod/kapali_dongu/`, `kod/kopru/` ve `literatur/` klasörlerinin kendi
+`README.md`'leri vardır; ayrıntı oradadır. NEURON'un kendi çalıştırma yönergesi
+`neuron/README.txt`'tedir.
 
 ### Kaynaklar
 
