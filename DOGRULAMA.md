@@ -1369,3 +1369,144 @@ Aşama 1 kök sebebi çözdü ama fizyolojik lokomosyon üretmiyor. İki aday ek
 Ayrıca Markin ve ark. 2012 (s. 2067–2068) gerçek yürüyüşteki iki eklemli kas desenlerinin büyük
 ölçüde **afferent geri beslemeye** bağlı olduğunu söylüyor; Aşama 2'den sonra kalan tutarsızlık
 devre hatası değil Ia/II ölçeği sorunu olabilir — ayrı hipotez olarak izlenmeli.
+
+---
+
+# S · 07.09.2026 — Hesaplama maliyetinin dökümü ve sonucu değiştirmeyen hızlandırma
+
+R.1 maliyetin **kırpma rejiminde** nasıl patladığını ölçtü. Bu bölüm tamamlayıcı soruyu ölçer:
+sağlıklı rejimde maliyet nerede duruyor ve **sonuç değişmeden** ne kadarı geri alınabilir?
+
+**Bu bölümdeki hiçbir değişiklik projeye uygulanmamıştır.** `neuron/kopru/*.mod` ve
+`kod/kopru/*.py` dosyalarına dokunulmadı; ölçümler geçici kopyalar üzerinde yapıldı.
+
+## S.1 · Maliyet dökümü (sağlıklı rejim, kırpmasız pencere)
+
+Ölçüm: 38 havuz + 3 DOF, `dt_k` = 0,15 ms, gerçek köprü (`kos_tumbacak.kur()`), 0,05 s koşu,
+`cProfile`; NEURON ve mekanik ayrıca yalıtılmış olarak ölçüldü. Bu pencerede kırpma olayı 0.
+
+| bileşen | maliyet | pay | nasıl ölçüldü |
+|---|---|---|---|
+| **NEURON** (38 hücre, `IaKopru` takılı) | **174,4 s CPU / sim-s** | ~%82 | yalıtılmış, 100 ms |
+| OpenSim `Manager.integrate` | 19,2 s CPU / sim-s (2,9 ms/çağrı) | ~%9 | profil, 333 çağrı |
+| Python döngüleri + kayıt | ~19 s CPU / sim-s | ~%9 | fark hesabı |
+| köprünün profilli toplamı | 211,6 s CPU / sim-s | — | 0,05 s gerçek koşu |
+
+Mekanik yalıtılmış (600 adım, u=0): sınırsız **2,67 ms/adım**, kırpmalı sınır 2,76, kas kaydı
+açık 2,73.
+
+**İki yaygın sezgi ölçülerek yanlışlandı:**
+
+- `kas_durumu()` (aktivasyon + tendon kuvveti kaydı) ek maliyeti **−0,03 ms/adım**, yani gürültü
+  içinde. Entegratör Dynamics aşamasını zaten gerçekliyor; kaydı seyreltmenin anlamı yok.
+- `man.initialize()` kırpma olayı başına **0,96 ms**. Her adımda tetiklense bile ≤6,4 s CPU/sim-s.
+  Kırpmanın asıl maliyeti bu değil, R.1'de ölçülen integratör iç adım patlamasıdır.
+
+**R.1 ile uzlaştırma.** R.1 tablosu sağlıklı rejimde 3,3 ms/köprü adımı gösteriyor; buradaki
+toplam ise 211,6 s/sim-s × 0,15 ms ≈ **32 ms/adım**. Çelişki değil: R.1 değerleri OpenSim
+`Manager` günlüğünden okunmuştur, yani **OpenSim payıdır** (burada bağımsız olarak 2,9 ms
+ölçüldü — örtüşüyor); NEURON payı onun üstüne ~26 ms ekler. `00_DURUM`'daki ~230 s CPU/sim-s
+ile de tutarlıdır.
+
+## S.2 · NEURON çok iş parçacığı: 3,4 kat, sonuç bit düzeyinde aynı
+
+38 motonöron elektriksel olarak bağımsızdır (yalnız `NetCon` olaylarıyla haberleşirler), bu
+yüzden NEURON'un kendi iş parçacığı bölümlemesine uygundurlar. Ölçüm: 38 Kim hücresi, havuz
+kurulumuyla aynı biçimde `IaKopru` takılı, somaya 15 nA `IClamp`, 100 ms,
+`h.ParallelContext().nthread(n)`.
+
+| `nthread` | CPU | s CPU / sim-s | hızlanma | soma v maks farkı | AP sayısı farkı |
+|---|---|---|---|---|---|
+| 1 | 17,44 s | 174,4 | 1,00x | — | — |
+| 4 | 7,10 s | 71,0 | 2,46x | **0,000e+00 mV** | **0** |
+| 6 | 5,16 s | 51,6 | **3,38x** | **0,000e+00 mV** | **0** |
+| 8 | 5,10 s | 51,0 | 3,42x | **0,000e+00 mV** | **0** |
+
+Makine: Mac16,12, 10 çekirdek (4 performans + 6 verimlilik); doyum `nthread` = 6'da.
+Aynı sınama `IaSyn`'li (pointer'sız) hücreyle: 151,6 → 39,7 s CPU/sim-s, **3,82x**, fark yine 0.
+`cache_efficient(1)` ölçülebilir etki vermedi (%1 altı, gürültü).
+
+Beklenen uçtan uca: NEURON 174 → 52; toplam 212 → ~90 s CPU/sim-s, yani **~2,35 kat**.
+Kanonik 3 s koşu ~12-15 dk yerine ~5-6 dk.
+
+## S.3 · Engel: `IaKopru` iş parçacığı güvenli değil (aşıldı, ama bir risk açık)
+
+Gerçek köprüde `pc.nthread()` çağrıldığında NEURON reddediyor:
+
+```
+RuntimeError: hocobj_call error: hoc_execerror: IaKopru is not thread safe
+```
+
+Sebep: `syn_Ia_kopru.mod` bir `POINTER` (`gsc`) kullanıyor ve NMODL pointer'lı mekanizmaları
+varsayılan olarak güvensiz sayıyor. Bizim kullanımımızda pointer **yalnız okunuyor** (Python
+adım aralarında yazar, mekanizma hiç yazmaz) ve her havuzun kendi vektörü var.
+
+Sınandı: geçici kopyalara `NEURON { THREADSAFE ... }` satırı eklenip `nrnivmodl` ile derlendi
+(`nocmodl` "Thread Safe" bastı); S.2 tablosu **bu yamayla** alınmıştır. Yani engel tek satırla
+aşılıyor ve sonuç değişmiyor.
+
+**Açık risk — sınanmadı:** `GradeSyn`'in `vpre` pointer'ı *başka bir hücrenin* voltajını okuyor
+(RG↔RG, RG→PF, IIrly→RG; 14 sinaps). Pre ve post hücreler farklı iş parçacığına düşerse bu
+gerçek bir yarış koşuludur. Uygulamadan önce gradlı bağlı 14 hücre (2 ML + 6 PF + 6 IIrly)
+`pc.partition()` ile tek iş parçacığına sabitlenmeli ve özdeşlik yeniden sınanmalıdır. Maliyet
+kaybı yok: yükün tamamı motonöronlardadır.
+
+## S.4 · Sürüşsüz 6 havuz yapısal olarak sıfır üretiyor
+
+`havuz_eslesme.surussuz` (Pir, GMi, OE, OI, Pec, BFa) hiçbir PF grubunun üyesi değil;
+`_devre_kur` grup üyeleri üzerinden döndüğü için bu altı havuz PF, II-aktarım, Renshaw ve IaIN
+bağlantılarının **hiçbirini** almıyor. Tek girdileri Ia'dır ve Ia tek başına ateşletemez
+(reobaz ~10 nA, `devre_par.json` `agirlik_uS._not`).
+
+Ölçüldü (0,5 s duman koşusu `kosu_tumbacak.npz`): altı havuzun toplam aksiyon potansiyeli **0**,
+`u` tam olarak 0,000. Aksiyon potansiyeli yoksa `f` sıfır kalır, `u = clip(f/f_ref)` tam
+sıfırdır ve efferent tampon zaten sıfırla başlar — yani bu havuzların kurulmayıp kasa doğrudan
+`u = 0` yazılması kalan 32 havuz için **matematiksel olarak aynıdır**.
+
+Bütçe payı NEURON maliyetinin %16'sı. Kalibrasyon taramalarında kapatmak ölçülebilir kazanç
+verir; kanonik/yayın koşusunda açık bırakmak figür dürüstlüğü açısından tercih edilir (raster
+"38 havuz" gösterir ve sessizlik bir bulgudur). Öneri: `devre_par.json`'a bayrak, varsayılanı
+açık, kanonik koşuda bu altı havuzun aksiyon potansiyeli sayısının 0 olduğunu doğrulayan assert.
+
+Not: bu, R.2'deki "sessiz kas" bulgusundan **ayrı bir kategoridir**. R'nin saydığı altı sessiz
+kas sürülen biartikülerlerdi ve R.5 düzeltmesiyle konuşmaya başladılar; buradaki altı havuz
+tasarım gereği sürüşsüzdür.
+
+## S.5 · Ölçülüp reddedilenler ve ucuz kalemler
+
+| aday | karar | gerekçe |
+|---|---|---|
+| `cache_efficient(1)` | etkisiz | %1 altı fark (gürültü), ölçüldü |
+| `kas_durumu()` seyreltme | gereksiz | ek maliyeti ölçülemedi (S.1) |
+| `nseg` indirimi / `d_lambda` büyütme | **hayır** | PIC hot-spot konumu ve `IaSyn` dağılımı segment konumlarına bağlı; Kim Tip I/IV/III davranışını değiştirir |
+| `dt_k` büyütme | **hayır** | 0,3 ms adım yarılama testini düşürdü (P.5–P.7) |
+| entegratör doğruluğunu gevşetme | hayır | OpenSim payı zaten %9 |
+| kilitli koordinatları modelden çıkarma | öncelik değil | OpenSim %9; 3 kat kazanç bile toplamda %6 |
+
+Ucuz ve bit düzeyinde aynı iki kalem: (1) profilde `SetMuscles_get` **50.692 çağrı / 334 adım** —
+`oku()` ve `kas_durumu()` kas nesnelerini her adımda yeniden çekiyor, kurulumda bir listeye
+alınabilir (~%0,5); (2) `h.continuerun(h.t + dt)` yerine adım indeksinden hedef hesaplamak
+(hız değil, kayan nokta sürüklenmesine karşı sağlamlık).
+
+**Süreç düzeyinde paralellik.** `adim_yarilama.py` iki koşuyu aynı süreçte sırayla yapıyor.
+İkisi bağımsızdır ve zaten aynı süreçte art arda koşamıyorlar — ölçüldü: ikinci `kos()` çağrısı
+`Manager.initialize` içinde `Expected stage to be at least Topology ... was Empty` ile düşüyor.
+Ayrı süreçlerde paralel koşturmak sıfır riskle duvar saatini yarıya indirir. 10 çekirdekte
+tercih: tek kanonik koşu 1 süreç × 6 iş parçacığı; yarılama 2 süreç × 4; parametre taraması
+N süreç × 1-2.
+
+## S.6 · Üreten ve yeniden üretim
+
+Ölçüm betikleri geçicidir (depoya girmedi). Yeniden üretim reçetesi:
+
+1. **NEURON payı:** `nrn_hucre.MotoNoron` ile 38 hücre kur, her birine 15 nA `IClamp`,
+   `h.dt = 0.025`, `h.continuerun(100)`, CPU süresini ölç.
+2. **Çok iş parçacığı:** `neuron/kopru/*.mod` kopyalarına `THREADSAFE` ekle, ayrı bir dizinde
+   `nrnivmodl` ile derle, oraya `chdir` edip aynı koşuyu `h.ParallelContext().nthread(n)` ile
+   tekrarla; soma voltajlarını ve aksiyon potansiyeli sayılarını `nthread=1` ile karşılaştır.
+3. **Mekanik payı:** `osim_mekanik.Mekanik` ile 600 adım `adim()`, `limitler` açık/kapalı ve
+   `kas_durumu()` açık/kapalı dört bileşimde.
+4. **Köprü profili:** `kos_tumbacak.kur()` + `kk.kos(0.05)` çevresinde `cProfile`.
+
+Uyarı: aynı süreçte `kos()` iki kez çağrılamaz (yukarıdaki `Manager` hatası); her ölçüm noktası
+temiz bir süreçte koşulmalıdır.
