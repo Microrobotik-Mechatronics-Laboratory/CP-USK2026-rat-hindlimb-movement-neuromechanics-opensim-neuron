@@ -23,8 +23,15 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))  # kod/yoll
 import numpy as np
 from yollar import VERI, VERI_KOPRU, GRID3D
 
-SERBEST = ('ankle_flx',)          # kos_ayakbilegi.py ile ayni
 HEDEF_HZ = 200.0                  # GUI oynatmasi icin yeterli; hesap dosyasi seyreltilmez
+# kosu secimi: varsayilan ayak bilegi; --tumbacak ile 3 DOF / 38 havuz kosusu.
+# Serbest koordinatlar tumbacak npz'sinde kayitlidir; ayakbilegi npz'sinde yoktur (eski bicim).
+KOSULAR = {
+    'ayakbilegi': dict(npz='kosu_ayakbilegi.npz', serbest=('ankle_flx',),
+                       ad='kopru_ayakbilegi'),
+    'tumbacak':   dict(npz='kosu_tumbacak.npz', serbest=None,   # npz'deki 'serbest' okunur
+                       ad='kopru_tumbacak'),
+}
 
 
 def yaz_mot(yol, t, ad_sut, veri, ad='kopru_ayakbilegi'):
@@ -45,8 +52,12 @@ def yaz_sto(yol, t, ad_sut, veri, ad='kopru_ayakbilegi_kuvvet'):
             f.write('%.6f\t' % t[i] + '\t'.join('%.6f' % v for v in veri[i]) + '\n')
 
 
-def main():
-    d = np.load(VERI_KOPRU / 'kosu_ayakbilegi.npz', allow_pickle=True)
+def main(kosu='ayakbilegi'):
+    sec = KOSULAR[kosu]
+    d = np.load(VERI_KOPRU / sec['npz'], allow_pickle=True)
+    SERBEST = (tuple(str(x) for x in d['serbest']) if sec['serbest'] is None
+               else sec['serbest'])
+    AD = sec['ad']
     g = np.load(GRID3D, allow_pickle=True)
     cnames = [str(x) for x in g['cnames']]
     fix = dict(zip(cnames, [float(v) for v in g['FIX']]))
@@ -70,8 +81,8 @@ def main():
         else:
             sut[:, j] = np.degrees(fix.get(n, 0.0))
     (VERI / 'goruntuleme').mkdir(parents=True, exist_ok=True)
-    yedek = VERI / 'goruntuleme' / 'kopru_ayakbilegi_koordinat.mot'
-    yaz_mot(yedek, t, cnames, sut)
+    yedek = VERI / 'goruntuleme' / (AD + '_koordinat.mot')
+    yaz_mot(yedek, t, cnames, sut, ad=AD)
 
     # --- 2) kas uyarimi ---------------------------------------------------------------------
     # Kosuda yalniz 10 bilek kasi surulur; kalan 28 kas sifir uyarimdadir.
@@ -83,15 +94,16 @@ def main():
     # GUI, yuklenen hareket dosyasinda '<kas>.activation' sutunlarini gorurse kaslari o degere
     # gore renklendirir. inDegrees=yes yalniz KOORDINAT sutunlarini etkiler; aktivasyon
     # sutunlari donusume girmez.
-    mot = VERI / 'goruntuleme' / 'kopru_ayakbilegi.mot'
+    mot = VERI / 'goruntuleme' / (AD + '.mot')
     yaz_mot(mot, t, cnames + ['%s.activation' % k for k in izg_kas],
-            np.hstack([sut, akt]))
+            np.hstack([sut, akt]), ad=AD)
 
     print('ornek sayisi : %d -> %d (%.0f Hz, seyreltme 1/%d)'
           % (len(t_ham), len(t), 1.0 / (t[1] - t[0]), adim))
     print('sure         : %.3f s' % t[-1])
-    print('ankle_flx    : %.2f .. %.2f derece' % (sut[:, cnames.index('ankle_flx')].min(),
-                                                  sut[:, cnames.index('ankle_flx')].max()))
+    for n in SERBEST:
+        print('%-12s : %.2f .. %.2f derece' % (n, sut[:, cnames.index(n)].min(),
+                                               sut[:, cnames.index(n)].max()))
     print('kas uyarimi  : %d kas surulu, %d kas sifir' % (len(kosu_kas), len(izg_kas) - len(kosu_kas)))
     print('yazildi      : %s   (koordinat + kas uyarimi, GUI icin bunu yukleyin)'
           % mot.relative_to(mot.parents[2]))
@@ -99,4 +111,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    main('tumbacak' if '--tumbacak' in sys.argv else 'ayakbilegi')

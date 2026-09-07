@@ -43,11 +43,14 @@ def referanslar():
     return {k['kimlik']: k for k in r['kayitlar']}
 
 
-def kur(dt_kopru_ms=None):
+def kur(dt_kopru_ms=None, par_yol=None):
+    """par_yol: kalibrasyon taramasi degistirilmis parametre dosyasiyla kurabilsin diye."""
     from kopru import Kopru, Gecikme
-    with open(pathlib.Path(__file__).resolve().parent / 'devre_par.json') as fh:
+    if par_yol is None:
+        par_yol = pathlib.Path(__file__).resolve().parent / 'devre_par.json'
+    with open(par_yol) as fh:
         pozlar = json.load(fh)['havuz_eslesme']['denge_pozu_derece']
-    kk = Kopru(gruplar=None, serbest=SERBEST)
+    kk = Kopru(gruplar=None, serbest=SERBEST, par_yol=par_yol)
     # baslangic pozu: olculmus yuruyus orta noktalari (denge olcumuyle ayni poz)
     for ad in SERBEST:
         kk.mek.koord[ad].setValue(kk.mek.s, np.radians(pozlar[ad]))
