@@ -78,7 +78,9 @@ def pasif_kos(sure_s, dt_s=None):
         dt_s = par['kopru']['dt_kopru_ms'] * 1e-3
     g = np.load(GRID3D, allow_pickle=True)
     eksen = {'hip_flx': 'HIP', 'knee_flx': 'KNE', 'ankle_flx': 'ANK'}
-    limitler = {ad: (float(np.degrees(g[eksen[ad]][0])), float(np.degrees(g[eksen[ad]][-1])))
+    # izgara ucundan 1 derece iceri -- kopru.py ile ayni gerekce
+    limitler = {ad: (float(np.degrees(g[eksen[ad]][0])) + 1.0,
+                     float(np.degrees(g[eksen[ad]][-1])) - 1.0)
                 for ad in SERBEST}
     mek = Mekanik(serbest=SERBEST, dt_kopru_s=dt_s,
                   baslangic={ad: np.radians(v) for ad, v in pozlar.items()},

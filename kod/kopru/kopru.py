@@ -169,9 +169,11 @@ class Kopru:
         g = np.load(GRID3D, allow_pickle=True)
         limitler = None
         if gruplar is None:
+            # izgara ucundan 1 derece iceri: tam ucta kas sarma geometrisi kotu kosullu
+            # (olculdu -- osim_mekanik.py sinir notu, madde 2)
             eksen = {'hip_flx': 'HIP', 'knee_flx': 'KNE', 'ankle_flx': 'ANK'}
-            limitler = {ad: (float(np.degrees(g[eksen[ad]][0])),
-                             float(np.degrees(g[eksen[ad]][-1])))
+            limitler = {ad: (float(np.degrees(g[eksen[ad]][0])) + 1.0,
+                             float(np.degrees(g[eksen[ad]][-1])) - 1.0)
                         for ad in serbest}
         self.limitler = limitler or {}
         self.mek = Mekanik(serbest=serbest, dt_kopru_s=self.dt_s, limitler=limitler)

@@ -43,14 +43,19 @@ class Mekanik:
         self.dt = float(dt_kopru_s)
         self.dogruluk = float(dogruluk)
         self.model = osim.Model(str(OSIM_FAZ1A))
-        # Limitler KUVVET degil KIRPMADIR (adim() icinde): sinir asilirsa koordinat sinira
-        # cekilir, hizi sifirlanir -- cl_emergent.py:110-114'un birebir OpenSim karsiligi.
-        # Denendi ve olculdu (07.09.2026): CoordinateLimitForce bilek DOF'unun cok kucuk
-        # eylemsizliginde (M[ankle,ankle] ~ 1.1e-7) ~1 kHz'lik sertlik uretip degisken adimli
-        # integratoru mikro-adimlara dusuruyor (0.5 s kosu > 10 dk CPU). Kirpma parametresizdir
-        # ve ayni projenin dogrulanmis kapali dongu hattiyla tutarlidir.
+        # Limitler KUVVET degil KIRPMADIR (adim() icinde): sinir asilirsa koordinat sinirdan
+        # KIRPMA_ICERI kadar iceri cekilir, hizi sifirlanir -- cl_emergent.py:110-114'un
+        # OpenSim karsiligi. Iki olculmus ders (07.09.2026):
+        # 1) CoordinateLimitForce REDDEDILDI: bilek DOF'unun cok kucuk eylemsizliginde
+        #    (M[ankle,ankle] ~ 1.1e-7) her yay sertligi ~1 kHz'lik mod uretip integratoru
+        #    mikro-adimlara dusuruyor (0.5 s kosu > 10 dk CPU).
+        # 2) Kirpma hedefi SINIRIN KENDISI OLAMAZ: izgara ucunda kas sarma geometrisi kotu
+        #    kosullu; koordinat tam ucta tutulunca integrator tek adimda dakikalarca
+        #    surunuyor (pay=0.75 kosusu 13 dk'da 0.01 s ilerledi). Hedef sinirdan 0.5 derece
+        #    iceridedir; sinirin kendisi de cagiran tarafta izgara ucundan iceri cekilir.
         self.limitler = {ad: (np.radians(alt), np.radians(ust))
                          for ad, (alt, ust) in (limitler or {}).items()}
+        self.KIRPMA_ICERI = np.radians(0.5)
         self.limit_olay = 0                     # kirpma sayaci; kosu sonunda raporlanir
         g = np.load(GRID3D, allow_pickle=True)
         fix = dict(zip([str(x) for x in g['cnames']], [float(v) for v in g['FIX']]))
@@ -124,7 +129,9 @@ class Mekanik:
                 c = self.koord[ad]
                 v = c.getValue(self.s)
                 if v < alt or v > ust:
-                    c.setValue(self.s, min(max(v, alt), ust))
+                    # hedef sinirdan iceride: ucta kotu kosullu geometriden uzak dur
+                    c.setValue(self.s, (alt + self.KIRPMA_ICERI) if v < alt
+                                       else (ust - self.KIRPMA_ICERI))
                     c.setSpeedValue(self.s, 0.0)
                     tasti = True
             if tasti:
