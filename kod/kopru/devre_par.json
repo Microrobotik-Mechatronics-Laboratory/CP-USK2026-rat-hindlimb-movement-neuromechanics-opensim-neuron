@@ -99,6 +99,13 @@
       "TA": 97.0, "Sol": 28.0, "MG": 67.0, "LG": 67.0, "varsayilan": 60.0
     },
     "u_filtre_tau_ms": 50.0,
-    "_u_filtre_notu": "[tasarim] Aksiyon potansiyeli dizisinden anlik atesleme oranina ustel filtre. u = clip(f_MN/f_ref, 0, 1) OpenSim'e UYARIM (excitation) olarak verilir; aktivasyon dinamigini Thelen2003Muscle kendi coz er, boylece iki kez filtrelenmez."
+    "_u_filtre_notu": "[tasarim] Aksiyon potansiyeli dizisinden anlik atesleme oranina ustel filtre. u = clip(f_MN/f_ref, 0, 1) OpenSim'e UYARIM (excitation) olarak verilir; aktivasyon dinamigini Thelen2003Muscle kendi coz er, boylece iki kez filtrelenmez.",
+    "limit_kuvveti": {
+      "_durum": "[tasarim] -- sayisal tanim alani korumasi, fizyolojik iddia degil",
+      "_gerekce": "Modelde koordinat range'i tanimli DEGIL (DOGRULAMA H8: build_osim araliklari kopyalamamis). 3 DOF ileri dinamikte devre kalibre olana kadar eklemler kas geometrisinin tanim alani disina savruluyor ve integrator surunuyor (olculdu, 07.09.2026: pf_mn taramasinda 1.5 s'lik kosu 30+ dk'da bitmedi). Sinirlar cl_grid3d izgarasinin tanim alanidir (hip -10..85, knee -155..-90, ankle -35..55 derece) -- onceki kapali dongu hattinin (cl_emergent.py) kirptigi sinirlarin aynisi. Kuvvet BELLEKTE CoordinateLimitForce olarak eklenir; model/.osim DEGISMEZ (cekirdek modele dokunulmaz karari, DOGRULAMA J). Sinira dayanma orani her kosuda raporlanir; kanonik sonucta sinira yaslanma varsa bilinen sapma olarak yazilir.",
+      "K_Nm_per_derece": 0.1,
+      "damping_Nms_per_derece": 0.0005,
+      "gecis_derece": 3.0
+    }
   }
 }

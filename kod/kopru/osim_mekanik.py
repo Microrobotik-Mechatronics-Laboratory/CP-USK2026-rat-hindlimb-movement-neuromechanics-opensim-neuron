@@ -34,10 +34,27 @@ from yollar import OSIM_FAZ1A, GRID3D
 
 class Mekanik:
     def __init__(self, serbest=('ankle_flx',), dt_kopru_s=3e-4, dogruluk=1e-4,
-                 baslangic=None):
+                 baslangic=None, limitler=None, limit_par=None):
+        """limitler: {koordinat: (alt_derece, ust_derece)} -- verilirse her serbest koordinata
+        BELLEKTE bir CoordinateLimitForce eklenir (.osim degismez). Gerekce: modelde koordinat
+        range'i yok (DOGRULAMA H8) ve 3 DOF ileri dinamikte eklemler kas geometrisinin tanim
+        alani (cl_grid3d izgarasi) disina savrulup integratoru sunduruyor (olculdu). Parametre
+        degerleri devre_par.json kopru.limit_kuvveti'nden gelir; [tasarim] etiketi orada."""
         self.dt = float(dt_kopru_s)
         self.dogruluk = float(dogruluk)
         self.model = osim.Model(str(OSIM_FAZ1A))
+        self.limitler = dict(limitler) if limitler else {}
+        if self.limitler:
+            p = limit_par or {}
+            K = float(p.get('K_Nm_per_derece', 0.1))
+            dmp = float(p.get('damping_Nms_per_derece', 5e-4))
+            dq = float(p.get('gecis_derece', 3.0))
+            self._limit_f = []
+            for ad, (alt, ust) in self.limitler.items():
+                f = osim.CoordinateLimitForce(ad, float(ust), K, float(alt), K, dmp, dq)
+                f.setName('limit_' + ad)
+                self.model.addForce(f)
+                self._limit_f.append(f)
         g = np.load(GRID3D, allow_pickle=True)
         fix = dict(zip([str(x) for x in g['cnames']], [float(v) for v in g['FIX']]))
         self.izgara_par = dict(tsl=g['tsl'], lmo=g['lmo'], alp=g['alp'],

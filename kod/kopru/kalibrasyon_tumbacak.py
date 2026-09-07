@@ -84,7 +84,8 @@ if __name__ == '__main__':
                  sure=args.sure, cpu_s=round(cpu, 1),
                  T=None if not np.isfinite(o['T']) else round(o['T'], 4),
                  eklemler={ad: dict(aralik=[round(v, 2) for v in e['aralik']],
-                                    ortusme=round(e['ortusme'], 3))
+                                    ortusme=round(e['ortusme'], 3),
+                                    sinir_yakin=round(e.get('sinir_yakin', 0.0), 3))
                            for ad, e in o['eklemler'].items()},
                  korel={k: round(v, 3) for k, v in o['korel'].items()},
                  biart_u_tepe={k: round(v, 3) for k, v in o['biart'].items()},

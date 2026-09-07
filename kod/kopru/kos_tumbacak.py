@@ -67,15 +67,22 @@ def kur(dt_kopru_ms=None, par_yol=None):
 
 
 def pasif_kos(sure_s, dt_s=None):
-    """Noron surusu OLMADAN ayni mekanik kosu: u = 0 sabit. NEURON kurulmaz."""
+    """Noron surusu OLMADAN ayni mekanik kosu: u = 0 sabit. NEURON kurulmaz.
+    Limit kuvvetleri canli kosuyla AYNI (karsilastirma adil olsun)."""
     from osim_mekanik import Mekanik
+    from yollar import GRID3D
     with open(pathlib.Path(__file__).resolve().parent / 'devre_par.json') as fh:
         par = json.load(fh)
     pozlar = par['havuz_eslesme']['denge_pozu_derece']
     if dt_s is None:
         dt_s = par['kopru']['dt_kopru_ms'] * 1e-3
+    g = np.load(GRID3D, allow_pickle=True)
+    eksen = {'hip_flx': 'HIP', 'knee_flx': 'KNE', 'ankle_flx': 'ANK'}
+    limitler = {ad: (float(np.degrees(g[eksen[ad]][0])), float(np.degrees(g[eksen[ad]][-1])))
+                for ad in SERBEST}
     mek = Mekanik(serbest=SERBEST, dt_kopru_s=dt_s,
-                  baslangic={ad: np.radians(v) for ad, v in pozlar.items()})
+                  baslangic={ad: np.radians(v) for ad, v in pozlar.items()},
+                  limitler=limitler, limit_par=par['kopru'].get('limit_kuvveti'))
     mek.baslat()
     mek.uyarim_yaz(np.zeros(mek.n))
     nadim = int(round(sure_s / dt_s))
@@ -114,8 +121,15 @@ def ozet(kk, iz, yari_atla=True):
         q = np.degrees(iz['q'][n:, j])
         olc = [float(q.min()), float(q.max())]
         hedef = ref[ROM_KAYIT[ad]]['deger']
+        # sinira dayanma orani: limit kuvvetinin tanim alani sinirina 6 derece yakinlikta
+        # gecirilen zaman payi (cl_selfcheck nearlim deseni). Yuksekse devre sinira yasliyor.
+        if ad in kk.limitler:
+            alt, ust = kk.limitler[ad]
+            yakin = float(np.mean((q < alt + 6.0) | (q > ust - 6.0)))
+        else:
+            yakin = 0.0
         eklemler[ad] = dict(aralik=olc, rom=olc[1] - olc[0], hedef=hedef,
-                            ortusme=ortusme(olc, hedef))
+                            ortusme=ortusme(olc, hedef), sinir_yakin=yakin)
 
     # havuz basina ETKIN faz ortalama atesleme orani (kendi tepesinin uzerindeki adimlar)
     frek = {}
@@ -147,11 +161,12 @@ def rapor(kk, o):
     print('cevrim suresi   : %.3f s   (referans %.3f, aralik [%.3f-%.3f], kaynak %s) -> %s'
           % (o['T'], ck['deger'], ck['aralik'][0], ck['aralik'][1],
              ck['kaynak']['kunye'], 'ARALIKTA' if icinde else 'DISARIDA'))
-    print('\n%-10s %18s %18s %9s' % ('eklem', 'olculen [derece]', 'hedef [derece]', 'ortusme'))
+    print('\n%-10s %18s %18s %9s %10s' % ('eklem', 'olculen [derece]', 'hedef [derece]',
+                                          'ortusme', 'sinirda'))
     for ad, e in o['eklemler'].items():
-        print('%-10s %8.2f..%8.2f %8.2f..%8.2f %8.2f  (olcut >= 0.5, %s)'
+        print('%-10s %8.2f..%8.2f %8.2f..%8.2f %8.2f %9.2f  (olcut >= 0.5, %s)'
               % (ad, e['aralik'][0], e['aralik'][1], e['hedef'][0], e['hedef'][1],
-                 e['ortusme'], ROM_KAYIT[ad]))
+                 e['ortusme'], e['sinir_yakin'], ROM_KAYIT[ad]))
     print('\nantagonist u korelasyonlari (zitfaz beklenir):',
           {k: round(v, 3) for k, v in o['korel'].items()})
     print('\n%-6s %12s %12s %26s' % ('kas', 'f_etkin Hz', 'f_maks Hz', 'Gorassini araligi'))

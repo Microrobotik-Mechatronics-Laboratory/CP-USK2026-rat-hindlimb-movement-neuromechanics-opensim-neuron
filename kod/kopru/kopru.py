@@ -160,9 +160,19 @@ class Kopru:
         self.ii_olcek = 1e-4     # [tasarim] pps -> nA; II aktarim internoronunun surus olcegi
 
         # --- mekanik ---------------------------------------------------------------------
-        self.mek = Mekanik(serbest=serbest, dt_kopru_s=self.dt_s)
-        self.ix = self.mek.kas_indisleri(self.kaslar)          # 38'lik dizide bizim kaslar
+        # Yeni modda (38 havuz / 3 DOF) serbest koordinatlara izgara tanim alaninda limit
+        # kuvveti eklenir; eski ayak bilegi modu limitsiz kalir (davranis birebir korunur).
         g = np.load(GRID3D, allow_pickle=True)
+        limitler = None
+        if gruplar is None:
+            eksen = {'hip_flx': 'HIP', 'knee_flx': 'KNE', 'ankle_flx': 'ANK'}
+            limitler = {ad: (float(np.degrees(g[eksen[ad]][0])),
+                             float(np.degrees(g[eksen[ad]][-1])))
+                        for ad in serbest}
+        self.limitler = limitler or {}
+        self.mek = Mekanik(serbest=serbest, dt_kopru_s=self.dt_s,
+                           limitler=limitler, limit_par=kp.get('limit_kuvveti'))
+        self.ix = self.mek.kas_indisleri(self.kaslar)          # 38'lik dizide bizim kaslar
         adlar_izg = [str(x) for x in g['names']]
         jx = [adlar_izg.index(k) for k in self.kaslar]
         self.tsl, self.lmo, self.alp = g['tsl'][jx], g['lmo'][jx], g['alp'][jx]
