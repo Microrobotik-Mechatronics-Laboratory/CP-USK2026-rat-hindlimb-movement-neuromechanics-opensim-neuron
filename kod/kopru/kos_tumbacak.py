@@ -82,7 +82,7 @@ def pasif_kos(sure_s, dt_s=None):
                 for ad in SERBEST}
     mek = Mekanik(serbest=SERBEST, dt_kopru_s=dt_s,
                   baslangic={ad: np.radians(v) for ad, v in pozlar.items()},
-                  limitler=limitler, limit_par=par['kopru'].get('limit_kuvveti'))
+                  limitler=limitler)
     mek.baslat()
     mek.uyarim_yaz(np.zeros(mek.n))
     nadim = int(round(sure_s / dt_s))
@@ -92,7 +92,7 @@ def pasif_kos(sure_s, dt_s=None):
         qk, _, _, _ = mek.adim()
         t[k] = (k + 1) * dt_s
         q[k] = qk
-    return dict(t=t, q=q)
+    return dict(t=t, q=q, limit_olay=mek.limit_olay)
 
 
 def ortusme(a, b):
@@ -210,7 +210,8 @@ if __name__ == '__main__':
     print('denge olcegi           :', {g: round(v, 3) for g, v in kk.denge.items()})
     t0 = time.perf_counter()
     iz = kk.kos(sure, ilerleme=int(0.5 / kk.dt_s))
-    print('kosu: %.1f s simulasyon -> %.1f s CPU' % (sure, time.perf_counter() - t0))
+    print('kosu: %.1f s simulasyon -> %.1f s CPU | sinir kirpma olayi: %d (pasifte %d)'
+          % (sure, time.perf_counter() - t0, kk.mek.limit_olay, pasif['limit_olay']))
 
     o = ozet(kk, iz)
     rapor(kk, o)

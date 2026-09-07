@@ -100,12 +100,9 @@
     },
     "u_filtre_tau_ms": 50.0,
     "_u_filtre_notu": "[tasarim] Aksiyon potansiyeli dizisinden anlik atesleme oranina ustel filtre. u = clip(f_MN/f_ref, 0, 1) OpenSim'e UYARIM (excitation) olarak verilir; aktivasyon dinamigini Thelen2003Muscle kendi coz er, boylece iki kez filtrelenmez.",
-    "limit_kuvveti": {
+    "eklem_siniri": {
       "_durum": "[tasarim] -- sayisal tanim alani korumasi, fizyolojik iddia degil",
-      "_gerekce": "Modelde koordinat range'i tanimli DEGIL (DOGRULAMA H8: build_osim araliklari kopyalamamis). 3 DOF ileri dinamikte devre kalibre olana kadar eklemler kas geometrisinin tanim alani disina savruluyor ve integrator surunuyor (olculdu, 07.09.2026: pf_mn taramasinda 1.5 s'lik kosu 30+ dk'da bitmedi). Sinirlar cl_grid3d izgarasinin tanim alanidir (hip -10..85, knee -155..-90, ankle -35..55 derece) -- onceki kapali dongu hattinin (cl_emergent.py) kirptigi sinirlarin aynisi. Kuvvet BELLEKTE CoordinateLimitForce olarak eklenir; model/.osim DEGISMEZ (cekirdek modele dokunulmaz karari, DOGRULAMA J). Sinira dayanma orani her kosuda raporlanir; kanonik sonucta sinira yaslanma varsa bilinen sapma olarak yazilir.",
-      "K_Nm_per_derece": 0.1,
-      "damping_Nms_per_derece": 0.0005,
-      "gecis_derece": 3.0
+      "_gerekce": "Modelde koordinat range'i tanimli DEGIL (DOGRULAMA H8: build_osim araliklari kopyalamamis). 3 DOF ileri dinamikte devre kalibre olana kadar eklemler kas geometrisinin tanim alani disina savruluyor ve integrator surunuyor (olculdu, 07.09.2026: pf_mn taramasinda 1.5 s'lik kosu 30+ dk'da bitmedi). Sinirlar cl_grid3d izgarasinin tanim alanidir (hip -10..85, knee -155..-90, ankle -35..55 derece); uygulama KIRPMADIR (sinir asilirsa deger sinira cekilir, hiz sifirlanir) -- cl_emergent.py:110-114'un birebir karsiligi. KUVVET (CoordinateLimitForce) DENENDI VE REDDEDILDI: bilek DOF eylemsizligi cok kucuk oldugundan (~1.1e-7) her yay sertligi ~1 kHz'lik mod uretip integratoru mikro-adimlara dusurdu (0.5 s kosu > 10 dk CPU, olculdu 07.09.2026). Model/.osim DEGISMEZ (cekirdek modele dokunulmaz karari, DOGRULAMA J). Sinira dayanma orani ve kirpma olay sayisi her kosuda raporlanir; kanonik sonucta sinira yaslanma varsa bilinen sapma olarak yazilir."
     }
   }
 }

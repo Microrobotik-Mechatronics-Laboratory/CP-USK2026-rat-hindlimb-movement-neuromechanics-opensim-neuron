@@ -170,8 +170,7 @@ class Kopru:
                              float(np.degrees(g[eksen[ad]][-1])))
                         for ad in serbest}
         self.limitler = limitler or {}
-        self.mek = Mekanik(serbest=serbest, dt_kopru_s=self.dt_s,
-                           limitler=limitler, limit_par=kp.get('limit_kuvveti'))
+        self.mek = Mekanik(serbest=serbest, dt_kopru_s=self.dt_s, limitler=limitler)
         self.ix = self.mek.kas_indisleri(self.kaslar)          # 38'lik dizide bizim kaslar
         adlar_izg = [str(x) for x in g['names']]
         jx = [adlar_izg.index(k) for k in self.kaslar]

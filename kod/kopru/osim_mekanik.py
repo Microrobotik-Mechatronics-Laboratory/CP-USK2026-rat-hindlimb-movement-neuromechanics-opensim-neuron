@@ -34,27 +34,24 @@ from yollar import OSIM_FAZ1A, GRID3D
 
 class Mekanik:
     def __init__(self, serbest=('ankle_flx',), dt_kopru_s=3e-4, dogruluk=1e-4,
-                 baslangic=None, limitler=None, limit_par=None):
-        """limitler: {koordinat: (alt_derece, ust_derece)} -- verilirse her serbest koordinata
-        BELLEKTE bir CoordinateLimitForce eklenir (.osim degismez). Gerekce: modelde koordinat
-        range'i yok (DOGRULAMA H8) ve 3 DOF ileri dinamikte eklemler kas geometrisinin tanim
-        alani (cl_grid3d izgarasi) disina savrulup integratoru sunduruyor (olculdu). Parametre
-        degerleri devre_par.json kopru.limit_kuvveti'nden gelir; [tasarim] etiketi orada."""
+                 baslangic=None, limitler=None):
+        """limitler: {koordinat: (alt_derece, ust_derece)} -- verilirse adim() sinir asimini
+        KIRPAR (deger sinira cekilir, hiz sifirlanir). Gerekce: modelde koordinat range'i yok
+        (DOGRULAMA H8) ve 3 DOF ileri dinamikte eklemler kas geometrisinin tanim alani
+        (cl_grid3d izgarasi) disina savrulup integratoru sunduruyor (olculdu). Tarif ve
+        [tasarim] etiketi devre_par.json kopru.eklem_siniri'nda."""
         self.dt = float(dt_kopru_s)
         self.dogruluk = float(dogruluk)
         self.model = osim.Model(str(OSIM_FAZ1A))
-        self.limitler = dict(limitler) if limitler else {}
-        if self.limitler:
-            p = limit_par or {}
-            K = float(p.get('K_Nm_per_derece', 0.1))
-            dmp = float(p.get('damping_Nms_per_derece', 5e-4))
-            dq = float(p.get('gecis_derece', 3.0))
-            self._limit_f = []
-            for ad, (alt, ust) in self.limitler.items():
-                f = osim.CoordinateLimitForce(ad, float(ust), K, float(alt), K, dmp, dq)
-                f.setName('limit_' + ad)
-                self.model.addForce(f)
-                self._limit_f.append(f)
+        # Limitler KUVVET degil KIRPMADIR (adim() icinde): sinir asilirsa koordinat sinira
+        # cekilir, hizi sifirlanir -- cl_emergent.py:110-114'un birebir OpenSim karsiligi.
+        # Denendi ve olculdu (07.09.2026): CoordinateLimitForce bilek DOF'unun cok kucuk
+        # eylemsizliginde (M[ankle,ankle] ~ 1.1e-7) ~1 kHz'lik sertlik uretip degisken adimli
+        # integratoru mikro-adimlara dusuruyor (0.5 s kosu > 10 dk CPU). Kirpma parametresizdir
+        # ve ayni projenin dogrulanmis kapali dongu hattiyla tutarlidir.
+        self.limitler = {ad: (np.radians(alt), np.radians(ust))
+                         for ad, (alt, ust) in (limitler or {}).items()}
+        self.limit_olay = 0                     # kirpma sayaci; kosu sonunda raporlanir
         g = np.load(GRID3D, allow_pickle=True)
         fix = dict(zip([str(x) for x in g['cnames']], [float(v) for v in g['FIX']]))
         self.izgara_par = dict(tsl=g['tsl'], lmo=g['lmo'], alp=g['alp'],
@@ -121,6 +118,19 @@ class Mekanik:
     def adim(self):
         self.t += self.dt
         self.s = self.man.integrate(self.t)
+        if self.limitler:
+            tasti = False
+            for ad, (alt, ust) in self.limitler.items():
+                c = self.koord[ad]
+                v = c.getValue(self.s)
+                if v < alt or v > ust:
+                    c.setValue(self.s, min(max(v, alt), ust))
+                    c.setSpeedValue(self.s, 0.0)
+                    tasti = True
+            if tasti:
+                # state elle degisti; integrator yeni durumdan yeniden baslatilir
+                self.limit_olay += 1
+                self.man.initialize(self.s)
         return self.oku()
 
     def oku(self):
