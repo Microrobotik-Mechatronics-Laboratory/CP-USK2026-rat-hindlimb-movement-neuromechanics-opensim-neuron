@@ -45,7 +45,9 @@ class Mekanik:
         self.model = osim.Model(str(OSIM_FAZ1A))
         # Limitler KUVVET degil KIRPMADIR (adim() icinde): sinir asilirsa koordinat sinirdan
         # KIRPMA_ICERI kadar iceri cekilir, hizi sifirlanir -- cl_emergent.py:110-114'un
-        # OpenSim karsiligi. Iki olculmus ders (07.09.2026):
+        # UYARLANMIS OpenSim karsiligi (birebir DEGIL: devralinan kod sinirin kendisine kirpar
+        # ve hizi float esitlik kontrolüyle sifirlar; burada hedef sinirdan 0.5 derece iceride
+        # ve hiz kosulsuz sifirlanir -- DOGRULAMA R.9). Iki olculmus ders (07.09.2026):
         # 1) CoordinateLimitForce REDDEDILDI: bilek DOF'unun cok kucuk eylemsizliginde
         #    (M[ankle,ankle] ~ 1.1e-7) her yay sertligi ~1 kHz'lik mod uretip integratoru
         #    mikro-adimlara dusuruyor (0.5 s kosu > 10 dk CPU).
@@ -102,6 +104,16 @@ class Mekanik:
         # Izgara kas sirasi ile modelin kas sirasi ayni mi? (u ve lmt dizileri bu siraya bagli)
         assert self.adlar == self.izgara_par['adlar'], (
             'kas sirasi uyusmuyor: model=%s izgara=%s' % (self.adlar[:3], self.izgara_par['adlar'][:3]))
+        # Fmax IKI kaynaktan okunuyor: kuvvet uretimi izgaradan (self.izgara_par['Fmax']),
+        # antagonist denge olcegi ise modelden (kopru._kapasite_olc -> getMaxIsometricForce).
+        # Ikisi ayrisirsa denge olcegi kuvvet uretimiyle tutarsiz olur ve sessizce yanlis
+        # sonuc verir. Olculdu (07.09.2026): fark 0 -- bu assert onu boyle tutar.
+        F_izg = np.asarray(self.izgara_par['Fmax'], dtype=float)
+        F_mod = np.array([self.mus.get(i).getMaxIsometricForce() for i in range(self.n)])
+        assert np.allclose(F_izg, F_mod, rtol=0, atol=1e-9), (
+            'Fmax izgara ile model arasinda ayrisiyor: maks fark=%.6g N (kas %s). Denge '
+            'olcegi kuvvet uretimiyle tutarsiz olur.'
+            % (np.abs(F_izg - F_mod).max(), self.adlar[int(np.argmax(np.abs(F_izg - F_mod)))]))
 
     # -- kosu --------------------------------------------------------------------------
     def baslat(self):
