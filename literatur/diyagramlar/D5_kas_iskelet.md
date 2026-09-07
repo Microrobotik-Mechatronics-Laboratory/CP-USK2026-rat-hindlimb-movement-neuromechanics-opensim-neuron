@@ -21,7 +21,7 @@ flowchart TD
 
 **Sayım:** 5 segment `[ölçüldü]`, 14 koordinat, bunun **7'si bacak ekseni**
 (kalça 3 + diz 1 + bilek 3). Statik optimizasyon bu 7 DOF'u kısıt olarak kullanır
-(`kod/opensim/kod_02_swing_id_so.py`).
+(`arsiv/kod/opensim/kod_02_swing_id_so.py`).
 
 ## Kinematik girdi: hangi eksen gerçekten hareket ediyor
 
@@ -65,7 +65,7 @@ flowchart LR
     MA --> TAU
 ```
 
-Uygulama ayrıntısı (`kod/opensim/kod_02_swing_id_so.py` başlığından):
+Uygulama ayrıntısı (`arsiv/kod/opensim/kod_02_swing_id_so.py` başlığından):
 
 - **rijit tendon:** `lm = sqrt((lmt − tsl)² + (lmo·sin α₀)²)`, `cos α = (lmt − tsl)/lm`
 - `fL = exp(−(l̃−1)²/γ)`, `fPE` Thelen, `fV` Thelen `a = 1` kapalı formu

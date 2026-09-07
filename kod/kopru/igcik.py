@@ -4,7 +4,7 @@
 # Girdi:  veri/r_katsayilari_v3.json (Blum 2020 fiti), veri/kapali_dongu/cl_grid3d.npz (lm min)
 # Cikti:  Ia(t), II(t) [pps], kas basina
 #
-# BICIM (kanonik kaynak: kod/opensim/r31_uret.py, v3.1):
+# BICIM (kanonik kaynak: arsiv/kod/opensim/r31_uret.py, v3.1 -- 07.09.2026'da arsivlendi):
 #     d  = lif boyu - dongu minimumu            [mm]
 #     v  = lif hizi                             [mm/s]
 #     Ia = max(0, b + kL*d + kV*max(v,0)^p)     b=10.43 kL=26.59 kV=27.08 p=0.532
@@ -18,7 +18,7 @@
 #   Fit RAMPA-TUT protokoluna uygundur; lokomotor kullanimda asagi kalibrasyon gerekir.
 #   Bu yuzden acik bir k_ia carpani vardir (devre_par.json), varsayilani 1.0 ve etkisi
 #   raporlanir. Sessiz olcekleme YAPILMAZ.
-# - kod/kapali_dongu/cl_emergent.py:53-54 bu formullere JSON'da BULUNMAYAN +19.6 (Ia) ve
+# - arsiv/kod/kapali_dongu/cl_emergent.py:53-54 bu formullere JSON'da BULUNMAYAN +19.6 (Ia) ve
 #   +43.3 (II) ofsetleri ekliyor ve hizi 45 mm/s'de doyuruyor. Burada JSON ve r31_uret.py
 #   esas alinir; fark DOGRULAMA'ya not dusulmustur.
 # - II icin fusimotor (gama) yoktur; Vincent araliklari da pasif kosuldan gelir (PREPRINT 11).
@@ -71,7 +71,7 @@ def lm_min_izgaradan(grid_npz, adlar=None):
 
 def lif_boyu(lmt_m, tsl_m, lmo_m, alp_rad):
     """Rijit tendon kabulu: lm = sqrt((lmt-tsl)^2 + (lmo*sin a0)^2), cos a = (lmt-tsl)/lm.
-    Kaynak: kod/opensim/kod_02_swing_id_so.py:67 -- ayni formul, ayni kabul."""
+    Kaynak: arsiv/kod/opensim/kod_02_swing_id_so.py:67 -- ayni formul, ayni kabul."""
     x = np.maximum(np.asarray(lmt_m) - np.asarray(tsl_m), 1e-5)
     lm = np.sqrt(x ** 2 + (np.asarray(lmo_m) * np.sin(np.asarray(alp_rad))) ** 2)
     return lm, x / lm

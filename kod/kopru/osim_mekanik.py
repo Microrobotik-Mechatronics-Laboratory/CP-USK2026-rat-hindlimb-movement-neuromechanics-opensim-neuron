@@ -44,10 +44,11 @@ class Mekanik:
         self.dogruluk = float(dogruluk)
         self.model = osim.Model(str(OSIM_FAZ1A))
         # Limitler KUVVET degil KIRPMADIR (adim() icinde): sinir asilirsa koordinat sinirdan
-        # KIRPMA_ICERI kadar iceri cekilir, hizi sifirlanir -- cl_emergent.py:110-114'un
-        # UYARLANMIS OpenSim karsiligi (birebir DEGIL: devralinan kod sinirin kendisine kirpar
-        # ve hizi float esitlik kontrolüyle sifirlar; burada hedef sinirdan 0.5 derece iceride
-        # ve hiz kosulsuz sifirlanir -- DOGRULAMA R.9). Iki olculmus ders (07.09.2026):
+        # KIRPMA_ICERI kadar iceri cekilir, hizi sifirlanir -- devralinan kodun
+        # (arsiv/kod/kapali_dongu/cl_emergent.py:110-114) UYARLANMIS OpenSim karsiligi.
+        # BIREBIR DEGIL: devralinan kod sinirin kendisine kirpar ve hizi float esitlik
+        # kontrolüyle sifirlar; burada hedef sinirdan 0.5 derece iceride ve hiz kosulsuz
+        # sifirlanir -- DOGRULAMA R.9. Iki olculmus ders (07.09.2026):
         # 1) CoordinateLimitForce REDDEDILDI: bilek DOF'unun cok kucuk eylemsizliginde
         #    (M[ankle,ankle] ~ 1.1e-7) her yay sertligi ~1 kHz'lik mod uretip integratoru
         #    mikro-adimlara dusuruyor (0.5 s kosu > 10 dk CPU).

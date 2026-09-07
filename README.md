@@ -51,8 +51,8 @@ where NEURON and OpenSim are importable in the same process.
 
 | Environment | Python | Location | Runs |
 |---|---|---|---|
-| Main | 3.14 | `~/.venvs/usk26` (outside the project) | `kod/kapali_dongu/` |
-| OpenSim | 3.13 | `.venv-osim` (inside the project) | `kod/opensim/` |
+| Main | 3.14 | `~/.venvs/usk26` (outside the project) | `arsiv/kod/kapali_dongu/` |
+| OpenSim | 3.13 | `.venv-osim` (inside the project) | `arsiv/kod/opensim/` |
 | Bridge | 3.13 | `~/.venvs/usk26-kopru` (outside the project) | `kod/kopru/`, `nrnivmodl`, NEURON |
 
 **Two path constraints** follow from this repository's own directory name containing spaces and
@@ -100,11 +100,11 @@ constraint rejects 3.13. Call the interpreter directly, as shown below.
 ### Running
 
 ```bash
-# Inverse dynamics + static optimization -> veri/u_swing_v2.csv
-./.venv-osim/bin/python kod/opensim/kod_02_swing_id_so.py
+# Inverse dynamics + static optimization -> veri/u_swing_v2.csv   [archived pipeline]
+./.venv-osim/bin/python arsiv/kod/opensim/kod_02_swing_id_so.py
 
-# Closed-loop delivery run -> sekiller/ + veri/kapali_dongu/
-$HOME/.venvs/usk26/bin/python kod/kapali_dongu/cl_teslim_9of9.py
+# Closed-loop delivery run -> sekiller/ + veri/kapali_dongu/       [archived pipeline]
+$HOME/.venvs/usk26/bin/python arsiv/kod/kapali_dongu/cl_teslim_9of9.py
 
 # Motoneuron cross-check: Python build vs HOC build, same process, same stimulus
 $HOME/.venvs/usk26-kopru/bin/python kod/kopru/capraz_kontrol.py
@@ -113,7 +113,7 @@ $HOME/.venvs/usk26-kopru/bin/python kod/kopru/capraz_kontrol.py
 $HOME/.venvs/usk26-kopru/bin/python kod/kopru/kos_ayakbilegi.py
 ```
 
-`kod/kapali_dongu/cl_optimize.py` runs the CMA-ES parameter search (~6-7 hours). The closed-loop
+`arsiv/kod/kapali_dongu/cl_optimize.py` runs the CMA-ES parameter search (~6-7 hours). The closed-loop
 integrator **requires `dt = 2e-5`**: the ankle DOF inertia is about 1/120 of the hip's, and explicit
 Euler at `dt = 1e-4` is unstable for that stiff DOF — the artefact is numerical, not a control
 failure (`DOGRULAMA.md` §K.2).
@@ -181,16 +181,16 @@ the GMa sign contradiction, is in `PREPRINT.md` §10 and `DOGRULAMA.md` §B-C.
 
 | Pipeline | State |
 |---|---|
-| Closed loop (`kod/kapali_dongu/`) | **Runs.** Delivery run reproduced on this machine. |
-| OpenSim ID + SO (`kod/opensim/kod_02_swing_id_so.py`) | **Runs.** Reproduces `u_swing_v2.csv` exactly. |
+| Closed loop (`arsiv/kod/kapali_dongu/`) | **Runs, archived.** Delivery run reproduced on this machine; superseded by the NEURON bridge. |
+| OpenSim ID + SO (`arsiv/kod/opensim/kod_02_swing_id_so.py`) | **Runs, archived.** Reproduces `u_swing_v2.csv` exactly. |
 | NEURON mechanisms (`neuron/`) | **Compile.** 12/12 across all four figure folders. |
 | NEURON-OpenSim bridge (`kod/kopru/`) | **Runs.** Single process; motoneuron verified against HOC. |
-| Rest of the OpenSim pipeline | Missing inputs — see the table in `kod/opensim/README.md`. |
+| Rest of the OpenSim pipeline | Missing inputs — see the table in `arsiv/kod/opensim/README.md`. |
 | Spinal circuit (`kod/kopru/nrn_devre.py`) | **Built.** CPG free-run period calibrated to 386.9 ms against the measured 387.0 ms; half-centre anti-phase correlation −0.957. |
 | Full closed loop (`kod/kopru/kos_ayakbilegi.py`) | **Runs at one joint.** Ankle, 10 pools, forward dynamics, joint angle emergent. Not yet calibrated: pool rates fall below the Gorassini ranges while the joint travel leaves the physiological range (`DOGRULAMA.md` §P). |
 | Scaling to 3 DOF / 38 pools | Next step. |
 
-The repository is not fully self-contained: `kod/opensim/rig.py` and a few raw datasets
+The repository is not fully self-contained: `arsiv/kod/opensim/rig.py` and a few raw datasets
 (Bauman CSVs, Blum `.mat` files) are not here, so the scripts depending on them do not run.
 
 ### Repository layout
@@ -201,7 +201,6 @@ DOGRULAMA.md     measurement log (sections A-O, dated)
 
 model/           OpenSim models
   rat_hindlimb_faz1a.osim       the computational model - every result uses this one
-  rat_hindlimb_KASLI_x10.osim   GUI viewing only (10x scaled)
   Geometry/                     bone meshes (.vtp); viewing only
 
 veri/            inputs and generated series
@@ -214,10 +213,8 @@ veri/            inputs and generated series
   kapali_dongu/                 cl_grid3d.npz (3D grid), cl_best_9of9.json, cl_teslim_9of9.npz
   kopru/                        moto_morfoloji.npz (motoneuron morphology dump)
 
-kod/             all Python
+kod/             live Python (everything here feeds the NEURON-OpenSim bridge)
   yollar.py                     single source of in-repo paths; every script uses it
-  opensim/                      ID + static optimization pipeline (Python 3.13, .venv-osim)
-  kapali_dongu/                 emergent closed loop + CMA-ES (Python 3.14, pure NumPy)
   kopru/                        NEURON-OpenSim bridge (Python 3.13)
     nrn_hucre.py  nrn_devre.py      motoneuron cell and the spinal circuit above it
     igcik.py  osim_mekanik.py       muscle spindle; OpenSim forward dynamics
@@ -231,10 +228,18 @@ neuron/          NEURON source tree: the Kim 2020 motoneuron model (.hoc + .mod)
 sekiller/        publication figures
 literatur/       literature summaries (oz_*.md), tolerance bands (referans_degerler.json),
                  diyagramlar/ (D1-D8 Mermaid sources of the diagrams in PREPRINT.md)
+
+arsiv/           retired work. Kept under version control where it produced published
+                 results; archiving here means "no longer part of the live pipeline",
+                 not "dropped from git".
+  kod/opensim/                  ID + static optimization pipeline (Python 3.13, .venv-osim)
+                                still the generator of veri/u_swing_v2.csv
+  kod/kapali_dongu/             emergent closed loop + CMA-ES (Python 3.14, pure NumPy)
+  model/  sekiller/  veri/      the models, figures and series those scripts produced
 ```
 
-`kod/opensim/`, `kod/kapali_dongu/`, `kod/kopru/` and `literatur/` each have their own `README.md`
-with the details; NEURON's own run instructions are in `neuron/README.txt`.
+`arsiv/kod/opensim/`, `arsiv/kod/kapali_dongu/`, `kod/kopru/` and `literatur/` each have their
+own `README.md` with the details; NEURON's own run instructions are in `neuron/README.txt`.
 
 ### References
 
@@ -295,8 +300,8 @@ oraya import edilebilir.
 
 | Ortam | Python | Yer | Ne koşar |
 |---|---|---|---|
-| Ana | 3.14 | `~/.venvs/usk26` (proje dışı) | `kod/kapali_dongu/` |
-| OpenSim | 3.13 | `.venv-osim` (proje içi) | `kod/opensim/` |
+| Ana | 3.14 | `~/.venvs/usk26` (proje dışı) | `arsiv/kod/kapali_dongu/` |
+| OpenSim | 3.13 | `.venv-osim` (proje içi) | `arsiv/kod/opensim/` |
 | Köprü | 3.13 | `~/.venvs/usk26-kopru` (proje dışı) | `kod/kopru/`, `nrnivmodl`, NEURON |
 
 Bu reponun kendi dizin adı boşluk ve Türkçe karakter içerdiği için **iki yol kısıtı** doğuyor:
@@ -343,11 +348,11 @@ reddeder. Yorumlayıcı aşağıdaki gibi doğrudan çağrılır.
 ### Nasıl koşturulur
 
 ```bash
-# Ters dinamik + statik optimizasyon -> veri/u_swing_v2.csv
-./.venv-osim/bin/python kod/opensim/kod_02_swing_id_so.py
+# Ters dinamik + statik optimizasyon -> veri/u_swing_v2.csv   [arsivlenmis hat]
+./.venv-osim/bin/python arsiv/kod/opensim/kod_02_swing_id_so.py
 
-# Kapali dongu teslim kosusu -> sekiller/ + veri/kapali_dongu/
-$HOME/.venvs/usk26/bin/python kod/kapali_dongu/cl_teslim_9of9.py
+# Kapali dongu sonuc kosusu -> sekiller/ + veri/kapali_dongu/  [arsivlenmis hat]
+$HOME/.venvs/usk26/bin/python arsiv/kod/kapali_dongu/cl_teslim_9of9.py
 
 # Motonoron capraz kontrolu: Python kurulumu vs HOC kurulumu, ayni surec, ayni uyaran
 $HOME/.venvs/usk26-kopru/bin/python kod/kopru/capraz_kontrol.py
@@ -356,7 +361,7 @@ $HOME/.venvs/usk26-kopru/bin/python kod/kopru/capraz_kontrol.py
 $HOME/.venvs/usk26-kopru/bin/python kod/kopru/kos_ayakbilegi.py
 ```
 
-`kod/kapali_dongu/cl_optimize.py` CMA-ES parametre aramasını koşar (~6-7 saat). Kapalı döngü
+`arsiv/kod/kapali_dongu/cl_optimize.py` CMA-ES parametre aramasını koşar (~6-7 saat). Kapalı döngü
 integratörü **`dt = 2e-5` zorunlu kılar**: bilek DOF eylemsizliği kalçanınkinin yaklaşık 1/120'sidir
 ve açık Euler `dt = 1e-4`'te bu stiff DOF için kararsızdır — artefakt sayısaldır, kontrol hatası
 değildir (`DOGRULAMA.md` §K.2).
@@ -424,16 +429,16 @@ tamamen bağımsızdır — buradaki en savunulabilir sayı odur. Ayrıntı ve G
 
 | Hat | Durum |
 |---|---|
-| Kapalı döngü (`kod/kapali_dongu/`) | **Koşar.** Sonuç koşusu bu makinede yeniden üretildi. |
-| OpenSim ID + SO (`kod/opensim/kod_02_swing_id_so.py`) | **Koşar.** `u_swing_v2.csv`'yi sıfır farkla üretti. |
+| Kapalı döngü (`arsiv/kod/kapali_dongu/`) | **Koşar, arşivlendi.** Sonuç koşusu bu makinede yeniden üretildi; yerini NEURON köprüsü aldı. |
+| OpenSim ID + SO (`arsiv/kod/opensim/kod_02_swing_id_so.py`) | **Koşar, arşivlendi.** `u_swing_v2.csv`'yi sıfır farkla üretti. |
 | NEURON mekanizmaları (`neuron/`) | **Derleniyor.** Dört figür klasöründe 12/12. |
 | NEURON-OpenSim köprüsü (`kod/kopru/`) | **Koşar.** Tek süreç; motonöron HOC'a karşı doğrulandı. |
-| OpenSim hattının kalanı | Girdileri eksik — tablo: `kod/opensim/README.md`. |
+| OpenSim hattının kalanı | Girdileri eksik — tablo: `arsiv/kod/opensim/README.md`. |
 | Omurilik devresi (`kod/kopru/nrn_devre.py`) | **Kuruldu.** CPG serbest çevrim periyodu ölçülmüş 387,0 ms'ye karşı 386,9 ms'ye kalibre edildi; yarım-merkez zıtfaz korelasyonu −0,957. |
 | Tam kapalı döngü (`kod/kopru/kos_ayakbilegi.py`) | **Tek eklemde koşuyor.** Ayak bileği, 10 havuz, ileri dinamik, eklem açısı emergent. Henüz kalibre değil: havuz frekansları Gorassini aralıklarının altında kalırken eklem açıklığı fizyolojik aralığın dışına çıkıyor (`DOGRULAMA.md` §P). |
 | 3 DOF / 38 havuza ölçekleme | Sıradaki adım. |
 
-Repo tam self-contained değildir: `kod/opensim/rig.py` ve bazı ham veri kümeleri (Bauman CSV'leri,
+Repo tam self-contained değildir: `arsiv/kod/opensim/rig.py` ve bazı ham veri kümeleri (Bauman CSV'leri,
 Blum `.mat` dosyaları) burada yoktur; bunlara bağlı betikler koşmaz.
 
 ### Klasör haritası
@@ -444,7 +449,6 @@ DOGRULAMA.md     olcum/dogrulama defteri (A-O bolumleri, tarihli)
 
 model/           OpenSim modelleri
   rat_hindlimb_faz1a.osim       GUNCEL hesap modeli - her hesap bununla
-  rat_hindlimb_KASLI_x10.osim   yalniz GUI goruntuleme (10x buyutulmus)
   Geometry/                     kemik mesh'leri (.vtp); yalniz goruntuleme
 
 veri/            girdi ve uretilen seriler
@@ -457,10 +461,8 @@ veri/            girdi ve uretilen seriler
   kapali_dongu/                 cl_grid3d.npz (3B izgara), cl_best_9of9.json, cl_teslim_9of9.npz
   kopru/                        moto_morfoloji.npz (motonoron morfoloji dokumu)
 
-kod/             tum Python
+kod/             CANLI Python (buradaki her sey NEURON-OpenSim koprusunu besler)
   yollar.py                     repo-ici yollarin tek kaynagi; betikler bunu kullanir
-  opensim/                      ID + Statik Optimizasyon hatti (Python 3.13, .venv-osim)
-  kapali_dongu/                 emergent kapali-dongu + CMA-ES (Python 3.14, saf NumPy)
   kopru/                        NEURON-OpenSim koprusu (Python 3.13)
     nrn_hucre.py  nrn_devre.py      motonoron hucresi ve ustundeki omurilik devresi
     igcik.py  osim_mekanik.py       kas igcigi; OpenSim ileri dinamigi
@@ -474,9 +476,17 @@ neuron/          NEURON kaynak agaci: Kim 2020 motonoron modeli (.hoc + .mod)
 sekiller/        yayin figurleri
 literatur/       literatur ozetleri (oz_*.md), tolerans araliklari (referans_degerler.json),
                  diyagramlar/ (D1-D8 Mermaid; PREPRINT'teki diyagramlarin kaynagi)
+
+arsiv/           kullanimdan kalkmis is. Yayimlanmis sonuc uretmis olanlar versiyon
+                 kontrolunde TUTULUR; buraya alinmak "canli hattin parcasi degil"
+                 demektir, "git'ten dusuruldu" demek degildir.
+  kod/opensim/                  ID + Statik Optimizasyon hatti (Python 3.13, .venv-osim)
+                                veri/u_swing_v2.csv'yi hala bu uretir
+  kod/kapali_dongu/             emergent kapali-dongu + CMA-ES (Python 3.14, saf NumPy)
+  model/  sekiller/  veri/      o betiklerin urettigi model, figur ve seriler
 ```
 
-`kod/opensim/`, `kod/kapali_dongu/`, `kod/kopru/` ve `literatur/` klasörlerinin kendi
+`arsiv/kod/opensim/`, `arsiv/kod/kapali_dongu/`, `kod/kopru/` ve `literatur/` klasörlerinin kendi
 `README.md`'leri vardır; ayrıntı oradadır. NEURON'un kendi çalıştırma yönergesi
 `neuron/README.txt`'tedir.
 

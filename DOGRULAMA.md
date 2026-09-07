@@ -11,8 +11,9 @@ Kurallar:
 - Konum: bu dosya `04_kapali_dongu/02_DOGRULAMA_KAYDI.md` iken 05.09.2026'da repo köküne
   `DOGRULAMA.md` olarak alındı.
 - İçlerinde geçen dosya adları yazıldıkları günün klasör düzenine göredir. Bugünkü karşılıkları:
-  `kod/opensim/`, `kod/kapali_dongu/`, `kod/kopru/`, `veri/kapali_dongu/`, `sekiller/`,
-  `arsiv/` (aşılmış sürümler). Güncel klasör haritası: `README.md`.
+  `kod/kopru/` (canlı hat), `arsiv/kod/opensim/` ve `arsiv/kod/kapali_dongu/` (07.09.2026'da
+  arşivlendi, versiyon kontrolünde), `veri/kapali_dongu/`, `sekiller/`, `arsiv/` (aşılmış
+  sürümler). Güncel klasör haritası: `README.md`.
 - Bilimsel iddiaların kendisi `PREPRINT.md`'dedir; bu dosya onların kanıt tabanıdır.
 
 ---
@@ -1065,7 +1066,9 @@ literatür kaynakları yoktur; `II` katsayıları da izlenebilir bir kaynağa da
 üçüne dayanan hiçbir sonuç bildirilmemektedir.
 
 **Üreten:** `kod/kopru/adim_yarilama.py`, `kod/kopru/kos_ayakbilegi.py`.
-**Artefakt:** `veri/kopru/kosum_ayakbilegi.npz`, `sekiller/kopru_ayakbilegi.png` + `.csv`.
+**Artefakt:** `arsiv/veri/kosum_ayakbilegi.npz`, `sekiller/kopru_ayakbilegi.png` + `.csv`.
+(07.09.2026 düzeltmesi: dosya adı bu kayıtta `kosum_` yazılıydı ama üreten betik `kosu_`
+yazar — koşu dosyası o gün arşive alındı, güncel koşu `veri/kopru/kosu_ayakbilegi.npz`'dir.)
 
 ---
 
