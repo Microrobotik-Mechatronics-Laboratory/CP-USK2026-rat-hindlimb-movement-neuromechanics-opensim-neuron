@@ -102,8 +102,10 @@ class Havuz:
 class Kopru:
     """Kapali dongu: CPG -> PF -> havuzlar -> u(t) -> OpenSim -> igcik -> Ia/II -> geri."""
 
-    def __init__(self, gruplar, serbest, par_yol=PAR_YOL, dpath=600.0):
-        """gruplar: {'DF': ['TA','EDL','Per'], 'PF': ['Sol', ...]} -- antagonist cift adlari
+    def __init__(self, gruplar=None, serbest=('ankle_flx',), par_yol=PAR_YOL, dpath=600.0):
+        """gruplar: {'DF': ['TA','EDL','Per'], 'PF': ['Sol', ...]} -- tek eklemli antagonist
+        cift (eski bicim; ilk grup RG-F'e, ikinci RG-E'ye baglanir). None verilirse eslesme
+        devre_par.json'daki havuz_eslesme'den kurulur: 6 PF grubu + surussuz kaslar (38 havuz).
         serbest:  OpenSim'de serbest birakilacak koordinatlar"""
         with open(par_yol) as fh:
             self.par = json.load(fh)
@@ -114,8 +116,46 @@ class Kopru:
         assert abs(self.dt_ms / h.dt - round(self.dt_ms / h.dt)) < 1e-12, \
             'kopru adimi NEURON adiminin tam kati olmali'
 
-        self.gruplar = {g: list(k) for g, k in gruplar.items()}
-        self.kaslar = [k for g in self.gruplar.values() for k in g]
+        # --- grup tanimlarini normalize et ------------------------------------------------
+        # Ic temsil: grup_tanim[gad] = {kaslar, rg (F/E), koordinat, eklem}. Eski iki-gruplu
+        # bicim tek eklemin ozel halidir; davranisi birebir korunur (regresyon guvencesi).
+        if gruplar is not None:
+            gadlar = list(gruplar)
+            assert len(gadlar) == 2, 'eski bicim tek antagonist cift icindir'
+            self.grup_tanim = {
+                gadlar[0]: dict(kaslar=list(gruplar[gadlar[0]]), rg='F',
+                                koordinat=serbest[0], eklem='e0'),
+                gadlar[1]: dict(kaslar=list(gruplar[gadlar[1]]), rg='E',
+                                koordinat=serbest[0], eklem='e0')}
+            self.surussuz = []
+            self.denge_pozlari = {serbest[0]: self.par['sinaps'].get('denge_pozu_derece', 14.0)}
+        else:
+            he = self.par['havuz_eslesme']
+            self.grup_tanim = {gad: dict(kaslar=list(g['kaslar']), rg=g['rg'],
+                                         koordinat=g['koordinat'], eklem=g['eklem'])
+                               for gad, g in he['gruplar'].items()}
+            self.surussuz = list(he['surussuz'])
+            self.denge_pozlari = {k: float(v) for k, v in he['denge_pozu_derece'].items()}
+            for gad, g in self.grup_tanim.items():
+                assert g['koordinat'] in serbest, \
+                    '%s grubunun koordinati (%s) serbest degil' % (gad, g['koordinat'])
+
+        self.gruplar = {gad: list(g['kaslar']) for gad, g in self.grup_tanim.items()}
+        # kas listesi: gruplardaki ilk gorunum sirasi + surussuzler sonda; biartikuler tek kez
+        self.kaslar = []
+        for g in self.grup_tanim.values():
+            for kas in g['kaslar']:
+                if kas not in self.kaslar:
+                    self.kaslar.append(kas)
+        self.kaslar += [k for k in self.surussuz if k not in self.kaslar]
+        # uyelik: kas kac PF grubunda? Biartikuler kas iki gruptan girdi alir, sinaps
+        # agirliklari pay = 1/uyelik ile olceklenir (toplam surus monoartikulerle ayni olcekte
+        # kalsin) [tasarim] -- devre_par.havuz_eslesme._biartikuler_notu
+        self.uyelik = {}
+        for gad, g in self.grup_tanim.items():
+            for kas in g['kaslar']:
+                self.uyelik.setdefault(kas, []).append(gad)
+        self.pay = {kas: 1.0 / len(gr) for kas, gr in self.uyelik.items()}
         self._grup_ix = {g: [self.kaslar.index(x) for x in k] for g, k in self.gruplar.items()}
         self.ii_olcek = 1e-4     # [tasarim] pps -> nA; II aktarim internoronunun surus olcegi
 
@@ -141,9 +181,16 @@ class Kopru:
         # eklem gucli grubun ucuna coker ve orada kalir. Merkezi sinir sistemi bu dengesizligi
         # surus dagilimiyla cozer; burada karsiligi, grup surusunun moment kapasitesiyle ters
         # olceklenmesidir. [tasarim] -- olculen kapasiteler kosu ciktisina yazilir.
-        self.kapasite = self._kapasite_olc(self.par['sinaps'].get('denge_pozu_derece', 14.0))
-        c_ref = min(self.kapasite.values())
-        self.denge = {g: c_ref / self.kapasite[g] for g in self.kapasite}
+        # Cok eklemde denge EKLEM ICINDE kurulur: her eklemin antagonist cifti kendi
+        # koordinatindaki kapasiteyle olceklenir; biartikuler kas uye oldugu her eklemin
+        # kapasitesine katilir (fiziksel olarak dogru: kas iki eklemi de surer).
+        self.kapasite = self._kapasite_olc(self.denge_pozlari)
+        self.denge = {}
+        for eklem in {g['eklem'] for g in self.grup_tanim.values()}:
+            uye = [gad for gad, g in self.grup_tanim.items() if g['eklem'] == eklem]
+            c_ref = min(self.kapasite[gad] for gad in uye)
+            for gad in uye:
+                self.denge[gad] = c_ref / self.kapasite[gad]
 
         # --- devre -----------------------------------------------------------------------
         self._devre_kur(kp, dpath)
@@ -156,21 +203,27 @@ class Kopru:
         for ad, gc in (('Ia', self.g_ia), ('II', self.g_ii), ('efferent', self.g_ef)):
             assert gc.n >= 1, '%s gecikmesi kopru adimindan kucuk' % ad
 
-    def _kapasite_olc(self, poz_derece):
-        """Grup basina |sum(Fmax * moment kolu)| [N*mm], verilen eklem pozunda."""
+    def _kapasite_olc(self, pozlar_derece):
+        """Grup basina |sum(Fmax * moment kolu)| [N*mm], grubun KENDI koordinatina gore.
+
+        pozlar_derece: {koordinat: derece} -- serbest koordinatlarin tamami olcum pozuna
+        (olculmus yuruyus orta noktasi) kurulur, olcum bittikten sonra geri alinir. Boylece
+        biartikuler kasin her iki eklemdeki kolu ayni gercekci pozda olculur."""
         import opensim as osim   # noqa: F401 -- osim_mekanik zaten yukledi
-        koord = self.mek.koord[self.mek.serbest[0]]
-        eski = koord.getValue(self.mek.s)
-        koord.setValue(self.mek.s, np.radians(poz_derece))
+        eski = {ad: self.mek.koord[ad].getValue(self.mek.s) for ad in self.mek.serbest}
+        for ad, derece in pozlar_derece.items():
+            self.mek.koord[ad].setValue(self.mek.s, np.radians(derece))
         self.mek.model.realizePosition(self.mek.s)
         kap = {}
-        for gad, kaslar in self.gruplar.items():
+        for gad, g in self.grup_tanim.items():
+            koord = self.mek.koord[g['koordinat']]
             s = 0.0
-            for kas in kaslar:
+            for kas in g['kaslar']:
                 mu = self.mek.mus.get(self.mek.adlar.index(kas))
                 s += mu.getMaxIsometricForce() * mu.computeMomentArm(self.mek.s, koord)
             kap[gad] = abs(s) * 1000.0
-        koord.setValue(self.mek.s, eski)
+        for ad, v in eski.items():
+            self.mek.koord[ad].setValue(self.mek.s, v)
         self.mek.model.realizePosition(self.mek.s)
         return kap
 
@@ -181,8 +234,7 @@ class Kopru:
         eks, inh, ag = s_p['eksitator'], s_p['inhibitor'], s_p['agirlik_uS']
         self.cpg = nrn_devre.hco(gcpg=c['gcpg_mScm2'], phin=c['phin_per_ms'],
                                  iext=c['iext_mAcm2'], ethr=c['ethr_mV'])
-        gadlar = list(self.gruplar)
-        assert len(gadlar) == 2, 'ilk surum tek antagonist cift icindir'
+        gadlar = list(self.grup_tanim)
         self.pf, self.iain, self.renshaw, self.ii_rly = {}, {}, {}, {}
         self.havuz = {}
         # KRITIK: NEURON nesneleri Python tarafinda referans tutulmazsa cop toplayici siler ve
@@ -190,8 +242,28 @@ class Kopru:
         # tum motonoronlar sustu). Her NetCon, Exp2Syn ve GradeSyn burada tutulur.
         self._nc = []
         self._gsyn = []
+        self._in_spk = {}                    # internoron spike kayitlari (raster icin)
 
-        rg = {gadlar[0]: self.cpg['F'], gadlar[1]: self.cpg['E']}
+        # ayni eklemin karsi grubu (resiprokal inhibisyon cifti)
+        self.karsi = {}
+        for gad, g in self.grup_tanim.items():
+            es = [x for x, gg in self.grup_tanim.items()
+                  if gg['eklem'] == g['eklem'] and x != gad]
+            assert len(es) == 1, 'eklem %s icin antagonist cift kurulamadi' % g['eklem']
+            self.karsi[gad] = es[0]
+        n_eklem = len({g['eklem'] for g in self.grup_tanim.values()})
+
+        # gFB kolu eklemlere bolunur: her IIrly -> RG baglantisi gcpg*gfb_carpan/n_eklem tasir,
+        # boylece toplam gFB tek eklemli kurulumla ayni olcekte kalir (oz_yu2021 odunlesimi
+        # korunur) [tasarim]. Eski modda n_eklem=1 -> birebir ayni davranis.
+        rg = {gad: self.cpg[g['rg']] for gad, g in self.grup_tanim.items()}
+
+        # havuzlar: kas basina BIR kez (biartikuler kas iki grupta uyedir ama tek havuzdur);
+        # surussuz kaslarin havuzu da kurulur, yalniz PF/II/RC/IaIN baglantisi almazlar.
+        for kas in self.kaslar:
+            fr = kp['f_ref_Hz'].get(kas, kp['f_ref_Hz']['varsayilan'])
+            self.havuz[kas] = Havuz(kas, fr, dpath=dpath)
+
         for gad in gadlar:
             ip = lambda ad: nrn_devre.SpikeHucre(ad, alan_um2=i_p['alan_um2'],
                                                  gnaf=i_p['gnaf_Scm2'], gkdr=i_p['gkdr_Scm2'],
@@ -207,29 +279,46 @@ class Kopru:
             self._gsyn.append(nrn_devre.gradli_baglanti(
                 rg[gad], self.pf[gad], c['gcpg_mScm2'] * self.par['sinaps']['cpg_pf_carpan'],
                 esyn=eks['e_mV'], ethr=c['ethr_mV'], eslope=c['eslope_mV']))
-            for kas in self.gruplar[gad]:
-                fr = kp['f_ref_Hz'].get(kas, kp['f_ref_Hz']['varsayilan'])
-                self.havuz[kas] = Havuz(kas, fr, dpath=dpath)
 
         # PF -> havuz (eksitator), havuz -> Renshaw -> havuz (rekurren inhibisyon),
-        # PF -> IaIN -> karsi havuz (resiprokal inhibisyon), II aktarim -> havuz + CPG
-        for gi, gad in enumerate(gadlar):
-            karsi = gadlar[1 - gi]
+        # PF -> IaIN -> karsi havuz (resiprokal inhibisyon), II aktarim -> havuz + CPG.
+        # Biartikuler kas her uye grubuyla baglanir; agirliklar pay=1/uyelik ile olceklenir.
+        for gad in gadlar:
+            karsi = self.karsi[gad]
             for kas in self.gruplar[gad]:
                 hv = self.havuz[kas]
-                self._eks(self.pf[gad], hv.hucre.soma(0.5), eks, ag['pf_mn'] * self.denge[gad])
-                self._eks(self.ii_rly[gad], hv.hucre.soma(0.5), eks, ag['ii_mn'])
+                pay = self.pay[kas]
+                self._eks(self.pf[gad], hv.hucre.soma(0.5), eks,
+                          ag['pf_mn'] * self.denge[gad] * pay)
+                self._eks(self.ii_rly[gad], hv.hucre.soma(0.5), eks, ag['ii_mn'] * pay)
                 if ir['renshaw_etkin']:
-                    self._eks_h(hv, self.renshaw[gad], eks, ag['mn_rc'])
-                    self._inh(self.renshaw[gad], hv.hucre.soma(0.5), inh, ag['rc_mn'])
+                    self._eks_h(hv, self.renshaw[gad], eks, ag['mn_rc'] * pay)
+                    self._inh(self.renshaw[gad], hv.hucre.soma(0.5), inh, ag['rc_mn'] * pay)
                 if ir['iain_etkin']:
-                    self._inh(self.iain[karsi], hv.hucre.soma(0.5), inh, ag['iain_mn'])
+                    self._inh(self.iain[karsi], hv.hucre.soma(0.5), inh, ag['iain_mn'] * pay)
             if ir['iain_etkin']:
                 self._eks(self.pf[gad], self.iain[gad].sec(0.5), eks, ag['pf_iain'])
+                # IaIN <-> IaIN (eklem ici) ve RC -> IaIN: D2 diyagraminda var, agirliklari
+                # varsayilan 0.0 (kurulmaz) -- KAYNAKSIZ [tasarim] bilesen, etkinlestirme
+                # kullanici karari (devre_par._rc_iain_notu).
+                if ag.get('iain_iain', 0.0) > 0:
+                    self._inh(self.iain[karsi], self.iain[gad].sec(0.5), inh, ag['iain_iain'])
+                if ir['renshaw_etkin'] and ag.get('rc_iain', 0.0) > 0:
+                    self._inh(self.renshaw[gad], self.iain[gad].sec(0.5), inh, ag['rc_iain'])
             # II -> CPG geri besleme kolu (gFB): oz_yu2021'in gFB/gCPG odunlesimi
             self._gsyn.append(nrn_devre.gradli_baglanti(
-                self.ii_rly[gad], rg[gad], c['gcpg_mScm2'] * self.par['sinaps']['gfb_carpan'],
+                self.ii_rly[gad], rg[gad],
+                c['gcpg_mScm2'] * self.par['sinaps']['gfb_carpan'] / n_eklem,
                 esyn=eks['e_mV'], ethr=-20.0, eslope=c['eslope_mV']))
+
+        # internoron spike kayitlari (salt gozlemci NetCon; dinamigi degistirmez)
+        for gad in gadlar:
+            self._in_spk['PF_' + gad] = self.pf[gad].ap_kaydet()
+            self._in_spk['IIrly_' + gad] = self.ii_rly[gad].ap_kaydet()
+            if ir['iain_etkin']:
+                self._in_spk['IaIN_' + gad] = self.iain[gad].ap_kaydet()
+            if ir['renshaw_etkin']:
+                self._in_spk['RC_' + gad] = self.renshaw[gad].ap_kaydet()
 
     def _syn(self, hedef_seg, par):
         syn = h.Exp2Syn(hedef_seg)
@@ -255,7 +344,9 @@ class Kopru:
         return nc
 
     # -- kosu ----------------------------------------------------------------------------
-    def kos(self, sure_s, ilerleme=None):
+    def kos(self, sure_s, ilerleme=None, kas_kaydi=True):
+        """kas_kaydi: OpenSim'den aktivasyon + tendon kuvveti de kaydedilir (kasilma kaniti
+        figurleri icin). realizeDynamics maliyeti eklenir; kapatilirsa eski davranis."""
         kp = self.par['kopru']
         nadim = int(round(sure_s / self.dt_s))
         nk = len(self.kaslar)
@@ -269,6 +360,9 @@ class Kopru:
                   u=np.zeros((nadim, nk)), Ia=np.zeros((nadim, nk)), II=np.zeros((nadim, nk)),
                   f=np.zeros((nadim, nk)), gsc=np.zeros((nadim, nk)),
                   vF=np.zeros(nadim), vE=np.zeros(nadim))
+        if kas_kaydi:
+            iz['akt'] = np.zeros((nadim, nk))
+            iz['Fkas'] = np.zeros((nadim, nk))
 
         for k in range(nadim):
             # 1) mekanikten duyu: kas-tendon boyu/hizi -> lif boyu/hizi -> Ia, II
@@ -305,7 +399,37 @@ class Kopru:
             iz['f'][k], iz['gsc'][k] = f, gsc
             iz['vF'][k] = self.cpg['F'].sec(0.5).v
             iz['vE'][k] = self.cpg['E'].sec(0.5).v
+            if kas_kaydi:
+                iz['akt'][k], iz['Fkas'][k] = self.mek.kas_durumu()
             if ilerleme and (k + 1) % ilerleme == 0:
-                print('  adim %6d/%d  t=%.3f s  q=%.1f derece  u_max=%.3f'
-                      % (k + 1, nadim, iz['t'][k], np.degrees(q[0]), u.max()), flush=True)
+                print('  adim %6d/%d  t=%.3f s  q=%s derece  u_max=%.3f'
+                      % (k + 1, nadim, iz['t'][k],
+                         '/'.join('%.1f' % d for d in np.degrees(q)), u.max()), flush=True)
         return iz
+
+    def spike_dokum(self):
+        """Havuz ve internoron aksiyon potansiyeli zamanlarini numpy dizilerine doker.
+
+        Donen sozluk (zamanlar saniye, kopru saatiyle ayni eksende):
+          spike_t / spike_kas   : motonoron havuzlari (kas indeksi self.kaslar sirasinda)
+          in_spike_t / in_spike_ix : internoronlar (PF, IaIN, RC, IIrly)
+          in_adlar              : internoron adlari (in_spike_ix bu listeye indekstir)
+        """
+        st, sk = [], []
+        for j, kas in enumerate(self.kaslar):
+            z = np.array(self.havuz[kas].ap_zamanlari) * 1e-3        # ms -> s
+            st.append(z)
+            sk.append(np.full(len(z), j, dtype=int))
+        in_adlar = list(self._in_spk)
+        it, ii_ = [], []
+        for j, ad in enumerate(in_adlar):
+            z = np.array(self._in_spk[ad]) * 1e-3
+            it.append(z)
+            ii_.append(np.full(len(z), j, dtype=int))
+        bos = np.zeros(0)
+        return dict(
+            spike_t=np.concatenate(st) if st else bos,
+            spike_kas=np.concatenate(sk) if sk else bos.astype(int),
+            in_spike_t=np.concatenate(it) if it else bos,
+            in_spike_ix=np.concatenate(ii_) if ii_ else bos.astype(int),
+            in_adlar=np.array(in_adlar))

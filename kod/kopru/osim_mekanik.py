@@ -115,5 +115,16 @@ class Mekanik:
         vlmt = np.array([self.mus.get(i).getLengtheningSpeed(self.s) for i in range(self.n)])
         return q, qd, lmt, vlmt
 
+    def kas_durumu(self):
+        """Kas kasilma durumu: aktivasyon [0..1] ve tendon kuvveti [N].
+
+        Aktivasyon bir durum degiskenidir (Thelen aktivasyon dinamigi cozer) ve dogrudan
+        okunur; tendon kuvveti Dynamics asamasi ister. realizeDynamics'in ek maliyeti kosuda
+        olculur; kuvvet kaydi pahali cikarsa cagiran taraf seyreltir."""
+        self.model.realizeDynamics(self.s)
+        akt = np.array([self.mus.get(i).getActivation(self.s) for i in range(self.n)])
+        fk = np.array([self.mus.get(i).getTendonForce(self.s) for i in range(self.n)])
+        return akt, fk
+
     def kas_indisleri(self, adlar):
         return [self.adlar.index(a) for a in adlar]
