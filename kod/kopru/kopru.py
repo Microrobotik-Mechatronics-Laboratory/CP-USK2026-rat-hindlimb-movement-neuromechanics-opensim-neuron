@@ -400,7 +400,8 @@ class Kopru:
             iz['vF'][k] = self.cpg['F'].sec(0.5).v
             iz['vE'][k] = self.cpg['E'].sec(0.5).v
             if kas_kaydi:
-                iz['akt'][k], iz['Fkas'][k] = self.mek.kas_durumu()
+                akt38, fk38 = self.mek.kas_durumu()      # 38'lik model dizisi
+                iz['akt'][k], iz['Fkas'][k] = akt38[self.ix], fk38[self.ix]
             if ilerleme and (k + 1) % ilerleme == 0:
                 print('  adim %6d/%d  t=%.3f s  q=%s derece  u_max=%.3f'
                       % (k + 1, nadim, iz['t'][k],
