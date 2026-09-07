@@ -197,8 +197,8 @@ class Kopru:
         # surus dagilimiyla cozer; burada karsiligi, grup surusunun moment kapasitesiyle ters
         # olceklenmesidir. [tasarim] -- olculen kapasiteler kosu ciktisina yazilir.
         # Cok eklemde denge EKLEM ICINDE kurulur: her eklemin antagonist cifti kendi
-        # koordinatindaki kapasiteyle olceklenir; biartikuler kas uye oldugu her eklemin
-        # kapasitesine katilir (fiziksel olarak dogru: kas iki eklemi de surer).
+        # koordinatindaki kapasiteyle olceklenir. Kapasite grubun KENDI uyelerinden hesaplanir;
+        # capraz eklem (isaretli) surumu denendi ve olculerek reddedildi -- _kapasite_olc.
         self.kapasite = self._kapasite_olc(self.denge_pozlari)
         self.denge = {}
         for eklem in {g['eklem'] for g in self.grup_tanim.values()}:
@@ -219,7 +219,21 @@ class Kopru:
             assert gc.n >= 1, '%s gecikmesi kopru adimindan kucuk' % ad
 
     def _kapasite_olc(self, pozlar_derece):
-        """Grup basina |sum(Fmax * moment kolu)| [N*mm], grubun KENDI koordinatina gore.
+        """Grup basina |sum(Fmax * moment kolu)| [N*mm], grubun KENDI uyeleri ve KENDI
+        koordinatina gore.
+
+        CAPRAZ EKLEM SURUMU DENENDI VE OLCULEREK REDDEDILDI (07.09.2026, DOGRULAMA R):
+        "ayni RG fazinda surulen butun kaslarin bu eklemdeki ISARETLI moment toplami"
+        tanimi denendi. Sonuc patolojik: kalca_flx kapasitesi 229.3 -> 18.0 N*mm'ye
+        cokuyor, cunku F fazinda surulen hamstringlerin kalca EKSTANSIYON kollari ayni
+        fazdaki hip fleksorlerini goturuyor. Denge bunu "F fazi zayif" diye okuyup
+        kalca_ext'i 0.552 -> 0.088'e kisiyor ve kalca tek yonde doyup sinira dayaniyor
+        (olculdu: 0.09 s'te hip 37.2 -> 65.9 derece monoton, u_max=1.0, integrator stall).
+        Ders: ISARETLI net moment bir KAPASITE olcusu degildir; birbirini goturen iki kas
+        "kapasitesiz" degildir. Denge olcegi grubun kendi cekme gucune bakmalidir.
+
+        Biartikuler kasin oteki eklemde urettigi moment bu olcuye girmez; o etki mekanikte
+        zaten vardir (moment kolu matrisi tasir) ve fizyolojik olarak da gercektir.
 
         pozlar_derece: {koordinat: derece} -- serbest koordinatlarin tamami olcum pozuna
         (olculmus yuruyus orta noktasi) kurulur, olcum bittikten sonra geri alinir. Boylece
