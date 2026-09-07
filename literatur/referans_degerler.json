@@ -290,6 +290,57 @@
       "tur_kosul": "OpenSim ileri dinamik + NEURON, tek eklem (ankle_flx), 10 havuz",
       "durum": "olculdu",
       "not": "Ilk olcum 0.402 s (aralık icinde). CPG izole kalibrasyonu 386.9 ms idi; kapali donguda 0.402 s'e kaydi -- geri besleme kolunun etkisi."
+    },
+    {
+      "kimlik": "ic.kopru_kalca_araligi",
+      "kaynak_tipi": "ic_olcum",
+      "kaynak": {
+        "kunye": "Bu proje, olculmus yuruyus kinematigi",
+        "tanimlayici": "veri/rat_walk_bone_smooth.mot",
+        "yer": "hip_flx sutunu (PREPRINT 5.2)"
+      },
+      "buyukluk": "Kapali dongunun urettigi kalca fleksiyon acisi araligi (38 havuz, 3 DOF)",
+      "birim": "derece",
+      "deger": [9.01, 65.42],
+      "aralik": null,
+      "aralik_gerekcesi": "Degerin kendisi olculmus yuruyusun aralikdir; tolerans araligi degildir. Kapali dongu kinematigi RECETE olarak izlemez, bu yuzden birebir aralik-ici kalma beklenmez; karsilastirma ORTUSME ORANIYLA yapilir (kesisim/birlesim). Testten once ilan edilen olcut: ortusme orani >= 0.5. Bu bir tasarim/kalibrasyon hedefidir, literatur dogrulamasi degildir.",
+      "tur_kosul": "OpenSim ileri dinamik + NEURON, 3 DOF (hip_flx, knee_flx, ankle_flx), 38 havuz",
+      "durum": "olculdu",
+      "not": "Ilan tarihi 07.09.2026, 38 havuz kosusundan ONCE (04_KURALLAR: post-hoc aralik yasak)."
+    },
+    {
+      "kimlik": "ic.kopru_diz_araligi",
+      "kaynak_tipi": "ic_olcum",
+      "kaynak": {
+        "kunye": "Bu proje, olculmus yuruyus kinematigi",
+        "tanimlayici": "veri/rat_walk_bone_smooth.mot",
+        "yer": "knee_flx sutunu (PREPRINT 5.2)"
+      },
+      "buyukluk": "Kapali dongunun urettigi diz fleksiyon acisi araligi (38 havuz, 3 DOF)",
+      "birim": "derece",
+      "deger": [-139.73, -107.65],
+      "aralik": null,
+      "aralik_gerekcesi": "Olculmus yuruyus araligi; ortusme orani >= 0.5 olcutuyle test edilir (bkz. ic.kopru_kalca_araligi gerekcesi). BILINEN RISK: modelde saf (monoartikuler) diz fleksoru yok (DOGRULAMA J.2) -- diz ROM'u dar cikabilir; olcut dusmezse once model degil devre surusu sorgulanir, sonuc kullaniciya raporlanir.",
+      "tur_kosul": "OpenSim ileri dinamik + NEURON, 3 DOF, 38 havuz",
+      "durum": "olculdu",
+      "not": "Ilan tarihi 07.09.2026, kosudan ONCE."
+    },
+    {
+      "kimlik": "ic.kopru_bilek_araligi",
+      "kaynak_tipi": "ic_olcum",
+      "kaynak": {
+        "kunye": "Bu proje, olculmus yuruyus kinematigi",
+        "tanimlayici": "veri/rat_walk_bone_smooth.mot",
+        "yer": "ankle_flx sutunu (PREPRINT 5.2)"
+      },
+      "buyukluk": "Kapali dongunun urettigi bilek acisi araligi (38 havuz, 3 DOF)",
+      "birim": "derece",
+      "deger": [-2.89, 30.65],
+      "aralik": null,
+      "aralik_gerekcesi": "Olculmus yuruyus araligi; ortusme orani >= 0.5 olcutuyle test edilir (bkz. ic.kopru_kalca_araligi gerekcesi). 10 havuzlu kosuda bilek +14..+68 dereceydi (tamamen dorsifleksiyonda, ortusme ~0.25) -- kalibrasyonun duzeltmesi beklenen ana sapma budur (DOGRULAMA P.9).",
+      "tur_kosul": "OpenSim ileri dinamik + NEURON, 3 DOF, 38 havuz",
+      "durum": "olculdu",
+      "not": "Ilan tarihi 07.09.2026, kosudan ONCE."
     }
   ]
 }
