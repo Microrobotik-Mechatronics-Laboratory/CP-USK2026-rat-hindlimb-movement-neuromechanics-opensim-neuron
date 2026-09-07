@@ -9,13 +9,41 @@
 SDLC/
 CLAUDE.md
 
-# arsiv/ depoya girmez; tek istisna cl_ref.npz (ureteci hic repoya girmedi,
-# yeniden uretilemez birincil varlik). Git ignore'lu dizine inmedigi icin
-# istisna asama asama yeniden dahil edilir.
+# arsiv/ kural olarak depoya girmez (eski surumler, buyuk ikili dosyalar). Git ignore'lu
+# bir dizine inmedigi icin her istisna ASAMA ASAMA yeniden dahil edilir: once dizin acilir,
+# sonra icerigi kapatilir, sonra istenen dosya acilir.
+#
+# ISTISNALAR (ikisi de kasitli):
+#   1) arsiv/kod/{opensim,kapali_dongu}/ -- 07.09.2026'da kod/ altindan buraya tasindi.
+#      ARSIVLEME KULLANIMDAN KALKMADIR, IZLEMEDEN DUSME DEGIL: bu betikler projenin
+#      yayimlanmis veri hattini ureten koddur (u_swing_v2.csv, cl_teslim_9of9.npz),
+#      DOGRULAMA ve PREPRINT onlara atif yapar. Versiyon kontrolunde kalirlar.
+#   2) arsiv/veri/cl_ref.npz -- ureteci hic repoya girmedi, yeniden uretilemez.
+#   3) arsiv/README.md -- izlenen arsiv icerigini aciklayan tek belge; onsuz repoyu
+#      klonlayan arsiv/kod/ altinda gerekcesiz betikler bulur.
+#      Ayni tasimayla gelen uc dosya (KASLI_x10.osim, cl_teslim_9of9.png,
+#      kosum_ayakbilegi.npz, Bauman .mot) da izlenmeye devam eder; tasinmadan once
+#      izleniyorlardi ve arsivlenmeleri onlari geri alinamaz bicimde dusurmemeli.
 /arsiv/*
+!/arsiv/README.md
+!/arsiv/kod/
+/arsiv/kod/*
+!/arsiv/kod/opensim/
+!/arsiv/kod/kapali_dongu/
+!/arsiv/model/
+/arsiv/model/*
+!/arsiv/model/rat_hindlimb_KASLI_x10.osim
+!/arsiv/sekiller/
+/arsiv/sekiller/*
+!/arsiv/sekiller/cl_teslim_9of9.png
 !/arsiv/veri/
 /arsiv/veri/*
 !/arsiv/veri/cl_ref.npz
+!/arsiv/veri/kosum_ayakbilegi.npz
+!/arsiv/veri/goruntuleme/
+/arsiv/veri/goruntuleme/*
+!/arsiv/veri/goruntuleme/rat_walk_bone_zemin_x10_Bauman.mot
+
 
 # --- Python ----------------------------------------------------------------
 __pycache__/
