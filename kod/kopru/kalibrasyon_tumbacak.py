@@ -84,6 +84,7 @@ if __name__ == '__main__':
                  pf_mn=par['sinaps']['agirlik_uS']['pf_mn'],
                  cpg_pf=par['sinaps']['cpg_pf_carpan'],
                  k_ia=par['kopru']['k_ia'],
+                 pay=par['havuz_eslesme'].get('biartikuler_pay', 0.5),
                  sure=args.sure, cpu_s=round(cpu, 1),
                  T=None if not np.isfinite(o['T']) else round(o['T'], 4),
                  eklemler={ad: dict(aralik=[round(v, 2) for v in e['aralik']],
