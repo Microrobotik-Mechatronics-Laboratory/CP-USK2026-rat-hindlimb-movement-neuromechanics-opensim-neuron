@@ -17,6 +17,12 @@ spinal circuitry above them. The loop closes on itself: motoneuron pools drive t
 resulting movement stretches the muscle spindles, and the Ia/II afferent signal renews the command.
 The longer-term motivation is a substrate for developing neuroprostheses after spinal cord injury.
 
+**The heart of the project is controlling the muscles by simulating real neurons.** The muscle
+command is not a prescribed signal: it is derived from the spike trains of biophysical neuron
+models running in NEURON, and the sensory feedback returns to those same cells as synaptic input.
+The goal is closed-loop muscle control through neural activity — spikes, and in the longer term
+synaptic plasticity (not yet modelled).
+
 Where the work stands today: the musculoskeletal half is built and swing-phase muscle activations
 have been solved; the motoneuron cell is built in Python and matches the reference HOC
 implementation bit-for-bit; NEURON and OpenSim have been shown to run inside one Python process;
@@ -255,6 +261,12 @@ bilgisayarda kuruyor. Mekaniği **OpenSim** taşıyor — bacağın kas-iskelet 
 motonöron havuzları kasları sürer, doğan hareket kas iğciklerini gerer, Ia/II afferent sinyali
 komutu yeniler. Uzun vadeli gerekçe, omurilik yaralanmasında nöroprotez geliştirmek için bir zemin
 kurmak.
+
+**Projenin en önemli kısmı, kasların gerçek nöron simülasyonuyla kontrol edilmesidir.** Kas
+komutu reçete edilmiş bir sinyal değildir: NEURON'da koşan biyofiziksel nöron modellerinin
+aksiyon potansiyeli dizilerinden türetilir ve duyusal geri besleme aynı hücrelere sinaptik girdi
+olarak döner. Hedef, nöron aktiviteleriyle — aksiyon potansiyelleri ve uzun vadede sinaptik
+plastisite (henüz modellenmedi) — kasların kapalı döngü kontrolüdür.
 
 Bugünkü nokta: kas-iskelet yarısı kurulu ve salınım fazı kas aktivasyonları çözüldü; motonöron
 hücresi Python'da kuruldu ve referans HOC uygulamasıyla birebir doğrulandı; NEURON ile OpenSim'in

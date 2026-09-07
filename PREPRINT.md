@@ -44,6 +44,15 @@ iğciklerinde duyusal sinyal doğurur; Ia ve II afferentleri bu sinyali omurili�
 komutu yeniler. **Kapalı olan budur.** Bu döngünün anlaşılması, omurilik yaralanmasında
 nöroprotez geliştirme çalışmalarının temelidir.
 
+**Projenin en önemli kısmı şudur: kaslar, gerçek nöronların simülasyonuyla kontrol edilir.**
+Kas komutu `u(t)` reçete edilmiş bir sinyal değildir; NEURON'da koşan biyofiziksel hücrelerin
+(motonöron havuzları ve üstlerindeki omurilik devresi) ürettiği **aksiyon potansiyeli
+dizilerinden** türetilir ve duyusal geri besleme aynı hücrelere sinaptik girdi olarak döner.
+Hedef, nöron aktiviteleri — aksiyon potansiyelleri (spike) ve sinaptik plastisite — ile
+kasların **kapalı döngü kontrolüdür** `[tasarım]`. Bugünkü modelde aksiyon potansiyeli tabanlı
+kapalı döngü kontrol ayak bileğinde kuruludur `[ölçüldü]`; sinaptik plastisite henüz
+modellenmemiştir `[yapılacak]`.
+
 **Ekip iki kişi.** Nöron tarafı (NEURON: CPG, internöronlar, motonöron havuzu, Ia afferent) ve
 mekanik taraf (OpenSim: kas-iskelet, Hill kas modeli, ters dinamik, statik optimizasyon).
 Bu repo ikisinin buluştuğu yerdir.
