@@ -148,14 +148,18 @@ class Kopru:
                 if kas not in self.kaslar:
                     self.kaslar.append(kas)
         self.kaslar += [k for k in self.surussuz if k not in self.kaslar]
-        # uyelik: kas kac PF grubunda? Biartikuler kas iki gruptan girdi alir, sinaps
-        # agirliklari pay = 1/uyelik ile olceklenir (toplam surus monoartikulerle ayni olcekte
-        # kalsin) [tasarim] -- devre_par.havuz_eslesme._biartikuler_notu
+        # uyelik: kas kac PF grubunda? Biartikuler kasin HER PF baglantisi biartikuler_pay
+        # carpaniyla olceklenir [tasarim]. Ilk deger 0.5 (=1/uyelik) idi; olculdu (07.09.2026,
+        # 0.5 s kosu): biartikulerlerin iki PF'i ZIT fazli oldugu icin girdiler ust uste
+        # binmiyor ve 0.5 pay kasi hicbir fazda esik ustune cikaramiyor (MG/LG/Pla/GP/GA
+        # 0 Hz) -- Gorassini MG/LG hedefi (67 Hz) ile celisir. Pay bu yuzden parametredir
+        # ve kalibrasyonda taranir; deger devre_par.havuz_eslesme.biartikuler_pay'dadir.
         self.uyelik = {}
         for gad, g in self.grup_tanim.items():
             for kas in g['kaslar']:
                 self.uyelik.setdefault(kas, []).append(gad)
-        self.pay = {kas: 1.0 / len(gr) for kas, gr in self.uyelik.items()}
+        pay_c = float(self.par.get('havuz_eslesme', {}).get('biartikuler_pay', 0.5))
+        self.pay = {kas: (pay_c if len(gr) > 1 else 1.0) for kas, gr in self.uyelik.items()}
         self._grup_ix = {g: [self.kaslar.index(x) for x in k] for g, k in self.gruplar.items()}
         self.ii_olcek = 1e-4     # [tasarim] pps -> nA; II aktarim internoronunun surus olcegi
 

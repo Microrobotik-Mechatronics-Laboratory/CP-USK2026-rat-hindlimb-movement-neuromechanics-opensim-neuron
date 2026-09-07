@@ -53,6 +53,7 @@ if __name__ == '__main__':
     ap.add_argument('--pf_mn', type=float, default=None)
     ap.add_argument('--cpg_pf', type=float, default=None)
     ap.add_argument('--k_ia', type=float, default=None)
+    ap.add_argument('--pay', type=float, default=None)   # biartikuler_pay
     ap.add_argument('--sure', type=float, default=1.5)
     ap.add_argument('--etiket', default='')
     args = ap.parse_args()
@@ -65,6 +66,8 @@ if __name__ == '__main__':
         par['sinaps']['cpg_pf_carpan'] = args.cpg_pf
     if args.k_ia is not None:
         par['kopru']['k_ia'] = args.k_ia
+    if args.pay is not None:
+        par['havuz_eslesme']['biartikuler_pay'] = args.pay
     tmp = tempfile.NamedTemporaryFile('w', suffix='.json', delete=False)
     json.dump(par, tmp)
     tmp.close()
