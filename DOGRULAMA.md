@@ -1066,3 +1066,102 @@ literatür kaynakları yoktur; `II` katsayıları da izlenebilir bir kaynağa da
 
 **Üreten:** `kod/kopru/adim_yarilama.py`, `kod/kopru/kos_ayakbilegi.py`.
 **Artefakt:** `veri/kopru/kosum_ayakbilegi.npz`, `sekiller/kopru_ayakbilegi.png` + `.csv`.
+
+---
+
+# Q · 07.09.2026 — 38 havuz + 3 DOF: tam bacak kapalı döngüsü ve kalibrasyonu
+
+**Ne kuruldu.** Köprü, PREPRINT 6.4'ün tam uygulamasına ölçeklendi: tek CPG yarım-merkez çifti →
+**6 örüntü oluşturma (PF) grubu** (kalça/diz/bilek × fleksör/ekstansör; RG-F fleksör yanını,
+RG-E ekstansör yanını sürer) → **38 motonöron havuzu** (kas başına bir Kim hücresi, 2655 segment)
+→ `u(t)` → OpenSim **ileri dinamiği, 3 serbestlik derecesi** (hip_flx, knee_flx, ankle_flx) →
+iğcik → Ia/II → gecikme → Ia sinapsı. Grup başına birer IaIN, Renshaw ve II aktarım internöronu
+(6'şar adet; IaIN/Renshaw `[tasarım]`, kaynaksız — hiçbir sonuç bunlara dayandırılmaz).
+Biartiküler kaslar tek havuz, iki PF'ten girdi; işaret kararsız 6 kas (Pir, GMi, OE, OI, Pec,
+BFa) havuzlu ama PF sürüşsüz. Eşleşme verisi `kod/kopru/devre_par.json` `havuz_eslesme`.
+Üreten: `kod/kopru/{kopru,kos_tumbacak,kalibrasyon_tumbacak}.py`.
+
+Eklem ROM karşılaştırma aralıkları koşulardan **önce** ilan edildi
+(`referans_degerler.json`: `ic.kopru_{kalca,diz,bilek}_araligi`, ölçüt örtüşme oranı ≥ 0,5).
+
+## Q.1 · Regresyon: genelleme eski davranışı korudu
+
+Çok-eklem genellemesinden sonra `kos_ayakbilegi.py` (eski biçim: 2 grup + 1 DOF) yeniden
+koşuldu: çevrim süresi **0,375 s**, zıtfaz korelasyonu **−0,734**, bilek +14,00…+68,41°,
+TA 24,52 Hz, Sol 12,27 Hz — P.7'nin kanonik değerleriyle birebir aynı.
+
+## Q.2 · Eşleşme kararlarında model verisi hakemliği
+
+PREPRINT 6.4 karar tablosu ile D6 diyagramı iki yerde ayrışıyordu; ızgaradan ölçülerek karara
+bağlandı (referans poz hip 37,5 / knee −122,5 / ankle 17,5°, `cl_grid3d.npz` R matrisi):
+
+| Kas | r_hip [mm] | r_knee [mm] | r_ankle [mm] | Karar |
+|---|---|---|---|---|
+| EDL | −0,00 | **−0,63** | +2,57 | tek girdili (bilek-DF): diz kolu önemsiz — karar tablosundaki "EDL biartiküler" kaydı model ölçümüyle desteklenmiyor |
+| BFp | −10,74 | **−13,82** | 0 | çift girdili (kalça-ext + diz-flx) |
+| STa | −12,79 | **−15,57** | 0 | çift girdili |
+| STp | −7,64 | **−15,21** | 0 | çift girdili |
+| GP | −14,93 | **−12,39** | 0 | çift girdili |
+| GA | −8,18 | **−9,48** | 0 | çift girdili |
+
+BFp/STa/STp/GP/GA dizde **en güçlü fleksörlerdir** (Pop −1,60'ın ~10 katı); karar tablosunun
+"iki PF'ten girdi" kararı doğrulandı, D6 diyagramının kutu görünümü eksikti.
+
+## Q.3 · Eklem başına antagonist moment kapasitesi (ölçülmüş yürüyüş orta pozunda)
+
+| Grup | Kapasite [N·mm] | Denge ölçeği |
+|---|---|---|
+| kalça-flx / kalça-ext | 229,3 / 415,4 | 1,0 / 0,552 |
+| diz-flx / diz-ext | 358,1 / 127,9 | 0,357 / 1,0 |
+| bilek-DF / bilek-PF | 53,7 / 144,4 | 1,0 / 0,372 |
+
+## Q.4 · Yol boyunca bulunan ve çözülen üç sayısal engel
+
+1. **Modelde koordinat aralığı yok → eklemler savruluyor.** H8'in bilinen bulgusunun (koordinat
+   `range`'leri `.osim`'e kopyalanmamış) ileri dinamikteki sonucu: devre kalibre olana kadar
+   eklemler kas geometrisinin tanım alanı dışına çıkıyor ve integratör sürünüyor (ölçüldü:
+   ilk pf_mn taramasında 1,5 s'lik koşular 30+ dk CPU'da ~0,5 s'te kaldı; süreçler %100 CPU'da
+   canlıydı, ilerlemiyordu). Çözüm: serbest koordinatlara **kırpmalı sınır** — `cl_emergent.py`
+   satır 110-114'ün OpenSim karşılığı; sınırlar `cl_grid3d` ızgara tanım alanı. `.osim`
+   **değişmedi** (çekirdek modele dokunulmaz, bölüm J kararı).
+2. **CoordinateLimitForce denendi ve reddedildi.** Bilek DOF eylemsizliği ~1,1·10⁻⁷ olduğundan
+   her yay sertliği ~1 kHz'lik mod üretip değişken adımlı integratörü mikro-adımlara düşürüyor
+   (ölçüldü: K=0,1 N·m/derece ile 0,5 s koşu 10+ dk CPU'da bitmedi; kırpmayla aynı koşu
+   **114,3 s**). K.2'deki dersin (bilek stiff) yeni yüzü.
+3. **Kırpma hedefi ızgara ucunda olamaz.** Koordinat tam uç düğümde tutulunca kas sarma
+   geometrisi kötü koşullu ve integratör tek adımda dakikalarca sürünüyor (ölçüldü: pay=0,75
+   koşusu 13 dk'da 0,01 s ilerledi). Çözüm: kırpma hedefi sınırdan 0,5° içeri; sınırların
+   kendisi ızgara ucundan 1° içeri. Sınıra dayanma oranı ve kırpma olay sayısı her koşuda
+   raporlanır.
+
+## Q.5 · K1: pf_mn log-taraması (f_ref sabit — Gorassini değerleri fizyolojik çapa)
+
+Koşullar: 1,5 s, ikinci yarı değerlendirilir, pay=0,5, kırpmalı sınır (ızgara ucunda), 4 koşu.
+Etkin-faz frekansları Hz; ROM örtüşmesi = kesişim/birleşim (hedef: ölçülmüş yürüyüş aralıkları).
+
+| pf_mn | TA [80–110] | Sol [20–35] | MG/LG [50–90] | kalça ört. | diz ört. | bilek ört. |
+|---|---|---|---|---|---|---|
+| 0,6 (eski) | 22,6 dış | 11,9 dış | 0,0 dış | 0,80 | 0,49 | 0,11 |
+| **1,2** | **82,0 İÇİNDE** | **21,2 İÇİNDE** | 11,5 dış | 0,70 | 0,63 | 0,20 |
+| 2,4 | 81,0 içinde | 62,0 dış (üst) | 24,8 dış | 0,19 | 0,51 | 0,00 |
+| 4,8 | 61,8 dış | 82,3 dış | 110,9 dış | 0,44 | 0,46 | 0,00 |
+
+**Üretim değeri pf_mn = 1,2:** TA ve Sol ilk kez Gorassini aralıklarının içinde; P.9'un
+"havuz az ateşliyor" teşhisi bu eksende kapandı. 2,4+ doyum rejimi (biartiküler u→1,0,
+eklemler tanım alanı sınırlarına çöküyor).
+
+## Q.6 · Biartiküler pay: 0,5 susturuyor, 1,0 doyuruyor; üretim 0,75 (kullanıcı kararı)
+
+pay=0,5'te (K1 tablosu) MG/LG/Pla/GP/GA **hiç ateşlemiyor**: iki PF girdisi zıt fazlı olduğundan
+üst üste binmiyor ve yarım ağırlık hiçbir fazda eşiği geçemiyor — Gorassini MG/LG hedefi
+(67 Hz) ile çelişir. pay=1,0'da (2 s koşu, pf_mn=1,2): kalça örtüşmesi 0,82'ye çıktı ve bileğin
+dorsifleksiyon saplanması çözüldü (−23,7…+7,3°), ama hamstringler doydu (BFp/STa/STp/GP/GA
+u tepe ≈ 1,0) ve **diz fleksiyon sınırına çöktü** (−155…−138,6°; zamanın %60'ı sınırda);
+Sol 18,2'ye düştü. Üretim değeri **0,75 ara noktadır ve tam karşılaştırma koşusu (K2b)
+tamamlanmadan kullanıcı kararıyla seçilmiştir** — kanonik koşunun ölçümleri bu seçimin
+sınavıdır; MG/LG aralık dışında kalırsa pay yeniden taranmalıdır (`devre_par.json`
+`_pay_kalibrasyon` notu).
+
+## Q.7 · Kanonik koşu (pf_mn=1,2 · pay=0,75 · 3 s) — SONUÇLAR AŞAĞIDA EKLENECEK
+
+## Q.8 · Adım yarılama testi (3 DOF) — SONUÇLAR AŞAĞIDA EKLENECEK
