@@ -1122,7 +1122,8 @@ BFp/STa/STp/GP/GA dizde **en güçlü fleksörlerdir** (Pop −1,60'ın ~10 kat�
    eklemler kas geometrisinin tanım alanı dışına çıkıyor ve integratör sürünüyor (ölçüldü:
    ilk pf_mn taramasında 1,5 s'lik koşular 30+ dk CPU'da ~0,5 s'te kaldı; süreçler %100 CPU'da
    canlıydı, ilerlemiyordu). Çözüm: serbest koordinatlara **kırpmalı sınır** — `cl_emergent.py`
-   satır 110-114'ün OpenSim karşılığı; sınırlar `cl_grid3d` ızgara tanım alanı. `.osim`
+   satır 110-114'ün *uyarlanmış* OpenSim karşılığı (birebir değil; fark R.9'da);
+   sınırlar `cl_grid3d` ızgara tanım alanı. `.osim`
    **değişmedi** (çekirdek modele dokunulmaz, bölüm J kararı).
 2. **CoordinateLimitForce denendi ve reddedildi.** Bilek DOF eylemsizliği ~1,1·10⁻⁷ olduğundan
    her yay sertliği ~1 kHz'lik mod üretip değişken adımlı integratörü mikro-adımlara düşürüyor
@@ -1162,6 +1163,206 @@ tamamlanmadan kullanıcı kararıyla seçilmiştir** — kanonik koşunun ölç�
 sınavıdır; MG/LG aralık dışında kalırsa pay yeniden taranmalıdır (`devre_par.json`
 `_pay_kalibrasyon` notu).
 
-## Q.7 · Kanonik koşu (pf_mn=1,2 · pay=0,75 · 3 s) — SONUÇLAR AŞAĞIDA EKLENECEK
+## Q.7 · Kanonik koşu — YAPILAMADI, YERİNE KÖK SEBEP BULUNDU (bölüm R)
 
-## Q.8 · Adım yarılama testi (3 DOF) — SONUÇLAR AŞAĞIDA EKLENECEK
+Kanonik koşu iki kez denendi ve ikisinde de tamamlanamadı. Sebebi bir CPU/süre sorunu değil,
+modelde yapısal bir hata çıktı. Ayrıntı ve düzeltme **bölüm R**'dedir. Q.7 ve Q.8 tabloları,
+R'deki düzeltmenin ardından üretilecek kanonik koşuyla doldurulacaktır.
+
+## Q.8 · Adım yarılama testi (3 DOF) — R düzeltmesinden sonraya bırakıldı
+
+Test 3 s × 2 adım boyunda başlatıldı, aynı kök sebep yüzünden ilerlemedi ve durduruldu.
+
+---
+
+# R · Biartiküler kas eşleşmesi hatası: teşhis, literatür denetimi ve düzeltme (07.09.2026)
+
+## R.1 · Arıza: kanonik koşu 1,28 s'te çöktü
+
+Köprü adımı başına maliyet ölçüldü (OpenSim `Manager` günlüğünden, 100 bloklu ortalamalar):
+
+| köprü adımı | sim t | CPU/adım | integratör iç adım (alınan/denenen) | projeksiyon |
+|---|---|---|---|---|
+| 20 000 | 0,00 s | 3,3 ms | 523 / 581 | 0 |
+| 22 000 | 0,30 s | 3,3 ms | 2 637 / 2 915 | 0 |
+| 23 000 | 0,45 s | 9,2 ms | 597 / 668 | 93 |
+| 25 000 | 0,75 s | **1 039 ms** | 1 920 / 2 241 | 182 |
+| 26 000 | 0,90 s | **4 252 ms** | 262 447 / 353 952 | 315 |
+| son 200 | 1,25→1,28 s | **2 436 ms** | 1 373 / 1 587 | 360 |
+
+730 kat yavaşlama. Bu hızla kalan 1,72 s ≈ 8 saat sürerdi. Sistem sağlıklıydı (yük 3,5/10
+çekirdek, bellek %77 boş, takas 0), yani yavaşlık sayısaldı. Üç eklem de fizyolojik yürüyüş
+aralığının dışına, kırpma sınırlarına dayanmıştı (zamanın %23–39'u sınırın 6° yakınında);
+ölçülmüş yürüyüş ROM'u ızgara tanım alanının rahatça içinde olduğuna göre kırpma kutusu dar
+değildi — **devre bacağı sınıra sürüyordu.**
+
+## R.2 · Kök sebep: grup üyeliği moment kolundan türetilmişti
+
+`devre_par.json` `havuz_eslesme.gruplar` nöral grup üyeliğini **moment kolu işaretinden**
+türetiyordu. Moment kolu mekanik bir olgudur; nöral grup üyeliği ölçülmüş **EMG fazına/sinerjiye**
+göre tanımlanır. İkisinin karıştırılması, dokuz biartiküler kasın **hepsini** zıt fazlı iki gruba
+üye yapmıştı:
+
+| kas | grup 1 | grup 2 | RG fazları |
+|---|---|---|---|
+| BFp, STa, STp, GP, GA | kalca_ext | diz_flx | E + F |
+| MG, LG, Pla | diz_flx | bilek_pf | F + E |
+| RF | kalca_flx | diz_ext | F + E |
+
+`_syn` her çağrıda yeni bir `Exp2Syn` yarattığı için birleştirme **toplamadır**
+(`kopru.py:304-307`, `338-341`), yani kas her iki fazda da sürülür. Üstelik `kopru.py:313` aynı
+kasa her iki eklemin antagonist IaIN'inden inhibisyon veriyordu, aynı `pay` çarpanıyla: her
+fazda eşzamanlı uyarı + inhibisyon → simetrik iptal.
+
+Ölçüldü — faz modülasyonu (AC/DC, sinaptik ağırlıklardan) ve CPG'ye faz kilitlenmesi
+(`|r(CPG)|`, 0,5 s'lik koşu verisinden), iki bağımsız yol:
+
+| | monoartiküler (23) | biartiküler (9) |
+|---|---|---|
+| AC/DC | %100 | RF **%0** · MG/LG/Pla %3 · hamstring %21 |
+| ort. \|r(CPG)\| | 0,658 | **0,168** |
+| ort. modülasyon | 1,000 | 0,444 |
+| sessiz kas (u ≡ 0) | 0 | **6** (GP, GA, MG, LG, Pla) |
+
+Sonuç: `diz_flx`'in 9 kasından 8'i biartikülerdi, tek monoartikülerı zayıf Pop (moment kolu
+−1,60 mm). Diz antagonistsiz kaldı (zıtfaz korelasyonu **r = −0,014**, yani dizde ritim yok) ve
+sınıra çöktü.
+
+**`biartikuler_pay` bu kusuru çözemez.** Zıt fazlı iki girdinin toplamı ölçekten bağımsız olarak
+ritimsizdir: pay küçükse hiçbir faz eşiği geçemez (Q.6: pay=0,5'te beş kas 0 Hz), büyükse iki
+yarım çevrim üst üste binip tonik doyum olur (Q.6: pay=1,0'da hamstringler u≈1,0, diz fleksiyon
+sınırında). İkisi aynı kusurun iki eşiğidir. Planlanan K2b taraması bu yüzden **terk edildi**.
+
+## R.3 · Basit hata ihtimalleri elendi
+
+- **Moment kolu işaretleri ve grup atamalarının mekanik doğruluğu:** 2197 ızgara düğümünün
+  tamamında grup başına Σ(Fmax·r) işareti %100 kararlı. Yanlış işaretli gruba konmuş kas yok.
+- **İndeksleme:** `self.kaslar` sırası her yerde korunuyor; Ia/II doğru kasa dönüyor.
+  (Küçük not: `kopru.py:413` kayda gecikmesiz `ia, ii` yazıyor, devreye gecikmeli gidiyor —
+  yalnız raporlama tutarsızlığı.)
+- **Kas parametreleri iki kaynakta birebir aynı:** `cl_grid3d.npz` ile `.osim` arasında `Fmax`,
+  `lmo`, `tsl`, `alp` farkı **0**, kas sırası örtüşüyor. `osim_mekanik.py`'ye bunu koruyan
+  assert eklendi.
+- **H8 bugünkü modelden doğrulandı:** `grep -c "<range>" model/rat_hindlimb_faz1a.osim` → **0**.
+  Kırpmalı sınır kararı artık devralınan metne değil kendi ölçümümüze dayanıyor.
+
+## R.4 · Literatür denetimi
+
+- **"İki eksitatör girdiyi topla ve ölçekle" biçiminin literatürde karşılığı yok.** Shevtsova ve
+  ark. 2016 (Tablo 5.A2, Şekil 5.6) bifonksiyonel havuz için ayrı bir PF popülasyonu kurar; bu
+  popülasyon iki yarım-merkezden eksitasyon alır **ve** faza özgü inhibitör popülasyonlar fazla
+  eksitasyonu oyar. İnhibisyon her bir eksitasyonun 4 katıdır (0,005 / −0,02). Bizde toplama
+  vardı, oyma yoktu.
+- **Bifonksiyonel motonöron havuzları resiprokal Ia inhibisyonunun DIŞINDA tutulur** (aynı tablo:
+  Mn-PBSt ve Mn-RF hiç Ia inhibisyonu almaz; Mn-E/Mn-F −0,04 alır). Bizde tam tersi yapılmıştı.
+- **EMG kanıtı grup atamasını doğrudan çürütüyor** (Markin ve ark. 2012, s. 2062, Şekil 5A/5B):
+  MG/LG/Pla + FHL hem fiktif hem gerçek lokomosyonda **ekstansör kümesinin** üyesi, tek patlama,
+  basma fazı. Hamstring (PBSt) baskın deseni tip 1 (%73) fleksör fazın **başında** tek kısa
+  patlama; RF tip 1 (%53) fleksör fazın **sonunda**. İkinci patlamalar faz **geçişlerinde** olur,
+  karşı fazın ortasında değil.
+- **Projenin kendi ölçümü literatürle uyumlu, devre ikisiyle de uyumsuzdu:**
+  `D7_yuruyus_zamanlama.md` — BFp tepe %65, RF %66,5, STp %77; MG/LG/Pla salınımda sessiz.
+
+Künye: Markin SN, Lemay MA, Prilutsky BI, Rybak IA (2012) J Neurophysiol 107:2057–2071.
+Shevtsova NA, Hamade K, Chakrabarty S, Markin SN, Prilutsky BI, Rybak IA (2016)
+*Modeling the Organization of Spinal Cord Neural Circuits Controlling Two-Joint Muscles*,
+Springer, s. 121–159, DOI 10.1007/978-1-4939-3267-2_5.
+
+## R.5 · Düzeltme (Aşama 1): üyelik EMG fazına göre yeniden türetildi
+
+| kas | eski | yeni | dayanak |
+|---|---|---|---|
+| MG, LG, Pla | diz_flx + bilek_pf | **bilek_pf** | Markin 2012 s.2062, ekstansör kümesi |
+| BFp, STa, STp, GP, GA | kalca_ext + diz_flx | **diz_flx** | PBSt tip 1 (%73); D7: BFp %65 |
+| RF | kalca_flx + diz_ext | **kalca_flx** | RF tip 1 (%53); D7: %66,5 |
+
+Artık hiçbir kas birden fazla gruba üye değil (32 sürülen + 6 sürüşsüz = 38, çakışma yok).
+`biartikuler_pay` üretim yolunda işlevsizdir (`len(uyelik)==1` → 1,0); parametre Aşama 2 için
+kodda bırakıldı. Kapasiteler yeniden ölçüldü: kalca_ext 415,4 → 204,1 · diz_flx 358,1 → 262,1 ·
+diz_ext 127,9 → 74,3 (hamstringler, MG/LG/Pla ve RF ilgili gruplardan çıktığı için).
+
+## R.6 · Denenip ölçülerek reddedilen: çapraz-eklem işaretli kapasite
+
+Denge ölçeğinin biartiküler kasın öteki eklemdeki momentini görmediği tespit edilmişti. Kapasite
+"aynı RG fazında sürülen bütün kasların bu eklemdeki **işaretli** moment toplamı" olarak yeniden
+tanımlandı ve **koşuldu**. Sonuç patolojik:
+
+- `kalca_flx` kapasitesi 229,3 → **18,0 N·mm** (F fazındaki hamstringlerin kalça ekstansiyon
+  kolları aynı fazdaki hip fleksörlerini götürüyor),
+- denge bunu "F fazı zayıf" diye okuyup `kalca_ext`'i 0,552 → **0,088**'e kısıyor,
+- kalça 0,09 s'te 37,2° → 65,9° monoton doyuma gidiyor (u_max=1,0) ve integratör kilitleniyor.
+
+**Ders:** işaretli net moment bir *kapasite* ölçüsü değildir; birbirini götüren iki kas
+"kapasitesiz" değildir. Tanım geri alındı; gerekçe `kopru.py::_kapasite_olc` içinde kayıtlı.
+
+## R.7 · Düzeltme sonrası ölçüm (1,2 s koşu, pf_mn=1,2)
+
+**Kök sebep ölçütleri — GEÇTİ:**
+
+| ölçüt | önce | sonra |
+|---|---|---|
+| biartiküler ort. \|r(CPG)\| | 0,168 | **0,567** |
+| monoartiküler ort. \|r(CPG)\| | 0,658 | 0,553 |
+| biartiküler ort. modülasyon | 0,444 | **1,000** |
+| sessiz kas sayısı | 6 | **0** |
+| diz zıtfaz korelasyonu | −0,014 | **−0,726** |
+| en uzun tamamlanan koşu | 1,28 s (çökerek) | 1,2 s (temiz) |
+
+Biartiküler kaslar artık monoartikülerlerle aynı faz kilitlenmesine sahip. Üç eklemde de
+zıtfaz kuruldu (kalça −0,557 · diz −0,726 · bilek −0,795). Regresyon: `kos_ayakbilegi.py`
+`pf_mn=0,6` ile altı ölçütte birebir geçti (aşağıda R.8).
+
+**Lokomosyon ölçütleri — GEÇMEDİ (majör sapma, kullanıcıya raporlandı):**
+
+| eklem | ölçülen [derece] | hedef [derece] | örtüşme (ölçüt ≥0,5) | sınırda |
+|---|---|---|---|---|
+| kalça | −9,00 … 17,55 | 9,01 … 65,42 | **0,11** | 0,60 |
+| diz | −122,88 … −91,00 | −139,73 … −107,65 | **0,31** | 0,59 |
+| bilek | −34,00 … 42,33 | −2,89 … 30,65 | **0,44** | 0,36 |
+
+Çevrim süresi ölçülemedi (kalça geçişi yetersiz). Frekanslar: TA 80,98 Hz **aralıkta** [80–110];
+Sol 19,69 Hz aralık dışı [20–35]; MG/LG 19,3 Hz aralık dışı [50–90]. Kırpma 1295 olay.
+Düşük ateşleyen gruplar tam olarak denge ölçeği en küçük olanlardır (diz_flx 0,283 ·
+bilek_pf 0,372) — kalibrasyon ekseni burasıdır. **Aralıklar genişletilmedi.**
+
+**Pasif kontrol ayrımı:** pasif koşu (u=0, NEURON yok) da bileği −34,00'e dayıyor
+(pasif bilek −34,00…13,98, kırpma 224 olay). Yani bileğin alt sınıra oturması **mekanik**
+bir özelliktir (yer teması olmayan serbest salınan uzuv), devre kusuru değil. Kalça −9,00 ve
+diz −91,00 yalnız canlı koşuda görülüyor — onlar devre kaynaklıdır.
+
+## R.8 · P.7/Q.1 tabanı bayattı — düzeltme
+
+Q.1'de "regresyon birebir geçti" diye kayıtlı ayak bileği değerleri (0,375 s · −0,734 ·
++14,00…+68,41° · TA 24,52 · Sol 12,27) **pf_mn=0,6 ile** üretilmiştir. Üretim değeri aynı oturumda
+1,2'ye çıkarıldığı halde (commit `be9f06e`) taban güncellenmemişti. Ölçüldü:
+
+- `pf_mn=0,6` ile bugünkü kod: 0,3749 s · 14,00…68,41° · −0,7337 · TA 24,52 · Sol 12,27 —
+  **altı ölçüt de birebir**, yani R.5 düzeltmesi tek eklemli yolda etkisizdir.
+- `pf_mn=1,2` (üretim) ile: çevrim 0,393 s · bilek 6,51…66,15° · −0,845 · TA 82,62 · Sol 22,42.
+  **Yeni ayak bileği tabanı budur.**
+
+## R.9 · Belge doğruluğu düzeltmesi
+
+`devre_par.json` `kopru.eklem_siniri._gerekce` kırpma kuralını devralınan
+`cl_emergent.py:110-114`'ün **"birebir karşılığı"** diye tanımlıyordu. **Birebir değil:**
+devralınan kod sınırın kendisine kırpar ve hızı float eşitlik kontrolüyle sıfırlar; bizimki
+sınırdan 0,5° içeri kırpar, hızı koşulsuz sıfırlar ve sınırlar ızgara ucundan 1° içeridedir.
+Sapma bilinçli ve gerekçeli; yanlış olan yalnız "birebir" nitelemesiydi, düzeltildi.
+
+Not: `osim_mekanik.py:47` ve bu belgenin Q.4 maddesi "OpenSim karşılığı" diyordu — teknik olarak
+yanlış değildi ama aynı yanılgıya açıktı; ikisi de "uyarlanmış karşılık" olarak netleştirildi.
+
+## R.10 · Sıradaki adım
+
+Aşama 1 kök sebebi çözdü ama fizyolojik lokomosyon üretmiyor. İki aday eksen:
+1. **Kalibrasyon:** `diz_flx` (0,283) ve `bilek_pf` (0,372) grupları hedef frekansların
+   3-4 katı altında ateşliyor; denge ölçeği ile `pf_mn` etkileşimi taranmalı.
+2. **Aşama 2 (literatürün gösterdiği):** bifonksiyonel havuz başına ayrı PF popülasyonu +
+   faza özgü oyucu inhibisyon (Shevtsova 2016 deseni), ve bifonksiyonel havuzların resiprokal
+   Ia inhibisyon devresinden çıkarılması. Hamstring/RF'nin ikinci patlamasını fizyolojik
+   yerinde ancak bu üretir. `PREPRINT.md` 6.4'ün "iki PF'ten girdi" kararı bu aşamada
+   literatüre uygun biçimini alır — **bilimsel iddia değişikliği, kullanıcı onayı gerekir.**
+
+Ayrıca Markin ve ark. 2012 (s. 2067–2068) gerçek yürüyüşteki iki eklemli kas desenlerinin büyük
+ölçüde **afferent geri beslemeye** bağlı olduğunu söylüyor; Aşama 2'den sonra kalan tutarsızlık
+devre hatası değil Ia/II ölçeği sorunu olabilir — ayrı hipotez olarak izlenmeli.
