@@ -33,9 +33,12 @@ DF = ['TA', 'EDL', 'Per']
 PF = ['Sol', 'MG', 'LG', 'Pla', 'TP', 'FDL', 'FHL']
 
 
-def kur(dt_kopru_ms=None):
-    from kopru import Kopru
-    kk = Kopru(gruplar={'DF': DF, 'PF': PF}, serbest=('ankle_flx',))
+def kur(dt_kopru_ms=None, par_yol=None):
+    """par_yol: tarama/yakinsama testleri degistirilmis parametre dosyasiyla kurabilsin diye
+    (kos_tumbacak.kur ile ayni sozlesme)."""
+    from kopru import Kopru, PAR_YOL
+    kk = Kopru(gruplar={'DF': DF, 'PF': PF}, serbest=('ankle_flx',),
+               par_yol=par_yol or PAR_YOL)
     if dt_kopru_ms is not None:                 # zaman adimi yarilama testi icin
         kk.dt_ms = dt_kopru_ms
         kk.dt_s = dt_kopru_ms * 1e-3

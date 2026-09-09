@@ -71,6 +71,18 @@ if __name__ == '__main__':
                  100 * bagil(a['frek'][g], b['frek'][g])))
     print('%-26s %14.1f %14.1f %10s' % ('CPU [s]', a['cpu'], b['cpu'], '-'))
 
+    # Artefakt ASSERT'LERDEN ONCE yazilir: testin DUSTUGU durumda da sayilar figure ve
+    # rapora girer -- dusen bir olcut de bir olcum sonucudur, saklanmaz (04_KURALLAR).
+    from yollar import VERI_KOPRU
+    VERI_KOPRU.mkdir(parents=True, exist_ok=True)
+    with open(VERI_KOPRU / 'yakinsama_zaman.json', 'w') as fh:
+        json.dump(dict(tur='zaman adimi yarilama (step-halving)',
+                       kosucu='kos_tumbacak' if tumbacak else 'kos_ayakbilegi',
+                       sure_s=sure, dt_ms=[a['dt'], b['dt']],
+                       bantlar=dict(T=ARALIK_T, ROM=ARALIK_ROM, frekans=ARALIK_F),
+                       a=a, b=b), fh, indent=1)
+    print('yazildi: veri/kopru/yakinsama_zaman.json')
+
     assert bagil(a['T'], b['T']) < ARALIK_T, (
         'cevrim suresi adima bagli: olculen bagil fark=%.4f, beklenen=0, aralık=[0, %.2f], '
         'kaynak=ic_olcum sayisal yakinsama araligi' % (bagil(a['T'], b['T']), ARALIK_T))

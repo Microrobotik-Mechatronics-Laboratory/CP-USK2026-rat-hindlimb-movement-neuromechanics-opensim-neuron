@@ -23,7 +23,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 import numpy as np
 from nrn_ortam import h, yukle
-from yollar import NRN_BATCH_GORELI
+from yollar import NRN_BATCH_GORELI, VERI_KOPRU
 import nrn_hucre
 
 TSTOP, DT, ESIK, ARALIK_MS = 3000.0, 0.025, -40.0, 0.025
@@ -80,5 +80,17 @@ if d_h.size:
         % (fark.max(), ARALIK_MS))
 dv = np.abs(vh - vp).max()
 print('soma voltaj izi maks farki: %.6f mV' % dv)
+
+# --- artefakt --------------------------------------------------------------------------
+# Figur (figur_dogrulama.py) bu dosyadan uretilir; sayilar rapora ELLE tasinmaz. 04_KURALLAR:
+# her figurun yaninda onu ureten sayisal veri bulunur ve o veri kosunun kendi ciktisidir.
+VERI_KOPRU.mkdir(parents=True, exist_ok=True)
+np.savez_compressed(VERI_KOPRU / 'capraz_kontrol.npz',
+                    t_ms=np.arange(len(vh)) * DT, v_hoc=vh, v_py=vp,
+                    ap_hoc=d_h, ap_py=d_p,
+                    nseg_hoc=nseg_h, nseg_py=py.segment_sayisi(),
+                    sec_hoc=len(hoc_sec), sec_py=len(py.sec),
+                    dt_ms=DT, esik_mV=ESIK, tstop_ms=TSTOP, cpu_s=t1 - t0)
+print('yazildi: veri/kopru/capraz_kontrol.npz')
 print()
 print('CAPRAZ KONTROL GECTI: Python kurulumu HOC kurulumuyla ayni davraniyor.')
