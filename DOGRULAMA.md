@@ -1510,3 +1510,193 @@ N süreç × 1-2.
 
 Uyarı: aynı süreçte `kos()` iki kez çağrılamaz (yukarıdaki `Manager` hatası); her ölçüm noktası
 temiz bir süreçte koşulmalıdır.
+
+---
+
+# T · 09.09.2026 — Kanonik koşu tamamlandı; iki yakınsama testi; PIC'in çözünürlük bağımlılığı
+
+Bu oturum üç şey ölçtü: (1) kanonik 3 s tam bacak koşusu **ilk kez tamamlandı** (Q.7 kapandı),
+(2) tam bacak zaman adımı yarılama testi **ilk kez koşuldu** (Q.8), (3) yeni bir **uzamsal
+yakınsama** testi kuruldu ve segment indirimi denemesi bu testte **düştü**.
+
+## T.1 · Kanonik koşu — Q.7 KAPANDI
+
+`kos_tumbacak.py 3.0`, referans çözünürlük (`d_lambda` = 0,1; havuz başına 2655 segment).
+3,0 s simülasyon → **823,6 s CPU**; sınır kırpma olayı 3105 (pasif kontrol koşusunda 998).
+Değerlendirme ikinci yarıda (geçici rejim atılır).
+
+| ölçüt | ölçülen | aralık / ölçüt | sonuç |
+|---|---|---|---|
+| **çevrim süresi** | **0,386 s** | 0,387 · [0,348–0,426] | **ARALIKTA** |
+| TA havuzu, etkin faz | **82,71 Hz** | 97 · [80–110] | **ARALIKTA** |
+| Soleus havuzu | 16,95 Hz | 28 · [20–35] | dışarıda (düşük) |
+| MG / LG havuzu | 17,52 / 17,41 Hz | 67 · [50–90] | dışarıda (düşük) |
+| kalça ROM örtüşmesi | 0,10 (−9,00…16,80°) | ≥ 0,5 | kaldı |
+| diz ROM örtüşmesi | 0,30 (−122,21…−91,00°) | ≥ 0,5 | kaldı |
+| bilek ROM örtüşmesi | 0,43 (−34,00…25,09°) | ≥ 0,5 | kaldı |
+| antagonist zıtfaz (kalça/diz/bilek) | −0,548 / −0,775 / −0,787 | zıtfaz | sağlandı |
+| sessiz kas (sürülen 32 havuz) | 0 | 0 | sağlandı |
+
+**Yeni olan:** çevrim süresi tam bacakta **ilk kez ölçülebildi ve aralığa düştü.** R.7'nin
+1,2 s'lik koşusunda kalça ortalama geçişi yetersiz olduğu için ölçülememişti. R.1'de aynı koşu
+1,28 s'te integratör çöküşüyle durmuştu; R.5 düzeltmesinden sonra 3 s temiz tamamlanıyor.
+
+Eklem sınırına yaslanma oranı: kalça %52, diz %51, bilek %32. Yani ritim doğru periyotta ama
+uzuv fizyolojik açıklıkta hareket etmiyor; iki bulgu birlikte okunmalıdır.
+
+Artefakt: `veri/kopru/kosu_tumbacak.npz` (`d_lambda` ve `segment_havuz` alanları bu oturumda
+eklendi — figürler hangi ızgarada üretildiklerini dosyadan okuyor).
+Figürler: `sekiller/kopru_tumbacak_{raster,nedensellik,pasif}.png` + `.csv`.
+GUI: `veri/goruntuleme/kopru_tumbacak.mot` (607 satır, 53 sütun; OpenSim `Storage` ile doğrulandı).
+
+## T.2 · Q.8 · Zaman adımı yarılama (tam bacak) — dokuz ölçüt geçti, biri kıl payı düştü
+
+`adim_yarilama.py 3.0 --tumbacak`; `dt_k` 0,150 → 0,075 ms, iki tam 3 s koşu (1111,6 + 1264,3 s
+CPU). Aralıklar testten önce ilan edilmişti (çevrim %5, ROM %10, ateşleme %10).
+
+| ölçüt | 0,150 ms | 0,075 ms | bağıl fark | sonuç |
+|---|---|---|---|---|
+| çevrim süresi | 0,3861 s | 0,3860 s | **%0,02** | geçti |
+| ROM kalça | 25,80° | 25,57° | %0,88 | geçti |
+| ROM diz | 31,21° | 29,86° | %4,32 | geçti |
+| ROM bilek | 59,09° | 62,27° | %5,10 | geçti |
+| havuz kalça-flx / kalça-ext / diz-ext / bilek-df | — | — | ≤ %0,02 | geçti |
+| havuz diz-flx | 15,65 Hz | 15,09 Hz | %3,54 | geçti |
+| **havuz bilek-pf** | **17,83 Hz** | **19,83 Hz** | **%10,05** | **DÜŞTÜ** |
+
+**Okunuşu.** Ritmin ve mekaniğin taşıdığı büyüklükler adımdan bağımsızdır (çevrim süresi %0,02;
+eklem açıklıkları ≤ %5,1). Yakınsamayan tek büyüklük **en düşük ateşleyen grubun** oranıdır ve
+oradaki **mutlak fark 2 Hz'dir**; küçük tabanda bu %10'u 0,05 puanla aşıyor. Aynı grup
+(`bilek_pf`, denge ölçeği 0,372) R.10'un kalibrasyon ekseninde zaten işaretlidir.
+**Aralık genişletilmedi** (04_KURALLAR). Sonuç: bilek plantar fleksör havuzunun ateşleme oranı
+bugün bir sayı olarak bildirilemez; çevrim süresi ve eklem açıklıkları bildirilebilir.
+
+**Yan bulgu — yeniden üretilebilirlik:** yarılamanın `dt_k` = 0,150 kolu, **ayrı bir süreçte**
+kanonik koşuyu birebir yeniden üretti (T 0,3861 vs 0,3860; kalça 25,80 · diz 31,21 · bilek 59,09
+— üçü de aynı). Koşu süreçten bağımsız olarak tekrarlanabilir.
+
+Artefakt: `veri/kopru/yakinsama_zaman.json` (assert'lerden **önce** yazılır; düşen bir ölçüt de
+bir ölçüm sonucudur ve figüre girer).
+
+## T.3 · Yeni test: uzamsal (çözünürlük) yakınsaması — köprü düzeyinde DÜŞTÜ
+
+`PREPRINT` 8 zamansal yakınsama testini zorunlu sayar; bu onun uzamsal karşılığıdır ve bu
+oturumda kuruldu (`kod/kopru/uzamsal_yakinsama.py`). İki aşamalı: tek hücre (reobaz, f-I, PIC
+histerezi) ve köprü (çevrim süresi, eklem ROM, havuz ateşleme). Bantlar testten önce ilan edildi
+ve betiğin başlığında gerekçesiyle duruyor. Her çözünürlük noktası ayrı süreçte koşar (S.5).
+
+**Aşama A — tek hücre: GEÇTİ**
+
+| ölçüt | `d_l`=0,1 | `d_l`=1,0 | fark |
+|---|---|---|---|
+| segment | 2655 | 485 | 5,47 kat az |
+| PIC toplam `gcalbar` | 0,40513 | 0,40513 | eşit (inşa gereği, T.4) |
+| reobaz | 4,607 nA | 4,446 nA | %3,50 (bant %10) |
+| f @ 1,5× ve 2,0× reobaz | 10,0 / 15,0 Hz | 10,0 / 15,0 Hz | %0 |
+| PIC histerez kategorisi | var | var | aynı |
+| histerez `dI` (rapor, assert değil) | 2,610 nA | 3,965 nA | +%52 |
+| \|D_path − 600\| ort / maks | 9,8 / 29,2 µm | **63,4 / 259,4 µm** | — |
+
+**Aşama B — köprü (1,2 s): DÜŞTÜ**
+
+| ölçüt | `d_l`=0,1 | `d_l`=1,0 | bağıl fark | sonuç |
+|---|---|---|---|---|
+| ROM bilek | 76,33° | 59,84° | **%21,60** | **DÜŞTÜ** (bant %10) |
+| ROM kalça / diz | 26,55 / 31,88° | 27,12 / 31,76° | %2,10 / %0,38 | geçti |
+| havuz `bilek_pf` | 20,15 Hz | 22,20 Hz | %9,23 | geçti (sınırda) |
+| diğer beş havuz | — | — | ≤ %4,50 | geçti |
+| **CPU** | **282,5 s** | **391,2 s** | **0,72 kat (YAVAŞLADI)** | — |
+
+**Karar: `d_lambda` = 1,0 reddedildi**, bant genişletilmedi, üretim Kim'in 0,1 değerinde kaldı.
+`devre_par.json`'a `hucre` bloğu **eklenmedi**; koddaki parametreleştirme varsayılanı 0,1'dir ve
+`capraz_kontrol.py` bit düzeyinde geçmeye devam ediyor.
+
+**Hücre düzeyinde geçen bir değişiklik köprü düzeyinde düşüyor** — testin iki aşamalı olmasının
+gerekçesi budur. Tek hücre ölçütleri, hücrenin kaba ızgarada da makul davrandığını gösteriyor;
+kapalı döngüde ise yörünge değişiyor.
+
+## T.4 · PIC iletkenliği `nseg`'e bağlıdır (bulundu ve düzeltildi)
+
+`nrn_hucre._pic_yerlestir`, PIC nokta sürecinin iletkenliğini `yoğunluk × segment alanı` ile
+hesaplıyordu — Kim'in `add_pics_istim.hoc:57`'si de öyle. Segment uzayınca alan büyüdüğü için
+**toplam PIC iletkenliği çözünürlüğe bağlıdır**. Ölçüldü (38 hücre, 15 nA, 100 ms):
+
+| ayar | PIC toplam `gcalbar` | ortalama AP | soma v |
+|---|---|---|---|
+| `d_l`=0,1 (referans) | 0,40513 | 2 | −54,56 mV |
+| `d_l`=1,0, Kim formülü aynen | **2,54489** (6,3 kat) | **17** | −39,20 mV |
+| `d_l`=1,0, toplam korunmuş | 0,40513 | 2 | −53,26 mV |
+
+Düzeltilmezse hücre 8,5 kat fazla aksiyon potansiyeli üretir ve **hiçbir yerde hata vermez**.
+Düzeltme: `gcalbar` artık segment alanından değil, referans çözünürlükte bir kez kurulan
+tablodan okunur (`_pic_referans`, süreç başına tek hücre kurulumu ≈ 0,1 s). PIC taşıyan kesit
+kümesi her iki çözünürlükte de **aynı 86 kesittir** (kesme testi kesit uçlarına bakar,
+segmentlere değil), bu yüzden eşleme kesit adıyla birebir kurulabiliyor ve değerler nokta nokta
+özdeş çıkıyor.
+
+**Düzeltilemeyen kısım:** PIC noktası hedefe en yakın **segment merkezine** düşer; kaba ızgarada
+konum hatası 9,8 → 63,4 µm (maks 29,2 → 259,4 µm). Kesirli `x` bunu çözmez (nokta süreci içinde
+bulunduğu segmente atanır). Kim'in duyarlı olduğu eksen budur (`oz_kim2020` §4b, Tip I/IV/III);
+histerez `dI`'nin %52 büyümesi bununla tutarlıdır.
+
+Ia sinapsı etkilenmez: `IaSyn`/`IaKopru` bir **yoğunluk** mekanizmasıdır, toplam iletkenlik kesit
+alanına bağlıdır ve segment sayısından bağımsızdır (Ia segmenti 1692 → 354 düşer, toplam sabit).
+
+## T.5 · Ölçülüp reddedilen: hibrit çözünürlük
+
+Her yer `d_lambda`=1,0, yalnız PIC taşıyan 86 kesit 0,1'de tutulur. Ölçüldü: PIC konum hatası ve
+soma voltajı referansla **birebir aynı** (9,8 / 29,2 µm, −54,56 mV) ama o 86 kesit ince ızgaranın
+2655 segmentinin **1190'ını** taşıdığından segment 1507'de kalıyor ve hızlanma 5,09 kat yerine
+yalnız **1,72 kat** oluyor. Hedeflenen indirimle bağdaşmadığı için uygulanmadı.
+
+## T.6 · Segment indirimi köprüyü hızlandırmıyor
+
+S.2'de NEURON payının izole ölçümü 5,09 kat hızlanma gösteriyordu (172,1 → 33,6 s CPU/sim-s).
+Köprü düzeyinde ölçüldüğünde koşu **%38 pahalılaştı** (282,5 → 391,2 s). İki koşu paralel
+süreçlerdeydi, yani CPU rakamları temiz bir hız ölçümü değildir; ama *yavaşlama yönü* çekişmeyle
+açıklanamaz. En olası açıklama R.1'in bilinen rejimidir: kaba hücre yörüngeyi değiştirip
+eklemleri kırpma sınırlarına daha çok sürüyor, integratör iç adımları patlıyor ve NEURON'dan
+kazanılan pay OpenSim tarafında fazlasıyla geri veriliyor.
+
+**Ders:** NEURON payının izole hızlanması köprü hızlanması demek değildir; hızlandırma
+iddiaları köprü düzeyinde ölçülmelidir.
+
+## T.7 · Bağımsız yeniden üretimler (figür üretirken ölçüldü)
+
+- **Moment kolları.** `dogrulama_momentkolu.png` modeli açıp `computeMomentArm`'ı canlı çağırıyor.
+  Diz −120°, `cl_grid3d` FIX pozunda: RF **+3,697** · VL **+3,727** · VI **+3,723** ·
+  VM **+3,703** · SM **−3,88** · STa −15,47 · STp −14,99 · BFp −13,77 · GP −12,34 · GA −9,40 ·
+  Pla −4,13 · MG −3,43 · LG −3,08 · Pop −1,59 mm. A bölümünün 27.07.2026 tablosunu ≤ 0,02 mm
+  farkla yeniden üretiyor (LG 0,15 ve Pop 0,07 mm sapıyor; ikisi de poza duyarlı).
+- **Sarma açık/kapalı.** Quadriceps sarma kapatıldığında RF **−0,65** · VL **−1,18** ·
+  VI **−0,61** · VM **−0,97** mm — H1 tablosunun **birebir** yeniden üretimi.
+- **Yeni ölçüm — moment kolu poza bağlıdır.** SM'nin *diz* moment kolu kalça açısıyla
+  −3,98 (kalça −10°) → −3,50 mm (kalça +85°) arasında değişiyor. Kayıtlı −3,87 mm bu aralığın
+  içindedir ama tek başına bir sayı değil, **pozuyla birlikte** bir sayıdır. `PREPRINT` 9.1'de
+  ölçüm pozu yazılmalıdır.
+- **Salınım fazı zamanlaması.** `veri/u_swing_v2.csv`'den bağımsız olarak yeniden hesaplandı;
+  `PREPRINT` 9.2'nin grup toplamlarını **birebir** verdi (7,851 / 1,431 / 0,502 / 0,883 /
+  1,197 / 1,444) ve tepe zamanlarını da (%68,5 / %66,5 / %76,0 / %65,0 / %85,5 / %87,0).
+- **HOC çapraz kontrolü.** 315/315 section, 2655/2655 segment, 28/28 aksiyon potansiyeli,
+  zaman farkı **0,000000 ms**, soma voltaj farkı **0,000000 mV**.
+
+## T.8 · Üreten ve yeniden üretim
+
+Yeni dosyalar: `kod/kopru/uzamsal_yakinsama.py`, `kod/kopru/figur_ortak.py`,
+`kod/kopru/figur_dogrulama.py`, `RAPOR_GECERLILIK.md`.
+Değişenler: `nrn_hucre.py` (`d_lambda` parametresi + PIC referans tablosu), `kopru.py`
+(çözünürlük `devre_par.hucre`'den okunur), `kos_tumbacak.py` (çıktıya çözünürlük provenance'ı),
+`kos_ayakbilegi.py` (`par_yol`), `adim_yarilama.py` ve `capraz_kontrol.py` (artefakt yazımı).
+
+```bash
+P=$HOME/.venvs/usk26-kopru/bin/python
+$P -u kod/kopru/kos_tumbacak.py 3.0                            # T.1
+$P -u kod/kopru/adim_yarilama.py 3.0 --tumbacak                # T.2
+$P -u kod/kopru/uzamsal_yakinsama.py 1.2 --tumbacak --dl 1.0   # T.3
+$P kod/kopru/figur_tumbacak.py && $P kod/kopru/figur_dogrulama.py
+$P kod/kopru/gui_disaver.py --tumbacak
+```
+
+Uyarı: `veri/kopru/yakinsama_uzam.json` bu oturumun koşusunun **ekran çıktısından** üretildi
+(JSON yazma özelliği betiğe koşudan sonra eklendi); ham log `arsiv/loglar/` altındadır
+(git-ignore) ve sayılar T.3'te tam olarak durur. Sonraki koşular dosyayı kendileri yazar.

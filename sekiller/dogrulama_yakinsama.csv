@@ -1,6 +1,16 @@
 # kaynak: veri/kopru/yakinsama_*.json (testlerin kendi ciktisi); bantlar testten ONCE ilan edildi (SDLC/04_KURALLAR)
 # dogrulama_yakinsama.png kaynak verisi
 test,olcut,bagil_fark,bant,sonuc
+zaman adimi yarilama,cevrim suresi,0.000194,0.050,gecti
+zaman adimi yarilama,ROM hip_flx,0.008790,0.100,gecti
+zaman adimi yarilama,ROM knee_flx,0.043220,0.100,gecti
+zaman adimi yarilama,ROM ankle_flx,0.051044,0.100,gecti
+zaman adimi yarilama,f kalca_flx,0.000057,0.100,gecti
+zaman adimi yarilama,f kalca_ext,0.000186,0.100,gecti
+zaman adimi yarilama,f diz_flx,0.035408,0.100,gecti
+zaman adimi yarilama,f diz_ext,0.000071,0.100,gecti
+zaman adimi yarilama,f bilek_df,0.000039,0.100,gecti
+zaman adimi yarilama,f bilek_pf,0.100465,0.100,DUSTU
 uzamsal cozunurluk,ROM hip_flx,0.021018,0.100,gecti
 uzamsal cozunurluk,ROM knee_flx,0.003764,0.100,gecti
 uzamsal cozunurluk,ROM ankle_flx,0.216036,0.100,DUSTU

@@ -89,9 +89,25 @@ potansiyeli, aksiyon potansiyeli zaman farkı 0,000000 ms, soma voltaj farkı 0,
 Kuplaj dışsaldır (ortak Jacobian kurulamaz), bu yüzden sonucun çözüm adımından bağımsız olduğu
 gösterilmek zorundadır (`PREPRINT` 8).
 
-- **Zaman adımı yarılama:** ayak bileği hattında geçti (`DOGRULAMA` P.8: çevrim %0,99, ROM %0,57,
-  ateşleme %1,51–2,36; bantlar %5 / %10 / %10). Tam bacak sürümü (**Q.8**) bu oturumda koşuldu;
-  sonucu aşağıdaki tabloda.
+- **Zaman adımı yarılama, tam bacak (Q.8, bu oturumda ilk kez koşuldu):** `dt_k` 0,150 → 0,075 ms,
+  iki tam 3 s koşu. **On ölçütün dokuzu geçti, biri kıl payı düştü:**
+
+  | ölçüt | 0,150 ms | 0,075 ms | bağıl fark | bant | sonuç |
+  |---|---|---|---|---|---|
+  | çevrim süresi | 0,3861 s | 0,3860 s | **%0,02** | %5 | geçti |
+  | ROM kalça / diz / bilek | 25,80 / 31,21 / 59,09° | 25,57 / 29,86 / 62,27° | %0,88 / %4,32 / %5,10 | %10 | geçti |
+  | havuz kalça-flx / -ext / diz-ext / bilek-df | — | — | ≤ %0,02 | %10 | geçti |
+  | havuz diz-flx | 15,65 Hz | 15,09 Hz | %3,54 | %10 | geçti |
+  | **havuz bilek-pf** | **17,83 Hz** | **19,83 Hz** | **%10,05** | %10 | **DÜŞTÜ** |
+
+  **Okunuşu:** ritmin ve mekaniğin taşıdığı büyüklükler (çevrim süresi %0,02, eklem açıklıkları
+  ≤ %5,1) adımdan bağımsız; yakınsamayan tek büyüklük **en düşük ateşleyen grubun** oranıdır ve
+  oradaki mutlak fark 2 Hz'dir — küçük tabanda %10'u geçiyor. Bu grup (`bilek_pf`, denge ölçeği
+  0,372) zaten kalibrasyonun hedef eksenidir (`DOGRULAMA` R.10). **Bant genişletilmedi.**
+  Ayak bileği hattında aynı test geçmişti (`DOGRULAMA` P.8: %0,57–2,36).
+
+  Yan bulgu: yarılamanın `dt_k` = 0,150 kolu, **ayrı bir süreçte**, kanonik koşuyu birebir
+  yeniden üretti (T 0,3861 vs 0,3860; üç eklem ROM'u da aynı). Koşu yeniden üretilebilirdir.
 - **Uzamsal çözünürlük (yeni, bu oturumda kuruldu):** `d_lambda` 0,1 → 1,0 (5,47 kat az segment)
   denendi ve **düştü** — `ankle_flx` ROM'u %21,60 değişti (bant %10). Karar: bant
   genişletilmedi, **üretim Kim'in `d_lambda` = 0,1 değerinde kaldı.** Tek hücre düzeyinde aynı
@@ -173,7 +189,9 @@ genişletilmemiştir.
 | Semimembranosus diz moment kolu | −3,88 mm | [−3,92…−3,82] | `ic.sm_diz_moment_kolu` | **GEÇTİ** |
 | Motonöron HOC çapraz kontrolü | 0,000000 ms / 0,000000 mV | < 0,025 ms | `ic_olcum` regresyon | **GEÇTİ** |
 | Zaman adımı yarılama (ayak bileği) | %0,57–2,36 | %5 / %10 | `ic_olcum` yakınsama | **GEÇTİ** (P.8) |
-| Zaman adımı yarılama (tam bacak, Q.8) | koşu sürüyor | %5 / %10 | `ic_olcum` yakınsama | *bekliyor* |
+| Zaman adımı yarılama (tam bacak, Q.8) — çevrim süresi | %0,02 | %5 | `ic_olcum` yakınsama | **GEÇTİ** |
+| Zaman adımı yarılama (tam bacak, Q.8) — eklem ROM | %0,88 / %4,32 / %5,10 | %10 | `ic_olcum` yakınsama | **GEÇTİ** |
+| Zaman adımı yarılama (tam bacak, Q.8) — havuz `bilek_pf` | %10,05 | %10 | `ic_olcum` yakınsama | **DÜŞTÜ** (kıl payı; 2 Hz mutlak fark) |
 | Uzamsal yakınsama (`d_lambda` 0,1→1,0) | ROM bilek %21,60 | %10 | `ic_olcum` yakınsama | **DÜŞTÜ** |
 
 Koşu maliyeti: 3,0 s simülasyon → 823,6 s CPU. Sınır kırpma olayı 3105 (pasif koşuda 998).
@@ -196,6 +214,9 @@ Koşu maliyeti: 3,0 s simülasyon → 823,6 s CPU. Sınır kırpma olayı 3105 (
   karşılaştırması yapılmamıştır.
 - **Motonöron hücresi kedi kaynaklıdır** (Kim 2020); sıçanda PIC-konum etkisi zayıf çıkabilir.
 - **Uzamsal çözünürlük kabalaştırılamaz** (bölüm 3.2): sonuç `d_lambda`'ya bağımlı çıktı.
+- **Plantar fleksör havuzunun ateşleme oranı zaman adımından tam bağımsız değildir** (Q.8,
+  %10,05 > %10). Bu grubun sayısı bugün bir sonuç olarak bildirilemez; ritim ve eklem
+  açıklıkları etkilenmiyor.
 
 ---
 
