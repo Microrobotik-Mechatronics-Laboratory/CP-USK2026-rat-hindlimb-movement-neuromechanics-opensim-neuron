@@ -26,6 +26,22 @@
 #   Kapali donguda kas dinamigi OpenSim'dedir (PREPRINT 4.3 kural 1).
 # - Kim'in hucresi KEDI motonoronudur; sican icin PIC-konum etkisi zayif cikabilir
 #   (oz_kim2020 6.1, yazarin kendi uyarisi).
+# - d_lambda (uzamsal cozunurluk) artik bir PARAMETREDIR; varsayilani Kim'in degeridir (0.1),
+#   uretim degeri devre_par.json hucre.d_lambda'dan gelir. Kabalastirmanin iki bedeli OLCULDU
+#   (09.09.2026, 38 hucre / 15 nA / 100 ms):
+#   (1) TOPLAM PIC BUYUR. Kim'in formulu nokta iletkenligini yogunluk x SEGMENT ALANI ile
+#       hesaplar (add_pics_istim.hoc:57), yani nseg'e baglidir: d_lambda 0.1 -> 1.0'da toplam
+#       gcalbar 0.40513 -> 2.54489 (6.3 kat), ayni uyarimda 2 yerine 17 aksiyon potansiyeli,
+#       soma -54.56 -> -39.20 mV. Bu SESSIZ bir bozulmadir. Bu yuzden gcalbar segment
+#       alanindan degil, referans cozunurlukte (pic_ref_d_lambda) bir kez kurulan tablodan
+#       okunur; toplam PIC iletkenligi cozunurlukten bagimsiz kalir. [tasarim]
+#   (2) PIC KONUMU KABALASIR. Nokta, hedef D_path'e en yakin SEGMENT MERKEZINE duser:
+#       |D_path-600| ortalama 9.8 -> 63.4 um, maks 29.2 -> 259.4 um. Bu duzeltilemez (nokta
+#       sureci icinde bulundugu segmente atanir, kesirli x bunu degistirmez) ve Kim'in tam da
+#       duyarli oldugu eksendir (oz_kim2020 4b, Tip I/IV/III). Uzamsal yakinsama testiyle
+#       sinanir: kod/kopru/uzamsal_yakinsama.py.
+#   Ia sinapsi bundan ETKILENMEZ: IaSyn/IaKopru bir YOGUNLUK mekanizmasidir, toplam iletkenlik
+#   kesit alanina baglidir ve segment sayisindan bagimsizdir.
 # =============================================================================
 import sys, pathlib
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))      # nrn_ortam icin
@@ -54,6 +70,24 @@ GCALBAR_TABLO = {100: 1.57, 200: 1.14, 300: 1.21, 400: 1.25, 500: 1.28,
                  600: 1.37, 700: 1.39, 800: 1.95, 900: 2.80, 1000: 4.10}
 
 _MORF = None
+_PIC_REF = {}
+
+
+def _pic_referans(dpath, d_lambda_ref):
+    """PIC nokta iletkenliklerini REFERANS cozunurlukte bir kez hesaplar ve onbellege alir.
+
+    Neden: Kim'in gcalbar formulu segment alaniyla olceklenir, yani nseg'e baglidir; kaba
+    izgarada toplam PIC 6.3 kata kadar buyur (baslikta olcum). Referans tablo, hangi
+    cozunurlukte kosulursa kosulsun hucrenin Kim'in kalibre ettigi PIC yukunu tasimasini
+    saglar. Maliyet: SUREC BASINA tek hucre kurulumu (olculdu: ~0.1 s); 38 havuz ayni
+    tabloyu paylasir. Anahtar (dpath, d_lambda_ref) ciftidir."""
+    anahtar = (float(dpath), float(d_lambda_ref))
+    if anahtar not in _PIC_REF:
+        ref = MotoNoron('_picref_%g_%g' % anahtar, dpath=dpath,
+                        d_lambda=d_lambda_ref, pic_ref_d_lambda=d_lambda_ref)
+        _PIC_REF[anahtar] = dict(zip(ref.iCaL_kesit, [p.gcalbar for p in ref.iCaL]))
+        del ref                      # section'lar Python referansi kalmayinca serbest kalir
+    return _PIC_REF[anahtar]
 
 
 def _morfoloji():
@@ -87,8 +121,10 @@ def _lambda_f(sec, freq):
 class MotoNoron:
     """Kim 2020 alfa motonoronu. Her ornek kendi section kumesine sahiptir."""
 
-    def __init__(self, ad, dpath=600.0, gmax_ia=GMAX_IA, kas_modulu=False):
+    def __init__(self, ad, dpath=600.0, gmax_ia=GMAX_IA, kas_modulu=False,
+                 d_lambda=D_LAMBDA, pic_ref_d_lambda=D_LAMBDA):
         self.ad = ad
+        self.d_lambda = float(d_lambda)
         h.celsius = CELSIUS
         m = _morfoloji()
 
@@ -158,18 +194,30 @@ class MotoNoron:
         # --- 6) nseg: d_lambda kurali (fixnseg.hoc:40-43) ---------------------------------
         self.soma(0.5).area()                      # 3B noktalarin diam'a yansimasini zorlar
         for s in self.sec.values():
-            s.nseg = int((s.L / (D_LAMBDA * _lambda_f(s, FREQ)) + 0.9) / 2) * 2 + 1
+            s.nseg = int((s.L / (self.d_lambda * _lambda_f(s, FREQ)) + 0.9) / 2) * 2 + 1
 
         # --- 7) Cav1.3 PIC yerlesimi (add_pics_istim.hoc:14-67) ---------------------------
         self.dpath = dpath
-        self.iCaL = self._pic_yerlestir(dpath)
+        # Kaba izgarada Kim'in "yogunluk x segment alani" formulu PIC'i sessizce buyutur
+        # (baslikta olcum); referans cozunurlukte hucre zaten Kim'in formulunu kullanir,
+        # kaba cozunurlukte ise ondan cikan tabloyu okur.
+        ref = (None if self.d_lambda == float(pic_ref_d_lambda)
+               else _pic_referans(dpath, pic_ref_d_lambda))
+        self.iCaL = self._pic_yerlestir(dpath, ref)
 
         # --- 8) Ia sinapslari (group_Ia.hoc) ----------------------------------------------
         self.ia_bolmeleri = self._ia_yerlestir(gmax_ia)
 
     # -- PIC ------------------------------------------------------------------------------
-    def _pic_yerlestir(self, dpath):
-        """Somadan yol uzakligi dpath'e en yakin noktaya her dalda bir CaL nokta sureci koyar."""
+    def _pic_yerlestir(self, dpath, referans=None):
+        """Somadan yol uzakligi dpath'e en yakin noktaya her dalda bir CaL nokta sureci koyar.
+
+        referans=None  : Kim'in kendi formulu (yogunluk x segment alani, add_pics_istim.hoc:57).
+        referans={ad: g}: nokta iletkenligi referans cozunurlukten okunur; kaba izgarada
+        segment alani buyudugu icin formulun sessizce urettigi artis boylece onlenir.
+        Esleme KESIT ADIYLA kurulabilir cunku PIC tasiyan kesit kumesi cozunurlukten
+        bagimsizdir: kesme testi kesit UCLARINA bakar, segmentlere degil (olculdu: her iki
+        cozunurlukte de ayni 86 kesit)."""
         h.distance(0, self.soma(0))
         max_dist = max(h.distance(self.soma(0), seg)
                        for s in self.sec.values() for seg in s.allseg())
@@ -177,8 +225,8 @@ class MotoNoron:
         if gcal is None:
             raise ValueError('dpath=%s icin Kim Tablo 1 gcalbar degeri yok; taranabilir '
                              'degerler: %s' % (dpath, sorted(GCALBAR_TABLO)))
-        pic = []
-        for s in self.sec.values():
+        pic, kesitler = [], []
+        for ad_kesit, s in self.sec.items():
             bas, son = h.distance(self.soma(0), s(0)), h.distance(self.soma(0), s(1))
             if not (bas <= dpath < son):
                 continue
@@ -189,9 +237,19 @@ class MotoNoron:
                     err_min, x_min = err, seg.x
             x_min = 1e-4 if x_min == 0 else (0.9999 if x_min == 1 else x_min)
             p = h.CaL(s(x_min))
-            # add_pics_istim.hoc:57 -- yogunluk [mS/cm2] -> nokta sureci mutlak degerine
-            p.gcalbar = gcal * s(x_min).area() * (1e-4) ** 2 * 1e3
+            if referans is None:
+                # add_pics_istim.hoc:57 -- yogunluk [mS/cm2] -> nokta sureci mutlak degerine
+                p.gcalbar = gcal * s(x_min).area() * (1e-4) ** 2 * 1e3
+            elif ad_kesit in referans:
+                p.gcalbar = referans[ad_kesit]
+            else:
+                raise RuntimeError(
+                    'PIC referans tablosunda %s kesiti yok: PIC tasiyan kesit kumesi '
+                    'cozunurlukle degismis (beklenmiyordu, olcumde her iki cozunurlukte de '
+                    'ayni 86 kesit cikmisti)' % ad_kesit)
             pic.append(p)
+            kesitler.append(ad_kesit)
+        self.iCaL_kesit = kesitler          # _pic_referans tabloyu bu adlarla kurar
         return pic
 
     # -- Ia sinapslari --------------------------------------------------------------------

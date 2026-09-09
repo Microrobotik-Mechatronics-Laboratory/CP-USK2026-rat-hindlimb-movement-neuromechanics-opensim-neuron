@@ -29,6 +29,9 @@
 #   anlik atesleme orani, u = clip(f_MN/f_ref, 0, 1). f_ref oz_gorassini2000 araliklarindan.
 # - IaIN ve Renshaw KAYNAKSIZ bilesenlerdir (PREPRINT 6.1); devrededirler ama hicbir sonuc
 #   bunlara dayandirilarak iddia edilmez.
+# - hucre.d_lambda [tasarim]: motonoronun uzamsal cozunurlugu. Kim'in degeri 0.1; kabalastirma
+#   maliyeti ve PIC duzeltmesi nrn_hucre.py basliginda olculmus sayilarla anlatilir, sinamasi
+#   kod/kopru/uzamsal_yakinsama.py'dedir.
 # =============================================================================
 import sys, pathlib, json
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
@@ -62,10 +65,12 @@ class Gecikme:
 class Havuz:
     """Bir kasin motonoron havuzu. Ilk surumde havuz basina bir temsili hucre (PREPRINT 6.4)."""
 
-    def __init__(self, kas, f_ref, dpath=600.0):
+    def __init__(self, kas, f_ref, dpath=600.0, d_lambda=nrn_hucre.D_LAMBDA,
+                 pic_ref_d_lambda=nrn_hucre.D_LAMBDA):
         self.kas = kas
         self.f_ref = float(f_ref)
-        self.hucre = nrn_hucre.MotoNoron('MN_' + kas, dpath=dpath, kas_modulu=False)
+        self.hucre = nrn_hucre.MotoNoron('MN_' + kas, dpath=dpath, kas_modulu=False,
+                                         d_lambda=d_lambda, pic_ref_d_lambda=pic_ref_d_lambda)
         # Ia sinapsini kopru surumuyle degistir: gmax sabit kalir, olcek gsc disaridan yazilir
         self.gsc = h.Vector(1)
         self.gsc.x[0] = 0.0
@@ -289,9 +294,16 @@ class Kopru:
 
         # havuzlar: kas basina BIR kez (biartikuler kas iki grupta uyedir ama tek havuzdur);
         # surussuz kaslarin havuzu da kurulur, yalniz PF/II/RC/IaIN baglantisi almazlar.
+        # Uzamsal cozunurluk [tasarim] -- koda gomulmez, devre_par.hucre'den okunur. Blok
+        # yoksa Kim'in degeri (0.1) kullanilir, yani eski kosularla karsilastirma bozulmaz.
+        # PIC iletkenliginin cozunurlukten bagimsiz tutulmasi nrn_hucre basliginda anlatilir.
+        hp = self.par.get('hucre', {})
+        self.d_lambda = float(hp.get('d_lambda', nrn_hucre.D_LAMBDA))
+        self.pic_ref_d_lambda = float(hp.get('pic_referans_d_lambda', nrn_hucre.D_LAMBDA))
         for kas in self.kaslar:
             fr = kp['f_ref_Hz'].get(kas, kp['f_ref_Hz']['varsayilan'])
-            self.havuz[kas] = Havuz(kas, fr, dpath=dpath)
+            self.havuz[kas] = Havuz(kas, fr, dpath=dpath, d_lambda=self.d_lambda,
+                                    pic_ref_d_lambda=self.pic_ref_d_lambda)
 
         for gad in gadlar:
             ip = lambda ad: nrn_devre.SpikeHucre(ad, alan_um2=i_p['alan_um2'],

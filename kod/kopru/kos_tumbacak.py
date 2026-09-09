@@ -186,6 +186,7 @@ def rapor(kk, o):
 
 if __name__ == '__main__':
     import time
+    import nrn_hucre                      # yalniz Kim'in referans d_lambda'sini basmak icin
     sure = float(sys.argv[1]) if len(sys.argv) > 1 else 3.0
 
     print('=== pasif kontrol kosusu (u = 0, NEURON yok) ===')
@@ -203,7 +204,9 @@ if __name__ == '__main__':
     assert all(k not in kk.uyelik for k in kk.surussuz), 'surussuz kasa PF baglanmis'
     print('havuz          : %d (%d surusluk + %d surussuz)'
           % (len(kk.havuz), len(kk.uyelik), len(kk.surussuz)))
-    print('bolme/havuz    : %d segment' % list(kk.havuz.values())[0].hucre.segment_sayisi())
+    print('bolme/havuz    : %d segment (d_lambda=%.3f; Kim %.3f)'
+          % (list(kk.havuz.values())[0].hucre.segment_sayisi(), kk.d_lambda,
+             nrn_hucre.D_LAMBDA))
     print('PF/IaIN/RC/IIrly: %d / %d / %d / %d' % (len(kk.pf), len(kk.iain),
                                                    len(kk.renshaw), len(kk.ii_rly)))
     print('kopru adimi    : %.3f ms | gecikme Ia %d adim, II %d, efferent %d'
@@ -225,5 +228,8 @@ if __name__ == '__main__':
         kaslar=np.array(kk.kaslar), serbest=np.array(SERBEST),
         gruplar=json.dumps(kk.gruplar), surussuz=np.array(kk.surussuz),
         kapasite=json.dumps(kk.kapasite), denge=json.dumps(kk.denge),
+        # cozunurluk provenance: figurler ve DOGRULAMA kayitlari hangi izgarada uretildigini
+        # dosyadan okuyabilsin (d_lambda artik parametre, bkz. nrn_hucre.py basligi)
+        d_lambda=kk.d_lambda, segment_havuz=list(kk.havuz.values())[0].hucre.segment_sayisi(),
         pasif_t=pasif['t'], pasif_q=pasif['q'], **spk, **iz)
     print('\nyazildi: veri/kopru/kosu_tumbacak.npz')
