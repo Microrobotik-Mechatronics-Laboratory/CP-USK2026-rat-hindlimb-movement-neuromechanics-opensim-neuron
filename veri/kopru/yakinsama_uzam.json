@@ -1,0 +1,94 @@
+{
+ "tur": "uzamsal cozunurluk (d_lambda) yakinsamasi",
+ "kosucu": "kos_tumbacak",
+ "sure_s": 1.2,
+ "d_lambda": [
+  0.1,
+  1.0
+ ],
+ "bantlar": {
+  "T": 0.05,
+  "ROM": 0.1,
+  "frekans": 0.1,
+  "reobaz": 0.1,
+  "fi": 0.1
+ },
+ "tek_hucre": [
+  {
+   "d_lambda": 0.1,
+   "segment": 2655,
+   "pic_nokta": 86,
+   "pic_toplam": 0.4051326263988068,
+   "dpath_hata_ort": 9.842005121218063,
+   "dpath_hata_maks": 29.184191688320425,
+   "reobaz": 4.60693359375,
+   "fi": [
+    10.0,
+    15.0
+   ],
+   "i_on": 5.057453308115838,
+   "i_off": 2.4477214051938856,
+   "dI": 2.609731902921953,
+   "histerezis": "var"
+  },
+  {
+   "d_lambda": 1.0,
+   "segment": 485,
+   "pic_nokta": 86,
+   "pic_toplam": 0.4051326263988068,
+   "dpath_hata_ort": 63.3782253316021,
+   "dpath_hata_maks": 259.3642329808815,
+   "reobaz": 4.44580078125,
+   "fi": [
+    10.0,
+    15.0
+   ],
+   "i_on": 4.872597656259979,
+   "i_off": 0.9075917055022638,
+   "dI": 3.965005950757715,
+   "histerezis": "var"
+  }
+ ],
+ "a": {
+  "d_lambda": 0.1,
+  "T": NaN,
+  "cpu": 282.5,
+  "segment": 2655,
+  "pic_toplam": 0.4051326263988068,
+  "roms": {
+   "hip_flx": 26.55,
+   "knee_flx": 31.88,
+   "ankle_flx": 76.33
+  },
+  "frek": {
+   "kalca_flx": 80.42,
+   "kalca_ext": 83.27,
+   "diz_flx": 15.33,
+   "diz_ext": 83.28,
+   "bilek_df": 81.0,
+   "bilek_pf": 20.15
+  }
+ },
+ "b": {
+  "d_lambda": 1.0,
+  "T": NaN,
+  "cpu": 391.2,
+  "segment": 485,
+  "pic_toplam": 0.4051326263988068,
+  "roms": {
+   "hip_flx": 27.12,
+   "knee_flx": 31.76,
+   "ankle_flx": 59.84
+  },
+  "frek": {
+   "kalca_flx": 80.92,
+   "kalca_ext": 83.24,
+   "diz_flx": 14.64,
+   "diz_ext": 83.22,
+   "bilek_df": 80.99,
+   "bilek_pf": 22.2
+  }
+ },
+ "_kaynak": "09.09.2026 kosusunun ekran ciktisindan uretildi (JSON yazma ozelligi betige kosudan SONRA eklendi). Ham log: arsiv/loglar/uzamsal_yakinsama_20260909.log. Kopru degerleri o ciktinin bastigi hassasiyettedir (2 ondalik); tek hucre degerleri tam hassasiyettedir. Sonraki kosular bu dosyayi kendileri yazar.",
+ "_sonuc": "DUSTU: ROM ankle_flx bagil farki 0.2160 > 0.10 bandi. d_lambda=1.0 REDDEDILDI, uretim Kim'in 0.1 degerinde kaldi."
+}

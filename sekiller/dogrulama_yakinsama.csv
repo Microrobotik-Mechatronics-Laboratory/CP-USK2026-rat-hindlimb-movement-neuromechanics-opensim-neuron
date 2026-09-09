@@ -1,0 +1,12 @@
+# kaynak: veri/kopru/yakinsama_*.json (testlerin kendi ciktisi); bantlar testten ONCE ilan edildi (SDLC/04_KURALLAR)
+# dogrulama_yakinsama.png kaynak verisi
+test,olcut,bagil_fark,bant,sonuc
+uzamsal cozunurluk,ROM hip_flx,0.021018,0.100,gecti
+uzamsal cozunurluk,ROM knee_flx,0.003764,0.100,gecti
+uzamsal cozunurluk,ROM ankle_flx,0.216036,0.100,DUSTU
+uzamsal cozunurluk,f kalca_flx,0.006179,0.100,gecti
+uzamsal cozunurluk,f kalca_ext,0.000360,0.100,gecti
+uzamsal cozunurluk,f diz_flx,0.045010,0.100,gecti
+uzamsal cozunurluk,f diz_ext,0.000720,0.100,gecti
+uzamsal cozunurluk,f bilek_df,0.000123,0.100,gecti
+uzamsal cozunurluk,f bilek_pf,0.092342,0.100,gecti
